@@ -3028,6 +3028,13 @@ textarea.w-input, textarea.w-select {
   padding-top: 10px;
 }
 
+/* Боковые отступы контента для мобильной и планшетной версий (хедер выравнивается под них) */
+@media screen and (max-width: 991px) {
+  :root {
+    --content-padding-x: 20px;
+  }
+}
+
 @media screen and (max-width: 991px) {
   .header {
     font-size: 26px;
@@ -3124,8 +3131,8 @@ textarea.w-input, textarea.w-select {
     max-width: 100%;
     margin-left: 0;
     padding-top: 100px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: var(--content-padding-x, 20px);
+    padding-right: var(--content-padding-x, 20px);
   }
 
   .navbar-2 {
@@ -3139,14 +3146,30 @@ textarea.w-input, textarea.w-select {
     z-index: 101;
   }
 
+  /* Контейнер хедера на всю ширину, отступы только 20px по бокам (как у контента) */
+  .section_navbar .container-9,
+  .navbar-2 .container-9 {
+    max-width: none;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
   .container-9 {
     flex-flow: row;
     flex: 1;
     justify-content: flex-start;
     align-items: center;
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 20px;
+    padding-right: 20px;
     min-height: auto;
+  }
+
+  /* Логотип и элементы хедера без лишнего отступа */
+  .section_navbar .brand,
+  .section_navbar .w-nav-brand {
+    padding-left: 0;
   }
 
   .lang-switcher--sidebar {
