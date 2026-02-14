@@ -2386,6 +2386,13 @@ textarea.w-input, textarea.w-select {
   max-width: none;
   padding: 20px;
   display: flex;
+  color: #fff;
+  font-size: 18px;
+}
+
+.div-block-19 > div:last-child {
+  color: #FF7493;
+  margin-top: auto;
 }
 
 .text-block-22 {
