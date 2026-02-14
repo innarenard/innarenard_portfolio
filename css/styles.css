@@ -2800,6 +2800,10 @@ textarea.w-input, textarea.w-select {
   padding-top: 100px;
 }
 
+.block_200 {
+  padding-top: 200px;
+}
+
 .block_60 {
   padding-top: 60px;
 }
@@ -3508,6 +3512,10 @@ textarea.w-input, textarea.w-select {
 
   .block_100 {
     padding-top: 60px;
+  }
+
+  .block_200 {
+    padding-top: 120px;
   }
 
   .block_60 {
