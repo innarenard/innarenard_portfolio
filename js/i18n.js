@@ -106,6 +106,7 @@
     localStorage.setItem(STORAGE_KEY, lang);
     document.documentElement.lang = lang === 'ru' ? 'ru' : 'en';
     applyTranslations(lang);
+    enableSwitcherAnimation();
     updateSwitcher(lang);
   }
 
@@ -131,9 +132,24 @@
   }
 
   function updateSwitcher(lang) {
-    document.querySelectorAll('.lang-switcher [data-lang]').forEach(function (btn) {
-      btn.classList.toggle('lang-switcher__active', btn.getAttribute('data-lang') === lang);
-      btn.setAttribute('aria-current', btn.getAttribute('data-lang') === lang ? 'true' : 'false');
+    document.querySelectorAll('.lang-switcher').forEach(function (switcher) {
+      var track = switcher.querySelector('.lang-switcher__track');
+      var activeBtn = switcher.querySelector('.lang-switcher__btn[data-lang="' + lang + '"]');
+      switcher.querySelectorAll('.lang-switcher__btn[data-lang]').forEach(function (btn) {
+        btn.classList.toggle('lang-switcher__active', btn.getAttribute('data-lang') === lang);
+        btn.setAttribute('aria-current', btn.getAttribute('data-lang') === lang ? 'true' : 'false');
+      });
+      if (track && activeBtn) {
+        var trackPaddingLeft = parseFloat(window.getComputedStyle(track).paddingLeft) || 0;
+        track.style.setProperty('--thumb-width', activeBtn.offsetWidth + 'px');
+        track.style.setProperty('--thumb-left', (activeBtn.offsetLeft - trackPaddingLeft) + 'px');
+      }
+    });
+  }
+
+  function enableSwitcherAnimation() {
+    document.querySelectorAll('.lang-switcher').forEach(function (switcher) {
+      switcher.classList.add('lang-switcher--animated');
     });
   }
 
@@ -142,6 +158,12 @@
     document.documentElement.lang = lang === 'ru' ? 'ru' : 'en';
     applyTranslations(lang);
     updateSwitcher(lang);
+    requestAnimationFrame(function () {
+      updateSwitcher(lang);
+    });
+
+    window.addEventListener('resize', function () { updateSwitcher(getLang()); });
+    window.addEventListener('lang-switcher-update', function () { updateSwitcher(getLang()); });
 
     document.querySelectorAll('.lang-switcher [data-lang]').forEach(function (btn) {
       btn.addEventListener('click', function () {

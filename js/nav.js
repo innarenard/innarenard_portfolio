@@ -12,6 +12,9 @@
     } else {
       nav.setAttribute('data-nav-menu-open', '');
       button.classList.add('w--open');
+      requestAnimationFrame(function () {
+        window.dispatchEvent(new CustomEvent('lang-switcher-update'));
+      });
     }
   }
 
