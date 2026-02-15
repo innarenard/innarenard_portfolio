@@ -2476,14 +2476,14 @@ textarea.w-input, textarea.w-select {
 }
 
 .block20x20 {
-  grid-column-gap: 8px;
-  grid-row-gap: 8px;
+  grid-column-gap: 16px;
+  grid-row-gap: 16px;
   background-color: #fff0;
   flex-flow: column;
   min-width: 100%;
   max-width: 100%;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 16px;
+  padding-bottom: 16px;
   display: flex;
 }
 
@@ -2501,7 +2501,28 @@ textarea.w-input, textarea.w-select {
 .block0x0 {
   justify-content: flex-start;
   align-items: stretch;
+  margin-top: 4px;
   display: flex;
+}
+
+/* В карточках кейсов: уменьшенное расстояние заголовок → картинка → теги */
+.block20x20:has(.link-project) {
+  padding-bottom: 4px;
+}
+.block20x20:has(.link_image) {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+/* На страницах кейсов: расстояние заголовок (h1.header) → теги в 2 раза меньше */
+.block20x20:has(h1.header) {
+  padding-bottom: 8px;
+}
+.block20x20:has(h1.header) + .block20x20 {
+  padding-top: 8px;
+}
+.block20x20:has(h1.header) + .block0x0 {
+  margin-top: 8px;
 }
 
 .block100 {
@@ -2807,8 +2828,8 @@ textarea.w-input, textarea.w-select {
 
 .block20x10 {
   background-color: #fff0;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 16px;
+  padding-bottom: 16px;
 }
 
 .flex-block {
@@ -2827,15 +2848,15 @@ textarea.w-input, textarea.w-select {
 }
 
 .block_100 {
-  padding-top: 100px;
+  padding-top: 56px;
 }
 
 .block_200 {
-  padding-top: 200px;
+  padding-top: 112px;
 }
 
 .block_60 {
-  padding-top: 60px;
+  padding-top: 40px;
 }
 
 .body {
@@ -3114,6 +3135,42 @@ html[lang="ru"] .cursor-view-case {
   padding-top: 10px;
 }
 
+/* Отступы смысловых блоков по всему сайту: минимум 16px, выровнены */
+.div-block-29,
+.div-block-42,
+.div-block-43,
+.div-block-44 {
+  padding-top: 16px;
+}
+.div-block-45,
+.div-block-46 {
+  padding-top: 16px;
+}
+.div-block-47,
+.div-block-48,
+.div-block-49,
+.div-block-50,
+.div-block-51,
+.div-block-52,
+.div-block-53,
+.div-block-54 {
+  padding-top: 16px;
+}
+.container-11,
+.container-12,
+.container-13,
+.container-14,
+.container-15,
+.container-17,
+.container-18,
+.container-19 {
+  padding-top: 16px;
+}
+.w-layout-blockcontainer.w-container {
+  padding-top: 16px;
+  padding-bottom: 0;
+}
+
 /* Боковые отступы контента для мобильной и планшетной версий (хедер выравнивается под них) */
 @media screen and (max-width: 991px) {
   :root {
@@ -3194,10 +3251,10 @@ html[lang="ru"] .cursor-view-case {
   }
 
   .block20x20 {
-    grid-column-gap: 8px;
-    grid-row-gap: 8px;
-    padding-top: 12px;
-    padding-bottom: 12px;
+    grid-column-gap: 16px;
+    grid-row-gap: 16px;
+    padding-top: 16px;
+    padding-bottom: 16px;
   }
 
   .block100, .div-block-23 {
@@ -3543,8 +3600,8 @@ html[lang="ru"] .cursor-view-case {
   }
 
   .block20x10 {
-    padding-top: 10px;
-    padding-bottom: 5px;
+    padding-top: 16px;
+    padding-bottom: 16px;
   }
 
   .flex-block {
@@ -3612,19 +3669,32 @@ html[lang="ru"] .cursor-view-case {
   }
 
   .block_100 {
-    padding-top: 60px;
+    padding-top: 48px;
   }
 
   .block_200 {
-    padding-top: 120px;
+    padding-top: 96px;
   }
 
   .block_60 {
-    padding-top: 40px;
+    padding-top: 32px;
+  }
+
+  .block20x20 {
+    padding-top: 16px;
+    padding-bottom: 16px;
   }
 
   .div-block-29 {
-    padding-top: 10px;
+    padding-top: 16px;
+  }
+
+  .div-block-42,
+  .div-block-43,
+  .div-block-44,
+  .div-block-45,
+  .div-block-46 {
+    padding-top: 16px;
   }
 
   .div-block-30, .div-block-31, .div-block-32 {
@@ -3662,7 +3732,8 @@ html[lang="ru"] .cursor-view-case {
   }
 
   .block20x10 {
-    padding-bottom: 5px;
+    padding-top: 16px;
+    padding-bottom: 16px;
   }
 
   .flex-block {
