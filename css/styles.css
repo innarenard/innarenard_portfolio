@@ -2,7 +2,7 @@
 html {
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
-  font-family: sans-serif;
+  font-family: Montserrat, sans-serif;
 }
 
 body {
@@ -227,7 +227,7 @@ body {
   background-color: #fff;
   min-height: 100%;
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 14px;
   line-height: 20px;
 }
@@ -1218,7 +1218,7 @@ textarea.w-input, textarea.w-select {
   -webkit-tap-highlight-color: transparent;
   background: #000000e6;
   outline: 0;
-  font-family: Helvetica Neue, Helvetica, Ubuntu, Segoe UI, Verdana, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 17px;
   font-style: normal;
   font-weight: 300;
@@ -1924,9 +1924,14 @@ textarea.w-input, textarea.w-select {
   margin-bottom: 0;
   padding-top: 0;
   padding-bottom: 0;
-  font-family: Figtree, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 40px;
+  font-weight: 600;
   line-height: 120%;
+}
+
+.header--name {
+  font-size: 44px;
 }
 
 .header.pink {
@@ -1942,7 +1947,7 @@ textarea.w-input, textarea.w-select {
   margin-bottom: 0;
   padding-top: 0;
   padding-bottom: 0;
-  font-family: Figtree, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 40px;
   font-weight: 400;
   line-height: 120%;
@@ -1971,7 +1976,7 @@ textarea.w-input, textarea.w-select {
   margin-bottom: 0;
   padding-top: 0;
   padding-bottom: 0;
-  font-family: Figtree, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 18px;
   font-weight: 400;
   line-height: 120%;
@@ -1989,7 +1994,7 @@ textarea.w-input, textarea.w-select {
 .text-block-2 {
   padding-top: 20px;
   padding-bottom: 20px;
-  font-family: Figtree, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 24px;
   font-weight: 700;
   line-height: 120%;
@@ -2003,7 +2008,7 @@ textarea.w-input, textarea.w-select {
   color: var(--grey);
   padding-top: 0;
   padding-bottom: 0;
-  font-family: Figtree, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 24px;
   line-height: 120%;
 }
@@ -2052,7 +2057,7 @@ textarea.w-input, textarea.w-select {
   flex-flow: column;
   margin-top: 0;
   margin-bottom: 0;
-  font-family: Figtree, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 18px;
   font-weight: 400;
   line-height: 120%;
@@ -2090,14 +2095,14 @@ textarea.w-input, textarea.w-select {
   color: var(--pink_light);
   margin-top: 0;
   margin-bottom: 0;
-  font-family: Figtree, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 48px;
   line-height: 120%;
 }
 
 .text-block-3 {
   color: var(--grey);
-  font-family: Figtree, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 24px;
   line-height: 120%;
 }
@@ -2126,14 +2131,14 @@ textarea.w-input, textarea.w-select {
   color: var(--pink_light);
   margin-top: 0;
   margin-bottom: 0;
-  font-family: Figtree, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 32px;
   line-height: 120%;
 }
 
 .text-block-4 {
   color: var(--grey);
-  font-family: Figtree, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 18px;
   line-height: 120%;
 }
@@ -2159,14 +2164,14 @@ textarea.w-input, textarea.w-select {
 
 .text-block-5 {
   color: var(--grey);
-  font-family: Figtree, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 24px;
   line-height: 120%;
 }
 
 .text-block-6 {
   color: var(--black);
-  font-family: Figtree, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 24px;
   line-height: 120%;
 }
@@ -2184,7 +2189,7 @@ textarea.w-input, textarea.w-select {
 
 .text-block-7 {
   color: var(--black);
-  font-family: Figtree, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 24px;
   font-weight: 700;
   line-height: 120%;
@@ -2192,7 +2197,7 @@ textarea.w-input, textarea.w-select {
 
 .text-block-8 {
   color: var(--black);
-  font-family: Figtree, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 24px;
   line-height: 120%;
 }
@@ -2209,7 +2214,7 @@ textarea.w-input, textarea.w-select {
 
 .text-block-9 {
   color: var(--black);
-  font-family: Figtree, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 18px;
   font-weight: 700;
   line-height: 120%;
@@ -2217,7 +2222,7 @@ textarea.w-input, textarea.w-select {
 
 .text-block-10 {
   color: var(--black);
-  font-family: Figtree, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 18px;
   line-height: 120%;
 }
@@ -2234,14 +2239,14 @@ textarea.w-input, textarea.w-select {
 
 .text-block-11 {
   color: var(--grey);
-  font-family: Figtree, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 18px;
   line-height: 120%;
 }
 
 .text-block-12 {
   color: var(--black);
-  font-family: Figtree, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 18px;
   line-height: 120%;
 }
@@ -2259,14 +2264,14 @@ textarea.w-input, textarea.w-select {
 
 .text-block-13 {
   color: var(--grey_c);
-  font-family: Figtree, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 24px;
   line-height: 120%;
 }
 
 .text-block-14 {
   color: var(--black);
-  font-family: Figtree, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 24px;
   line-height: 120%;
 }
@@ -2283,14 +2288,14 @@ textarea.w-input, textarea.w-select {
 
 .text-block-15 {
   color: var(--grey_c);
-  font-family: Figtree, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 18px;
   line-height: 120%;
 }
 
 .text-block-16 {
   color: var(--black);
-  font-family: Figtree, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 18px;
   line-height: 120%;
 }
@@ -2303,7 +2308,7 @@ textarea.w-input, textarea.w-select {
   color: var(--grey_c);
   padding-top: 0;
   padding-bottom: 0;
-  font-family: Figtree, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 18px;
   line-height: 120%;
 }
@@ -2325,7 +2330,7 @@ textarea.w-input, textarea.w-select {
 
 .text-block-18 {
   color: var(--black);
-  font-family: Figtree, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 24px;
   line-height: 120%;
 }
@@ -2339,7 +2344,7 @@ textarea.w-input, textarea.w-select {
 
 .text-block-19 {
   color: var(--black);
-  font-family: Figtree, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 18px;
   line-height: 120%;
 }
@@ -2353,7 +2358,7 @@ textarea.w-input, textarea.w-select {
 
 .text-block-20 {
   color: var(--black);
-  font-family: Figtree, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 24px;
   line-height: 120%;
 }
@@ -2366,7 +2371,7 @@ textarea.w-input, textarea.w-select {
 
 .text-block-21 {
   color: var(--black);
-  font-family: Figtree, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 18px;
   line-height: 120%;
 }
@@ -2608,7 +2613,7 @@ textarea.w-input, textarea.w-select {
   padding-top: 10px;
   padding-bottom: 10px;
   padding-right: 140px;
-  font-family: Figtree, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 24px;
   line-height: 120%;
   text-decoration: none;
@@ -2667,7 +2672,7 @@ textarea.w-input, textarea.w-select {
   border: none;
   cursor: pointer;
   color: var(--black);
-  font-family: Figtree, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 14px;
   font-weight: 500;
   line-height: 100%;
@@ -2707,7 +2712,7 @@ textarea.w-input, textarea.w-select {
   padding-top: 10px;
   padding-bottom: 10px;
   padding-right: 0;
-  font-family: Figtree, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 24px;
   line-height: 120%;
   text-decoration: none;
@@ -2743,7 +2748,7 @@ textarea.w-input, textarea.w-select {
   color: var(--black);
   padding-top: 10px;
   padding-bottom: 10px;
-  font-family: Figtree, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 24px;
   line-height: 120%;
   text-decoration: none;
@@ -2809,7 +2814,7 @@ textarea.w-input, textarea.w-select {
 }
 
 .body {
-  font-family: Figtree, sans-serif;
+  font-family: Montserrat, sans-serif;
 }
 
 .container-10 {
@@ -3010,6 +3015,10 @@ textarea.w-input, textarea.w-select {
   padding-top: 20px;
 }
 
+.container-18, .container-19 {
+  padding-top: 8px;
+}
+
 .container-20 {
   margin-left: 0;
   margin-right: 0;
@@ -3042,6 +3051,10 @@ textarea.w-input, textarea.w-select {
 @media screen and (max-width: 991px) {
   .header {
     font-size: 26px;
+  }
+
+  .header--name {
+    font-size: 30px;
   }
 
   .header.pink {
