@@ -1872,6 +1872,13 @@ textarea.w-input, textarea.w-select {
   align-items: flex-start;
   display: flex;
 }
+/* Теги кейса в одном ряду — одинаковая высота */
+.w-layout-hflex.flex-block {
+  align-items: stretch;
+}
+.flex-block .div-block-20 {
+  flex: 0 0 auto;
+}
 
 @media screen and (max-width: 991px) {
   .w-layout-blockcontainer {
@@ -2162,6 +2169,10 @@ textarea.w-input, textarea.w-select {
   display: flex;
 }
 
+.div-block-8 > div:last-child {
+  margin-top: auto;
+}
+
 .text-block-5 {
   color: var(--grey);
   font-family: Montserrat, sans-serif;
@@ -2260,6 +2271,10 @@ textarea.w-input, textarea.w-select {
   flex: 1;
   padding: 20px;
   display: flex;
+}
+
+.div-block-12 > div:last-child {
+  margin-top: auto;
 }
 
 .text-block-13 {
@@ -2419,8 +2434,17 @@ textarea.w-input, textarea.w-select {
   border-radius: 100px;
   justify-content: center;
   align-items: center;
-  padding: 10px 20px;
+  padding: 0 20px;
+  height: 44px;
+  box-sizing: border-box;
   display: flex;
+}
+.div-block-20 .body_text {
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 .div-block-21 {
@@ -2791,6 +2815,7 @@ textarea.w-input, textarea.w-select {
   grid-column-gap: 8px;
   grid-row-gap: 8px;
   flex-flow: wrap;
+  align-items: stretch;
 }
 
 .div-block-25 {
@@ -3097,6 +3122,11 @@ html[lang="ru"] .cursor-view-case {
 }
 
 @media screen and (max-width: 991px) {
+  body {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
   .header {
     font-size: 26px;
   }
@@ -3114,7 +3144,8 @@ html[lang="ru"] .cursor-view-case {
   }
 
   .body_gr, .body_gr.pink_c, .body_gr.white, .body_gr_web, .body_text {
-    font-size: 16px;
+    font-size: 14px;
+    font-family: Montserrat, sans-serif;
   }
 
   .result_web, .div-block-8, .div-block-9, .div-block-12 {
@@ -3124,15 +3155,24 @@ html[lang="ru"] .cursor-view-case {
   }
 
   .body_grey_c {
-    font-size: 16px;
+    font-size: 14px;
+    font-family: Montserrat, sans-serif;
   }
 
   .div-block-15, .div-block-17, .div-block-19 {
     padding: 20px;
   }
 
+  .div-block-19,
+  .div-block-19 > div {
+    font-size: 14px;
+    font-family: Montserrat, sans-serif;
+  }
+
   .div-block-20 {
-    padding: 8px 16px;
+    height: 40px;
+    padding: 0 16px;
+    box-sizing: border-box;
   }
 
   .div-block-21 {
@@ -3635,8 +3675,26 @@ html[lang="ru"] .cursor-view-case {
     padding-top: 60px;
   }
 
-  .div-block-31 {
-    flex-flow: column;
+  /* Pain points & hypotheses: one bento grid, 2 blocks per row (no holes) */
+  .div-block-30 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .div-block-30 > .div-block-31,
+  .div-block-30 > .div-block-32 {
+    display: contents;
+  }
+
+  /* Bento grid: Metrics full width, DAU + Dark Stores in one row */
+  .div-block-26 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 12px;
+  }
+  .div-block-26 > .div-block-8:first-child {
+    grid-column: 1 / -1;
   }
 
   .div-block-37 {
@@ -3650,8 +3708,14 @@ html[lang="ru"] .cursor-view-case {
 }
 
 @media screen and (max-width: 479px) {
-  .div-block-26, .div-block-31, .div-block-32, .div-block-34, .div-block-35 {
+  .div-block-30 {
+    gap: 8px;
+  }
+  .div-block-34, .div-block-35 {
     flex-flow: column;
+  }
+  .div-block-26 {
+    gap: 8px;
   }
 
   .div-block-36 {
