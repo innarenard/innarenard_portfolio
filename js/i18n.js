@@ -415,7 +415,7 @@
       stat_journal_4: "2023",
       view_colleges: "Колледжи",
       view_case: "Перейти к кейсу",
-      view_btn: "👀",
+      view_btn: "Изучить",
       colleges_alt: "Колледжи",
       stat_colleges_1: "Редизайн и\u00A0обновление",
       stat_colleges_2: "UX 8,9\u00A0/ 10",
