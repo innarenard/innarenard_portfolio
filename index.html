@@ -4,192 +4,234 @@
   <meta charset="utf-8">
   <title>Inna Ivanova</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="css/styles.css" rel="stylesheet" type="text/css">
+  <link href="css/home.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link href="images/favicon-32.png" rel="shortcut icon" type="image/x-icon">
   <link href="images/logo-256.png" rel="apple-touch-icon">
 </head>
-<body class="body">
-  <section class="section_1280">
-    <header class="section_navbar w-clearfix" role="banner">
-      <div class="navbar-2 w-nav" data-collapse="medium">
-        <div class="container-9 w-container">
-          <div class="div-block-24">
-            <a href="./" aria-current="page" class="brand w-nav-brand w--current">
-              <img src="images/logo-256.png" loading="lazy" alt="Inna Ivanova" class="image-3">
-            </a>
-          </div>
-          <nav role="navigation" class="nav-menu-2 w-nav-menu">
-            <a href="https://drive.google.com/file/d/1O24ieAyiQueboSbz6WEEGZs_ua3rj3QY/view?usp=sharing" target="_blank" class="nav-link body_web white w-nav-link">CV</a>
-            <a href="https://t.me/innarenard" target="_blank" class="nav-link-2 body_web white w-nav-link">Telegram</a>
-            <a href="https://www.linkedin.com/in/innarenard/" target="_blank" class="nav-link-3 body_web white w-nav-link">LinkedIn</a>
-            <a href="https://dribbble.com/inna-ivanova" target="_blank" class="nav-link-3 body_web white w-nav-link">Dribbble</a>
-            <div class="lang-switcher lang-switcher--menu" role="group" aria-label="Language">
-              <div class="lang-switcher__track">
-                <span class="lang-switcher__thumb" aria-hidden="true"></span>
-                <button type="button" class="lang-switcher__btn body_web white" data-lang="en" aria-current="false">EN</button>
-                <button type="button" class="lang-switcher__btn body_web white" data-lang="ru" aria-current="false">RU</button>
-              </div>
-            </div>
-          </nav>
-          <div class="lang-switcher lang-switcher--sidebar" role="group" aria-label="Language">
-            <div class="lang-switcher__track">
-              <span class="lang-switcher__thumb" aria-hidden="true"></span>
-              <button type="button" class="lang-switcher__btn body_web white" data-lang="en" aria-current="false">EN</button>
-              <button type="button" class="lang-switcher__btn body_web white" data-lang="ru" aria-current="false">RU</button>
-            </div>
-          </div>
-          <div class="menu-button w-nav-button">
-            <div class="icon w-icon-nav-menu"></div>
-          </div>
-        </div>
-      </div>
+<body>
+  <!-- Gradient banner -->
+  <div class="gradient-banner" aria-hidden="true"></div>
+
+  <!-- Site wrapper -->
+  <div class="site-wrapper" id="siteWrapper">
+
+    <!-- Header -->
+    <header class="site-header">
+      <a href="./" class="site-header__logo" aria-label="Home">
+        <img src="images/logo-256.png" alt="Inna Ivanova" loading="lazy">
+      </a>
+      <button class="site-header__burger" id="burgerBtn" aria-label="Menu">
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+      </button>
     </header>
 
-    <main class="section_content">
-      <div class="w-layout-blockcontainer container-20 w-container"></div>
-
-      <div class="block20x20 scroll-reveal">
-        <h1 class="header header--name" data-i18n="name">Inna Ivanova</h1>
-      </div>
-      <div class="block20x20 scroll-reveal">
-        <h1 class="subheader" data-i18n="intro">Product designer with 5 years of experience working in product teams. I design apps and web services, and conduct qualitative and quantitative research</h1>
-      </div>
-      <div class="w-layout-blockcontainer container-17 w-container"></div>
-      <div class="block20x20 scroll-reveal">
-        <h1 class="body_text" data-i18n="body1">• I specialize in creating solutions that focus on improving user experience while achieving business goals. I manage the entire product development process – <strong>from research to final implementation</strong>.<br></h1>
-        <h1 class="body_text" data-i18n="body2">• Redesigned the legacy Samokat Darkstore Android application, enabling expansion to both iOS and Android platforms, <strong>revisiting outdated solutions, formulating new hypotheses, and enriching the product backlog</strong>.<br></h1>
-        <h1 class="body_text" data-i18n="body3">• Reduced company costs by <strong>16M per year</strong>, decreased employee workload by <strong>10%</strong>, and lowered the number of canceled orders by <strong>5%</strong> by conducting research and designing a label-printing interface for ready-to-eat meals in the mobile application (iOS and Android).<br></h1>
-      </div>
-
-      <div class="block_100 scroll-reveal"></div>
-      <div class="block20x10 scroll-reveal">
-        <h1 class="header" data-i18n="samokat_title">Samokat</h1>
-      </div>
-      <div class="w-layout-blockcontainer container-18 w-container"></div>
-      <div class="block20x20 scroll-reveal">
-        <h1 class="subheader" data-i18n="samokat_desc">Russian rapid grocery and ready-to-eat food delivery service operating in 127 cities and handling up to 827 000 orders per day</h1>
-      </div>
-      <div class="block_60"></div>
-
-      <div class="block20x20 scroll-reveal">
-        <a href="order-picking/" class="link-project subheader w-inline-block">
-          <div class="text-block-25" data-i18n="view_order_picking">View order picking</div>
-        </a>
-      </div>
-      <div class="block20x20 scroll-reveal">
-        <a href="order-picking/" class="link_image project-cover w-inline-block">
-          <img src="images/order-picking-preview.png" loading="lazy" alt="Order picking" class="image-4" data-i18n-alt="order_picking_alt">
-        </a>
-      </div>
-      <div class="block0x0 scroll-reveal">
-        <div class="w-layout-hflex flex-block">
-          <div class="div-block-20"><div class="body_text" data-i18n="stat_order_1">-2,3% Time to Task</div></div>
-          <div class="div-block-20"><div class="body_text" data-i18n="stat_order_2">-2 errors</div></div>
-          <div class="div-block-20"><div class="body_text" data-i18n="stat_order_3">UX 4,7 / 5</div></div>
-          <div class="div-block-20"><div class="body_text" data-i18n="stat_order_4">B2B</div></div>
-          <div class="div-block-20"><div class="body_text" data-i18n="stat_order_5">2025</div></div>
+    <!-- Mobile menu -->
+    <nav class="mobile-menu" id="mobileMenu">
+      <a href="https://drive.google.com/file/d/1O24ieAyiQueboSbz6WEEGZs_ua3rj3QY/view?usp=sharing" target="_blank">CV</a>
+      <a href="https://t.me/innarenard" target="_blank">Telegram</a>
+      <a href="https://www.linkedin.com/in/innarenard/" target="_blank">LinkedIn</a>
+      <a href="https://dribbble.com/inna-ivanova" target="_blank">Dribbble</a>
+      <div class="lang-switcher lang-switcher--mobile" role="group" aria-label="Language">
+        <div class="lang-switcher__track">
+          <span class="lang-switcher__thumb" aria-hidden="true"></span>
+          <button type="button" class="lang-switcher__btn" data-lang="en" aria-current="false">EN</button>
+          <button type="button" class="lang-switcher__btn" data-lang="ru" aria-current="false">RU</button>
         </div>
       </div>
+    </nav>
 
-      <div class="block_100 scroll-reveal"></div>
-      <div class="block20x20 scroll-reveal">
-        <a href="transfers-of-goods/" class="link-project pink subheader w-inline-block">
-          <div data-i18n="view_transfers">View transfers of goods</div>
-        </a>
-      </div>
-      <div class="block20x20 scroll-reveal">
-        <a href="transfers-of-goods/" class="link_image project-cover w-inline-block">
-          <img src="images/transfers-of-goods-preview.png" loading="lazy" alt="Transfers of goods" class="image-4" data-i18n-alt="transfers_alt">
-        </a>
-      </div>
-      <div class="block0x0 scroll-reveal">
-        <div class="w-layout-hflex flex-block">
-          <div class="div-block-20"><div class="body_text" data-i18n="stat_transfers_1">Savings of 4M RUB</div></div>
-          <div class="div-block-20"><div class="body_text" data-i18n="stat_transfers_2">-5% overdue shipments</div></div>
-          <div class="div-block-20"><div class="body_text" data-i18n="stat_transfers_3">UX 4,8 / 5</div></div>
-          <div class="div-block-20"><div class="body_text" data-i18n="stat_transfers_4">B2B</div></div>
-          <div class="div-block-20"><div class="body_text" data-i18n="stat_transfers_5">2024</div></div>
+    <!-- Main content -->
+    <main class="main-content">
+
+      <!-- Hero -->
+      <section class="hero">
+        <h1 class="hero__name" data-i18n="name">Inna Ivanova</h1>
+        <p class="hero__subtitle" data-i18n="intro">Product designer with 5 years of experience working in product teams. I design apps and web services, and conduct qualitative and quantitative research</p>
+      </section>
+
+      <!-- Nav links (desktop) -->
+      <nav class="site-nav">
+        <div class="site-nav__links">
+          <a href="https://drive.google.com/file/d/1O24ieAyiQueboSbz6WEEGZs_ua3rj3QY/view?usp=sharing" target="_blank" class="site-nav__link">CV</a>
+          <a href="https://t.me/innarenard" target="_blank" class="site-nav__link">Telegram</a>
+          <a href="https://www.linkedin.com/in/innarenard/" target="_blank" class="site-nav__link">LinkedIn</a>
+          <a href="https://dribbble.com/inna-ivanova" target="_blank" class="site-nav__link">Dribbble</a>
         </div>
-      </div>
-
-      <div class="block_100 scroll-reveal"></div>
-      <div class="block20x20 scroll-reveal">
-        <a href="dark-store-kitchen/" class="link-project subheader pink w-inline-block">
-          <div data-i18n="view_dark_kitchen">View dark store kitchen</div>
-        </a>
-      </div>
-      <div class="block20x20 scroll-reveal">
-        <a href="dark-store-kitchen/" class="link_image project-cover w-inline-block">
-          <img src="images/dark-store-kitchen-preview.png" loading="lazy" alt="Dark store kitchen" class="image-4" data-i18n-alt="dark_kitchen_alt">
-        </a>
-      </div>
-      <div class="block0x0 scroll-reveal">
-        <div class="w-layout-hflex flex-block">
-          <div class="div-block-20"><div class="body_text" data-i18n="stat_kitchen_1">Savings of 12M RUB</div></div>
-          <div class="div-block-20"><div class="body_text" data-i18n="stat_kitchen_2">-10% workload</div></div>
-          <div class="div-block-20"><div class="body_text" data-i18n="stat_kitchen_3">-5% canceled orders</div></div>
-          <div class="div-block-20"><div class="body_text" data-i18n="stat_kitchen_4">B2B</div></div>
-          <div class="div-block-20"><div class="body_text" data-i18n="stat_kitchen_5">2024</div></div>
+        <div class="lang-switcher lang-switcher--desktop" role="group" aria-label="Language">
+          <div class="lang-switcher__track">
+            <span class="lang-switcher__thumb" aria-hidden="true"></span>
+            <button type="button" class="lang-switcher__btn" data-lang="en" aria-current="false">EN</button>
+            <button type="button" class="lang-switcher__btn" data-lang="ru" aria-current="false">RU</button>
+          </div>
         </div>
-      </div>
+      </nav>
 
-      <div class="block_200 scroll-reveal"></div>
-      <div class="block20x10 scroll-reveal">
-        <h1 class="header" data-i18n="mes_title">MES</h1>
-      </div>
-      <div class="w-layout-blockcontainer container-19 w-container"></div>
-      <div class="block20x20 scroll-reveal">
-        <h1 class="subheader" data-i18n="mes_desc">Moscow Electronic School is a project for teachers aimed at creating a high-tech educational environment in Moscow schools</h1>
-      </div>
-      <div class="block_60"></div>
-
-      <div class="block20x20 scroll-reveal">
-        <a href="teachers-journal/" class="link-project subheader blue w-inline-block">
-          <div data-i18n="view_teachers_journal">View teacher's journal</div>
-        </a>
-      </div>
-      <div class="block20x20 scroll-reveal">
-        <a href="teachers-journal/" class="link_image project-cover w-inline-block">
-          <img src="images/teachers-journal-preview.png" loading="lazy" alt="Teacher's journal" class="image-4" data-i18n-alt="teachers_journal_alt">
-        </a>
-      </div>
-      <div class="block0x0 scroll-reveal">
-        <div class="w-layout-hflex flex-block">
-          <div class="div-block-20"><div class="body_text" data-i18n="stat_journal_1">Designed from scratch</div></div>
-          <div class="div-block-20"><div class="body_text" data-i18n="stat_journal_2">UX 8,1 / 10</div></div>
-          <div class="div-block-20"><div class="body_text" data-i18n="stat_journal_3">B2B</div></div>
-          <div class="div-block-20"><div class="body_text" data-i18n="stat_journal_4">2023</div></div>
+      <!-- About -->
+      <section class="about-section scroll-reveal">
+        <div class="about-bullets">
+          <p class="body_text" data-i18n="body1">• I specialize in creating solutions that focus on improving user experience while achieving business goals. I manage the entire product development process – <strong>from research to final implementation</strong>.<br></p>
+          <p class="body_text" data-i18n="body2">• Redesigned the legacy Samokat Darkstore Android application, enabling expansion to both iOS and Android platforms, <strong>revisiting outdated solutions, formulating new hypotheses, and enriching the product backlog</strong>.<br></p>
+          <p class="body_text" data-i18n="body3">• Reduced company costs by <strong>16M per year</strong>, decreased employee workload by <strong>10%</strong>, and lowered the number of canceled orders by <strong>5%</strong> by conducting research and designing a label-printing interface for ready-to-eat meals in the mobile application (iOS and Android).<br></p>
         </div>
-      </div>
+      </section>
 
-      <div class="block_100 scroll-reveal"></div>
-      <div class="block20x20 scroll-reveal">
-        <a href="colleges/" class="link-project subheader blue w-inline-block">
-          <div data-i18n="view_colleges">View colleges</div>
-        </a>
-      </div>
-      <div class="block20x20 scroll-reveal">
-        <a href="colleges/" class="link_image project-cover w-inline-block">
-          <img src="images/colleges-preview.png" loading="lazy" alt="Colleges" class="image-4" data-i18n-alt="colleges_alt">
-        </a>
-      </div>
-      <div class="block0x0 scroll-reveal">
-        <div class="w-layout-hflex flex-block">
-          <div class="div-block-20"><div class="body_text" data-i18n="stat_colleges_1">Redesign and update</div></div>
-          <div class="div-block-20"><div class="body_text" data-i18n="stat_colleges_2">UX 8,9 / 10</div></div>
-          <div class="div-block-20"><div class="body_text" data-i18n="stat_colleges_3">B2B</div></div>
-          <div class="div-block-20"><div class="body_text" data-i18n="stat_colleges_4">2023</div></div>
+      <!-- ═══════ Samokat ═══════ -->
+      <section class="company-section scroll-reveal" id="samokat">
+        <h2 class="company-section__title" data-i18n="samokat_title">Samokat</h2>
+        <p class="company-section__desc" data-i18n="samokat_desc">Russian rapid grocery and ready-to-eat food delivery service operating in 127 cities and handling up to 827 000 orders per day</p>
+
+        <div class="project-grid">
+
+          <!-- Order picking -->
+          <div class="project-card scroll-reveal" role="button" tabindex="0"
+               data-href="order-picking/"
+               data-project="order-picking"
+               data-company-i18n="samokat_title"
+               data-title-i18n="view_order_picking">
+            <div class="project-card__image">
+              <img src="images/order-picking-preview.png" loading="lazy" alt="Order picking" data-i18n-alt="order_picking_alt">
+            </div>
+            <div class="project-card__info">
+              <span class="project-card__title" data-i18n="view_order_picking">View order picking</span>
+              <span class="project-card__year" data-i18n="stat_order_5">2025</span>
+            </div>
+            <div class="project-card__stats">
+              <span data-i18n="stat_order_1">-2,3% Time to Task</span>
+              <span data-i18n="stat_order_2">-2 errors</span>
+              <span data-i18n="stat_order_3">UX 4,7 / 5</span>
+              <span data-i18n="stat_order_4">B2B</span>
+            </div>
+          </div>
+
+          <!-- Transfers of goods -->
+          <div class="project-card scroll-reveal" role="button" tabindex="0"
+               data-href="transfers-of-goods/"
+               data-project="transfers"
+               data-company-i18n="samokat_title"
+               data-title-i18n="view_transfers">
+            <div class="project-card__image">
+              <img src="images/transfers-of-goods-preview.png" loading="lazy" alt="Transfers of goods" data-i18n-alt="transfers_alt">
+            </div>
+            <div class="project-card__info">
+              <span class="project-card__title" data-i18n="view_transfers">View transfers of goods</span>
+              <span class="project-card__year" data-i18n="stat_transfers_5">2024</span>
+            </div>
+            <div class="project-card__stats">
+              <span data-i18n="stat_transfers_1">Savings of 4M RUB</span>
+              <span data-i18n="stat_transfers_2">-5% overdue shipments</span>
+              <span data-i18n="stat_transfers_3">UX 4,8 / 5</span>
+              <span data-i18n="stat_transfers_4">B2B</span>
+            </div>
+          </div>
+
+          <!-- Dark store kitchen -->
+          <div class="project-card scroll-reveal" role="button" tabindex="0"
+               data-href="dark-store-kitchen/"
+               data-project="dark-kitchen"
+               data-company-i18n="samokat_title"
+               data-title-i18n="view_dark_kitchen">
+            <div class="project-card__image">
+              <img src="images/dark-store-kitchen-preview.png" loading="lazy" alt="Dark store kitchen" data-i18n-alt="dark_kitchen_alt">
+            </div>
+            <div class="project-card__info">
+              <span class="project-card__title" data-i18n="view_dark_kitchen">View dark store kitchen</span>
+              <span class="project-card__year" data-i18n="stat_kitchen_5">2024</span>
+            </div>
+            <div class="project-card__stats">
+              <span data-i18n="stat_kitchen_1">Savings of 12M RUB</span>
+              <span data-i18n="stat_kitchen_2">-10% workload</span>
+              <span data-i18n="stat_kitchen_3">-5% canceled orders</span>
+              <span data-i18n="stat_kitchen_4">B2B</span>
+            </div>
+          </div>
+
         </div>
-      </div>
+      </section>
+
+      <!-- ═══════ MES ═══════ -->
+      <section class="company-section scroll-reveal" id="mes">
+        <h2 class="company-section__title" data-i18n="mes_title">MES</h2>
+        <p class="company-section__desc" data-i18n="mes_desc">Moscow Electronic School is a project for teachers aimed at creating a high-tech educational environment in Moscow schools</p>
+
+        <div class="project-grid">
+
+          <!-- Teacher's journal -->
+          <div class="project-card scroll-reveal" role="button" tabindex="0"
+               data-href="teachers-journal/"
+               data-project="teachers-journal"
+               data-company-i18n="mes_title"
+               data-title-i18n="view_teachers_journal">
+            <div class="project-card__image">
+              <img src="images/teachers-journal-preview.png" loading="lazy" alt="Teacher's journal" data-i18n-alt="teachers_journal_alt">
+            </div>
+            <div class="project-card__info">
+              <span class="project-card__title" data-i18n="view_teachers_journal">View teacher's journal</span>
+              <span class="project-card__year" data-i18n="stat_journal_4">2023</span>
+            </div>
+            <div class="project-card__stats">
+              <span data-i18n="stat_journal_1">Designed from scratch</span>
+              <span data-i18n="stat_journal_2">UX 8,1 / 10</span>
+              <span data-i18n="stat_journal_3">B2B</span>
+            </div>
+          </div>
+
+          <!-- Colleges -->
+          <div class="project-card scroll-reveal" role="button" tabindex="0"
+               data-href="colleges/"
+               data-project="colleges"
+               data-company-i18n="mes_title"
+               data-title-i18n="view_colleges">
+            <div class="project-card__image">
+              <img src="images/colleges-preview.png" loading="lazy" alt="Colleges" data-i18n-alt="colleges_alt">
+            </div>
+            <div class="project-card__info">
+              <span class="project-card__title" data-i18n="view_colleges">View colleges</span>
+              <span class="project-card__year" data-i18n="stat_colleges_4">2023</span>
+            </div>
+            <div class="project-card__stats">
+              <span data-i18n="stat_colleges_1">Redesign and update</span>
+              <span data-i18n="stat_colleges_2">UX 8,9 / 10</span>
+              <span data-i18n="stat_colleges_3">B2B</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="site-footer scroll-reveal">
+        <span class="site-footer__name">Inna Ivanova</span>
+        <div class="site-footer__links">
+          <a href="https://drive.google.com/file/d/1O24ieAyiQueboSbz6WEEGZs_ua3rj3QY/view?usp=sharing" target="_blank">CV</a>
+          <a href="https://t.me/innarenard" target="_blank">Telegram</a>
+          <a href="https://www.linkedin.com/in/innarenard/" target="_blank">LinkedIn</a>
+          <a href="https://dribbble.com/inna-ivanova" target="_blank">Dribbble</a>
+        </div>
+      </footer>
+
     </main>
-  </section>
-  <div id="cursor-view-case" class="cursor-view-case" data-i18n="view_btn" aria-hidden="true">Dive</div>
+  </div>
+
+  <!-- ═══════ Slide-in project panel ═══════ -->
+  <div class="project-panel" id="projectPanel" aria-hidden="true">
+    <button class="project-panel__close" id="panelClose" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+    <div class="project-panel__body" id="panelBody"></div>
+  </div>
+  <div class="panel-overlay" id="panelOverlay"></div>
+
   <script src="js/i18n.js"></script>
-  <script src="js/nav.js"></script>
   <script src="js/scroll-reveal.js"></script>
-  <script src="js/cursor-view-case.js"></script>
+  <script src="js/panel.js"></script>
+  <script src="js/home-nav.js"></script>
 </body>
 </html>

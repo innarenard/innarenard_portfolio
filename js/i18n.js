@@ -749,6 +749,8 @@
     }
   };
 
+  window._i18nTranslations = translations;
+
   function getLang() {
     var saved = localStorage.getItem(STORAGE_KEY);
     if (saved && (saved === 'en' || saved === 'ru')) return saved;
