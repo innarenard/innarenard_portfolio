@@ -388,7 +388,8 @@ body.panel-open .site-wrapper {
 
 .project-card__stats {
   padding: 2px 0 12px;
-  font-size: 12px;
+  margin-left: 26px;
+  font-size: 13px;
   font-weight: 500;
   color: #737380;
 }
@@ -410,14 +411,14 @@ body.panel-open .site-wrapper {
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.4);
   box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.06),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(32px) saturate(180%);
+  -webkit-backdrop-filter: blur(32px) saturate(180%);
   pointer-events: none;
   z-index: 9999;
   opacity: 0;
@@ -425,11 +426,11 @@ body.panel-open .site-wrapper {
   transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease;
 }
 .cursor-view-case.is-visible {
-  opacity: 0.85;
+  opacity: 0.75;
 }
 body:has(.project-card:hover) .cursor-view-case.is-visible {
-  background: rgba(255, 255, 255, 0.45);
-  border-color: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
   box-shadow:
     0 12px 40px rgba(0, 0, 0, 0.08),
     inset 0 1px 0 rgba(255, 255, 255, 0.7),
@@ -916,9 +917,10 @@ body.panel-open .project-panel {
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 16px;
   padding: 24px;
-  background: #f8f8fa;
+  background: #fcfcfd;
   border-radius: 18px;
   margin-bottom: 12px;
+  margin-left: 28px;
 }
 
 .panel-case .div-block-8,
@@ -1006,6 +1008,7 @@ body.panel-open .project-panel {
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 14px;
   margin-bottom: 16px;
+  margin-left: 28px;
 }
 
 .panel-case .result_web {
@@ -1013,6 +1016,7 @@ body.panel-open .project-panel {
   background: #1a1a1a;
   border-radius: 18px;
   text-align: center;
+  margin-left: 28px;
 }
 .panel-case .result_web .header,
 .panel-case .result_web .header.pink {

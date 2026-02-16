@@ -1901,6 +1901,7 @@ textarea.w-input, textarea.w-select {
   align-items: flex-start;
   padding: 30px;
   display: flex;
+  margin-left: 28px;
 }
 
 .heading-6 {
@@ -2782,6 +2783,7 @@ html[lang="ru"] .cursor-view-case {
   grid-column-gap: 12px;
   grid-row-gap: 12px;
   display: flex;
+  margin-left: 28px;
 }
 
 .div-block-27 {
@@ -2824,6 +2826,7 @@ html[lang="ru"] .cursor-view-case {
   grid-column-gap: 12px;
   grid-row-gap: 12px;
   display: flex;
+  margin-left: 28px;
 }
 
 .flex-block-2 {
@@ -2835,6 +2838,7 @@ html[lang="ru"] .cursor-view-case {
   grid-column-gap: 12px;
   grid-row-gap: 12px;
   display: flex;
+  margin-left: 28px;
 }
 
 .div-block-36 {
