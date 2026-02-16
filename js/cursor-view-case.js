@@ -42,13 +42,13 @@
 
   function bindCovers() {
     var cursorEl = document.getElementById('cursor-view-case');
-    var covers = document.querySelectorAll('.link_image.project-cover');
-    if (!cursorEl || !covers.length) return;
+    var cards = document.querySelectorAll('.project-card');
+    if (!cursorEl || !cards.length) return;
 
-    covers.forEach(function (cover) {
-      cover.addEventListener('mouseenter', showCursor);
-      cover.addEventListener('mousemove', onMove);
-      cover.addEventListener('mouseleave', hideCursor);
+    cards.forEach(function (card) {
+      card.addEventListener('mouseenter', showCursor);
+      card.addEventListener('mousemove', onMove);
+      card.addEventListener('mouseleave', hideCursor);
     });
   }
 

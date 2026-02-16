@@ -327,7 +327,14 @@ body.panel-open .site-wrapper {
   border-radius: 28px;
   background: transparent;
   overflow: visible;
-  cursor: pointer;
+  cursor: none;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+@media (hover: none) {
+  .project-card { cursor: pointer; }
+}
+.project-card:hover {
+  transform: translateY(-6px);
 }
 
 .project-card__image {
@@ -337,12 +344,20 @@ body.panel-open .site-wrapper {
   background: transparent;
   border-radius: 28px;
   margin-bottom: 6px;
+  transition: box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.project-card:hover .project-card__image {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 .project-card__image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.project-card:hover .project-card__image img {
+  transform: scale(1.06);
 }
 
 .project-card__caption {
@@ -385,6 +400,40 @@ body.panel-open .site-wrapper {
   font-weight: 400;
   color: #737380;
   padding: 0 0.4em;
+}
+
+/* ---------- Custom cursor over case (liquid glass) ---------- */
+.cursor-view-case {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+.cursor-view-case.is-visible {
+  opacity: 0.85;
+}
+body:has(.project-card:hover) .cursor-view-case.is-visible {
+  background: rgba(255, 255, 255, 0.45);
+  border-color: rgba(255, 255, 255, 0.55);
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.15);
 }
 
 /* ---------- Panel overlay ---------- */
