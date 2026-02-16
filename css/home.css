@@ -332,12 +332,13 @@ body.panel-open .panel-overlay {
 }
 
 /* ---------- Project panel (centered modal) ---------- */
+/* Боковые отступы = 5% ширины модалки (left = right = 100vw/24) */
 .project-panel {
   position: fixed;
-  top: 37px;
-  left: 152px;
-  right: 152px;
-  bottom: 37px;
+  top: 18px;
+  left: calc(100vw / 24);
+  right: calc(100vw / 24);
+  bottom: 18px;
   background: #fff;
   z-index: 950;
   opacity: 0;
@@ -374,7 +375,7 @@ body.panel-open .project-panel {
 .project-panel__close svg { width: 18px; height: 18px; stroke: #555; }
 
 .project-panel__body {
-  padding: 16px 200px 100px;
+  padding: 16px 10% 100px;
 }
 
 /* Panel project content */
@@ -573,64 +574,42 @@ body.panel-open .project-panel {
 }
 
 /* ================================================================
-   Responsive
+   Responsive: десктоп (>991px) и мобильная (≤991px)
    ================================================================ */
 @media screen and (max-width: 991px) {
   .site-header__burger { display: flex; }
 
   .site-header { padding: 16px 20px; position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
 
-  .main-content { padding: 100px 20px 100px; }
-
-  .hero__name { font-size: 36px; }
-  .hero__subtitle { font-size: 17px; }
-
-  .site-nav { display: none; }
-
-  .company-section__title { font-size: 30px; }
-  .company-section__desc { font-size: 16px; }
-
-  .project-grid { grid-template-columns: 1fr; gap: 16px; }
-
-  .about-bullets .body_text,
-  .about-bullets p { font-size: 14px; }
-
-  /* Panel – smaller margins on tablet */
-  .project-panel { top: 21px; left: 104px; right: 104px; bottom: 21px; border-radius: 20px; }
-  .project-panel__body { padding: 40px 100px 100px; }
-  .panel-hero__title { font-size: 28px; }
-}
-
-@media screen and (max-width: 767px) {
   .main-content { padding: 90px 16px 80px; }
 
   .hero__name { font-size: 32px; }
   .hero__subtitle { font-size: 16px; }
 
+  .site-nav { display: none; }
+
   .company-section { margin-bottom: 56px; }
   .company-section__title { font-size: 26px; }
   .company-section__desc { font-size: 15px; margin-bottom: 24px; }
 
+  .project-grid { grid-template-columns: 1fr; gap: 16px; }
   .project-card { border-radius: 18px; }
   .project-card__image { aspect-ratio: 16 / 9; }
 
-  /* Panel full screen on mobile */
+  .about-bullets .body_text,
+  .about-bullets p { font-size: 14px; }
+
+  /* Панель проекта на весь экран */
   .project-panel {
     top: 0; left: 0; right: 0; bottom: 0;
     border-radius: 0;
     box-shadow: none;
   }
-  .project-panel__body { padding: 16px 20px 60px; }
+  .project-panel__body { padding: 16px 10% 60px; }
   .panel-hero__title { font-size: 24px; }
   .panel-meta { grid-template-columns: 1fr 1fr; gap: 14px; }
 
   .site-footer { flex-direction: column; align-items: flex-start; }
-}
-
-@media screen and (max-width: 479px) {
-  .hero__name { font-size: 28px; }
-  .hero__subtitle { font-size: 15px; }
-  .company-section__title { font-size: 24px; }
 }
 
 /* ================================================================
@@ -960,8 +939,8 @@ body.panel-open .project-panel {
   margin-bottom: 8px;
 }
 
-/* Responsive inside panel */
-@media screen and (max-width: 767px) {
+/* Responsive inside panel (мобильная версия) */
+@media screen and (max-width: 991px) {
   .panel-case .header { font-size: 24px; }
   .panel-case .subheader { font-size: 17px; }
   .panel-case .div-block-30 { grid-template-columns: 1fr; }
