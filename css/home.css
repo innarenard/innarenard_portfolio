@@ -159,7 +159,7 @@ body.panel-open .site-wrapper {
 /* ---------- Contacts bar (above Samokat) ---------- */
 .contacts-bar {
   margin-top: 16px;
-  margin-bottom: 48px;
+  margin-bottom: 72px;
 }
 .contacts-bar__links {
   display: flex;
@@ -324,18 +324,19 @@ body.panel-open .site-wrapper {
 /* ---------- Project card ---------- */
 .project-card {
   position: relative;
-  border-radius: 22px;
+  border-radius: 28px;
   background: transparent;
   overflow: visible;
   cursor: pointer;
 }
 
 .project-card__image {
-  aspect-ratio: 1.85 / 1;
+  position: relative;
+  aspect-ratio: 4 / 3;
   overflow: hidden;
   background: transparent;
-  border-radius: 14px;
-  margin-bottom: 12px;
+  border-radius: 28px;
+  margin-bottom: 6px;
 }
 .project-card__image img {
   width: 100%;
@@ -344,45 +345,46 @@ body.panel-open .site-wrapper {
   display: block;
 }
 
-.project-card__info {
-  padding: 14px 20px 6px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.project-card__title {
-  font-size: 15px;
-  font-weight: 600;
-  color: #404040;
-}
-
-.project-card__year {
+.project-card__caption {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
   display: inline-flex;
   align-items: center;
-  padding: 3px 10px;
+  padding: 6px 14px;
   border-radius: 999px;
-  background: rgba(255,255,255,.6);
-  font-size: 12px;
+  background: rgba(242, 242, 248, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-size: 14px;
   font-weight: 500;
   color: #404040;
+}
+.project-card__caption-sep {
+  opacity: 0.7;
+  margin: 0 0.35em;
+}
+.project-card__caption-year {
+  font-weight: 500;
+  color: #737380;
 }
 
 .project-card__stats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  padding: 8px 20px 18px;
-}
-.project-card__stats span {
-  display: inline-flex;
-  padding: 5px 12px;
-  border-radius: 999px;
-  background: rgba(255,255,255,.55);
+  padding: 2px 0 12px;
   font-size: 12px;
   font-weight: 500;
-  color: #404040;
+  color: #737380;
+}
+.project-card__stats span {
   white-space: nowrap;
+}
+.project-card__stats span + span::before {
+  content: "\2022";
+  font-weight: 400;
+  color: #737380;
+  padding: 0 0.4em;
 }
 
 /* ---------- Panel overlay ---------- */
@@ -656,7 +658,7 @@ body.panel-open .project-panel {
   .main-content { padding: 90px 16px 80px; }
 
   .contacts-bar {
-    margin-bottom: 40px;
+    margin-bottom: 56px;
   }
 
   .hero__name { font-size: 32px; }
@@ -667,8 +669,8 @@ body.panel-open .project-panel {
   .company-section__desc { font-size: 15px; margin-bottom: 24px; }
 
   .project-grid { grid-template-columns: 1fr; gap: 16px; }
-  .project-card { border-radius: 18px; }
-  .project-card__image { aspect-ratio: 1.85 / 1; }
+  .project-card { border-radius: 24px; }
+  .project-card__image { aspect-ratio: 4 / 3; border-radius: 28px; }
 
   .about-bullets .body_text,
   .about-bullets p { font-size: 14px; }
