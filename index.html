@@ -23,11 +23,22 @@
       <a href="./" class="site-header__logo" aria-label="Home">
         <img src="images/logo-256.png" alt="Inna Ivanova" loading="lazy">
       </a>
-      <button class="site-header__burger" id="burgerBtn" aria-label="Menu">
-        <span class="burger-line"></span>
-        <span class="burger-line"></span>
-        <span class="burger-line"></span>
-      </button>
+      <div class="site-header__right">
+        <div class="site-header__lang" aria-hidden="false">
+          <div class="lang-switcher lang-switcher--desktop" role="group" aria-label="Language">
+            <div class="lang-switcher__track">
+              <span class="lang-switcher__thumb" aria-hidden="true"></span>
+              <button type="button" class="lang-switcher__btn" data-lang="en" aria-current="false">EN</button>
+              <button type="button" class="lang-switcher__btn" data-lang="ru" aria-current="false">RU</button>
+            </div>
+          </div>
+        </div>
+        <button class="site-header__burger" id="burgerBtn" aria-label="Menu">
+          <span class="burger-line"></span>
+          <span class="burger-line"></span>
+          <span class="burger-line"></span>
+        </button>
+      </div>
     </header>
 
     <!-- Mobile menu -->
@@ -51,34 +62,18 @@
       <!-- Hero -->
       <section class="hero">
         <h1 class="hero__name" data-i18n="name">Inna Ivanova</h1>
-        <p class="hero__subtitle" data-i18n="intro">Product designer with 5 years of experience working in product teams. I design apps and web services, and conduct qualitative and quantitative research</p>
+        <p class="hero__subtitle" data-i18n="intro">Product Designer with 5+ years of experience in product teams, turning complex business processes into simple digital tools</p>
       </section>
 
-      <!-- Nav links (desktop) -->
-      <nav class="site-nav">
-        <div class="site-nav__links">
-          <a href="https://drive.google.com/file/d/1O24ieAyiQueboSbz6WEEGZs_ua3rj3QY/view?usp=sharing" target="_blank" class="site-nav__link">CV</a>
-          <a href="https://t.me/innarenard" target="_blank" class="site-nav__link">Telegram</a>
-          <a href="https://www.linkedin.com/in/innarenard/" target="_blank" class="site-nav__link">LinkedIn</a>
-          <a href="https://dribbble.com/inna-ivanova" target="_blank" class="site-nav__link">Dribbble</a>
-        </div>
-        <div class="lang-switcher lang-switcher--desktop" role="group" aria-label="Language">
-          <div class="lang-switcher__track">
-            <span class="lang-switcher__thumb" aria-hidden="true"></span>
-            <button type="button" class="lang-switcher__btn" data-lang="en" aria-current="false">EN</button>
-            <button type="button" class="lang-switcher__btn" data-lang="ru" aria-current="false">RU</button>
-          </div>
+      <!-- Contacts -->
+      <nav class="contacts-bar">
+        <div class="contacts-bar__links">
+          <a href="https://drive.google.com/file/d/1O24ieAyiQueboSbz6WEEGZs_ua3rj3QY/view?usp=sharing" target="_blank" class="contacts-bar__link">CV</a>
+          <a href="https://t.me/innarenard" target="_blank" class="contacts-bar__link">Telegram</a>
+          <a href="https://www.linkedin.com/in/innarenard/" target="_blank" class="contacts-bar__link">LinkedIn</a>
+          <a href="https://dribbble.com/inna-ivanova" target="_blank" class="contacts-bar__link">Dribbble</a>
         </div>
       </nav>
-
-      <!-- About -->
-      <section class="about-section scroll-reveal">
-        <div class="about-bullets">
-          <p class="body_text" data-i18n="body1">• I specialize in creating solutions that focus on improving user experience while achieving business goals. I manage the entire product development process – <strong>from research to final implementation</strong>.<br></p>
-          <p class="body_text" data-i18n="body2">• Redesigned the legacy Samokat Darkstore Android application, enabling expansion to both iOS and Android platforms, <strong>revisiting outdated solutions, formulating new hypotheses, and enriching the product backlog</strong>.<br></p>
-          <p class="body_text" data-i18n="body3">• Reduced company costs by <strong>16M per year</strong>, decreased employee workload by <strong>10%</strong>, and lowered the number of canceled orders by <strong>5%</strong> by conducting research and designing a label-printing interface for ready-to-eat meals in the mobile application (iOS and Android).<br></p>
-        </div>
-      </section>
 
       <!-- ═══════ Samokat ═══════ -->
       <section class="company-section scroll-reveal" id="samokat">

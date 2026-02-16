@@ -5,10 +5,7 @@
     en: {
       /* ── index.html ── */
       name: "Inna Ivanova",
-      intro: "Product designer with\u00A05 years of\u00A0experience working in\u00A0product teams. I design apps and web services, and conduct qualitative and quantitative research",
-      body1: "• I specialize in\u00A0creating solutions that focus on\u00A0improving user experience while achieving business goals. I manage the entire product development process – <strong>from\u00A0research to\u00A0final implementation</strong>.<br>",
-      body2: "• Redesigned the legacy Samokat Darkstore Android application, enabling expansion to\u00A0both iOS and Android platforms, <strong>revisiting outdated solutions, formulating new hypotheses, and enriching the product backlog</strong>.<br>",
-      body3: "• Reduced company costs by\u00A0<strong>16\u00A0M per year</strong>, decreased employee workload by\u00A0<strong>10\u00A0%</strong>, and lowered the number of\u00A0canceled orders by\u00A0<strong>5\u00A0%</strong> by\u00A0conducting research and designing a label-printing interface for\u00A0ready-to-eat meals in\u00A0the mobile application (iOS and Android).<br>",
+      intro: "Product Designer with\u00A05+ years of\u00A0experience in\u00A0product teams, turning complex business processes into simple digital tools",
       samokat_title: "Samokat",
       samokat_desc: "Russian rapid grocery and ready-to-eat food delivery service operating in\u00A0127 cities and handling up to\u00A0827\u00A0000 orders per\u00A0day",
       view_order_picking: "View order picking",
@@ -378,10 +375,7 @@
     ru: {
       /* ── index.html ── */
       name: "Инна Иванова",
-      intro: "Продуктовый дизайнер с\u00A05-летним опытом работы в\u00A0продуктовых командах. Проектирую приложения и\u00A0веб-сервисы, провожу качественные и\u00A0количественные исследования",
-      body1: "• Специализируюсь на\u00A0решениях, которые улучшают пользовательский опыт и\u00A0достигают бизнес-целей. Веду полный цикл разработки продукта — <strong>от\u00A0исследования до\u00A0внедрения</strong>.<br>",
-      body2: "• Переработала устаревшее Android-приложение Samokat Darkstore для\u00A0выхода на\u00A0iOS и\u00A0Android, <strong>пересмотрела устаревшие решения, сформулировала гипотезы и\u00A0пополнила бэклог</strong>.<br>",
-      body3: "• Снизила расходы компании на\u00A0<strong>16\u00A0млн в\u00A0год</strong>, нагрузку сотрудников на\u00A0<strong>10\u00A0%</strong> и\u00A0долю отменённых заказов на\u00A0<strong>5\u00A0%</strong> за\u00A0счёт исследований и\u00A0дизайна интерфейса печати этикеток для\u00A0готовых блюд в\u00A0мобильном приложении (iOS и\u00A0Android).<br>",
+      intro: "Product Designer с\u00A05+ годами опыта в\u00A0продуктовых командах, превращаю сложные бизнес-процессы в\u00A0простые цифровые инструменты",
       samokat_title: "Самокат",
       samokat_desc: "Сервис быстрой доставки продуктов и\u00A0готовой еды в\u00A0127 городах, до\u00A0827\u00A0000 заказов в\u00A0день",
       view_order_picking: "Сбор заказов",
