@@ -322,7 +322,7 @@ h3 {
 
 h4 {
   margin-top: 10px;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 24px;
 }
 
@@ -347,7 +347,7 @@ blockquote {
   border-left: 5px solid #e2e2e2;
   margin: 0 0 10px;
   padding: 10px 20px;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 22px;
 }
 
@@ -1794,7 +1794,7 @@ textarea.w-input, textarea.w-select {
   padding-top: 0;
   padding-bottom: 0;
   font-family: Montserrat, sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 400;
   line-height: 120%;
 }
@@ -1832,7 +1832,7 @@ textarea.w-input, textarea.w-select {
 
 .body_gr_web.white {
   color: var(--bg_n);
-  font-size: 18px;
+  font-size: 16px;
   line-height: 110%;
 }
 
@@ -1875,7 +1875,7 @@ textarea.w-input, textarea.w-select {
   margin-top: 0;
   margin-bottom: 0;
   font-family: Montserrat, sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 400;
   line-height: 120%;
   display: block;
@@ -1956,7 +1956,7 @@ textarea.w-input, textarea.w-select {
 .text-block-4 {
   color: var(--grey);
   font-family: Montserrat, sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 120%;
 }
 
@@ -2036,7 +2036,7 @@ textarea.w-input, textarea.w-select {
 .text-block-9 {
   color: var(--black);
   font-family: Montserrat, sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
   line-height: 120%;
 }
@@ -2044,7 +2044,7 @@ textarea.w-input, textarea.w-select {
 .text-block-10 {
   color: var(--black);
   font-family: Montserrat, sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 120%;
 }
 
@@ -2061,14 +2061,14 @@ textarea.w-input, textarea.w-select {
 .text-block-11 {
   color: var(--grey);
   font-family: Montserrat, sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 120%;
 }
 
 .text-block-12 {
   color: var(--black);
   font-family: Montserrat, sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 120%;
 }
 
@@ -2114,14 +2114,14 @@ textarea.w-input, textarea.w-select {
 .text-block-15 {
   color: var(--grey_c);
   font-family: Montserrat, sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 120%;
 }
 
 .text-block-16 {
   color: var(--black);
   font-family: Montserrat, sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 120%;
 }
 
@@ -2134,7 +2134,7 @@ textarea.w-input, textarea.w-select {
   padding-top: 0;
   padding-bottom: 0;
   font-family: Montserrat, sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 120%;
 }
 
@@ -2170,7 +2170,7 @@ textarea.w-input, textarea.w-select {
 .text-block-19 {
   color: var(--black);
   font-family: Montserrat, sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 120%;
 }
 
@@ -2197,7 +2197,7 @@ textarea.w-input, textarea.w-select {
 .text-block-21 {
   color: var(--black);
   font-family: Montserrat, sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 120%;
 }
 
@@ -2217,7 +2217,7 @@ textarea.w-input, textarea.w-select {
   padding: 20px;
   display: flex;
   color: #fff;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .div-block-19 > div:last-child {
@@ -2481,7 +2481,7 @@ textarea.w-input, textarea.w-select {
 .nav-link.body_web.white {
   flex: 0 auto;
   padding-right: 10px;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 100%;
 }
 
@@ -2528,7 +2528,7 @@ textarea.w-input, textarea.w-select {
   cursor: pointer;
   color: var(--black);
   font-family: Montserrat, sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 400;
   line-height: 100%;
   padding: 18px;
@@ -2574,7 +2574,7 @@ textarea.w-input, textarea.w-select {
 }
 
 .nav-link-2.body_web.white {
-  font-size: 18px;
+  font-size: 16px;
   line-height: 100%;
 }
 
@@ -2583,7 +2583,7 @@ textarea.w-input, textarea.w-select {
 }
 
 .nav-link-2.subheader_web {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .nav-link-2.subheader_web.small {
@@ -2610,7 +2610,7 @@ textarea.w-input, textarea.w-select {
 }
 
 .nav-link-3.body_web.white {
-  font-size: 18px;
+  font-size: 16px;
   line-height: 100%;
 }
 
@@ -2621,7 +2621,7 @@ textarea.w-input, textarea.w-select {
 /* Переключатель языка — тот же шрифт, что у пунктов навигации (Dribbble и др.) */
 .lang-switcher__btn.body_web.white {
   font-family: Montserrat, sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 400;
   line-height: 100%;
 }
@@ -3195,7 +3195,7 @@ html[lang="ru"] .cursor-view-case {
     justify-content: center;
     text-align: center;
     color: rgba(255, 255, 255, 0.9);
-    font-size: 18px;
+    font-size: 16px;
   }
 
   .nav-menu-2 .lang-switcher--menu .lang-switcher__btn:hover:not(.lang-switcher__active) {

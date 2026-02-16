@@ -5,8 +5,9 @@
     en: {
       /* ── index.html ── */
       name: "Inna Ivanova",
-      intro: "Product Designer with\u00A05+ years of\u00A0experience in\u00A0product teams, turning complex business processes into simple digital tools",
+      intro: "Product Designer with\u00A05+ years of\u00A0experience in\u00A0product teams,<br>turning complex business processes into simple digital tools",
       samokat_title: "Samokat",
+      samokat_intro: "Samokat. Russian rapid grocery and ready-to-eat food delivery service<br>operating in\u00A0127 cities and handling up to\u00A0827\u00A0000 orders per\u00A0day",
       samokat_desc: "Russian rapid grocery and ready-to-eat food delivery service operating in\u00A0127 cities and handling up to\u00A0827\u00A0000 orders per\u00A0day",
       view_order_picking: "View order picking",
       order_picking_alt: "Order picking",
@@ -30,6 +31,7 @@
       stat_kitchen_4: "B2B",
       stat_kitchen_5: "2024",
       mes_title: "MES",
+      mes_intro: "MES. Moscow Electronic School is a project for\u00A0teachers<br>aimed at\u00A0creating a high-tech educational environment in\u00A0Moscow schools",
       mes_desc: "Moscow Electronic School is a project for\u00A0teachers aimed at\u00A0creating a high-tech educational environment in\u00A0Moscow schools",
       view_teachers_journal: "View teacher's journal",
       teachers_journal_alt: "Teacher's journal",
@@ -375,8 +377,9 @@
     ru: {
       /* ── index.html ── */
       name: "Инна Иванова",
-      intro: "Product Designer с\u00A05+ годами опыта в\u00A0продуктовых командах, превращаю сложные бизнес-процессы в\u00A0простые цифровые инструменты",
+      intro: "Product Designer с\u00A05+ годами опыта в\u00A0продуктовых командах,<br>превращаю сложные бизнес-процессы в\u00A0простые цифровые инструменты",
       samokat_title: "Самокат",
+      samokat_intro: "Самокат. Сервис быстрой доставки продуктов и\u00A0готовой еды<br>в\u00A0127 городах, до\u00A0827\u00A0000 заказов в\u00A0день",
       samokat_desc: "Сервис быстрой доставки продуктов и\u00A0готовой еды в\u00A0127 городах, до\u00A0827\u00A0000 заказов в\u00A0день",
       view_order_picking: "Сбор заказов",
       order_picking_alt: "Сбор заказов",
@@ -400,6 +403,7 @@
       stat_kitchen_4: "B2B",
       stat_kitchen_5: "2024",
       mes_title: "МЭШ",
+      mes_intro: "МЭШ. Московская электронная школа — проект для\u00A0учителей,<br>создание высокотехнологичной образовательной среды в\u00A0школах Москвы",
       mes_desc: "Московская электронная школа — проект для\u00A0учителей, создание высокотехнологичной образовательной среды в\u00A0школах Москвы",
       view_teachers_journal: "Журнал учителя",
       teachers_journal_alt: "Журнал учителя",
