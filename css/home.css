@@ -251,11 +251,11 @@ body.panel-open .site-wrapper {
   background: transparent;
   font-size: 13px;
   font-weight: 500;
-  color: #404040;
+  color: #888;
   cursor: pointer;
   transition: color .3s;
 }
-.lang-switcher__btn:hover:not(.lang-switcher__active) { color: #404040; }
+.lang-switcher__btn:hover:not(.lang-switcher__active) { color: #666; }
 .lang-switcher__btn.lang-switcher__active { color: #404040; font-weight: 600; }
 
 /* ---------- About section ---------- */
@@ -749,7 +749,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 .mobile-menu .lang-switcher__btn {
   padding: 10px 20px;
   font-size: 15px;
-  color: rgba(255,255,255,.8);
+  color: rgba(255,255,255,.5);
 }
 .mobile-menu .lang-switcher__btn.lang-switcher__active {
   color: #404040;
