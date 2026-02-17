@@ -454,6 +454,13 @@ body.panel-open .panel-overlay {
   pointer-events: auto;
 }
 
+/* Лёгкое розоватое затемнение для модалки проектов Самоката с блюром */
+body.panel-open.panel-open--samokat .panel-overlay {
+  background: rgba(255, 194, 206, 0.38);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
 /* ---------- Project panel (centered modal) ---------- */
 /* Боковые отступы = 5% ширины модалки (left = right = 100vw/24) */
 .project-panel {

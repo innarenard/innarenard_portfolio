@@ -99,6 +99,9 @@
     panel.scrollTop = 0;
     panel.setAttribute('aria-hidden', 'false');
     document.body.classList.add('panel-open');
+    if (card.closest('#samokat')) {
+      document.body.classList.add('panel-open--samokat');
+    }
     document.documentElement.style.overflow = 'hidden';
     history.pushState({ panel: true }, '', '');
 
@@ -116,7 +119,7 @@
   }
 
   function closePanel() {
-    document.body.classList.remove('panel-open');
+    document.body.classList.remove('panel-open', 'panel-open--samokat');
     document.documentElement.style.overflow = '';
     panel.setAttribute('aria-hidden', 'true');
     currentCard = null;
