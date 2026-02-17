@@ -463,6 +463,7 @@ body.panel-open.panel-open--samokat .panel-overlay {
 
 /* ---------- Project panel (centered modal) ---------- */
 /* Боковые отступы = 5% ширины модалки (left = right = 100vw/24) */
+/* Хедер с кнопкой — оверлей поверх контента, контент прокручивается под ним */
 .project-panel {
   position: fixed;
   top: 18px;
@@ -476,11 +477,8 @@ body.panel-open.panel-open--samokat .panel-overlay {
   pointer-events: none;
   transition: opacity .4s cubic-bezier(.4,0,.2,1),
               transform .4s cubic-bezier(.4,0,.2,1);
-  overflow-y: auto;
-  overflow-x: hidden;
   border-radius: 24px;
   box-shadow: 0 24px 80px rgba(0,0,0,.18), 0 0 0 1px rgba(0,0,0,.04);
-  overscroll-behavior: contain;
 }
 body.panel-open .project-panel {
   opacity: 1;
@@ -488,12 +486,24 @@ body.panel-open .project-panel {
   pointer-events: auto;
 }
 
+/* Область контента на всю модалку — скроллится */
+.project-panel__scroll {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  border-radius: 24px;
+}
+
+/* Кнопка закрытия поверх контента (оверлей) */
 .project-panel__close {
-  position: sticky;
+  position: absolute;
   top: 28px;
-  margin: 28px 32px 0 auto;
+  right: 32px;
   z-index: 10;
-  width: 44px; height: 44px;
+  width: 44px;
+  height: 44px;
   border-radius: 12px;
   background: #f2f2f5;
   display: flex;
@@ -505,7 +515,7 @@ body.panel-open .project-panel {
 .project-panel__close svg { width: 18px; height: 18px; stroke: #404040; }
 
 .project-panel__body {
-  padding: 16px 10% 100px;
+  padding: 80px 10% 100px;
 }
 
 /* Panel project content */
@@ -738,7 +748,14 @@ body.panel-open .project-panel {
     border-radius: 0;
     box-shadow: none;
   }
-  .project-panel__body { padding: 16px 10% 60px; }
+  .project-panel__scroll {
+    border-radius: 0;
+  }
+  .project-panel__close {
+    top: 28px;
+    right: 16px;
+  }
+  .project-panel__body { padding: 72px 10% 60px; }
   .panel-hero__title { font-size: 24px; }
   .panel-meta { grid-template-columns: 1fr 1fr; gap: 14px; }
 

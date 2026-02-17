@@ -1,5 +1,6 @@
 (function () {
   var panel = document.getElementById('projectPanel');
+  var panelScroll = panel ? panel.querySelector('.project-panel__scroll') : null;
   var panelBody = document.getElementById('panelBody');
   var panelClose = document.getElementById('panelClose');
   var overlay = document.getElementById('panelOverlay');
@@ -96,7 +97,7 @@
     currentCard = card;
     var href = card.getAttribute('data-href') || '';
     showLoading();
-    panel.scrollTop = 0;
+    if (panelScroll) panelScroll.scrollTop = 0;
     panel.setAttribute('aria-hidden', 'false');
     document.body.classList.add('panel-open');
     if (card.closest('#samokat')) {
@@ -110,7 +111,7 @@
         if (currentCard !== card) return;
         panelBody.innerHTML = '<div class="panel-case">' + html + '</div>';
         applyI18n(panelBody);
-        panel.scrollTop = 0;
+        if (panelScroll) panelScroll.scrollTop = 0;
       })
       .catch(function () {
         if (currentCard !== card) return;
@@ -168,4 +169,17 @@
       closePanel();
     }
   });
+
+  // Open project panel from URL (e.g. /?project=order-picking) when coming from /order-picking/
+  (function () {
+    var match = /[?&]project=([^&]+)/.exec(location.search);
+    if (match) {
+      var id = match[1].replace(/\/$/, '');
+      var card = document.querySelector('.project-card[data-project="' + id + '"]');
+      if (card) {
+        openPanel(card);
+        history.replaceState({ panel: true }, '', location.pathname || '/');
+      }
+    }
+  })();
 })();
