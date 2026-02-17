@@ -1263,14 +1263,12 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 /* Dark kitchen: Business / Kitchen pain points. Teachers: Teacher's Pain Points. Colleges: Administrator's Pain Points (.div-block-31 с карточками .div-block-15 или .div-block-17) */
 .panel-case .div-block-31:has(> .div-block-15),
 .panel-case .div-block-31:has(> .div-block-17) {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 12px;
 }
 .panel-case .div-block-31:has(> .div-block-15) .div-block-15,
 .panel-case .div-block-31:has(> .div-block-17) .div-block-17 {
-  flex: 1 1 0;
   min-width: 0;
 }
 
@@ -1286,7 +1284,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 .panel-case .div-block-15 .body_text,
 .panel-case .div-block-17 .body_text {
   font-size: 18px;
-  line-height: 26px;
+  line-height: 1.35;
   color: #404040;
   margin: 0;
 }
@@ -1589,9 +1587,12 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   .panel-case [data-i18n="tj_role_8"],
   .panel-case [data-i18n="tj_role_9"] { max-width: 100%; }
   .panel-case .div-block-30 { grid-template-columns: 1fr; }
+  .panel-case .div-block-30:has(.div-block-19) { grid-template-columns: repeat(2, 1fr); }
   .panel-case .div-block-30.bento-bpain .bento-bpain-grid { flex-wrap: nowrap; gap: 8px; }
   .panel-case .div-block-31:has(> .div-block-15),
-  .panel-case .div-block-31:has(> .div-block-17) { gap: 8px; }
+  .panel-case .div-block-31:has(> .div-block-17) { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .panel-case .div-block-31:has(> .div-block-15) .div-block-15,
+  .panel-case .div-block-31:has(> .div-block-17) .div-block-17 { min-width: 0; }
   .panel-case .div-block-34,
   .panel-case .div-block-35 { grid-template-columns: 1fr; }
   /* Метрики: первая строка — Metrics на всю ширину, вторая — DAU и Dark Stores в одну строку */
@@ -1604,11 +1605,12 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   .panel-case .result_web .header,
   .panel-case .result_web .header.pink { font-size: 24px; }
   .panel-case .bento-results {
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto;
     grid-template-areas:
-      "hero     topmid  right"
-      "released bottommid right";
+      "right    right"
+      "hero     topmid"
+      "released bottommid";
     gap: 8px;
   }
   .panel-case .bento-results__card { padding: 22px 20px; gap: 5px; border-radius: 14px; }
@@ -1627,7 +1629,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
     margin: 0;
   }
   .panel-case .block20x20 .body_gr {
-    margin-top: 48px;
+    margin-top: 80px;
     margin-bottom: 0;
   }
   .panel-case .block20x20:first-child .body_gr { margin-top: 0; }
