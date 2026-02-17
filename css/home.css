@@ -910,7 +910,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   margin: 0;
   max-width: 80%;
 }
-.panel-case .subheader strong { font-weight: 400; }
+.panel-case .subheader strong { font-weight: 600; }
 
 .panel-case .body_text {
   font-family: 'Montserrat', sans-serif;
