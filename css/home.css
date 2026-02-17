@@ -152,9 +152,9 @@ body.panel-open .site-wrapper {
 }
 
 .hero__subtitle {
-  font-size: 16px;
+  font-size: 28px;
   font-weight: 400;
-  line-height: 1.55;
+  line-height: 1.4;
   color: #404040;
   max-width: 720px;
 }
@@ -775,7 +775,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   }
 
   .hero__name { font-size: 32px; }
-  .hero__subtitle { font-size: 16px; }
+  .hero__subtitle { font-size: 20px; }
 
   .company-section { margin-bottom: 56px; }
   .company-section__title { font-size: 26px; }
@@ -1135,6 +1135,39 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   display: flex;
   flex-direction: column;
   gap: 4px;
+}
+
+/* Teacher's journal: серые блоки с фоном #F4F4F8 */
+.panel-case:has([data-i18n="tj_schools_label"]) .div-block-26 .div-block-8,
+.panel-case:has([data-i18n="tj_schools_label"]) .div-block-17,
+.panel-case:has([data-i18n="tj_schools_label"]) .div-block-9 {
+  background: #F4F4F8;
+}
+
+/* Colleges: серые блоки с фоном #F4F4F8 */
+.panel-case:has([data-i18n="co_colleges_label"]) .div-block-26 .div-block-12,
+.panel-case:has([data-i18n="co_colleges_label"]) .div-block-17,
+.panel-case:has([data-i18n="co_colleges_label"]) .div-block-9 {
+  background: #F4F4F8;
+}
+
+/* Colleges: блоки DAU и Moscow colleges — как Redesign and update (скругления и отступы) */
+.panel-case:has([data-i18n="co_colleges_label"]) .div-block-26 .div-block-12 {
+  padding: 18px;
+  border-radius: 18px;
+}
+
+/* Colleges: изображения Navigation, Block tables, Tables — в серых блоках */
+.panel-case:has([data-i18n="co_colleges_label"]) .div-block-37,
+.panel-case:has([data-i18n="co_colleges_label"]) .div-block-33 {
+  background: #F4F4F8;
+  padding: 18px;
+  border-radius: 18px;
+  overflow: hidden;
+}
+.panel-case:has([data-i18n="co_colleges_label"]) .div-block-37 img,
+.panel-case:has([data-i18n="co_colleges_label"]) .div-block-33 img {
+  border-radius: 12px;
 }
 
 .panel-case .div-block-8,

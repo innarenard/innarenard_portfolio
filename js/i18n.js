@@ -5,7 +5,7 @@
     en: {
       /* ── index.html ── */
       name: "Inna Ivanova",
-      intro: "Product Designer with\u00A05+ years of\u00A0experience in\u00A0product teams,<br>turning complex business processes into\u00A0simple digital tools",
+      intro: "Product Designer with\u00A05+ years of\u00A0experience in\u00A0product teams, turning complex business processes into\u00A0simple digital tools",
       samokat_title: "Samokat",
       samokat_intro: "Samokat. Russian rapid grocery and\u00A0ready-to-eat food delivery service<br>operating in\u00A0127 cities and\u00A0handling up\u00A0to\u00A0827\u00A0000 orders per\u00A0day",
       samokat_desc: "Russian rapid grocery and\u00A0ready-to-eat food delivery service operating in\u00A0127 cities and\u00A0handling up\u00A0to\u00A0827\u00A0000 orders per\u00A0day",
@@ -385,7 +385,7 @@
     ru: {
       /* ── index.html ── */
       name: "Инна Иванова",
-      intro: "Product Designer с\u00A05+ годами опыта в\u00A0продуктовых командах,<br>превращаю сложные бизнес-процессы в\u00A0простые цифровые инструменты",
+      intro: "Product Designer с\u00A05+ годами опыта в\u00A0продуктовых командах,<br>превращаю сложные бизнес-процессы<br>в\u00A0простые цифровые инструменты",
       samokat_title: "Самокат",
       samokat_intro: "Самокат. Сервис быстрой доставки продуктов и\u00A0готовой еды<br>в\u00A0127 городах, до\u00A0827\u00A0000 заказов в\u00A0день",
       samokat_desc: "Сервис быстрой доставки продуктов и\u00A0готовой еды в\u00A0127 городах, до\u00A0827\u00A0000 заказов в\u00A0день",
