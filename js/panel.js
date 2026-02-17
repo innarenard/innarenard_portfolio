@@ -6,7 +6,7 @@
   var overlay = document.getElementById('panelOverlay');
   var scrollIndicator = document.getElementById('panelScrollIndicator');
   var scrollIndicatorFill = document.getElementById('panelScrollIndicatorFill');
-  var MOBILE_BP = 991;
+  var MOBILE_BP = 700;
   var currentCard = null;
 
   if (!panel || !panelBody) return;

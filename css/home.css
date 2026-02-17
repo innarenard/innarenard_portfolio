@@ -779,9 +779,9 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 }
 
 /* ================================================================
-   Responsive: десктоп (>991px) и мобильная (≤991px)
+   Responsive: десктоп (>700px) и мобильная (≤700px)
    ================================================================ */
-@media screen and (max-width: 991px) {
+@media screen and (max-width: 700px) {
   body { font-size: 14px; }
   .site-header__burger { display: none; }
   .site-header__lang { display: flex; }
@@ -1535,7 +1535,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 }
 
 /* Responsive inside panel (мобильная версия) */
-@media screen and (max-width: 991px) {
+@media screen and (max-width: 700px) {
   .panel-case { font-size: 14px; line-height: 1.5; }
   .panel-case .body_text,
   .panel-case .body_gr,

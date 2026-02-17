@@ -709,8 +709,8 @@ textarea.w-input, textarea.w-select {
   display: none !important;
 }
 
-/* Мобильная версия: один брейкпоинт 991px (десктоп выше) */
-@media screen and (max-width: 991px) {
+/* Мобильная версия: один брейкпоинт 700px (десктоп выше) */
+@media screen and (max-width: 700px) {
   .w-container {
     max-width: none;
   }
@@ -1549,7 +1549,7 @@ textarea.w-input, textarea.w-select {
   position: static;
 }
 
-@media screen and (max-width: 991px) {
+@media screen and (max-width: 700px) {
   .w-nav[data-collapse="medium"] .w-nav-menu,
   .w-nav[data-collapse="small"] .w-nav-menu,
   .w-nav[data-collapse="tiny"] .w-nav-menu {
@@ -1631,7 +1631,7 @@ textarea.w-input, textarea.w-select {
   display: block;
 }
 
-@media screen and (max-width: 991px) {
+@media screen and (max-width: 700px) {
   .w-tab-link {
     display: block;
   }
@@ -1696,7 +1696,7 @@ textarea.w-input, textarea.w-select {
   flex: 0 0 auto;
 }
 
-@media screen and (max-width: 991px) {
+@media screen and (max-width: 700px) {
   .w-layout-blockcontainer {
     max-width: none;
   }
@@ -2442,7 +2442,7 @@ strong.body_text {
 }
 
 /* В десктопной версии только переключатель снизу; в шапке скрыт; высота 40px */
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 701px) {
   .lang-switcher--menu {
     display: none !important;
   }
@@ -3167,14 +3167,14 @@ html[lang="ru"] .cursor-view-case {
   padding-bottom: 0;
 }
 
-/* Боковые отступы 20px для мобильной версии (≤991px) */
-@media screen and (max-width: 991px) {
+/* Боковые отступы 20px для мобильной версии (≤700px) */
+@media screen and (max-width: 700px) {
   :root {
     --content-padding-x: 20px;
   }
 }
 
-@media screen and (max-width: 991px) {
+@media screen and (max-width: 700px) {
   body {
     font-size: 14px;
     line-height: 20px;
