@@ -1594,7 +1594,13 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   .panel-case .div-block-31:has(> .div-block-17) { gap: 8px; }
   .panel-case .div-block-34,
   .panel-case .div-block-35 { grid-template-columns: 1fr; }
-  .panel-case .div-block-26 { grid-template-columns: 1fr; }
+  /* Метрики: первая строка — Metrics на всю ширину, вторая — DAU и Dark Stores в одну строку */
+  .panel-case .div-block-26 {
+    grid-template-columns: 1fr 1fr;
+  }
+  .panel-case .div-block-26 .div-block-8.metric-cell:first-child {
+    grid-column: 1 / -1;
+  }
   .panel-case .result_web .header,
   .panel-case .result_web .header.pink { font-size: 24px; }
   .panel-case .bento-results {
@@ -1621,10 +1627,15 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
     margin: 0;
   }
   .panel-case .block20x20 .body_gr {
-    margin-top: 80px;
+    margin-top: 48px;
     margin-bottom: 0;
   }
+  .panel-case .block20x20:first-child .body_gr { margin-top: 0; }
   .panel-case .metric-cell .body_gr {
     margin-top: 0;
   }
+  /* Меньше расстояние между блоками в мобильной модалке */
+  .panel-case .block_60 { margin-bottom: 20px; }
+  .panel-case .block_100 { margin-bottom: 28px; }
+  .panel-case .div-block-26 { gap: 10px; }
 }
