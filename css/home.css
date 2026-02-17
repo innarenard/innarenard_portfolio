@@ -910,7 +910,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   margin: 0;
   max-width: 80%;
 }
-.panel-case .subheader strong { font-weight: 600; }
+.panel-case .subheader strong { font-weight: 600; color: rgba(64, 64, 64, 1); }
 
 .panel-case .body_text {
   font-family: 'Montserrat', sans-serif;
@@ -1300,15 +1300,14 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   margin: 0;
 }
 
-/* Bento results grid (Order picking) */
+/* Bento results grid (Order picking) — 3 cols: left (2 cells), middle (2 cells), right (1 full height) */
 .panel-case .bento-results {
   display: grid;
-  grid-template-columns: 1.15fr 1fr;
-  grid-template-rows: 1fr 1fr auto;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1.4fr 0.6fr;
   grid-template-areas:
-    "hero errors"
-    "hero score"
-    "released ab";
+    "hero topmid right"
+    "released bottommid right";
   gap: 10px;
   margin-top: 8px;
 }
@@ -1326,82 +1325,96 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   font-weight: 600;
   line-height: 110%;
   margin: 0;
+  color: #404040;
 }
 .panel-case .bento-results__label {
   font-family: Montserrat, sans-serif;
   font-size: 14px;
   font-weight: 400;
   line-height: 130%;
+  color: #7A7A7A;
 }
 
 /* Hero — tall left card, content pinned to top */
 .panel-case .bento-results__card--hero {
   grid-area: hero;
-  background: linear-gradient(160deg, #1e1e26 0%, #16161c 100%);
+  background: #FFD6DF;
   padding: 28px 26px;
   justify-content: flex-start;
 }
 .panel-case .bento-results__card--hero .bento-results__value {
-  font-size: 48px;
-  font-weight: 700;
+  font-size: 28px;
+  font-weight: 600;
   line-height: 100%;
-  color: #ff6b8a;
+  color: #404040;
 }
 .panel-case .bento-results__card--hero .bento-results__label {
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 16px;
+  font-size: 14px;
+  color: #7A7A7A;
   margin-top: 2px;
 }
 
-/* Dark cards */
+/* Dark cards — bottom-middle cell */
 .panel-case .bento-results__card--dark {
-  background: #1e1e26;
+  background: #EFEFEF;
 }
 .panel-case .bento-results__card--dark .bento-results__value {
-  color: #ff8fa8;
+  font-size: 28px;
+  font-weight: 600;
+  color: #404040;
 }
 .panel-case .bento-results__card--dark .bento-results__label {
-  color: rgba(255, 255, 255, 0.45);
+  font-size: 14px;
+  color: #7A7A7A;
 }
 .panel-case .bento-results__card--dark:nth-child(2) {
-  grid-area: errors;
+  grid-area: bottommid;
 }
 
-/* Light card */
+/* Light card — top-middle cell */
 .panel-case .bento-results__card--light {
-  grid-area: score;
-  background: #f7f2ed;
+  grid-area: topmid;
+  background: #FFEAD6;
+  justify-content: flex-start;
 }
 .panel-case .bento-results__card--light .bento-results__value {
-  color: #1e1e26;
-  font-weight: 700;
+  font-size: 28px;
+  font-weight: 600;
+  color: #404040;
 }
 .panel-case .bento-results__card--light .bento-results__label {
-  color: #8a857e;
+  font-size: 14px;
+  color: #7A7A7A;
 }
 
-/* Accent pink card */
+/* Accent card — right column, full height */
 .panel-case .bento-results__card--accent {
-  grid-area: ab;
-  background: linear-gradient(135deg, #ff6b8a 0%, #ff4d73 100%);
+  grid-area: right;
+  background: #CFD3FF;
 }
 .panel-case .bento-results__card--accent .bento-results__value {
-  color: #fff;
-  font-weight: 700;
+  font-size: 28px;
+  font-weight: 600;
+  color: #404040;
 }
 .panel-case .bento-results__card--accent .bento-results__label {
-  color: rgba(255, 255, 255, 0.75);
+  font-size: 14px;
+  color: #7A7A7A;
 }
 
-/* Released card */
+/* Released card — bottom-left cell */
 .panel-case .bento-results__card--released {
   grid-area: released;
+  background: #EFEFEF;
 }
 .panel-case .bento-results__card--released .bento-results__value {
-  color: #6ee7b7;
+  font-size: 28px;
+  font-weight: 600;
+  color: #404040;
 }
 .panel-case .bento-results__card--released .bento-results__label {
-  color: rgba(255, 255, 255, 0.45);
+  font-size: 14px;
+  color: #7A7A7A;
 }
 
 /* Teacher's journal / Colleges result cards — одинаковый внутренний отступ у обеих карточек (Redesign… / 8,9/10 и т.п.) */
@@ -1463,18 +1476,17 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   .panel-case .result_web .header,
   .panel-case .result_web .header.pink { font-size: 24px; }
   .panel-case .bento-results {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto auto;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1.4fr 0.6fr;
     grid-template-areas:
-      "hero     hero"
-      "errors   score"
-      "released ab";
+      "hero     topmid  right"
+      "released bottommid right";
     gap: 8px;
   }
   .panel-case .bento-results__card { padding: 16px; gap: 5px; border-radius: 14px; }
   .panel-case .bento-results__card--hero { padding: 20px; }
-  .panel-case .bento-results__card--hero .bento-results__value { font-size: 32px; }
-  .panel-case .bento-results__card--hero .bento-results__label { font-size: 14px; }
-  .panel-case .bento-results__value { font-size: 22px; }
-  .panel-case .bento-results__label { font-size: 12px; }
+  .panel-case .bento-results__card--hero .bento-results__value { font-size: 28px; font-weight: 600; color: #404040; }
+  .panel-case .bento-results__card--hero .bento-results__label { font-size: 14px; color: #7A7A7A; }
+  .panel-case .bento-results__value { font-size: 28px; font-weight: 600; color: #404040; }
+  .panel-case .bento-results__label { font-size: 14px; color: #7A7A7A; }
 }
