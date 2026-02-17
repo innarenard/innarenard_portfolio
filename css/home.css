@@ -1163,6 +1163,15 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   gap: 4px;
 }
 
+/* Ячейки метрик (Metrics, DAU, Dark Stores и т.д.) — отдельный стиль, не наследуют общие изменения отступов */
+.panel-case .metric-cell .body_text {
+  margin: 0 0 6px;
+}
+.panel-case .metric-cell .body_gr {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
 /* Teacher's journal: серые блоки с фоном #F4F4F8 */
 .panel-case:has([data-i18n="tj_schools_label"]) .div-block-26 .div-block-8,
 .panel-case:has([data-i18n="tj_schools_label"]) .div-block-17,
@@ -1602,4 +1611,20 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   .panel-case .bento-results__card--hero .bento-results__label { font-size: 14px; color: #7A7A7A; }
   .panel-case .bento-results__value { font-size: 28px; font-weight: 600; color: #404040; }
   .panel-case .bento-results__label { font-size: 14px; color: #7A7A7A; }
+
+  /* Отступы только для мобильной версии (десктоп — как в базовых правилах выше) */
+  .panel-case .block20x20 {
+    margin-top: 0;
+    padding-top: 0;
+  }
+  .panel-case .body_text {
+    margin: 0;
+  }
+  .panel-case .block20x20 .body_gr {
+    margin-top: 80px;
+    margin-bottom: 0;
+  }
+  .panel-case .metric-cell .body_gr {
+    margin-top: 0;
+  }
 }
