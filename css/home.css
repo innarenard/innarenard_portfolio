@@ -1277,7 +1277,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 /* Pain point cards */
 .panel-case .div-block-15,
 .panel-case .div-block-17 {
-  padding: 14px 16px;
+  padding: 20px;
   background: #F2F2F2;
   border-radius: 14px;
   min-width: 200px;
@@ -1303,7 +1303,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 .panel-case .div-block-19 {
   display: flex;
   flex-direction: column;
-  padding: 14px 16px;
+  padding: 20px;
   background: #404040;
   border-radius: 14px;
   color: #fff;
