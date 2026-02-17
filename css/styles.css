@@ -2852,6 +2852,114 @@ html[lang="ru"] .cursor-view-case {
   margin-left: 28px;
 }
 
+/* ========== Bento results grid ========== */
+.bento-results {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  grid-template-rows: 1fr 1fr auto;
+  grid-template-areas:
+    "hero errors"
+    "hero score"
+    "released ab";
+  gap: 12px;
+}
+
+.bento-results__card {
+  border-radius: 20px;
+  padding: 28px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.bento-results__value {
+  font-family: Montserrat, sans-serif;
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 110%;
+  margin: 0;
+}
+
+.bento-results__label {
+  font-family: Montserrat, sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 130%;
+}
+
+/* Hero card — tall, left column, content pinned to top */
+.bento-results__card--hero {
+  grid-area: hero;
+  background: linear-gradient(160deg, #1e1e26 0%, #16161c 100%);
+  padding: 36px 34px;
+  justify-content: flex-start;
+}
+.bento-results__card--hero .bento-results__value {
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 100%;
+  color: #ff6b8a;
+}
+.bento-results__card--hero .bento-results__label {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 17px;
+  margin-top: 4px;
+}
+
+/* Dark cards */
+.bento-results__card--dark {
+  background: #1e1e26;
+}
+.bento-results__card--dark .bento-results__value {
+  color: #ff8fa8;
+}
+.bento-results__card--dark .bento-results__label {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+/* Errors card — top right */
+.bento-results__card--dark:nth-child(2) {
+  grid-area: errors;
+}
+
+/* Light card — warm cream */
+.bento-results__card--light {
+  grid-area: score;
+  background: #f7f2ed;
+}
+.bento-results__card--light .bento-results__value {
+  color: #1e1e26;
+  font-weight: 700;
+}
+.bento-results__card--light .bento-results__label {
+  color: #8a857e;
+}
+
+/* Accent card — vibrant pink */
+.bento-results__card--accent {
+  grid-area: ab;
+  background: linear-gradient(135deg, #ff6b8a 0%, #ff4d73 100%);
+}
+.bento-results__card--accent .bento-results__value {
+  color: #fff;
+  font-weight: 700;
+}
+.bento-results__card--accent .bento-results__label {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* Released card — bottom right */
+.bento-results__card--released {
+  grid-area: released;
+}
+.bento-results__card--released .bento-results__value {
+  color: #6ee7b7;
+}
+.bento-results__card--released .bento-results__label {
+  color: rgba(255, 255, 255, 0.45);
+}
+
 .flex-block-2 {
   grid-column-gap: 12px;
   grid-row-gap: 12px;
@@ -3614,6 +3722,40 @@ html[lang="ru"] .cursor-view-case {
 
   .div-block-34, .div-block-35 {
     flex-flow: column;
+  }
+
+  .bento-results {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+      "hero     hero"
+      "errors   score"
+      "released ab";
+    gap: 8px;
+  }
+
+  .bento-results__card {
+    padding: 20px;
+    gap: 6px;
+    border-radius: 16px;
+  }
+
+  .bento-results__card--hero {
+    padding: 24px;
+  }
+  .bento-results__card--hero .bento-results__value {
+    font-size: 38px;
+  }
+  .bento-results__card--hero .bento-results__label {
+    font-size: 15px;
+  }
+
+  .bento-results__value {
+    font-size: 24px;
+  }
+
+  .bento-results__label {
+    font-size: 13px;
   }
 
   .div-block-26 {
