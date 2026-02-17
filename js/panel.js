@@ -8,7 +8,6 @@
   var scrollIndicatorFill = document.getElementById('panelScrollIndicatorFill');
   var MOBILE_BP = 991;
   var currentCard = null;
-  var cache = {};
 
   if (!panel || !panelBody) return;
 
@@ -68,10 +67,7 @@
   }
 
   function loadCaseContent(href) {
-    if (cache[href]) {
-      return Promise.resolve(cache[href]);
-    }
-    return fetch(href + 'index.html')
+    return fetch(href + 'index.html?t=' + Date.now())
       .then(function (res) {
         if (!res.ok) throw new Error('Not found');
         return res.text();
@@ -86,7 +82,6 @@
         removeEmptySpacers(main);
         var result = main.innerHTML;
         result = fixImagePaths(result, href);
-        cache[href] = result;
         return result;
       });
   }

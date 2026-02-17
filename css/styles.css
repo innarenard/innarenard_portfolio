@@ -1799,6 +1799,11 @@ textarea.w-input, textarea.w-select {
   line-height: 120%;
 }
 
+/* Большие подзаголовки в кейсах (Журнал учителя, Колледжи) — без жирности */
+.section_content h1.body_gr {
+  font-weight: 400;
+}
+
 .body_gr.pink_c {
   color: var(--pink_dark);
 }
@@ -1878,7 +1883,10 @@ textarea.w-input, textarea.w-select {
   font-size: 16px;
   font-weight: 400;
   line-height: 120%;
-  display: block;
+}
+
+strong.body_text {
+  font-weight: 700;
 }
 
 .section-4 {
@@ -2809,6 +2817,21 @@ html[lang="ru"] .cursor-view-case {
   display: flex;
 }
 
+/* Business pain points — блоки в одну горизонтальную линию */
+.div-block-30.bento-bpain {
+  display: block;
+}
+.bento-bpain-grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 12px;
+}
+.bento-bpain-grid .div-block-15 {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
 .div-block-31, .div-block-32 {
   grid-column-gap: 12px;
   grid-row-gap: 12px;
@@ -3578,9 +3601,15 @@ html[lang="ru"] .cursor-view-case {
     grid-template-columns: 1fr 1fr;
     gap: 8px;
   }
+  .div-block-30.bento-bpain {
+    display: block;
+  }
   .div-block-30 > .div-block-31,
   .div-block-30 > .div-block-32 {
     display: contents;
+  }
+  .div-block-30.bento-bpain .bento-bpain-grid {
+    gap: 8px;
   }
 
   .div-block-34, .div-block-35 {

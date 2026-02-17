@@ -550,7 +550,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   width: 44px;
   height: 44px;
   border-radius: 12px;
-  background: #f2f2f5;
+  background: #F2F2F2;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -635,7 +635,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   display: inline-flex;
   padding: 8px 18px;
   border-radius: 999px;
-  background: #f2f2f5;
+  background: #F2F2F2;
   font-size: 14px;
   font-weight: 500;
   color: #404040;
@@ -833,8 +833,12 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   color: #404040;
 }
 
-/* Reset Webflow body class inside panel */
-.panel-case { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+/* Reset Webflow body class inside panel — минимальный шрифт 18px, line-height 26px */
+.panel-case {
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 18px;
+  line-height: 26px;
+}
 
 /* Content blocks */
 .panel-case .section_content {
@@ -843,9 +847,25 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   margin: 0;
 }
 
-.panel-case .block20x20,
+.panel-case .block20x20 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding-top: 10px;
+}
 .panel-case .block0x0 {
   margin-bottom: 20px;
+}
+/* Меньше отступа над блоком результата (A full replacement… / 8,1/10 и Redesign… / 8,9/10) в журнале учителя и колледжах */
+.panel-case .block20x20:has(+ .block20x20 .div-block-34),
+.panel-case .block20x20:has([data-i18n="tj_result_1"]) {
+  margin-bottom: 8px;
+}
+.panel-case .block20x20:has([data-i18n="co_result_1"]) {
+  margin-bottom: 4px;
+}
+/* Убрать лишний отступ сверху у блока с карточками результата в колледжах (Redesign and update / 8,9 / 10) */
+.panel-case .block20x20:has(.div-block-34 [data-i18n="co_res_label_1"]) {
+  margin-top: 0;
 }
 
 .panel-case .block_60 { height: 0; margin-bottom: 32px; }
@@ -872,88 +892,204 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 /* Typography */
 .panel-case .header {
   font-family: 'Montserrat', sans-serif;
-  font-size: 32px;
-  font-weight: 700;
-  line-height: 1.15;
+  font-size: 40px;
+  font-weight: 500;
+  line-height: 1.25;
   letter-spacing: -0.02em;
   color: #404040;
   margin: 0 0 8px;
 }
 
+/* Большой подзаголовок (28px), 80% ширины контента модалки */
 .panel-case .subheader {
   font-family: 'Montserrat', sans-serif;
-  font-size: 20px;
+  font-size: 28px;
   font-weight: 400;
-  line-height: 1.55;
+  line-height: 1.25;
   color: #404040;
   margin: 0;
+  max-width: 80%;
 }
-.panel-case .subheader strong { font-weight: 600; }
+.panel-case .subheader strong { font-weight: 400; }
 
 .panel-case .body_text {
   font-family: 'Montserrat', sans-serif;
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 400;
-  line-height: 1.65;
+  line-height: 26px;
   color: #404040;
   margin: 0 0 6px;
 }
 .panel-case .body_text strong { font-weight: 600; color: #404040; }
+.panel-case strong.body_text { font-weight: 700; }
+
+/* Текст про задачу сборщика (op_flow) — 80% ширины контейнера */
+.panel-case [data-i18n="op_flow"] {
+  max-width: 80%;
+}
+
+/* Текст процесса трансферов (tr_process_1–4) — 80% ширины контейнера */
+.panel-case [data-i18n="tr_process_1"],
+.panel-case [data-i18n="tr_process_2"],
+.panel-case [data-i18n="tr_process_3"],
+.panel-case [data-i18n="tr_process_4"] {
+  max-width: 80%;
+}
+
+/* Текст «My role» в трансферах (tr_role_1–9) — 80% ширины контейнера */
+.panel-case [data-i18n="tr_role_1"],
+.panel-case [data-i18n="tr_role_2"],
+.panel-case [data-i18n="tr_role_3"],
+.panel-case [data-i18n="tr_role_4"],
+.panel-case [data-i18n="tr_role_5"],
+.panel-case [data-i18n="tr_role_6"],
+.panel-case [data-i18n="tr_role_7"],
+.panel-case [data-i18n="tr_role_8"],
+.panel-case [data-i18n="tr_role_9"] {
+  max-width: 80%;
+}
+
+/* Примечание к завершению задачи (tr_done_note) — 80% ширины контейнера */
+.panel-case [data-i18n="tr_done_note"] {
+  max-width: 80%;
+}
+
+/* Описание физического процесса на кухне (dk_flow) — 80% ширины контейнера */
+.panel-case [data-i18n="dk_flow"] {
+  max-width: 80%;
+}
+
+/* Детали про этикетки и супервайзера (dk_problem_detail) — 80% ширины контейнера */
+.panel-case [data-i18n="dk_problem_detail"] {
+  max-width: 80%;
+}
+
+/* Текст «My role» в Dark store kitchen (dk_role_1–7) — 80% ширины контейнера */
+.panel-case [data-i18n="dk_role_1"],
+.panel-case [data-i18n="dk_role_2"],
+.panel-case [data-i18n="dk_role_3"],
+.panel-case [data-i18n="dk_role_4"],
+.panel-case [data-i18n="dk_role_5"],
+.panel-case [data-i18n="dk_role_6"],
+.panel-case [data-i18n="dk_role_7"] {
+  max-width: 80%;
+}
+
+/* Описание МЭШ и веб-сервиса (tj_desc_2) — 80% ширины контейнера */
+.panel-case [data-i18n="tj_desc_2"] {
+  max-width: 80%;
+}
+
+/* Текст «My role» в Teacher's journal (tj_role_1–9) — 80% ширины контейнера */
+.panel-case [data-i18n="tj_role_1"],
+.panel-case [data-i18n="tj_role_2"],
+.panel-case [data-i18n="tj_role_3"],
+.panel-case [data-i18n="tj_role_4"],
+.panel-case [data-i18n="tj_role_5"],
+.panel-case [data-i18n="tj_role_6"],
+.panel-case [data-i18n="tj_role_7"],
+.panel-case [data-i18n="tj_role_8"],
+.panel-case [data-i18n="tj_role_9"] {
+  max-width: 80%;
+}
 
 .panel-case .body_gr,
 .panel-case .body_grey_c {
   font-family: 'Montserrat', sans-serif;
-  font-size: 12px;
+  font-size: 18px;
   font-weight: 600;
+  line-height: 26px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: #404040;
   margin: 0 0 6px;
 }
 
+/* ─── Подзаголовок маленький (стиль для секций в кейсах) ───
+   Цвет: #7A7A7A | начертание: 400 | без капса | отступ сверху 100px (кроме первого)
+   Используется: заголовки секций в модалках кейсов (The hypothesis that started it all, Task, My role и т.д.) */
+.panel-case .block20x20 .body_gr {
+  color: #7A7A7A;
+  font-weight: 400;
+  margin-top: 100px;
+  margin-bottom: 6px;
+  text-transform: none;
+  letter-spacing: 0;
+}
+.panel-case .block20x20:first-child .body_gr { margin-top: 0; }
+/* Подзаголовок маленький без отступа 100 для подписей метрик (Metrics, DAU, Dark Stores, Moscow schools) */
+.panel-case .div-block-26 .body_gr,
+.panel-case .div-block-26 .body_grey_c {
+  color: #7A7A7A;
+  font-weight: 400;
+  margin-top: 0;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
 .panel-case .body_gr_web {
   font-family: 'Montserrat', sans-serif;
-  font-size: 13px;
+  font-size: 18px;
   font-weight: 500;
+  line-height: 26px;
   color: #404040;
   margin-top: 6px;
 }
 .panel-case .body_gr_web.white { color: #404040; }
 
-/* Tags row (iOS/Android, B2B, 2025) */
+/* Строка под заголовком: простой текст iOS  •  Android  •  B2B  •  2025  •  и иконки без эффектов */
 .panel-case .flex-block {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
   align-items: center;
+  gap: 0;
+  margin-top: -12px;
   margin-bottom: 8px;
+  font-size: 18px;
+  line-height: 26px;
+  color: #747474;
 }
 
-.panel-case .div-block-20 {
+.panel-case .flex-block .div-block-20 {
   display: inline-flex;
-  padding: 5px 14px;
-  border-radius: 999px;
-  background: #f2f2f5;
+  padding: 0;
+  border-radius: 0;
+  background: none;
 }
-.panel-case .div-block-20 .body_text {
-  font-size: 13px;
-  font-weight: 500;
-  color: #404040;
+.panel-case .flex-block .div-block-20::after {
+  content: "•";
+  padding: 0 0.5em;
+  font-weight: 400;
+}
+.panel-case .flex-block .div-block-20 .body_text {
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 400;
+  color: #747474;
   margin: 0;
 }
 
-.panel-case .div-block-21,
-.panel-case .div-block-22 {
+.panel-case .flex-block .div-block-21,
+.panel-case .flex-block .div-block-22 {
   display: inline-flex;
   align-items: center;
-  padding: 4px 10px;
-  border-radius: 999px;
-  background: #f2f2f5;
+  padding: 0;
+  border-radius: 0;
+  background: none;
 }
-.panel-case .div-block-21 img,
-.panel-case .div-block-22 img {
-  width: 18px; height: 18px;
+.panel-case .flex-block .div-block-21::after {
+  content: "•";
+  padding: 0 0.5em;
+}
+.panel-case .flex-block .div-block-21 img,
+.panel-case .flex-block .div-block-22 img {
+  width: 18px;
+  height: 18px;
   object-fit: contain;
+  display: block;
+}
+.panel-case .flex-block .w-inline-block {
+  display: inline-flex;
 }
 
 /* Cover images */
@@ -982,15 +1118,23 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 }
 
 /* Metrics grid */
+/* Блок метрик: отдельные карточки в стиле pain points (Metrics, DAU, Dark Stores и т.д.) */
 .panel-case .div-block-26 {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 16px;
-  padding: 24px;
-  background: #fcfcfd;
-  border-radius: 18px;
+  padding: 0;
+  background: none;
   margin-bottom: 12px;
-  margin-left: 28px;
+}
+
+.panel-case .div-block-26 .div-block-8 {
+  padding: 20px 22px;
+  background: #F2F2F2;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .panel-case .div-block-8,
@@ -1011,65 +1155,120 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 }
 
 /* Pain points & hypothesis grid */
+/* Pain points — карточки в одну горизонтальную линию где один столбец (Order picking: User Pain Points) */
 .panel-case .div-block-30 {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   gap: 12px;
 }
+.panel-case .div-block-30:has(> .div-block-31:only-child) {
+  flex-wrap: nowrap;
+}
+.panel-case .div-block-30:has(> .div-block-31:only-child) .div-block-15 {
+  flex: 1 1 0;
+  min-width: 0;
+}
 
-.panel-case .div-block-31,
-.panel-case .div-block-32 {
+.panel-case .div-block-30 .div-block-31,
+.panel-case .div-block-30 .div-block-32 {
+  display: contents;
+}
+
+/* Business / Kitchen pain points в модалке — одна горизонтальная линия */
+
+/* Transfers: Business pain points (bento-bpain-grid) */
+.panel-case .div-block-30.bento-bpain {
+  display: block;
+}
+.panel-case .bento-bpain-grid {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 12px;
+}
+.panel-case .bento-bpain-grid .div-block-15 {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+/* Dark kitchen: Business / Kitchen pain points. Teachers: Teacher's Pain Points. Colleges: Administrator's Pain Points (.div-block-31 с карточками .div-block-15 или .div-block-17) */
+.panel-case .div-block-31:has(> .div-block-15),
+.panel-case .div-block-31:has(> .div-block-17) {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 12px;
+}
+.panel-case .div-block-31:has(> .div-block-15) .div-block-15,
+.panel-case .div-block-31:has(> .div-block-17) .div-block-17 {
+  flex: 1 1 0;
+  min-width: 0;
 }
 
 /* Pain point cards */
 .panel-case .div-block-15,
 .panel-case .div-block-17 {
-  padding: 16px 20px;
-  background: #f2f2f5;
+  padding: 14px 16px;
+  background: #F2F2F2;
   border-radius: 14px;
+  min-width: 200px;
+  flex: 1 1 200px;
 }
 .panel-case .div-block-15 .body_text,
 .panel-case .div-block-17 .body_text {
-  font-size: 14px;
+  font-size: 18px;
+  line-height: 26px;
   color: #404040;
   margin: 0;
 }
 
+/* Hypothesis grid: 2 rows × 3 columns in project modals */
+.panel-case .div-block-30:has(.div-block-19) {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto auto;
+  gap: 12px;
+}
+
 /* Hypothesis cards */
 .panel-case .div-block-19 {
-  padding: 18px 20px;
-  background: #1a1a1a;
+  display: flex;
+  flex-direction: column;
+  padding: 14px 16px;
+  background: #404040;
   border-radius: 14px;
   color: #fff;
 }
 .panel-case .div-block-19 div:first-child {
   font-family: 'Montserrat', sans-serif;
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 400;
-  line-height: 1.5;
+  line-height: 26px;
   color: rgba(255,255,255,.9);
-  margin-bottom: 10px;
+  margin: 0 0 8px 0;
 }
 .panel-case .div-block-19 div:last-child {
   font-family: 'Montserrat', sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: #f472b6;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+  text-transform: none;
+  letter-spacing: 0;
+  color: #FD7392;
+  margin: 0;
+  margin-top: auto;
 }
 .panel-case .body_gr.white {
   color: rgba(255,255,255,.9);
   text-transform: none;
-  font-size: 14px;
+  font-size: 18px;
+  line-height: 26px;
   font-weight: 400;
   letter-spacing: 0;
 }
 .panel-case .body_gr.pink_c,
-.panel-case .pink_c { color: #f472b6 !important; }
+.panel-case .pink_c { color: #FD7392 !important; }
 
 /* Result metrics */
 .panel-case .div-block-34,
@@ -1078,43 +1277,51 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 14px;
   margin-bottom: 16px;
-  margin-left: 28px;
 }
 
 .panel-case .result_web {
-  padding: 24px;
+  padding: 14px 16px;
   background: #1a1a1a;
   border-radius: 18px;
   text-align: center;
-  margin-left: 28px;
 }
 .panel-case .result_web .header,
 .panel-case .result_web .header.pink {
   font-size: 28px;
-  font-weight: 700;
+  font-weight: 400;
   color: #f472b6;
   margin-bottom: 6px;
 }
 .panel-case .result_web .body_gr_web,
 .panel-case .result_web .body_gr_web.white {
-  font-size: 13px;
+  font-size: 18px;
+  line-height: 26px;
   color: rgba(255,255,255,.7);
   margin: 0;
 }
 
-/* Teacher's journal / Colleges result cards */
+/* Teacher's journal / Colleges result cards — одинаковый внутренний отступ у обеих карточек (Redesign… / 8,9/10 и т.п.) */
 .panel-case .div-block-9 {
-  padding: 24px;
+  padding: 18px;
   background: #f8f8fa;
   border-radius: 18px;
   margin-bottom: 12px;
 }
+/* Одинаковый отступ у карточек внутри .div-block-34 (блоки результата в колледжах и журнале учителя) */
+.panel-case .div-block-34 .div-block-9 {
+  padding: 18px;
+  margin-bottom: 0;
+}
+.panel-case .div-block-34 {
+  gap: 16px;
+}
 .panel-case .div-block-9 .body_gr {
+  margin-top: 0;
   margin-bottom: 8px;
 }
 .panel-case .div-block-9 .body_text {
-  font-size: 14px;
-  line-height: 1.6;
+  font-size: 18px;
+  line-height: 26px;
 }
 
 /* App store / play store icons in tags */
@@ -1140,12 +1347,15 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 
 /* Responsive inside panel (мобильная версия) */
 @media screen and (max-width: 991px) {
-  .panel-case .header { font-size: 24px; }
-  .panel-case .subheader { font-size: 17px; }
+  .panel-case .header { font-size: 24px; line-height: 26px; }
+  .panel-case .subheader { font-size: 22px; line-height: 1.25; }
   .panel-case .div-block-30 { grid-template-columns: 1fr; }
+  .panel-case .div-block-30.bento-bpain .bento-bpain-grid { flex-wrap: nowrap; gap: 8px; }
+  .panel-case .div-block-31:has(> .div-block-15),
+  .panel-case .div-block-31:has(> .div-block-17) { gap: 8px; }
   .panel-case .div-block-34,
   .panel-case .div-block-35 { grid-template-columns: 1fr; }
-  .panel-case .div-block-26 { padding: 18px; }
+  .panel-case .div-block-26 { grid-template-columns: 1fr; }
   .panel-case .result_web .header,
   .panel-case .result_web .header.pink { font-size: 24px; }
 }
