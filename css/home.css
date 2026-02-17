@@ -52,9 +52,12 @@ h1, h2, h3, h4, h5, h6 { margin: 0; font-weight: 700; }
 }
 
 /* ---------- Site wrapper (dims when panel opens) ---------- */
+/* Боковые отступы как у модалки: calc(100vw / 24) — только десктоп */
 .site-wrapper {
   position: relative;
   z-index: 1;
+  padding-left: calc(100vw / 24);
+  padding-right: calc(100vw / 24);
   transition: filter 0.4s cubic-bezier(.4,0,.2,1);
 }
 
@@ -68,7 +71,7 @@ body.panel-open .site-wrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 24px 60px;
+  padding: 24px 0;
   position: relative;
   z-index: 50;
 }
@@ -133,7 +136,7 @@ body.panel-open .site-wrapper {
 
 /* ---------- Main content ---------- */
 .main-content {
-  padding: 20px 60px 140px;
+  padding: 20px 0 140px;
 }
 
 /* ---------- Hero ---------- */
@@ -762,6 +765,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   .site-header__burger { display: flex; }
   .site-header__lang { display: none; }
 
+  .site-wrapper { padding-left: 0; padding-right: 0; }
   .site-header { padding: 16px 16px; position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
 
   .main-content { padding: 90px 16px 80px; }
