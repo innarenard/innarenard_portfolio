@@ -26,6 +26,9 @@
     document.body.style.overflow = '';
   }
 
+  var closeBtn = document.getElementById('mobileMenuClose');
+  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+
   burger.addEventListener('click', toggleMenu);
 
   menu.querySelectorAll('a').forEach(function (link) {

@@ -649,7 +649,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   border-radius: 999px;
   background: #1a1a1a;
   color: #fff;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
   letter-spacing: .01em;
   transition: background .2s, transform .2s, box-shadow .2s;
@@ -725,6 +725,26 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   opacity: 1;
   pointer-events: auto;
 }
+.mobile-menu__close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  border-radius: 12px;
+  background: rgba(255,255,255,.1);
+  color: #fff;
+  cursor: pointer;
+  transition: background .2s, transform .2s;
+}
+.mobile-menu__close:hover { background: rgba(255,255,255,.2); }
+.mobile-menu__close:active { transform: scale(.95); }
+.mobile-menu__close svg { width: 22px; height: 22px; }
 .mobile-menu a {
   font-size: 20px;
   font-weight: 500;
@@ -751,7 +771,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 }
 .mobile-menu .lang-switcher__btn {
   padding: 10px 20px;
-  font-size: 15px;
+  font-size: 14px;
   color: rgba(255,255,255,.5);
 }
 .mobile-menu .lang-switcher__btn.lang-switcher__active {
@@ -762,8 +782,9 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
    Responsive: десктоп (>991px) и мобильная (≤991px)
    ================================================================ */
 @media screen and (max-width: 991px) {
-  .site-header__burger { display: flex; }
-  .site-header__lang { display: none; }
+  body { font-size: 14px; }
+  .site-header__burger { display: none; }
+  .site-header__lang { display: flex; }
 
   .site-wrapper { padding-left: 0; padding-right: 0; }
   .site-header { padding: 16px 16px; position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
@@ -774,16 +795,20 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
     margin-bottom: 56px;
   }
 
-  .hero__name { font-size: 32px; }
-  .hero__subtitle { font-size: 20px; }
+  .hero__name { font-size: 28px; }
+  .hero__subtitle { font-size: 18px; }
+  .hero__subtitle br:last-of-type { display: none; }
 
   .company-section { margin-bottom: 56px; }
+  .company-section__intro { flex-direction: column; margin-bottom: 0; }
   .company-section__title { font-size: 26px; }
-  .company-section__desc { font-size: 15px; margin-bottom: 24px; }
+  .company-section__desc { font-size: 14px; margin-bottom: 24px; }
+  .company-section__desc br { display: none; }
 
   .project-grid { grid-template-columns: 1fr; gap: 16px; }
   .project-card { border-radius: 24px; }
   .project-card__image { aspect-ratio: 4 / 3; border-radius: 28px; }
+  .project-card__stats { display: none; }
 
   .about-bullets .body_text,
   .about-bullets p { font-size: 14px; }
@@ -801,8 +826,9 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
     top: 28px;
     right: 16px;
   }
-  .project-panel__body { padding: 72px 10% 60px; }
+  .project-panel__body { padding: 72px 16px 60px; }
   .panel-hero__title { font-size: 24px; }
+  .panel-hero__desc { max-width: 100%; }
   .panel-meta { grid-template-columns: 1fr 1fr; gap: 14px; }
 
   .site-footer { flex-direction: column; align-items: flex-start; }
@@ -1501,8 +1527,58 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 
 /* Responsive inside panel (мобильная версия) */
 @media screen and (max-width: 991px) {
+  .panel-case { font-size: 14px; line-height: 1.5; }
+  .panel-case .body_text,
+  .panel-case .body_gr,
+  .panel-case .body_grey_c,
+  .panel-case .body_gr_web,
+  .panel-case .body_gr.white,
+  .panel-case .flex-block .div-block-20 .body_text,
+  .panel-case .div-block-15 .body_text,
+  .panel-case .div-block-17 .body_text,
+  .panel-case .div-block-19 div:first-child,
+  .panel-case .div-block-19 div:last-child,
+  .panel-case .result_web .body_gr_web,
+  .panel-case .result_web .body_gr_web.white,
+  .panel-case .div-block-9 .body_text,
+  .panel-case .div-block-9 .body_gr,
+  .panel-case .block20x20 .body_gr { font-size: 14px; }
   .panel-case .header { font-size: 24px; line-height: 26px; }
-  .panel-case .subheader { font-size: 22px; line-height: 1.25; }
+  .panel-case .subheader { font-size: 18px; line-height: 1.25; max-width: 100%; }
+  .panel-case [data-i18n="op_flow"],
+  .panel-case [data-i18n="tr_process_1"],
+  .panel-case [data-i18n="tr_process_2"],
+  .panel-case [data-i18n="tr_process_3"],
+  .panel-case [data-i18n="tr_process_4"],
+  .panel-case [data-i18n="tr_role_1"],
+  .panel-case [data-i18n="tr_role_2"],
+  .panel-case [data-i18n="tr_role_3"],
+  .panel-case [data-i18n="tr_role_4"],
+  .panel-case [data-i18n="tr_role_5"],
+  .panel-case [data-i18n="tr_role_6"],
+  .panel-case [data-i18n="tr_role_7"],
+  .panel-case [data-i18n="tr_role_8"],
+  .panel-case [data-i18n="tr_role_9"],
+  .panel-case [data-i18n="tr_done_note"],
+  .panel-case [data-i18n="dk_flow"],
+  .panel-case [data-i18n="dk_problem_detail"],
+  .panel-case [data-i18n="dk_role_1"],
+  .panel-case [data-i18n="dk_role_2"],
+  .panel-case [data-i18n="dk_role_3"],
+  .panel-case [data-i18n="dk_role_4"],
+  .panel-case [data-i18n="dk_role_5"],
+  .panel-case [data-i18n="dk_role_6"],
+  .panel-case [data-i18n="dk_role_7"],
+  .panel-case [data-i18n="tj_desc_2"],
+  .panel-case [data-i18n="tj_role_1"],
+  .panel-case [data-i18n="tj_role_2"],
+  .panel-case [data-i18n="tj_role_3"],
+  .panel-case [data-i18n="tj_role_4"],
+  .panel-case [data-i18n="tj_role_5"],
+  .panel-case [data-i18n="tj_role_6"],
+  .panel-case [data-i18n="tj_role_7"],
+  .panel-case [data-i18n="tj_role_8"],
+  .panel-case [data-i18n="tj_role_9"] { max-width: 100%; }
   .panel-case .div-block-30 { grid-template-columns: 1fr; }
   .panel-case .div-block-30.bento-bpain .bento-bpain-grid { flex-wrap: nowrap; gap: 8px; }
   .panel-case .div-block-31:has(> .div-block-15),
