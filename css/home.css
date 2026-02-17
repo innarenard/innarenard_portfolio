@@ -1144,14 +1144,17 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 }
 
 /* Metrics grid */
-/* Блок метрик: отдельные карточки в стиле pain points (Metrics, DAU, Dark Stores и т.д.) */
+/* Блок метрик: десктоп — 2 блока → 2 колонки пополам, 3 блока → 3 колонки; мобильная — отдельно в медиазапросе */
 .panel-case .div-block-26 {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 16px;
   padding: 0;
   background: none;
   margin-bottom: 12px;
+}
+.panel-case .div-block-26:has(> .div-block-8:nth-child(2):last-child) {
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .panel-case .div-block-26 .div-block-8 {
@@ -1605,11 +1608,11 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   .panel-case .div-block-31:has(> .div-block-17) .div-block-17 { min-width: 0; }
   .panel-case .div-block-34,
   .panel-case .div-block-35 { grid-template-columns: 1fr; }
-  /* Метрики: первая строка — Metrics на всю ширину, вторая — DAU и Dark Stores в одну строку */
+  /* Метрики: мобильная — 2 колонки; при 2 блоках — в ряд, при 3 — первый на всю ширину, два других пополам */
   .panel-case .div-block-26 {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
-  .panel-case .div-block-26 .div-block-8.metric-cell:first-child {
+  .panel-case .div-block-26 .div-block-8.metric-cell:first-child:nth-last-child(3) {
     grid-column: 1 / -1;
   }
   .panel-case .result_web .header,
