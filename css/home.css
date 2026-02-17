@@ -1586,9 +1586,15 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   .panel-case [data-i18n="tj_role_7"],
   .panel-case [data-i18n="tj_role_8"],
   .panel-case [data-i18n="tj_role_9"] { max-width: 100%; }
-  .panel-case .div-block-30 { grid-template-columns: 1fr; }
-  .panel-case .div-block-30:has(.div-block-19) { grid-template-columns: repeat(2, 1fr); }
-  .panel-case .div-block-30.bento-bpain .bento-bpain-grid { flex-wrap: nowrap; gap: 8px; }
+  .panel-case .div-block-30 { grid-template-columns: 1fr; gap: 8px; }
+  .panel-case .div-block-30:has(.div-block-19) { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .panel-case .div-block-30 .div-block-19 { padding: 14px; }
+  .panel-case .div-block-30.bento-bpain .bento-bpain-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  .panel-case .div-block-30.bento-bpain .bento-bpain-grid .div-block-15 { min-width: 0; }
   .panel-case .div-block-31:has(> .div-block-15),
   .panel-case .div-block-31:has(> .div-block-17) { grid-template-columns: repeat(2, 1fr); gap: 8px; }
   .panel-case .div-block-31:has(> .div-block-15) .div-block-15,
