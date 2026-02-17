@@ -479,6 +479,7 @@ body.panel-open.panel-open--samokat .panel-overlay {
               transform .4s cubic-bezier(.4,0,.2,1);
   border-radius: 24px;
   box-shadow: 0 24px 80px rgba(0,0,0,.18), 0 0 0 1px rgba(0,0,0,.04);
+  overflow: hidden;
 }
 body.panel-open .project-panel {
   opacity: 1;
@@ -486,7 +487,42 @@ body.panel-open .project-panel {
   pointer-events: auto;
 }
 
-/* Область контента на всю модалку — скроллится */
+/* Кастомный индикатор прокрутки модалки (маска по закруглению 24px) */
+.project-panel__scroll-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  z-index: 11;
+  background: transparent;
+  border-radius: 24px 24px 0 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity .25s ease;
+  clip-path: inset(0 0 0 0 round 24px 24px 0 0);
+}
+.project-panel__scroll-indicator.is-visible {
+  opacity: 1;
+}
+.project-panel__scroll-indicator__fill {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: #404040;
+  border-radius: 0 2px 2px 0;
+  /* без transition — иначе при скролле индикатор «догоняет» и прыгает */
+}
+/* Самокат — акцент */
+body.panel-open--samokat .project-panel__scroll-indicator__fill {
+  background: #FE3360;
+}
+/* MES — акцент синий */
+body.panel-open--mes .project-panel__scroll-indicator__fill {
+  background: #3b82f6;
+}
+
+/* Область контента на всю модалку — скроллится, без стандартного скроллбара, маска по закруглению */
 .project-panel__scroll {
   position: absolute;
   inset: 0;
@@ -494,6 +530,12 @@ body.panel-open .project-panel {
   overflow-x: hidden;
   overscroll-behavior: contain;
   border-radius: 24px;
+  clip-path: inset(0 0 0 0 round 24px);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.project-panel__scroll::-webkit-scrollbar {
+  display: none;
 }
 
 /* Кнопка закрытия поверх контента (оверлей) */

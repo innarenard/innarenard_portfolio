@@ -1,9 +1,11 @@
 (function () {
   var panel = document.getElementById('projectPanel');
-  var panelScroll = panel ? panel.querySelector('.project-panel__scroll') : null;
+  var panelScroll = document.getElementById('panelScroll') || (panel ? panel.querySelector('.project-panel__scroll') : null);
   var panelBody = document.getElementById('panelBody');
   var panelClose = document.getElementById('panelClose');
   var overlay = document.getElementById('panelOverlay');
+  var scrollIndicator = document.getElementById('panelScrollIndicator');
+  var scrollIndicatorFill = document.getElementById('panelScrollIndicatorFill');
   var MOBILE_BP = 991;
   var currentCard = null;
   var cache = {};
@@ -93,15 +95,54 @@
     panelBody.innerHTML = '<div class="panel-loading"><div class="panel-spinner"></div></div>';
   }
 
+  var scrollIndicatorRaf = null;
+  var scrollIndicatorLastScrollTop = 0;
+  var scrollIndicatorLastPct = 0;
+  function updateScrollIndicator() {
+    if (!panelScroll || !scrollIndicator || !scrollIndicatorFill) return;
+    if (scrollIndicatorRaf) return;
+    scrollIndicatorRaf = requestAnimationFrame(function () {
+      scrollIndicatorRaf = null;
+      var scrollTop = panelScroll.scrollTop;
+      var scrollHeight = panelScroll.scrollHeight;
+      var clientHeight = panelScroll.clientHeight;
+      var maxScroll = scrollHeight - clientHeight;
+      if (maxScroll <= 0) {
+        scrollIndicator.classList.remove('is-visible');
+        return;
+      }
+      scrollIndicator.classList.add('is-visible');
+      var pct = Math.min(100, (scrollTop / maxScroll) * 100);
+      if (pct >= scrollIndicatorLastPct) {
+        scrollIndicatorLastPct = pct;
+      } else if (scrollTop < scrollIndicatorLastScrollTop) {
+        scrollIndicatorLastPct = pct;
+      }
+      scrollIndicatorLastScrollTop = scrollTop;
+      scrollIndicatorFill.style.width = scrollIndicatorLastPct + '%';
+    });
+  }
+  function resetScrollIndicatorState() {
+    scrollIndicatorLastScrollTop = 0;
+    scrollIndicatorLastPct = 0;
+  }
+
   function openPanel(card) {
     currentCard = card;
     var href = card.getAttribute('data-href') || '';
     showLoading();
     if (panelScroll) panelScroll.scrollTop = 0;
+    if (scrollIndicator && scrollIndicatorFill) {
+      scrollIndicator.classList.remove('is-visible');
+      scrollIndicatorFill.style.width = '0%';
+      resetScrollIndicatorState();
+    }
     panel.setAttribute('aria-hidden', 'false');
     document.body.classList.add('panel-open');
     if (card.closest('#samokat')) {
       document.body.classList.add('panel-open--samokat');
+    } else if (card.closest('#mes')) {
+      document.body.classList.add('panel-open--mes');
     }
     document.documentElement.style.overflow = 'hidden';
     history.pushState({ panel: true }, '', '');
@@ -112,6 +153,7 @@
         panelBody.innerHTML = '<div class="panel-case">' + html + '</div>';
         applyI18n(panelBody);
         if (panelScroll) panelScroll.scrollTop = 0;
+        updateScrollIndicator();
       })
       .catch(function () {
         if (currentCard !== card) return;
@@ -120,10 +162,11 @@
   }
 
   function closePanel() {
-    document.body.classList.remove('panel-open', 'panel-open--samokat');
+    document.body.classList.remove('panel-open', 'panel-open--samokat', 'panel-open--mes');
     document.documentElement.style.overflow = '';
     panel.setAttribute('aria-hidden', 'true');
     currentCard = null;
+    resetScrollIndicatorState();
   }
 
   function handleCardClick(e) {
@@ -138,6 +181,11 @@
       return;
     }
     openPanel(card);
+  }
+
+  if (panelScroll && scrollIndicator) {
+    panelScroll.addEventListener('scroll', updateScrollIndicator);
+    window.addEventListener('resize', updateScrollIndicator);
   }
 
   document.querySelectorAll('.project-card').forEach(function (card) {

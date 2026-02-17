@@ -206,13 +206,16 @@
 
   <!-- ═══════ Slide-in project panel ═══════ -->
   <div class="project-panel" id="projectPanel" aria-hidden="true">
+    <div class="project-panel__scroll-indicator" id="panelScrollIndicator" aria-hidden="true">
+      <span class="project-panel__scroll-indicator__fill" id="panelScrollIndicatorFill"></span>
+    </div>
     <button class="project-panel__close" id="panelClose" aria-label="Close">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <line x1="18" y1="6" x2="6" y2="18"/>
         <line x1="6" y1="6" x2="18" y2="18"/>
       </svg>
     </button>
-    <div class="project-panel__scroll">
+    <div class="project-panel__scroll" id="panelScroll">
       <div class="project-panel__body" id="panelBody"></div>
     </div>
   </div>
