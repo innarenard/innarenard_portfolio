@@ -2853,10 +2853,19 @@ html[lang="ru"] .cursor-view-case {
 }
 
 /* ========== Bento results grid — 3 cols: left (2), middle (2), right (1 full height) ========== */
+/* Обёртка блока с bento на всю ширину контента */
+.section_content .block20x20:has(.bento-results) {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
 .bento-results {
   display: grid;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1.4fr 0.6fr;
+  grid-template-rows: 1fr 1fr;
   grid-template-areas:
     "hero topmid right"
     "released bottommid right";
@@ -2865,11 +2874,12 @@ html[lang="ru"] .cursor-view-case {
 
 .bento-results__card {
   border-radius: 20px;
-  padding: 28px 30px;
+  padding: 36px 40px;
   display: flex;
   flex-direction: column;
   gap: 8px;
   justify-content: flex-end;
+  min-height: 0;
 }
 
 .bento-results__value {
@@ -2893,7 +2903,7 @@ html[lang="ru"] .cursor-view-case {
 .bento-results__card--hero {
   grid-area: hero;
   background: #FFD6DF;
-  padding: 36px 34px;
+  padding: 44px 40px;
   justify-content: flex-start;
 }
 .bento-results__card--hero .bento-results__value {
@@ -2971,6 +2981,27 @@ html[lang="ru"] .cursor-view-case {
   font-size: 14px;
   color: #7A7A7A;
 }
+
+/* Transfers of goods: swap card colors */
+.bento-results--transfers .bento-results__card--hero {
+  background: #D6DAFF;
+}
+.bento-results--transfers .bento-results__card--accent {
+  background: #FFD6DF;
+}
+
+/* Dark store kitchen: 4-card bento (2×2 grid, no right column) */
+.bento-results--dk {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas:
+    "hero topmid"
+    "released bottommid";
+}
+.bento-results--dk .bento-results__card--hero { grid-area: hero; }
+.bento-results--dk .bento-results__card--dark { grid-area: bottommid; }
+.bento-results--dk .bento-results__card--light { grid-area: topmid; }
+.bento-results--dk .bento-results__card--released { grid-area: released; }
 
 .flex-block-2 {
   grid-column-gap: 12px;
@@ -3738,7 +3769,7 @@ html[lang="ru"] .cursor-view-case {
 
   .bento-results {
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1.4fr 0.6fr;
+    grid-template-rows: 1fr 1fr;
     grid-template-areas:
       "hero     topmid  right"
       "released bottommid right";
@@ -3746,13 +3777,13 @@ html[lang="ru"] .cursor-view-case {
   }
 
   .bento-results__card {
-    padding: 20px;
+    padding: 28px 24px;
     gap: 6px;
     border-radius: 16px;
   }
 
   .bento-results__card--hero {
-    padding: 24px;
+    padding: 32px 24px;
   }
   .bento-results__card--hero .bento-results__value {
     font-size: 28px;

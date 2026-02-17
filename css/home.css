@@ -1303,8 +1303,11 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 /* Bento results grid (Order picking) — 3 cols: left (2 cells), middle (2 cells), right (1 full height) */
 .panel-case .bento-results {
   display: grid;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1.4fr 0.6fr;
+  grid-template-rows: 1fr 1fr;
   grid-template-areas:
     "hero topmid right"
     "released bottommid right";
@@ -1313,11 +1316,12 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 }
 .panel-case .bento-results__card {
   border-radius: 18px;
-  padding: 22px;
+  padding: 28px 26px;
   display: flex;
   flex-direction: column;
   gap: 6px;
   justify-content: flex-end;
+  min-height: 0;
 }
 .panel-case .bento-results__value {
   font-family: Montserrat, sans-serif;
@@ -1339,7 +1343,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 .panel-case .bento-results__card--hero {
   grid-area: hero;
   background: #FFD6DF;
-  padding: 28px 26px;
+  padding: 34px 26px;
   justify-content: flex-start;
 }
 .panel-case .bento-results__card--hero .bento-results__value {
@@ -1477,14 +1481,14 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   .panel-case .result_web .header.pink { font-size: 24px; }
   .panel-case .bento-results {
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1.4fr 0.6fr;
+    grid-template-rows: 1fr 1fr;
     grid-template-areas:
       "hero     topmid  right"
       "released bottommid right";
     gap: 8px;
   }
-  .panel-case .bento-results__card { padding: 16px; gap: 5px; border-radius: 14px; }
-  .panel-case .bento-results__card--hero { padding: 20px; }
+  .panel-case .bento-results__card { padding: 22px 20px; gap: 5px; border-radius: 14px; }
+  .panel-case .bento-results__card--hero { padding: 26px 20px; }
   .panel-case .bento-results__card--hero .bento-results__value { font-size: 28px; font-weight: 600; color: #404040; }
   .panel-case .bento-results__card--hero .bento-results__label { font-size: 14px; color: #7A7A7A; }
   .panel-case .bento-results__value { font-size: 28px; font-weight: 600; color: #404040; }
