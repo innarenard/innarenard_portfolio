@@ -1502,6 +1502,10 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 .panel-case .div-block-34 {
   gap: 16px;
 }
+/* Заголовок карточки результата (Redesign and update и т.п.) — без отступа сверху */
+.panel-case .div-block-34 .div-block-9 .body_gr {
+  margin-top: 0;
+}
 .panel-case .div-block-9 .body_gr {
   margin-top: 0;
   margin-bottom: 8px;
