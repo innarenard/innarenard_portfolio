@@ -472,13 +472,13 @@ body.panel-open.panel-open--mes .panel-overlay {
 }
 
 /* ---------- Project panel (centered modal) ---------- */
-/* Боковые отступы = 5% ширины модалки (left = right = 100vw/24) */
+/* Боковые отступы на десктопе: left = right = 100vw/12 (в 2 раза больше, чем было 100vw/24) */
 /* Хедер с кнопкой — оверлей поверх контента, контент прокручивается под ним */
 .project-panel {
   position: fixed;
   top: 18px;
-  left: calc(100vw / 24);
-  right: calc(100vw / 24);
+  left: calc(100vw / 12);
+  right: calc(100vw / 12);
   bottom: 18px;
   background: #fff;
   z-index: 950;
@@ -566,8 +566,9 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 .project-panel__close:hover { background: #e4e4ea; transform: scale(1.06); }
 .project-panel__close svg { width: 18px; height: 18px; stroke: #404040; }
 
+/* Контент модалки на десктопе: ширина контента 900px, боковые отступы подстраиваются */
 .project-panel__body {
-  padding: 80px 10% 100px;
+  padding: 80px max(0px, calc((100vw * 10/12 - 900px) / 2)) 100px;
 }
 
 /* Panel project content */
@@ -920,7 +921,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   margin: 0 0 8px;
 }
 
-/* Большой подзаголовок (28px), 80% ширины контента модалки */
+/* Большой подзаголовок (28px), 100% ширины контента модалки */
 .panel-case .subheader {
   font-family: 'Montserrat', sans-serif;
   font-size: 28px;
@@ -928,7 +929,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   line-height: 1.25;
   color: #404040;
   margin: 0;
-  max-width: 80%;
+  max-width: 100%;
 }
 .panel-case .subheader strong { font-weight: 600; color: rgba(64, 64, 64, 1); }
 
@@ -943,20 +944,20 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 .panel-case .body_text strong { font-weight: 600; color: #404040; }
 .panel-case strong.body_text { font-weight: 700; }
 
-/* Текст про задачу сборщика (op_flow) — 80% ширины контейнера */
+/* Текст про задачу сборщика (op_flow) — 100% ширины контейнера */
 .panel-case [data-i18n="op_flow"] {
-  max-width: 80%;
+  max-width: 100%;
 }
 
-/* Текст процесса трансферов (tr_process_1–4) — 80% ширины контейнера */
+/* Текст процесса трансферов (tr_process_1–4) — 100% ширины контейнера */
 .panel-case [data-i18n="tr_process_1"],
 .panel-case [data-i18n="tr_process_2"],
 .panel-case [data-i18n="tr_process_3"],
 .panel-case [data-i18n="tr_process_4"] {
-  max-width: 80%;
+  max-width: 100%;
 }
 
-/* Текст «My role» в трансферах (tr_role_1–9) — 80% ширины контейнера */
+/* Текст «My role» в трансферах (tr_role_1–9) — 100% ширины контейнера */
 .panel-case [data-i18n="tr_role_1"],
 .panel-case [data-i18n="tr_role_2"],
 .panel-case [data-i18n="tr_role_3"],
@@ -966,25 +967,25 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 .panel-case [data-i18n="tr_role_7"],
 .panel-case [data-i18n="tr_role_8"],
 .panel-case [data-i18n="tr_role_9"] {
-  max-width: 80%;
+  max-width: 100%;
 }
 
-/* Примечание к завершению задачи (tr_done_note) — 80% ширины контейнера */
+/* Примечание к завершению задачи (tr_done_note) — 100% ширины контейнера */
 .panel-case [data-i18n="tr_done_note"] {
-  max-width: 80%;
+  max-width: 100%;
 }
 
-/* Описание физического процесса на кухне (dk_flow) — 80% ширины контейнера */
+/* Описание физического процесса на кухне (dk_flow) — 100% ширины контейнера */
 .panel-case [data-i18n="dk_flow"] {
-  max-width: 80%;
+  max-width: 100%;
 }
 
-/* Детали про этикетки и супервайзера (dk_problem_detail) — 80% ширины контейнера */
+/* Детали про этикетки и супервайзера (dk_problem_detail) — 100% ширины контейнера */
 .panel-case [data-i18n="dk_problem_detail"] {
-  max-width: 80%;
+  max-width: 100%;
 }
 
-/* Текст «My role» в Dark store kitchen (dk_role_1–7) — 80% ширины контейнера */
+/* Текст «My role» в Dark store kitchen (dk_role_1–7) — 100% ширины контейнера */
 .panel-case [data-i18n="dk_role_1"],
 .panel-case [data-i18n="dk_role_2"],
 .panel-case [data-i18n="dk_role_3"],
@@ -992,15 +993,15 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 .panel-case [data-i18n="dk_role_5"],
 .panel-case [data-i18n="dk_role_6"],
 .panel-case [data-i18n="dk_role_7"] {
-  max-width: 80%;
+  max-width: 100%;
 }
 
-/* Описание МЭШ и веб-сервиса (tj_desc_2) — 80% ширины контейнера */
+/* Описание МЭШ и веб-сервиса (tj_desc_2) — 100% ширины контейнера */
 .panel-case [data-i18n="tj_desc_2"] {
-  max-width: 80%;
+  max-width: 100%;
 }
 
-/* Текст «My role» в Teacher's journal (tj_role_1–9) — 80% ширины контейнера */
+/* Текст «My role» в Teacher's journal (tj_role_1–9) — 100% ширины контейнера */
 .panel-case [data-i18n="tj_role_1"],
 .panel-case [data-i18n="tj_role_2"],
 .panel-case [data-i18n="tj_role_3"],
@@ -1010,7 +1011,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 .panel-case [data-i18n="tj_role_7"],
 .panel-case [data-i18n="tj_role_8"],
 .panel-case [data-i18n="tj_role_9"] {
-  max-width: 80%;
+  max-width: 100%;
 }
 
 .panel-case .body_gr,
