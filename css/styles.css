@@ -2232,6 +2232,7 @@ strong.body_text {
 .hypothesis-card > div:last-child {
   color: #FF7493;
   margin-top: auto;
+  padding-top: 8px;
 }
 
 .text-block-22 {

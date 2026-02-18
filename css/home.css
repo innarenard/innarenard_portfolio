@@ -1160,6 +1160,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 .panel-case .metric-cell .body_gr {
   margin-top: 0;
   margin-bottom: 0;
+  padding-bottom: 8px;
 }
 
 /* Teacher's journal: серые блоки с фоном #F4F4F8 */
@@ -1335,6 +1336,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   color: #FD7392;
   margin: 0;
   margin-top: auto;
+  padding-top: 8px;
 }
 .panel-case .body_gr.white {
   color: rgba(255,255,255,.9);
