@@ -566,9 +566,14 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 .project-panel__close:hover { background: #e4e4ea; transform: scale(1.06); }
 .project-panel__close svg { width: 18px; height: 18px; stroke: #404040; }
 
-/* Контент модалки на десктопе: ширина контента 900px, боковые отступы подстраиваются */
+/* Контент модалки на десктопе: гибкая ширина, макс. 900px, при сужении экрана уменьшается */
 .project-panel__body {
-  padding: 80px max(0px, calc((100vw * 10/12 - 900px) / 2)) 100px;
+  box-sizing: border-box;
+  max-width: 900px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 80px 24px 100px;
 }
 
 /* Panel project content */
