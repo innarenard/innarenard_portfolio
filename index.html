@@ -210,9 +210,9 @@
     </main>
   </div>
 
-  <!-- ═══════ Slide-in project panel ═══════ -->
-  <div class="project-panel" id="projectPanel" aria-hidden="true">
-    <div class="project-panel__scroll-indicator" id="panelScrollIndicator" aria-hidden="true">
+  <!-- Панель кейса (выдвижная): контент проекта загружается в case-study-panel__content -->
+  <div class="project-panel case-study-drawer" id="projectPanel" aria-hidden="true" role="dialog" aria-label="Case study">
+    <div class="project-panel__scroll-indicator case-study-drawer__scroll-indicator" id="panelScrollIndicator" aria-hidden="true">
       <span class="project-panel__scroll-indicator__fill" id="panelScrollIndicatorFill"></span>
     </div>
     <button class="project-panel__close" id="panelClose" aria-label="Close">
@@ -221,11 +221,11 @@
         <line x1="6" y1="6" x2="18" y2="18"/>
       </svg>
     </button>
-    <div class="project-panel__scroll" id="panelScroll">
-      <div class="project-panel__body" id="panelBody"></div>
+    <div class="project-panel__scroll case-study-drawer__scroll-area" id="panelScroll">
+      <div class="project-panel__body case-study-drawer__content" id="panelBody"></div>
     </div>
   </div>
-  <div class="panel-overlay" id="panelOverlay"></div>
+  <div class="panel-overlay case-study-drawer__overlay" id="panelOverlay"></div>
 
   <script src="js/i18n.js"></script>
   <script src="js/scroll-reveal.js"></script>
