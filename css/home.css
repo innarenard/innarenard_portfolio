@@ -1386,7 +1386,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   min-width: 0;
   box-sizing: border-box;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr auto;
+  grid-template-rows: 1fr 1fr;
   grid-template-areas:
     "hero topmid right"
     "released bottommid right";
@@ -1452,8 +1452,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 }
 .panel-case .bento-results__card--dark:nth-child(2) {
   grid-area: bottommid;
-  aspect-ratio: 1;
-  align-self: start;
+  border-radius: 18px;
 }
 
 /* Light card — top-middle cell */
@@ -1487,12 +1486,11 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   color: #7A7A7A;
 }
 
-/* Released card — bottom-left cell */
+/* Released card — bottom-left cell (прямоугольный, как верхние) */
 .panel-case .bento-results__card--released {
   grid-area: released;
   background: #EFEFEF;
-  aspect-ratio: 1;
-  align-self: start;
+  border-radius: 18px;
 }
 .panel-case .bento-results__card--released .bento-results__value {
   font-size: 28px;
@@ -1642,7 +1640,8 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
       "released bottommid";
     gap: 8px;
   }
-  .panel-case .bento-results__card { padding: 22px 20px; gap: 5px; border-radius: 14px; }
+  .panel-case .bento-results__card { padding: 22px 20px; gap: 5px; border-radius: 18px; }
+  .panel-case .bento-results__card--dark:nth-child(2) { border-radius: 18px; }
   .panel-case .bento-results__card--hero { padding: 26px 20px; }
   .panel-case .bento-results__card--hero .bento-results__value { font-size: 28px; font-weight: 600; color: #FE3360; }
   .panel-case .bento-results__card--hero .bento-results__label { font-size: 14px; color: #7A7A7A; }

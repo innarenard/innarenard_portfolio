@@ -2881,7 +2881,7 @@ html[lang="ru"] .cursor-view-case {
 }
 
 .bento-results__card {
-  border-radius: 20px;
+  border-radius: 18px;
   padding: 36px 40px;
   display: flex;
   flex-direction: column;
