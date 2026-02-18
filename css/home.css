@@ -464,6 +464,13 @@ body.panel-open.panel-open--samokat .panel-overlay {
   backdrop-filter: blur(4px);
 }
 
+/* Фон #D2D8ED для модалки проектов MES (по подобию Самоката) */
+body.panel-open.panel-open--mes .panel-overlay {
+  background: #D2D8ED;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
 /* ---------- Project panel (centered modal) ---------- */
 /* Боковые отступы = 5% ширины модалки (left = right = 100vw/24) */
 /* Хедер с кнопкой — оверлей поверх контента, контент прокручивается под ним */
