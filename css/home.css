@@ -444,7 +444,7 @@ body:has(.project-card:hover) .cursor-view-case.is-visible {
 .panel-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,.35);
+  background: rgba(255,255,255,.78);
   z-index: 900;
   opacity: 0;
   pointer-events: none;
@@ -459,14 +459,14 @@ body.panel-open .panel-overlay {
 
 /* Лёгкое розоватое затемнение для модалки проектов Самоката с блюром */
 body.panel-open.panel-open--samokat .panel-overlay {
-  background: rgba(255, 194, 206, 0.38);
+  background: rgba(255, 220, 230, 0.82);
   -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
 }
 
-/* Фон #D2D8ED для модалки проектов MES (по подобию Самоката) */
+/* Фон для модалки проектов MES — та же непрозрачность, что у Самоката (0.82) */
 body.panel-open.panel-open--mes .panel-overlay {
-  background: #D2D8ED;
+  background: rgba(210, 216, 237, 0.82);
   -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
 }
