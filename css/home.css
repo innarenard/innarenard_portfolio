@@ -1240,32 +1240,34 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   display: block;
 }
 .panel-case .bento-bpain-grid {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 12px;
 }
 .panel-case .bento-bpain-grid .info-card {
-  flex: 1 1 0;
   min-width: 0;
 }
 
 /* Dark kitchen: Business / Kitchen pain points. Teachers: Teacher's Pain Points. Colleges: Administrator's Pain Points (.cards-row с карточками .info-card или .pain-point-card) */
 .panel-case .cards-row:has(> .info-card),
-.panel-case .cards-row:has(> .pain-point-card) {
+.panel-case .cards-row:has(> .pain-point-card),
+.panel-case .content-block.case-pain-points .cards-row,
+.panel-case .content-block.case-business-pain-points .cards-row {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 12px;
 }
 .panel-case .cards-row:has(> .info-card) .info-card,
-.panel-case .cards-row:has(> .pain-point-card) .pain-point-card {
+.panel-case .cards-row:has(> .pain-point-card) .pain-point-card,
+.panel-case .content-block.case-pain-points .cards-row .info-card,
+.panel-case .content-block.case-business-pain-points .cards-row .info-card {
   min-width: 0;
 }
 
 /* Pain point cards */
 .panel-case .info-card,
 .panel-case .pain-point-card {
-  padding: 20px;
+  padding: 28px;
   background: #F2F2F2;
   border-radius: 14px;
   min-width: 200px;
@@ -1298,11 +1300,11 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   }
 }
 
-/* Hypothesis grid: 2 rows × 3 columns in project modals */
-.panel-case .cards-section:has(.hypothesis-card) {
+/* Hypothesis grid: 2 columns in project modals (Transfers, Dark kitchen, Order picking, etc.) */
+.panel-case .cards-section:has(.hypothesis-card),
+.panel-case .content-block.case-hypotheses .cards-section {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: auto auto;
+  grid-template-columns: repeat(2, 1fr);
   gap: 12px;
 }
 
@@ -1310,7 +1312,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 .panel-case .hypothesis-card {
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 28px;
   background: #404040;
   border-radius: 14px;
   color: #fff;
@@ -1382,7 +1384,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   min-width: 0;
   box-sizing: border-box;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 1fr auto;
   grid-template-areas:
     "hero topmid right"
     "released bottommid right";
@@ -1448,6 +1450,8 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 }
 .panel-case .bento-results__card--dark:nth-child(2) {
   grid-area: bottommid;
+  aspect-ratio: 1;
+  align-self: start;
 }
 
 /* Light card — top-middle cell */
@@ -1485,6 +1489,8 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 .panel-case .bento-results__card--released {
   grid-area: released;
   background: #EFEFEF;
+  aspect-ratio: 1;
+  align-self: start;
 }
 .panel-case .bento-results__card--released .bento-results__value {
   font-size: 28px;
@@ -1602,6 +1608,8 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   .panel-case .cards-section { grid-template-columns: 1fr; gap: 8px; }
   .panel-case .cards-section:has(.hypothesis-card) { grid-template-columns: repeat(2, 1fr); gap: 8px; }
   .panel-case .cards-section .hypothesis-card { padding: 14px; }
+  .panel-case .info-card,
+  .panel-case .pain-point-card { padding: 20px; }
   .panel-case .cards-section.bento-bpain .bento-bpain-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);

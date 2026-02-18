@@ -2159,7 +2159,7 @@ strong.body_text {
   background-color: var(--bg_n);
   border-radius: 16px;
   flex: 1;
-  padding: 20px;
+  padding: 28px;
 }
 
 .text-block-18 {
@@ -2187,7 +2187,7 @@ strong.body_text {
   background-color: var(--bg_c);
   border-radius: 16px;
   flex: 1;
-  padding: 20px;
+  padding: 28px;
 }
 
 .text-block-20 {
@@ -2223,7 +2223,7 @@ strong.body_text {
   flex: 1;
   min-width: auto;
   max-width: none;
-  padding: 20px;
+  padding: 28px;
   display: flex;
   color: #fff;
   font-size: 16px;
@@ -2807,19 +2807,25 @@ html[lang="ru"] .cursor-view-case {
   flex-flow: column;
   display: flex;
 }
+.cards-section:has(.hypothesis-card) {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.cards-section:has(.hypothesis-card) > .cards-row {
+  display: contents;
+}
 
 /* Business pain points — блоки в одну горизонтальную линию */
 .cards-section.bento-bpain {
   display: block;
 }
 .bento-bpain-grid {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 12px;
 }
 .bento-bpain-grid .info-card {
-  flex: 1 1 0;
   min-width: 0;
 }
 
@@ -2827,6 +2833,16 @@ html[lang="ru"] .cursor-view-case {
   grid-column-gap: 12px;
   grid-row-gap: 12px;
   display: flex;
+}
+.cards-row:has(> .info-card),
+.cards-row:has(> .pain-point-card) {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.cards-row:has(> .info-card) .info-card,
+.cards-row:has(> .pain-point-card) .pain-point-card {
+  min-width: 0;
 }
 
 .media-block {
