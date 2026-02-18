@@ -1391,11 +1391,11 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 }
 .panel-case .bento-results__card {
   border-radius: 18px;
-  padding: 28px 26px;
+  padding: 40px;
   display: flex;
   flex-direction: column;
   gap: 6px;
-  justify-content: flex-end;
+  justify-content: flex-start;
   min-height: 0;
 }
 .panel-case .bento-results__value {
@@ -1404,7 +1404,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   font-weight: 600;
   line-height: 110%;
   margin: 0;
-  color: #404040;
+  color: #FE3360;
 }
 .panel-case .bento-results__label {
   font-family: Montserrat, sans-serif;
@@ -1417,15 +1417,15 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 /* Hero — tall left card, content pinned to top */
 .panel-case .bento-results__card--hero {
   grid-area: hero;
-  background: #FFD6DF;
-  padding: 34px 26px;
+  background: #EFEFEF;
+  padding: 40px;
   justify-content: flex-start;
 }
 .panel-case .bento-results__card--hero .bento-results__value {
   font-size: 28px;
   font-weight: 600;
   line-height: 100%;
-  color: #404040;
+  color: #FE3360;
 }
 .panel-case .bento-results__card--hero .bento-results__label {
   font-size: 14px;
@@ -1440,7 +1440,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 .panel-case .bento-results__card--dark .bento-results__value {
   font-size: 28px;
   font-weight: 600;
-  color: #404040;
+  color: #FE3360;
 }
 .panel-case .bento-results__card--dark .bento-results__label {
   font-size: 14px;
@@ -1453,13 +1453,13 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 /* Light card — top-middle cell */
 .panel-case .bento-results__card--light {
   grid-area: topmid;
-  background: #FFEAD6;
+  background: #EFEFEF;
   justify-content: flex-start;
 }
 .panel-case .bento-results__card--light .bento-results__value {
   font-size: 28px;
   font-weight: 600;
-  color: #404040;
+  color: #FE3360;
 }
 .panel-case .bento-results__card--light .bento-results__label {
   font-size: 14px;
@@ -1469,12 +1469,12 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 /* Accent card — right column, full height */
 .panel-case .bento-results__card--accent {
   grid-area: right;
-  background: #CFD3FF;
+  background: #EFEFEF;
 }
 .panel-case .bento-results__card--accent .bento-results__value {
   font-size: 28px;
   font-weight: 600;
-  color: #404040;
+  color: #FE3360;
 }
 .panel-case .bento-results__card--accent .bento-results__label {
   font-size: 14px;
@@ -1489,7 +1489,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 .panel-case .bento-results__card--released .bento-results__value {
   font-size: 28px;
   font-weight: 600;
-  color: #404040;
+  color: #FE3360;
 }
 .panel-case .bento-results__card--released .bento-results__label {
   font-size: 14px;
@@ -1634,9 +1634,9 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   }
   .panel-case .bento-results__card { padding: 22px 20px; gap: 5px; border-radius: 14px; }
   .panel-case .bento-results__card--hero { padding: 26px 20px; }
-  .panel-case .bento-results__card--hero .bento-results__value { font-size: 28px; font-weight: 600; color: #404040; }
+  .panel-case .bento-results__card--hero .bento-results__value { font-size: 28px; font-weight: 600; color: #FE3360; }
   .panel-case .bento-results__card--hero .bento-results__label { font-size: 14px; color: #7A7A7A; }
-  .panel-case .bento-results__value { font-size: 28px; font-weight: 600; color: #404040; }
+  .panel-case .bento-results__value { font-size: 28px; font-weight: 600; color: #FE3360; }
   .panel-case .bento-results__label { font-size: 14px; color: #7A7A7A; }
 
   /* Отступы только для мобильной версии (десктоп — как в базовых правилах выше) */
