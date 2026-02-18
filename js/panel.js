@@ -36,7 +36,7 @@
   }
 
   function removeEmptySpacers(container) {
-    container.querySelectorAll('.block_100, .block_60, .div-block-29, .div-block-42, .div-block-43, .div-block-44, .div-block-45, .div-block-46, .div-block-47, .div-block-48, .div-block-49, .div-block-50, .div-block-51, .div-block-52, .div-block-53, .div-block-54').forEach(function (el) {
+    container.querySelectorAll('.spacer-56, .spacer-40, .content-spacer').forEach(function (el) {
       if (!el.textContent.trim() && !el.querySelector('img')) {
         el.remove();
       }

@@ -873,45 +873,32 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   margin: 0;
 }
 
-.panel-case .block20x20 {
+.panel-case .content-block {
   margin-top: 20px;
   margin-bottom: 20px;
   padding-top: 10px;
 }
-.panel-case .block0x0 {
+.panel-case .case-meta-row {
   margin-bottom: 20px;
 }
 /* Меньше отступа над блоком результата (A full replacement… / 8,1/10 и Redesign… / 8,9/10) в журнале учителя и колледжах */
-.panel-case .block20x20:has(+ .block20x20 .div-block-34),
-.panel-case .block20x20:has([data-i18n="tj_result_1"]) {
+.panel-case .content-block:has(+ .content-block .result-cards-grid),
+.panel-case .content-block:has([data-i18n="tj_result_1"]) {
   margin-bottom: 8px;
 }
-.panel-case .block20x20:has([data-i18n="co_result_1"]) {
+.panel-case .content-block:has([data-i18n="co_result_1"]) {
   margin-bottom: 4px;
 }
 /* Убрать лишний отступ сверху у блока с карточками результата в колледжах (Redesign and update / 8,9 / 10) */
-.panel-case .block20x20:has(.div-block-34 [data-i18n="co_res_label_1"]) {
+.panel-case .content-block:has(.result-cards-grid [data-i18n="co_res_label_1"]) {
   margin-top: 0;
 }
 
-.panel-case .block_60 { height: 0; margin-bottom: 32px; }
-.panel-case .block_100 { height: 0; margin-bottom: 48px; }
+.panel-case .spacer-40 { height: 0; margin-bottom: 32px; }
+.panel-case .spacer-56 { height: 0; margin-bottom: 48px; }
 
 /* Spacer divs – collapse */
-.panel-case .div-block-50,
-.panel-case .div-block-51,
-.panel-case .div-block-52,
-.panel-case .div-block-53,
-.panel-case .div-block-54,
-.panel-case .div-block-29,
-.panel-case .div-block-42,
-.panel-case .div-block-43,
-.panel-case .div-block-44,
-.panel-case .div-block-45,
-.panel-case .div-block-46,
-.panel-case .div-block-47,
-.panel-case .div-block-48,
-.panel-case .div-block-49 {
+.panel-case .content-spacer {
   display: none;
 }
 
@@ -1034,7 +1021,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 /* ─── Подзаголовок маленький (стиль для секций в кейсах) ───
    Цвет: #7A7A7A | начертание: 400 | без капса | отступ сверху 100px (кроме первого)
    Используется: заголовки секций в модалках кейсов (The hypothesis that started it all, Task, My role и т.д.) */
-.panel-case .block20x20 .body_gr {
+.panel-case .content-block .body_gr {
   color: #7A7A7A;
   font-weight: 400;
   margin-top: 100px;
@@ -1042,10 +1029,10 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   text-transform: none;
   letter-spacing: 0;
 }
-.panel-case .block20x20:first-child .body_gr { margin-top: 0; }
+.panel-case .content-block:first-child .body_gr { margin-top: 0; }
 /* Подзаголовок маленький без отступа 100 для подписей метрик (Metrics, DAU, Dark Stores, Moscow schools) */
-.panel-case .div-block-26 .body_gr,
-.panel-case .div-block-26 .body_grey_c {
+.panel-case .metrics-grid .body_gr,
+.panel-case .metrics-grid .body_grey_c {
   color: #7A7A7A;
   font-weight: 400;
   margin-top: 0;
@@ -1076,18 +1063,18 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   color: #747474;
 }
 
-.panel-case .flex-block .div-block-20 {
+.panel-case .flex-block .case-tag {
   display: inline-flex;
   padding: 0;
   border-radius: 0;
   background: none;
 }
-.panel-case .flex-block .div-block-20::after {
+.panel-case .flex-block .case-tag::after {
   content: "•";
   padding: 0 0.5em;
   font-weight: 400;
 }
-.panel-case .flex-block .div-block-20 .body_text {
+.panel-case .flex-block .case-tag .body_text {
   font-size: 18px;
   line-height: 26px;
   font-weight: 400;
@@ -1095,20 +1082,20 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   margin: 0;
 }
 
-.panel-case .flex-block .div-block-21,
-.panel-case .flex-block .div-block-22 {
+.panel-case .flex-block .store-icon-wrap,
+.panel-case .flex-block .store-icon-wrap {
   display: inline-flex;
   align-items: center;
   padding: 0;
   border-radius: 0;
   background: none;
 }
-.panel-case .flex-block .div-block-21::after {
+.panel-case .flex-block .store-icon-wrap::after {
   content: "•";
   padding: 0 0.5em;
 }
-.panel-case .flex-block .div-block-21 img,
-.panel-case .flex-block .div-block-22 img {
+.panel-case .flex-block .store-icon-wrap img,
+.panel-case .flex-block .store-icon-wrap img {
   width: 18px;
   height: 18px;
   object-fit: contain;
@@ -1125,19 +1112,19 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   display: block;
 }
 
-.panel-case .div-block-33 {
+.panel-case .media-block {
   margin: 0;
 }
-.panel-case .div-block-33 img {
+.panel-case .media-block img {
   width: 100%;
   border-radius: 16px;
 }
 
 /* GIF containers */
-.panel-case .div-block-37 {
+.panel-case .media-block-padded {
   margin-bottom: 20px;
 }
-.panel-case .div-block-37 img,
+.panel-case .media-block-padded img,
 .panel-case .image-5 {
   width: 100%;
   border-radius: 16px;
@@ -1145,7 +1132,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 
 /* Metrics grid */
 /* Блок метрик: десктоп — 2 блока → 2 колонки пополам, 3 блока → 3 колонки; мобильная — отдельно в медиазапросе */
-.panel-case .div-block-26 {
+.panel-case .metrics-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
@@ -1153,11 +1140,11 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   background: none;
   margin-bottom: 12px;
 }
-.panel-case .div-block-26:has(> .div-block-8:nth-child(2):last-child) {
+.panel-case .metrics-grid:has(> .metric-card:nth-child(2):last-child) {
   grid-template-columns: repeat(2, 1fr);
 }
 
-.panel-case .div-block-26 .div-block-8 {
+.panel-case .metrics-grid .metric-card {
   padding: 20px 22px;
   background: #F2F2F2;
   border-radius: 14px;
@@ -1176,50 +1163,50 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 }
 
 /* Teacher's journal: серые блоки с фоном #F4F4F8 */
-.panel-case:has([data-i18n="tj_schools_label"]) .div-block-26 .div-block-8,
-.panel-case:has([data-i18n="tj_schools_label"]) .div-block-17,
-.panel-case:has([data-i18n="tj_schools_label"]) .div-block-9 {
+.panel-case:has([data-i18n="tj_schools_label"]) .metrics-grid .metric-card,
+.panel-case:has([data-i18n="tj_schools_label"]) .pain-point-card,
+.panel-case:has([data-i18n="tj_schools_label"]) .result-card {
   background: #F4F4F8;
 }
 
 /* Colleges: серые блоки с фоном #F4F4F8 */
-.panel-case:has([data-i18n="co_colleges_label"]) .div-block-26 .div-block-12,
-.panel-case:has([data-i18n="co_colleges_label"]) .div-block-17,
-.panel-case:has([data-i18n="co_colleges_label"]) .div-block-9 {
+.panel-case:has([data-i18n="co_colleges_label"]) .metrics-grid .metric-card-muted,
+.panel-case:has([data-i18n="co_colleges_label"]) .pain-point-card,
+.panel-case:has([data-i18n="co_colleges_label"]) .result-card {
   background: #F4F4F8;
 }
 
 /* Colleges: блоки DAU и Moscow colleges — как Redesign and update (скругления и отступы) */
-.panel-case:has([data-i18n="co_colleges_label"]) .div-block-26 .div-block-12 {
+.panel-case:has([data-i18n="co_colleges_label"]) .metrics-grid .metric-card-muted {
   padding: 18px;
   border-radius: 18px;
 }
 
 /* Colleges: изображения Navigation, Block tables, Tables — в серых блоках */
-.panel-case:has([data-i18n="co_colleges_label"]) .div-block-37,
-.panel-case:has([data-i18n="co_colleges_label"]) .div-block-33 {
+.panel-case:has([data-i18n="co_colleges_label"]) .media-block-padded,
+.panel-case:has([data-i18n="co_colleges_label"]) .media-block {
   background: #F4F4F8;
   padding: 18px;
   border-radius: 18px;
   overflow: hidden;
 }
-.panel-case:has([data-i18n="co_colleges_label"]) .div-block-37 img,
-.panel-case:has([data-i18n="co_colleges_label"]) .div-block-33 img {
+.panel-case:has([data-i18n="co_colleges_label"]) .media-block-padded img,
+.panel-case:has([data-i18n="co_colleges_label"]) .media-block img {
   border-radius: 12px;
 }
 
-.panel-case .div-block-8,
-.panel-case .div-block-36 {
+.panel-case .metric-card,
+.panel-case .auto-grid {
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
-.panel-case .div-block-36 {
+.panel-case .auto-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 16px;
 }
-.panel-case .div-block-12 {
+.panel-case .metric-card-muted {
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -1227,29 +1214,29 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 
 /* Pain points & hypothesis grid */
 /* Pain points — карточки в одну горизонтальную линию где один столбец (Order picking: User Pain Points) */
-.panel-case .div-block-30 {
+.panel-case .cards-section {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   gap: 12px;
 }
-.panel-case .div-block-30:has(> .div-block-31:only-child) {
+.panel-case .cards-section:has(> .cards-row:only-child) {
   flex-wrap: nowrap;
 }
-.panel-case .div-block-30:has(> .div-block-31:only-child) .div-block-15 {
+.panel-case .cards-section:has(> .cards-row:only-child) .info-card {
   flex: 1 1 0;
   min-width: 0;
 }
 
-.panel-case .div-block-30 .div-block-31,
-.panel-case .div-block-30 .div-block-32 {
+.panel-case .cards-section .cards-row,
+.panel-case .cards-section .cards-row {
   display: contents;
 }
 
 /* Business / Kitchen pain points в модалке — одна горизонтальная линия */
 
 /* Transfers: Business pain points (bento-bpain-grid) */
-.panel-case .div-block-30.bento-bpain {
+.panel-case .cards-section.bento-bpain {
   display: block;
 }
 .panel-case .bento-bpain-grid {
@@ -1258,34 +1245,34 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   flex-wrap: nowrap;
   gap: 12px;
 }
-.panel-case .bento-bpain-grid .div-block-15 {
+.panel-case .bento-bpain-grid .info-card {
   flex: 1 1 0;
   min-width: 0;
 }
 
-/* Dark kitchen: Business / Kitchen pain points. Teachers: Teacher's Pain Points. Colleges: Administrator's Pain Points (.div-block-31 с карточками .div-block-15 или .div-block-17) */
-.panel-case .div-block-31:has(> .div-block-15),
-.panel-case .div-block-31:has(> .div-block-17) {
+/* Dark kitchen: Business / Kitchen pain points. Teachers: Teacher's Pain Points. Colleges: Administrator's Pain Points (.cards-row с карточками .info-card или .pain-point-card) */
+.panel-case .cards-row:has(> .info-card),
+.panel-case .cards-row:has(> .pain-point-card) {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 12px;
 }
-.panel-case .div-block-31:has(> .div-block-15) .div-block-15,
-.panel-case .div-block-31:has(> .div-block-17) .div-block-17 {
+.panel-case .cards-row:has(> .info-card) .info-card,
+.panel-case .cards-row:has(> .pain-point-card) .pain-point-card {
   min-width: 0;
 }
 
 /* Pain point cards */
-.panel-case .div-block-15,
-.panel-case .div-block-17 {
+.panel-case .info-card,
+.panel-case .pain-point-card {
   padding: 20px;
   background: #F2F2F2;
   border-radius: 14px;
   min-width: 200px;
   flex: 1 1 200px;
 }
-.panel-case .div-block-15 .body_text,
-.panel-case .div-block-17 .body_text {
+.panel-case .info-card .body_text,
+.panel-case .pain-point-card .body_text {
   font-size: 18px;
   line-height: 1.35;
   color: #404040;
@@ -1293,7 +1280,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 }
 
 /* Hypothesis grid: 2 rows × 3 columns in project modals */
-.panel-case .div-block-30:has(.div-block-19) {
+.panel-case .cards-section:has(.hypothesis-card) {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: auto auto;
@@ -1301,7 +1288,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 }
 
 /* Hypothesis cards */
-.panel-case .div-block-19 {
+.panel-case .hypothesis-card {
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -1309,7 +1296,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   border-radius: 14px;
   color: #fff;
 }
-.panel-case .div-block-19 div:first-child {
+.panel-case .hypothesis-card div:first-child {
   font-family: 'Montserrat', sans-serif;
   font-size: 18px;
   font-weight: 400;
@@ -1317,7 +1304,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   color: rgba(255,255,255,.9);
   margin: 0 0 8px 0;
 }
-.panel-case .div-block-19 div:last-child {
+.panel-case .hypothesis-card div:last-child {
   font-family: 'Montserrat', sans-serif;
   font-size: 16px;
   font-weight: 400;
@@ -1340,8 +1327,8 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 .panel-case .pink_c { color: #FD7392 !important; }
 
 /* Result metrics */
-.panel-case .div-block-34,
-.panel-case .div-block-35 {
+.panel-case .result-cards-grid,
+.panel-case .result-cards-grid-alt {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 14px;
@@ -1491,29 +1478,29 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 }
 
 /* Teacher's journal / Colleges result cards — одинаковый внутренний отступ у обеих карточек (Redesign… / 8,9/10 и т.п.) */
-.panel-case .div-block-9 {
+.panel-case .result-card {
   padding: 18px;
   background: #f8f8fa;
   border-radius: 18px;
   margin-bottom: 12px;
 }
-/* Одинаковый отступ у карточек внутри .div-block-34 (блоки результата в колледжах и журнале учителя) */
-.panel-case .div-block-34 .div-block-9 {
+/* Одинаковый отступ у карточек внутри .result-cards-grid (блоки результата в колледжах и журнале учителя) */
+.panel-case .result-cards-grid .result-card {
   padding: 18px;
   margin-bottom: 0;
 }
-.panel-case .div-block-34 {
+.panel-case .result-cards-grid {
   gap: 16px;
 }
 /* Заголовок карточки результата (Redesign and update и т.п.) — без отступа сверху */
-.panel-case .div-block-34 .div-block-9 .body_gr {
+.panel-case .result-cards-grid .result-card .body_gr {
   margin-top: 0;
 }
-.panel-case .div-block-9 .body_gr {
+.panel-case .result-card .body_gr {
   margin-top: 0;
   margin-bottom: 8px;
 }
-.panel-case .div-block-9 .body_text {
+.panel-case .result-card .body_text {
   font-size: 18px;
   line-height: 26px;
 }
@@ -1534,7 +1521,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 }
 
 /* Insight image */
-.panel-case .block20x20 > img {
+.panel-case .content-block > img {
   border-radius: 16px;
   margin-bottom: 8px;
 }
@@ -1547,16 +1534,16 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   .panel-case .body_grey_c,
   .panel-case .body_gr_web,
   .panel-case .body_gr.white,
-  .panel-case .flex-block .div-block-20 .body_text,
-  .panel-case .div-block-15 .body_text,
-  .panel-case .div-block-17 .body_text,
-  .panel-case .div-block-19 div:first-child,
-  .panel-case .div-block-19 div:last-child,
+  .panel-case .flex-block .case-tag .body_text,
+  .panel-case .info-card .body_text,
+  .panel-case .pain-point-card .body_text,
+  .panel-case .hypothesis-card div:first-child,
+  .panel-case .hypothesis-card div:last-child,
   .panel-case .result_web .body_gr_web,
   .panel-case .result_web .body_gr_web.white,
-  .panel-case .div-block-9 .body_text,
-  .panel-case .div-block-9 .body_gr,
-  .panel-case .block20x20 .body_gr { font-size: 14px; }
+  .panel-case .result-card .body_text,
+  .panel-case .result-card .body_gr,
+  .panel-case .content-block .body_gr { font-size: 14px; }
   .panel-case .header { font-size: 24px; line-height: 26px; }
   .panel-case .subheader { font-size: 18px; line-height: 1.25; max-width: 100%; }
   .panel-case [data-i18n="op_flow"],
@@ -1593,26 +1580,26 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   .panel-case [data-i18n="tj_role_7"],
   .panel-case [data-i18n="tj_role_8"],
   .panel-case [data-i18n="tj_role_9"] { max-width: 100%; }
-  .panel-case .div-block-30 { grid-template-columns: 1fr; gap: 8px; }
-  .panel-case .div-block-30:has(.div-block-19) { grid-template-columns: repeat(2, 1fr); gap: 8px; }
-  .panel-case .div-block-30 .div-block-19 { padding: 14px; }
-  .panel-case .div-block-30.bento-bpain .bento-bpain-grid {
+  .panel-case .cards-section { grid-template-columns: 1fr; gap: 8px; }
+  .panel-case .cards-section:has(.hypothesis-card) { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .panel-case .cards-section .hypothesis-card { padding: 14px; }
+  .panel-case .cards-section.bento-bpain .bento-bpain-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 8px;
   }
-  .panel-case .div-block-30.bento-bpain .bento-bpain-grid .div-block-15 { min-width: 0; }
-  .panel-case .div-block-31:has(> .div-block-15),
-  .panel-case .div-block-31:has(> .div-block-17) { grid-template-columns: repeat(2, 1fr); gap: 8px; }
-  .panel-case .div-block-31:has(> .div-block-15) .div-block-15,
-  .panel-case .div-block-31:has(> .div-block-17) .div-block-17 { min-width: 0; }
-  .panel-case .div-block-34,
-  .panel-case .div-block-35 { grid-template-columns: 1fr; }
+  .panel-case .cards-section.bento-bpain .bento-bpain-grid .info-card { min-width: 0; }
+  .panel-case .cards-row:has(> .info-card),
+  .panel-case .cards-row:has(> .pain-point-card) { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .panel-case .cards-row:has(> .info-card) .info-card,
+  .panel-case .cards-row:has(> .pain-point-card) .pain-point-card { min-width: 0; }
+  .panel-case .result-cards-grid,
+  .panel-case .result-cards-grid-alt { grid-template-columns: 1fr; }
   /* Метрики: мобильная — 2 колонки; при 2 блоках — в ряд, при 3 — первый на всю ширину, два других пополам */
-  .panel-case .div-block-26 {
+  .panel-case .metrics-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  .panel-case .div-block-26 .div-block-8.metric-cell:first-child:nth-last-child(3) {
+  .panel-case .metrics-grid .metric-card.metric-cell:first-child:nth-last-child(3) {
     grid-column: 1 / -1;
   }
   .panel-case .result_web .header,
@@ -1634,23 +1621,23 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   .panel-case .bento-results__label { font-size: 14px; color: #7A7A7A; }
 
   /* Отступы только для мобильной версии (десктоп — как в базовых правилах выше) */
-  .panel-case .block20x20 {
+  .panel-case .content-block {
     margin-top: 0;
     padding-top: 0;
   }
   .panel-case .body_text {
     margin: 0;
   }
-  .panel-case .block20x20 .body_gr {
+  .panel-case .content-block .body_gr {
     margin-top: 80px;
     margin-bottom: 0;
   }
-  .panel-case .block20x20:first-child .body_gr { margin-top: 0; }
+  .panel-case .content-block:first-child .body_gr { margin-top: 0; }
   .panel-case .metric-cell .body_gr {
     margin-top: 0;
   }
   /* Меньше расстояние между блоками в мобильной модалке */
-  .panel-case .block_60 { margin-bottom: 20px; }
-  .panel-case .block_100 { margin-bottom: 28px; }
-  .panel-case .div-block-26 { gap: 10px; }
+  .panel-case .spacer-40 { margin-bottom: 20px; }
+  .panel-case .spacer-56 { margin-bottom: 28px; }
+  .panel-case .metrics-grid { gap: 10px; }
 }
