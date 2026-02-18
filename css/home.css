@@ -1279,6 +1279,25 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   margin: 0;
 }
 
+/* Order picking: User Pain Points — две колонки только на десктопе */
+@media screen and (min-width: 701px) {
+  .panel-case .content-block:has([data-i18n="op_pain_1"]) .cards-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+}
+
+/* Order picking: Hypotheses — padding-top 0 и две колонки на десктопе */
+.panel-case .content-block:has([data-i18n="op_hyp_1"]) {
+  padding-top: 0;
+}
+@media screen and (min-width: 701px) {
+  .panel-case .content-block:has([data-i18n="op_hyp_1"]) .cards-section {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
 /* Hypothesis grid: 2 rows × 3 columns in project modals */
 .panel-case .cards-section:has(.hypothesis-card) {
   display: grid;
