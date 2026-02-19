@@ -915,6 +915,11 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   display: none;
 }
 
+/* Пустой content-block (остаётся только padding) — не показывать */
+.panel-case .content-block:empty {
+  display: none;
+}
+
 /* Typography */
 .panel-case .header {
   font-family: 'Montserrat', sans-serif;
@@ -1145,6 +1150,10 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 
 /* Metrics grid */
 /* Блок метрик: десктоп — 2 блока → 2 колонки пополам, 3 блока → 3 колонки; мобильная — отдельно в медиазапросе */
+.panel-case .content-block.case-metrics {
+  margin-top: 8px;
+  padding-top: 0;
+}
 .panel-case .metrics-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1618,8 +1627,13 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   .panel-case [data-i18n="tj_role_7"],
   .panel-case [data-i18n="tj_role_8"],
   .panel-case [data-i18n="tj_role_9"] { max-width: 100%; }
+  /* Отступы 8px между блоками в мобильной панели кейса (pain points, hypotheses, bento results, metrics и т.д.) */
   .panel-case .cards-section { grid-template-columns: 1fr; gap: 8px; }
   .panel-case .cards-section:has(.hypothesis-card) { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .panel-case .content-block.case-pain-points .cards-row,
+  .panel-case .content-block.case-hypotheses .cards-section,
+  .panel-case .content-block.case-result-metrics .bento-results,
+  .panel-case .content-block.case-business-pain-points .cards-row { gap: 8px; }
   .panel-case .cards-section .hypothesis-card { padding: 14px; }
   .panel-case .info-card,
   .panel-case .pain-point-card { padding: 20px; }
@@ -1680,5 +1694,5 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   /* Меньше расстояние между блоками в мобильной модалке */
   .panel-case .spacer-40 { margin-bottom: 20px; }
   .panel-case .spacer-56 { margin-bottom: 28px; }
-  .panel-case .metrics-grid { gap: 10px; }
+  .panel-case .metrics-grid { gap: 8px; }
 }

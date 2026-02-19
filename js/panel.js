@@ -43,6 +43,14 @@
     });
   }
 
+  function removeEmptyContentBlocks(container) {
+    container.querySelectorAll('.content-block').forEach(function (el) {
+      if (!el.textContent.trim() && !el.querySelector('img')) {
+        el.remove();
+      }
+    });
+  }
+
   function applyI18n(container) {
     var lang = document.documentElement.lang || 'en';
     if (typeof window._i18nTranslations === 'undefined') return;
@@ -80,6 +88,7 @@
         if (!main) return '';
         removeScrollRevealHidden(main);
         removeEmptySpacers(main);
+        removeEmptyContentBlocks(main);
         var result = main.innerHTML;
         result = fixImagePaths(result, href);
         return result;
