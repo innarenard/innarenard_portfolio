@@ -23,13 +23,6 @@
       stat_transfers_3: "UX 4,8\u00A0/ 5",
       stat_transfers_4: "B2B",
       stat_transfers_5: "2024",
-      view_dark_kitchen: "Dark store kitchen",
-      dark_kitchen_alt: "Dark store kitchen",
-      stat_kitchen_1: "Savings of\u00A012\u00A0M RUB",
-      stat_kitchen_2: "-10\u00A0% workload",
-      stat_kitchen_3: "-5\u00A0% canceled orders",
-      stat_kitchen_4: "B2B",
-      stat_kitchen_5: "2024",
       mes_title: "MES",
       mes_intro: "MES. Moscow Electronic School is a\u00A0project for\u00A0teachers<br>aimed at\u00A0creating a\u00A0high-tech educational environment in\u00A0Moscow schools",
       mes_desc: "Moscow Electronic School is a\u00A0project for\u00A0teachers aimed at\u00A0creating a\u00A0high-tech educational environment in\u00A0Moscow schools",
@@ -112,8 +105,6 @@
       op_res_label_5: "2\u00A0400 dark stores",
       op_result_summary: "In the\u00A0ideal scenario, <strong>an order can be\u00A0picked and\u00A0completed without touching the\u00A0smartphone</strong>, using only the\u00A0ring scanner",
       op_footer_other: "Other cases",
-      op_footer_left_alt: "Teacher's journal",
-      op_footer_right_alt: "Transfers of\u00A0goods",
 
       /* ── transfers-of-goods.html ── */
       tr_title: "Transfers of\u00A0goods between dark stores",
@@ -213,81 +204,7 @@
       tr_res_label_5: "Step by\u00A0step (3\u00A0stages) in\u00A02\u00A0400 dark stores",
       tr_result_summary: "Updated the\u00A0functionality to\u00A0meet modern needs",
       tr_footer_other: "Other cases",
-      tr_footer_left_alt: "Order picking",
-      tr_footer_right_alt: "Dark store kitchen",
 
-      /* ── dark-store-kitchen.html ── */
-      dk_title: "Dark store kitchen",
-      dk_cover_alt: "Dark store kitchen cover",
-      dk_desc_1: "The kitchen is one of\u00A0Samokat's new projects and\u00A0is\u00A0responsible for\u00A0fast delivery of\u00A0hot meals to\u00A0clients",
-      dk_desc_2: "The business prioritizes fast order assembly and\u00A0quick handoff to\u00A0delivery.",
-      dk_metrics_label: "Metrics",
-      dk_metrics_value: "• Time to\u00A0Task<br>• Speed of\u00A0taking a\u00A0task into\u00A0work<br>• Product quality",
-      dk_dau_value: "400 operators",
-      dk_stores_label: "Dark Stores",
-      dk_flow: "In the\u00A0physical workflow, the\u00A0operator finds the\u00A0items from\u00A0the\u00A0order and\u00A0puts them on\u00A0heating. After that, they need to\u00A0prepare labels with\u00A0ingredients and\u00A0production dates for\u00A0the\u00A0meals. Without a\u00A0label, the\u00A0meal cannot be\u00A0handed over\u00A0for\u00A0delivery.<br>",
-      dk_photo_alt: "Kitchen photo",
-      dk_problem_title: "Problem<br>",
-      dk_problem_desc: "We identified a\u00A0significant number of\u00A0food order cancellations from\u00A0kitchens",
-      dk_problem_detail: "Labels are printed and\u00A0distributed by\u00A0a\u00A0supervisor to\u00A0dark stores with\u00A0kitchens. Operators use pre-printed labels to\u00A0hand meals over\u00A0for\u00A0delivery. If\u00A0the recipe changes or\u00A0a\u00A0label is\u00A0missing, the\u00A0meal cannot be\u00A0delivered to\u00A0the client.<br>",
-      dk_role_title: "My role<br>",
-      dk_role_desc: "Worked <strong>end-to-end</strong> on\u00A0the project: from\u00A0discovery and\u00A0problem definition through design to\u00A0final release",
-      dk_role_1: "• Joined at\u00A0the\u00A0stage of\u00A0active kitchen rollout.<br>",
-      dk_role_2: "• Conducted <strong>field research</strong> in\u00A02 dark stores.<br>",
-      dk_role_3: "• <strong>Identified key issues affecting</strong> Time to\u00A0Task, errors, and\u00A0item removal from\u00A0orders.<br>",
-      dk_role_4: "• Together with\u00A0the\u00A0product manager, we pitched the\u00A0idea of\u00A0label printing to\u00A0the business (at that time, labels were printed and\u00A0distributed by\u00A0a\u00A0supervisor).<br>",
-      dk_role_5: "• Conducted <strong>10 UX tests</strong><br>",
-      dk_role_6: "• Together with\u00A0the\u00A0product manager, ran a\u00A0technical launch in\u00A010 dark stores.<br>",
-      dk_role_7: "• <strong>Released</strong> the\u00A0updates to\u00A0240 dark stores<br>",
-      dk_bpain_title: "Business pain points<br>",
-      dk_bpain_1: "Labels are expensive; if\u00A0the recipe changes, the\u00A0entire batch is\u00A0written off",
-      dk_bpain_2: "An\u00A0item is removed from\u00A0the\u00A0order if labels run out or\u00A0expire",
-      dk_bpain_3: "Labels are printed in\u00A0advance and\u00A0distributed across warehouses",
-      dk_bpain_4: "Many people are involved in\u00A0distributing labels across warehouses",
-      dk_upain_title: "Kitchen operators' pain points<br>",
-      dk_upain_1: "Forced to\u00A0search for\u00A0the\u00A0correct label",
-      dk_upain_2: "Labels run out or\u00A0become outdated",
-      dk_upain_3: "If there is no label, the\u00A0item is written off",
-      dk_upain_4: "There is a\u00A0need to\u00A0spend less time",
-      dk_insight_title: "The main insight<br>",
-      dk_insight_desc: "The app should help operators have only order-relevant, up-to-date labels at\u00A0hand",
-      dk_hyp_title: "Hypotheses<br>",
-      dk_hyp_1: "Printing labels during order assembly will reduce the\u00A0supervisor's workload",
-      dk_hyp_1m: "Involvement of\u00A0additional staff",
-      dk_hyp_2: "Label printing will increase product availability on\u00A0the storefront",
-      dk_hyp_2m: "Availability, profit",
-      dk_hyp_3: "Label printing will speed up\u00A0assembly and\u00A0reduce cancellations",
-      dk_hyp_3m: "Time to\u00A0Task",
-      dk_hyp_4: "Label printing will eliminate the\u00A0need for\u00A0pre-printing resources",
-      dk_hyp_4m: "Additional resources",
-      dk_hyp_5: "Label printing will eliminate the\u00A0issue of\u00A0disposing unused label batches",
-      dk_hyp_5m: "Additional resources",
-      dk_hyp_6: "Label printing will eliminate the\u00A0problem of\u00A0removing items from\u00A0orders",
-      dk_hyp_6m: "Write-offs, customer experience",
-      dk_printer_title: "Printer integration<br>",
-      dk_printer_alt: "Printer integration",
-      dk_assembly_title: "Start of\u00A0assembly<br>",
-      dk_assembly_desc: "Kitchen operators mark the\u00A0goods as\u00A0collected, reheat them, and\u00A0proceed to\u00A0print labels",
-      dk_assembly_alt: "Start of\u00A0assembly",
-      dk_labels_title: "Label printing<br>",
-      dk_labels_desc: "If the\u00A0label has not been printed or\u00A0has been damaged, it can be reprinted",
-      dk_labels_alt: "Label printing",
-      dk_box_title: "Entering box numbers and\u00A0completion<br>",
-      dk_box_desc: "To complete the\u00A0task, you must enter the\u00A0box numbers to\u00A0transfer the\u00A0order for\u00A0delivery",
-      dk_box_alt: "Box numbers and\u00A0completion",
-      dk_result_title: "Result<br>",
-      dk_result_1: "Together with\u00A0the\u00A0product manager, ran a\u00A0technical launch in\u00A010 dark stores.",
-      dk_result_2: "<strong>Released</strong> the\u00A0updates to\u00A0240 dark stores.",
-      dk_res_metric_1: "-12M RUB",
-      dk_res_label_1: "Savings from\u00A0label printing and\u00A0canceled orders per year",
-      dk_res_label_2: "Supervisor workload",
-      dk_res_label_3: "Canceled orders",
-      dk_res_metric_4: "Released",
-      dk_res_label_4: "240 dark stores",
-      dk_result_summary: "Label printing allowed kitchen operators to\u00A0spend less time searching and\u00A0hand off\u00A0orders faster",
-      dk_footer_other: "Other cases",
-      dk_footer_left_alt: "Transfers of\u00A0goods",
-      dk_footer_right_alt: "Teacher's journal",
 
       /* ── teachers-journal.html ── */
       tj_title: "Teacher's journal",
@@ -337,8 +254,6 @@
       tj_res_desc_2: "UX score based on\u00A0surveys for: <br>• mobility and\u00A0accessibility <br>• user-friendly and\u00A0intuitive interface <br>• ability to\u00A0quickly access the\u00A0journal <br>• ease of\u00A0creating homework assignments",
       tj_result_summary: "The journal became a\u00A0tool that restored teachers' sense of\u00A0safety and\u00A0confidence.",
       tj_footer_other: "Other cases",
-      tj_footer_left_alt: "Dark store kitchen",
-      tj_footer_right_alt: "Colleges",
 
       /* ── colleges.html ── */
       co_title: "Colleges",
@@ -378,8 +293,6 @@
       co_res_desc_2: "UX score based on\u00A0user surveys. <br>This was achieved because the\u00A0changes were subtle but\u00A0significantly improved the\u00A0quality and\u00A0speed of\u00A0work.",
       co_result_summary: "The service gained an\u00A0aesthetically pleasing and\u00A0user-friendly design",
       co_footer_other: "Other cases",
-      co_footer_left_alt: "Teacher's journal",
-      co_footer_right_alt: "Order picking"
     },
 
     ru: {
@@ -403,13 +316,6 @@
       stat_transfers_3: "UX 4,8\u00A0/ 5",
       stat_transfers_4: "B2B",
       stat_transfers_5: "2024",
-      view_dark_kitchen: "Кухня в Dark store",
-      dark_kitchen_alt: "Кухня в Dark store",
-      stat_kitchen_1: "Экономия 12\u00A0млн\u00A0₽",
-      stat_kitchen_2: "-10\u00A0% нагрузка",
-      stat_kitchen_3: "-5\u00A0% отменённых заказов",
-      stat_kitchen_4: "B2B",
-      stat_kitchen_5: "2024",
       mes_title: "МЭШ",
       mes_intro: "МЭШ. Московская электронная школа — проект для\u00A0учителей,<br>создание высокотехнологичной образовательной среды в\u00A0школах Москвы",
       mes_desc: "Московская электронная школа — проект для\u00A0учителей, создание высокотехнологичной образовательной среды в\u00A0школах Москвы",
@@ -492,8 +398,6 @@
       op_res_label_5: "2\u00A0400 Dark stores",
       op_result_summary: "В\u00A0идеальном сценарии <strong>заказ может быть собран и\u00A0завершён без\u00A0касания смартфона</strong>, используя только кольцевой сканер",
       op_footer_other: "Другие кейсы",
-      op_footer_left_alt: "Журнал учителя",
-      op_footer_right_alt: "Перемещения товаров",
 
       /* ── transfers-of-goods.html ── */
       tr_title: "Перемещения товаров между Dark stores",
@@ -593,81 +497,7 @@
       tr_res_label_5: "Поэтапно (3\u00A0этапа) в\u00A02\u00A0400 Dark stores",
       tr_result_summary: "Обновили функциональность под современные потребности",
       tr_footer_other: "Другие кейсы",
-      tr_footer_left_alt: "Сбор заказов",
-      tr_footer_right_alt: "Кухня в Dark store",
 
-      /* ── dark-store-kitchen.html ── */
-      dk_title: "Кухня в Dark store",
-      dk_cover_alt: "Обложка кухни в Dark store",
-      dk_desc_1: "Кухня — один из\u00A0новых проектов Самоката, отвечающий за\u00A0быструю доставку горячих блюд клиентам",
-      dk_desc_2: "Для бизнеса важны быстрая сборка заказа и\u00A0оперативная передача в\u00A0доставку.",
-      dk_metrics_label: "Метрики",
-      dk_metrics_value: "• Time to\u00A0Task<br>• Скорость взятия задачи в\u00A0работу<br>• Качество продукции",
-      dk_dau_value: "400 операторов",
-      dk_stores_label: "Dark Stores",
-      dk_flow: "В\u00A0реальном рабочем процессе оператор находит товары из\u00A0заказа и\u00A0ставит их на\u00A0подогрев. Затем нужно подготовить этикетки с\u00A0составом и\u00A0датой производства для блюд. Без этикетки блюдо нельзя передать в\u00A0доставку.<br>",
-      dk_photo_alt: "Фото кухни",
-      dk_problem_title: "Проблема<br>",
-      dk_problem_desc: "Мы выявили значительное количество отмен заказов с\u00A0блюдами из\u00A0кухонь",
-      dk_problem_detail: "Этикетки печатаются и\u00A0распределяются супервайзером по\u00A0Dark stores с\u00A0кухнями. Операторы используют заранее напечатанные этикетки для передачи блюд в\u00A0доставку. Если рецепт изменился или этикетки нет, блюдо нельзя доставить клиенту.<br>",
-      dk_role_title: "Моя роль<br>",
-      dk_role_desc: "Работала <strong>end-to-end</strong> над проектом: от\u00A0исследования и\u00A0определения проблем через дизайн до\u00A0финального релиза",
-      dk_role_1: "• Присоединилась на\u00A0этапе активного раскатывания кухонь.<br>",
-      dk_role_2: "• Провела <strong>полевое исследование</strong> в\u00A02 Dark stores.<br>",
-      dk_role_3: "• <strong>Выявила ключевые проблемы</strong>, влияющие на\u00A0Time to\u00A0Task, ошибки и\u00A0удаление позиций из\u00A0заказов.<br>",
-      dk_role_4: "• Совместно с\u00A0продакт-менеджером запитчили идею печати этикеток бизнесу (на\u00A0тот момент этикетки печатались и\u00A0распределялись супервайзером).<br>",
-      dk_role_5: "• Провела <strong>10 UX-тестов</strong><br>",
-      dk_role_6: "• Совместно с\u00A0продакт-менеджером провели технический запуск в\u00A010 Dark stores.<br>",
-      dk_role_7: "• <strong>Выкатила</strong> обновления на\u00A0240 Dark stores<br>",
-      dk_bpain_title: "Боли бизнеса<br>",
-      dk_bpain_1: "Этикетки дорогие; при изменении рецепта весь тираж списывается",
-      dk_bpain_2: "Позиция убирается из\u00A0заказа, если этикетки закончились или устарели",
-      dk_bpain_3: "Этикетки печатаются заранее и\u00A0распределяются по\u00A0складам",
-      dk_bpain_4: "В\u00A0распределении этикеток по\u00A0складам задействовано много людей",
-      dk_upain_title: "Боли операторов кухни<br>",
-      dk_upain_1: "Приходится искать нужную этикетку",
-      dk_upain_2: "Этикетки заканчиваются или устаревают",
-      dk_upain_3: "Если этикетки нет, позиция списывается",
-      dk_upain_4: "Нужно тратить меньше времени",
-      dk_insight_title: "Главный инсайт<br>",
-      dk_insight_desc: "Приложение должно помочь операторам иметь под рукой только актуальные этикетки для текущего заказа",
-      dk_hyp_title: "Гипотезы<br>",
-      dk_hyp_1: "Печать этикеток во\u00A0время сборки снизит нагрузку на\u00A0супервайзера",
-      dk_hyp_1m: "Привлечение дополнительного персонала",
-      dk_hyp_2: "Печать этикеток повысит доступность товаров на\u00A0витрине",
-      dk_hyp_2m: "Доступность, прибыль",
-      dk_hyp_3: "Печать этикеток ускорит сборку и\u00A0сократит отмены",
-      dk_hyp_3m: "Time to\u00A0Task",
-      dk_hyp_4: "Печать этикеток устранит необходимость в\u00A0ресурсах на\u00A0предпечать",
-      dk_hyp_4m: "Дополнительные ресурсы",
-      dk_hyp_5: "Печать этикеток устранит проблему утилизации неиспользованных тиражей",
-      dk_hyp_5m: "Дополнительные ресурсы",
-      dk_hyp_6: "Печать этикеток устранит проблему удаления позиций из\u00A0заказов",
-      dk_hyp_6m: "Списания, клиентский опыт",
-      dk_printer_title: "Интеграция с\u00A0принтером<br>",
-      dk_printer_alt: "Интеграция с\u00A0принтером",
-      dk_assembly_title: "Начало сборки<br>",
-      dk_assembly_desc: "Операторы кухни отмечают товары как собранные, разогревают их и\u00A0переходят к\u00A0печати этикеток",
-      dk_assembly_alt: "Начало сборки",
-      dk_labels_title: "Печать этикеток<br>",
-      dk_labels_desc: "Если этикетка не\u00A0распечаталась или повреждена, её можно напечатать повторно",
-      dk_labels_alt: "Печать этикеток",
-      dk_box_title: "Ввод номеров коробок и\u00A0завершение<br>",
-      dk_box_desc: "Для завершения задачи необходимо ввести номера коробок для передачи заказа в\u00A0доставку",
-      dk_box_alt: "Номера коробок и\u00A0завершение",
-      dk_result_title: "Результат<br>",
-      dk_result_1: "Совместно с\u00A0продакт-менеджером провели технический запуск в\u00A010 Dark stores.",
-      dk_result_2: "<strong>Выкатили</strong> обновления на\u00A0240 Dark stores.",
-      dk_res_metric_1: "-12\u00A0млн\u00A0₽",
-      dk_res_label_1: "Экономия от\u00A0печати этикеток и\u00A0отменённых заказов в\u00A0год",
-      dk_res_label_2: "Нагрузка на\u00A0супервайзера",
-      dk_res_label_3: "Отменённые заказы",
-      dk_res_metric_4: "Запущено",
-      dk_res_label_4: "240 Dark stores",
-      dk_result_summary: "Печать этикеток позволила операторам кухни тратить меньше времени на\u00A0поиск и\u00A0быстрее передавать заказы",
-      dk_footer_other: "Другие кейсы",
-      dk_footer_left_alt: "Перемещения товаров",
-      dk_footer_right_alt: "Журнал учителя",
 
       /* ── teachers-journal.html ── */
       tj_title: "Журнал учителя",
@@ -717,8 +547,6 @@
       tj_res_desc_2: "UX-оценка по\u00A0опросам за: <br>• мобильность и\u00A0доступность <br>• понятный и\u00A0интуитивный интерфейс <br>• быстрый доступ к\u00A0журналу <br>• удобство создания домашних заданий",
       tj_result_summary: "Журнал стал инструментом, который вернул учителям чувство безопасности и\u00A0уверенности.",
       tj_footer_other: "Другие кейсы",
-      tj_footer_left_alt: "Кухня в Dark store",
-      tj_footer_right_alt: "Колледжи",
 
       /* ── colleges.html ── */
       co_title: "Колледжи",
@@ -758,8 +586,6 @@
       co_res_desc_2: "UX-оценка по\u00A0опросам. <br>Это было достигнуто благодаря тому, что изменения были деликатными, но\u00A0существенно улучшили качество и\u00A0скорость работы.",
       co_result_summary: "Сервис получил эстетичный и\u00A0удобный дизайн",
       co_footer_other: "Другие кейсы",
-      co_footer_left_alt: "Журнал учителя",
-      co_footer_right_alt: "Сбор заказов"
     }
   };
 
@@ -797,6 +623,28 @@
       var key = el.getAttribute('data-i18n-alt');
       var val = t[key];
       if (val != null) el.setAttribute('alt', val);
+    });
+    document.querySelectorAll('[data-i18n-src]').forEach(function (el) {
+      var srcTemplate = el.getAttribute('data-i18n-src');
+      var newSrc = srcTemplate.replace('{lang}', lang);
+      el.setAttribute('src', newSrc);
+
+      // If it's a source inside a video, we need to reload the video
+      if (el.tagName.toLowerCase() === 'source' && el.parentElement && el.parentElement.tagName.toLowerCase() === 'video') {
+        el.parentElement.load();
+
+        // Wait for the video to be ready before playing
+        el.parentElement.oncanplay = function () {
+          el.parentElement.play().catch(function (e) {
+            console.log('Auto-play prevented:', e);
+          });
+        };
+      }
+    });
+    document.querySelectorAll('[data-i18n-poster]').forEach(function (el) {
+      var posterTemplate = el.getAttribute('data-i18n-poster');
+      var newPoster = posterTemplate.replace('{lang}', lang);
+      el.setAttribute('poster', newPoster);
     });
   }
 

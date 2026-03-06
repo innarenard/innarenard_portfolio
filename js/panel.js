@@ -16,7 +16,11 @@
   }
 
   function fixImagePaths(html, href) {
-    return html.replace(/src="\.\.\/images\//g, 'src="images/');
+    html = html.replace(/src="\.\.\/images\//g, 'src="images/');
+    html = html.replace(/data-i18n-src="\.\.\/images\//g, 'data-i18n-src="images/');
+    html = html.replace(/poster="\.\.\/images\//g, 'poster="images/');
+    html = html.replace(/data-i18n-poster="\.\.\/images\//g, 'data-i18n-poster="images/');
+    return html;
   }
 
   function stripHeaderFooter(doc) {
@@ -45,7 +49,7 @@
 
   function removeEmptyContentBlocks(container) {
     container.querySelectorAll('.content-block').forEach(function (el) {
-      if (!el.textContent.trim() && !el.querySelector('img')) {
+      if (!el.textContent.trim() && !el.querySelector('img') && !el.querySelector('video')) {
         el.remove();
       }
     });
@@ -71,6 +75,28 @@
       var key = el.getAttribute('data-i18n-alt');
       var val = t[key];
       if (val != null) el.setAttribute('alt', val);
+    });
+    container.querySelectorAll('[data-i18n-src]').forEach(function (el) {
+      var srcTemplate = el.getAttribute('data-i18n-src');
+      var newSrc = srcTemplate.replace('{lang}', lang);
+      el.setAttribute('src', newSrc);
+
+      // If it's a source inside a video, we need to reload the video
+      if (el.tagName.toLowerCase() === 'source' && el.parentElement && el.parentElement.tagName.toLowerCase() === 'video') {
+        el.parentElement.load();
+
+        // Wait for the video to be ready before playing
+        el.parentElement.oncanplay = function () {
+          el.parentElement.play().catch(function (e) {
+            console.log('Auto-play prevented:', e);
+          });
+        };
+      }
+    });
+    container.querySelectorAll('[data-i18n-poster]').forEach(function (el) {
+      var posterTemplate = el.getAttribute('data-i18n-poster');
+      var newPoster = posterTemplate.replace('{lang}', lang);
+      el.setAttribute('poster', newPoster);
     });
   }
 
