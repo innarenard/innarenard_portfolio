@@ -195,6 +195,9 @@
     document.body.classList.remove('panel-open', 'panel-open--samokat', 'panel-open--mes');
     document.documentElement.style.overflow = '';
     panel.setAttribute('aria-hidden', 'true');
+    if (currentCard) {
+      currentCard.blur();
+    }
     currentCard = null;
     resetScrollIndicatorState();
   }
