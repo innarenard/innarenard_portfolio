@@ -196,7 +196,7 @@ body.panel-open .site-wrapper {
 
 /* ---------- Main content ---------- */
 .main-content {
-  padding: 20px 0 140px;
+  padding: 0 0 140px;
 }
 
 /* ---------- Hero ---------- */
@@ -206,7 +206,7 @@ body.panel-open .site-wrapper {
 
 .hero__name {
   font-size: 40px;
-  font-weight: 700;
+  font-weight: 500;
   line-height: 1.08;
   letter-spacing: -0.025em;
   color: #404040;
@@ -369,8 +369,24 @@ body.panel-open .site-wrapper {
 .company-section__intro {
   display: flex;
   align-items: flex-start;
+  gap: 40px;
+  margin-bottom: 32px;
+}
+
+.company-section__intro-col {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
   gap: 8px;
-  margin-bottom: 20px;
+}
+
+.company-section__intro-col:first-child {
+  padding-right: 30px;
+}
+
+.company-section__intro-col:last-child {
+  padding-left: 30px;
+  padding-right: 30px;
 }
 
 .company-section__logo {
@@ -982,7 +998,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   }
 
   .main-content {
-    padding: 90px 16px 80px;
+    padding: 82px 16px 80px;
   }
 
   .contacts-bar {
@@ -1007,7 +1023,18 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 
   .company-section__intro {
     flex-direction: column;
+    gap: 16px;
     margin-bottom: 0;
+  }
+
+  .company-section__intro-col {
+    width: 100%;
+  }
+
+  .company-section__intro-col:first-child,
+  .company-section__intro-col:last-child {
+    padding-left: 0;
+    padding-right: 0;
   }
 
   .company-section__title {
@@ -1016,7 +1043,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 
   .company-section__desc {
     font-size: 14px;
-    margin-bottom: 24px;
+    margin-bottom: 0;
   }
 
   .company-section__desc br {
