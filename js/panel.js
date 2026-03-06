@@ -9,6 +9,10 @@
   var MOBILE_BP = 700;
   var currentCard = null;
 
+  // Capture the root path once at startup to ensure relative paths work regardless of pushState
+  var initialPath = window.location.pathname;
+  var SITE_ROOT = initialPath.endsWith('/') ? initialPath : initialPath.replace(/\/[^/]*$/, '/');
+
   if (!panel || !panelBody) return;
 
   function isMobile() {
@@ -16,10 +20,12 @@
   }
 
   function fixImagePaths(html, href) {
-    html = html.replace(/src="\.\.\/images\//g, 'src="images/');
-    html = html.replace(/data-i18n-src="\.\.\/images\//g, 'data-i18n-src="images/');
-    html = html.replace(/poster="\.\.\/images\//g, 'poster="images/');
-    html = html.replace(/data-i18n-poster="\.\.\/images\//g, 'data-i18n-poster="images/');
+    // Use SITE_ROOT to ensure images match the actual location on the server
+    var imageBase = SITE_ROOT + 'images/';
+    html = html.replace(/src="\.\.\/images\//g, 'src="' + imageBase);
+    html = html.replace(/data-i18n-src="\.\.\/images\//g, 'data-i18n-src="' + imageBase);
+    html = html.replace(/poster="\.\.\/images\//g, 'poster="' + imageBase);
+    html = html.replace(/data-i18n-poster="\.\.\/images\//g, 'data-i18n-poster="' + imageBase);
     return html;
   }
 
@@ -101,7 +107,9 @@
   }
 
   function loadCaseContent(href) {
-    return fetch(href + 'index.html?t=' + Date.now())
+    // Ensure we use the absolute site path for fetch to avoid 404 when URL changes
+    var fetchUrl = SITE_ROOT + href + 'index.html?t=' + Date.now();
+    return fetch(fetchUrl)
       .then(function (res) {
         if (!res.ok) throw new Error('Not found');
         return res.text();
@@ -160,6 +168,9 @@
   function openPanel(card) {
     currentCard = card;
     var href = card.getAttribute('data-href') || '';
+    // Start loading BEFORE changing the URL to ensure correct relative path resolution
+    var contentPromise = loadCaseContent(href);
+
     showLoading();
     if (panelScroll) panelScroll.scrollTop = 0;
     if (scrollIndicator && scrollIndicatorFill) {
@@ -175,10 +186,12 @@
       document.body.classList.add('panel-open--mes');
     }
     document.documentElement.style.overflow = 'hidden';
-    var pushUrl = href.replace(/\/$/, '');
+
+    // Update URL without trailing slash for a clean aesthetic
+    var pushUrl = (SITE_ROOT + href).replace(/\/$/, '');
     history.pushState({ panel: true }, '', pushUrl);
 
-    loadCaseContent(href)
+    contentPromise
       .then(function (html) {
         if (currentCard !== card) return;
         panelBody.innerHTML = '<div class="panel-case">' + html + '</div>';
@@ -186,7 +199,8 @@
         if (panelScroll) panelScroll.scrollTop = 0;
         updateScrollIndicator();
       })
-      .catch(function () {
+      .catch(function (err) {
+        console.error('Failed to load project:', err);
         if (currentCard !== card) return;
         panelBody.innerHTML = '<div class="panel-error">Could not load case</div>';
       });
@@ -252,16 +266,15 @@
     }
   });
 
+  // Open project panel from URL (e.g. /?project=order-picking)
   (function () {
     var match = /[?&]project=([^&]+)/.exec(location.search);
     if (match) {
       var id = match[1].replace(/\/$/, '');
       var card = document.querySelector('.project-card[data-project="' + id + '"]');
       if (card) {
-        // Clean URL from project parameter before opening the panel
-        // This makes "back" button go to the clean main page
-        var cleanPath = location.pathname.replace(/\/$/, '') || '/';
-        history.replaceState(null, '', cleanPath);
+        // Clean URL to plain site root before opening panel to ensure clean state
+        history.replaceState(null, '', SITE_ROOT);
         openPanel(card);
       }
     }
