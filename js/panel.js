@@ -175,7 +175,8 @@
       document.body.classList.add('panel-open--mes');
     }
     document.documentElement.style.overflow = 'hidden';
-    history.pushState({ panel: true }, '', '');
+    var pushUrl = href.replace(/\/$/, '');
+    history.pushState({ panel: true }, '', pushUrl);
 
     loadCaseContent(href)
       .then(function (html) {
@@ -251,15 +252,17 @@
     }
   });
 
-  // Open project panel from URL (e.g. /?project=order-picking) when coming from /order-picking/
   (function () {
     var match = /[?&]project=([^&]+)/.exec(location.search);
     if (match) {
       var id = match[1].replace(/\/$/, '');
       var card = document.querySelector('.project-card[data-project="' + id + '"]');
       if (card) {
+        // Clean URL from project parameter before opening the panel
+        // This makes "back" button go to the clean main page
+        var cleanPath = location.pathname.replace(/\/$/, '') || '/';
+        history.replaceState(null, '', cleanPath);
         openPanel(card);
-        history.replaceState({ panel: true }, '', location.pathname || '/');
       }
     }
   })();
