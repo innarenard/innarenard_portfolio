@@ -366,11 +366,15 @@ body.panel-open .site-wrapper {
   margin-bottom: 80px;
 }
 
+#mes {
+  margin-top: 160px;
+}
+
 .company-section__intro {
   display: flex;
   align-items: flex-start;
   gap: 40px;
-  margin-bottom: 32px;
+  margin-bottom: 20px;
 }
 
 .company-section__intro-col {
@@ -417,6 +421,10 @@ body.panel-open .site-wrapper {
   color: #404040;
   max-width: 700px;
   margin: 0;
+}
+
+.company-section__desc--secondary {
+  color: #737380;
 }
 
 /* ---------- Project grid ---------- */
@@ -1024,7 +1032,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   .company-section__intro {
     flex-direction: column;
     gap: 16px;
-    margin-bottom: 0;
+    margin-bottom: 20px;
   }
 
   .company-section__intro-col {
