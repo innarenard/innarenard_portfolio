@@ -4,6 +4,7 @@
   var translations = {
     en: {
       /* ── index.html ── */
+      cv_url: "https://drive.google.com/file/d/1zWKoMJA6_vVisBg3zKDaxOqzHrBVsKwa/view?usp=drive_link",
       name: "Inna Ivanova",
       intro: "Product Designer with\u00A05+ years of\u00A0experience in\u00A0tech product teams",
       samokat_title: "Samokat",
@@ -430,6 +431,7 @@
 
     ru: {
       /* ── index.html ── */
+      cv_url: "https://drive.google.com/file/d/1hrG2EUGzV8upgaKNbsP1EXlfqLdza1i5/view?usp=drive_link",
       name: "Инна Иванова",
       intro: "Product Designer с\u00A05+ годами опыта в\u00A0tech продуктовых командах",
       samokat_title: "Самокат",
@@ -911,6 +913,11 @@
       var posterTemplate = el.getAttribute('data-i18n-poster');
       var newPoster = posterTemplate.replace('{lang}', lang);
       el.setAttribute('poster', newPoster);
+    });
+    document.querySelectorAll('[data-i18n-href]').forEach(function (el) {
+      var key = el.getAttribute('data-i18n-href');
+      var url = t[key];
+      if (url != null) el.setAttribute('href', url);
     });
   }
 
