@@ -1879,6 +1879,31 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   border-radius: 18px;
 }
 
+/* Расписание сборщиков: сетка 2×2 в панели проекта */
+.panel-case .bento-results--grid-2x2 {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas:
+    "cell1 cell2"
+    "cell3 cell4";
+}
+
+.panel-case .bento-results--grid-2x2 .bento-results__card:nth-child(1) {
+  grid-area: cell1;
+}
+
+.panel-case .bento-results--grid-2x2 .bento-results__card:nth-child(2) {
+  grid-area: cell2;
+}
+
+.panel-case .bento-results--grid-2x2 .bento-results__card:nth-child(3) {
+  grid-area: cell3;
+}
+
+.panel-case .bento-results--grid-2x2 .bento-results__card:nth-child(4) {
+  grid-area: cell4;
+}
+
 .panel-case .bento-results__card--released .bento-results__value {
   font-size: 28px;
   font-weight: 600;
@@ -2092,6 +2117,13 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
       "hero     topmid"
       "released bottommid";
     gap: 8px;
+  }
+
+  .panel-case .bento-results--grid-2x2 {
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+      "cell1 cell2"
+      "cell3 cell4";
   }
 
   .panel-case .bento-results__card {
