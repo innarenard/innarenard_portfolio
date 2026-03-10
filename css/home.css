@@ -1440,6 +1440,10 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   padding: 0 0.5em;
 }
 
+.panel-case .flex-block .store-icon-wrap--no-dot::after {
+  display: none;
+}
+
 .panel-case .flex-block .store-icon-wrap img,
 .panel-case .flex-block .store-icon-wrap img {
   width: 18px;
