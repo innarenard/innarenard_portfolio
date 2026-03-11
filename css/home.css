@@ -11,6 +11,10 @@
   padding: 0;
 }
 
+div {
+  padding: 0;
+}
+
 html {
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
@@ -1184,7 +1188,23 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 .panel-case .content-block {
   margin-top: 20px;
   margin-bottom: 20px;
-  padding-top: 10px;
+  padding-top: 0px;
+}
+
+.panel-case .content-block.case-hypothesis-intro-desc {
+  padding-top: 0px;
+}
+
+.panel-case .content-block.case-result-metrics {
+  padding-top: 0px;
+}
+
+.panel-case .content-block.case-result-title {
+  padding-top: 0px;
+}
+
+.panel-case .content-block.case-screen-preview {
+  padding-top: 0;
 }
 
 .panel-case .case-meta-row {
@@ -1259,7 +1279,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   font-weight: 400;
   line-height: 26px;
   color: #404040;
-  margin: 0 0 6px;
+  margin: 0;
 }
 
 .panel-case .body_text strong {
@@ -1360,7 +1380,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   color: #7A7A7A;
   font-weight: 400;
   margin-top: 100px;
-  margin-bottom: 6px;
+  margin-bottom: 0px;
   text-transform: none;
   letter-spacing: 0;
 }
@@ -1493,10 +1513,10 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 .panel-case .metrics-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  gap: 12px;
   padding: 0;
   background: none;
-  margin-bottom: 12px;
+  margin-bottom: 0;
 }
 
 .panel-case .metrics-grid:has(> .metric-card:nth-child(2):last-child) {
