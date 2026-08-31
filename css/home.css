@@ -370,8 +370,12 @@ body.panel-open .site-wrapper {
   margin-bottom: 80px;
 }
 
+#lunel {
+  margin-bottom: 80px;
+}
+
 #mes {
-  margin-top: 160px;
+  margin-top: 80px;
 }
 
 .company-section__intro {
@@ -1171,11 +1175,11 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   color: #404040;
 }
 
-/* Reset Webflow body class inside panel — минимальный шрифт 18px, line-height 26px */
+/* Reset Webflow body class inside panel — минимальный шрифт 16px, line-height 24px */
 .panel-case {
   font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  font-size: 18px;
-  line-height: 26px;
+  font-size: 16px;
+  line-height: 24px;
 }
 
 /* Content blocks */
@@ -1275,9 +1279,9 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 
 .panel-case .body_text {
   font-family: 'Montserrat', sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 400;
-  line-height: 26px;
+  line-height: 24px;
   color: #404040;
   margin: 0;
 }
@@ -1364,9 +1368,9 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 .panel-case .body_gr,
 .panel-case .body_grey_c {
   font-family: 'Montserrat', sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
-  line-height: 26px;
+  line-height: 24px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: #404040;
@@ -1401,9 +1405,9 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 
 .panel-case .body_gr_web {
   font-family: 'Montserrat', sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 500;
-  line-height: 26px;
+  line-height: 24px;
   color: #404040;
   margin-top: 6px;
 }
@@ -1420,8 +1424,8 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   gap: 0;
   margin-top: -12px;
   margin-bottom: 8px;
-  font-size: 18px;
-  line-height: 26px;
+  font-size: 16px;
+  line-height: 24px;
   color: #747474;
 }
 
@@ -1439,8 +1443,8 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 }
 
 .panel-case .flex-block .case-tag .body_text {
-  font-size: 18px;
-  line-height: 26px;
+  font-size: 16px;
+  line-height: 24px;
   font-weight: 400;
   color: #747474;
   margin: 0;
@@ -1665,8 +1669,8 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 
 .panel-case .info-card .body_text,
 .panel-case .pain-point-card .body_text {
-  font-size: 18px;
-  line-height: 1.35;
+  font-size: 16px;
+  line-height: 24px;
   color: #404040;
   margin: 0;
 }
@@ -1711,9 +1715,9 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 
 .panel-case .hypothesis-card div:first-child {
   font-family: 'Montserrat', sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 400;
-  line-height: 26px;
+  line-height: 24px;
   color: rgba(255, 255, 255, .9);
   margin: 0 0 8px 0;
 }
@@ -1734,8 +1738,8 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 .panel-case .body_gr.white {
   color: rgba(255, 255, 255, .9);
   text-transform: none;
-  font-size: 18px;
-  line-height: 26px;
+  font-size: 16px;
+  line-height: 24px;
   font-weight: 400;
   letter-spacing: 0;
 }
@@ -1771,8 +1775,8 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 
 .panel-case .result_web .body_gr_web,
 .panel-case .result_web .body_gr_web.white {
-  font-size: 18px;
-  line-height: 26px;
+  font-size: 16px;
+  line-height: 24px;
   color: rgba(255, 255, 255, .7);
   margin: 0;
 }
@@ -1968,8 +1972,8 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 }
 
 .panel-case .result-card .body_text {
-  font-size: 18px;
-  line-height: 26px;
+  font-size: 16px;
+  line-height: 24px;
 }
 
 /* App store / play store icons in tags */
@@ -1997,7 +2001,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 @media screen and (max-width: 700px) {
   .panel-case {
     font-size: 14px;
-    line-height: 1.5;
+    line-height: 22px;
   }
 
   .panel-case .body_text,
@@ -2016,6 +2020,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   .panel-case .result-card .body_gr,
   .panel-case .content-block .body_gr {
     font-size: 14px;
+    line-height: 22px;
   }
 
   .panel-case .header {
