@@ -206,18 +206,12 @@
                     <div class="lunel-star__cell" data-i18n="lunel_c_star_8">Onboarding</div>
                 </div>
                 <div class="lunel-apps">
-                    <span class="lunel-apps__icon"><img src="../images/lunel-app-1.png" loading="lazy"
-                            alt="Competitor app icon"></span>
-                    <span class="lunel-apps__icon"><img src="../images/lunel-app-2.png" loading="lazy"
-                            alt="Competitor app icon"></span>
-                    <span class="lunel-apps__icon"><img src="../images/lunel-app-3.png" loading="lazy"
-                            alt="Competitor app icon"></span>
-                    <span class="lunel-apps__icon"><img src="../images/lunel-app-4.png" loading="lazy"
-                            alt="Competitor app icon"></span>
-                    <span class="lunel-apps__icon"><img src="../images/lunel-app-5.png" loading="lazy"
-                            alt="Competitor app icon"></span>
-                    <span class="lunel-apps__icon"><img src="../images/lunel-app-6.png" loading="lazy"
-                            alt="Competitor app icon"></span>
+                    <img src="../images/lunel-app-1.png" loading="lazy" alt="Competitor app icon">
+                    <img src="../images/lunel-app-2.png" loading="lazy" alt="Competitor app icon">
+                    <img src="../images/lunel-app-3.png" loading="lazy" alt="Competitor app icon">
+                    <img src="../images/lunel-app-4.png" loading="lazy" alt="Competitor app icon">
+                    <img src="../images/lunel-app-5.png" loading="lazy" alt="Competitor app icon">
+                    <img src="../images/lunel-app-6.png" loading="lazy" alt="Competitor app icon">
                 </div>
             </div>
 
@@ -528,31 +522,12 @@
                     padding-top: 12px;
                 }
 
-                .lunel-apps__icon {
-                    position: relative;
+                .lunel-apps img {
                     display: block;
-                    flex: 0 0 auto;
                     width: 60px;
                     height: 60px;
                     border-radius: 16px;
                     background: #fff;
-                }
-
-                .lunel-apps__icon img {
-                    display: block;
-                    width: 100%;
-                    height: 100%;
-                    border-radius: inherit;
-                }
-
-                /* Обводка внутри бокса: рисуется поверх картинки и не увеличивает иконку */
-                .lunel-apps__icon::after {
-                    content: "";
-                    position: absolute;
-                    inset: 0;
-                    border-radius: inherit;
-                    box-shadow: inset 0 0 0 1.5px #fff;
-                    pointer-events: none;
                 }
 
                 /* Флаги языков во второй строке карточки результата */
@@ -595,7 +570,7 @@
                         line-height: 20px;
                     }
 
-                    .lunel-apps__icon {
+                    .lunel-apps img {
                         width: 44px;
                         height: 44px;
                         border-radius: 12px;
