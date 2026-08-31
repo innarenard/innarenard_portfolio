@@ -9,7 +9,8 @@
   2. нет дублей ключей внутри одного языка;
   3. нет пустых значений при непустом переводе на другом языке;
   4. каждый data-i18n="ключ" в HTML существует в обоих словарях;
-  5. для каждого data-i18n-src/poster с {lang} на диске есть и _en, и _ru файл.
+  5. для каждого data-i18n-src/poster с {lang} на диске есть и _en, и _ru файл;
+  6. видимый текст в HTML не остался без data-i18n — иначе он не переключится вообще.
 
 Выход: 0 — всё синхронно, 1 — есть расхождения.
 """
@@ -82,6 +83,91 @@ for path in html_files:
             candidate = ROOT / "images" / name.replace("{lang}", lang)
             if not candidate.exists():
                 problems.append(f"{rel}: нет картинки {candidate.relative_to(ROOT)}")
+
+
+# ── 6. видимый текст без data-i18n ────────────────────────────────────────────
+# Словари могут быть идеально синхронны, но если у элемента нет data-i18n,
+# переключатель до него просто не доберётся: на странице навсегда останется
+# английский текст из HTML. Именно так проскочило имя в подвале главной.
+
+from html.parser import HTMLParser
+
+SKIP_TAGS = {"script", "style", "svg", "noscript"}
+# собственные имена и служебные подписи, которые не переводятся
+ALLOWED = {
+    # ссылки и собственные имена
+    "cv", "telegram", "linkedin", "dribbble", "github", "behance",
+    "en", "ru", "lunel", "samokat", "mes", "figma",
+    # технические подписи, одинаковые в обоих языках
+    "b2b", "b2c", "dau", "mau", "wau", "ios", "android", "web",
+    "ux", "ui", "mvp", "api", "saas", "kpi", "a/b", "end-to-end",
+    "time to task", "app store", "google play",
+}
+
+
+class TextWithoutKey(HTMLParser):
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.stack = []          # (tag, есть ли data-i18n на этом или выше)
+        self.skip_depth = 0
+        self.found = []          # (текст, тег)
+
+    def handle_starttag(self, tag, attrs):
+        if tag in SKIP_TAGS:
+            self.skip_depth += 1
+        keys = {k for k, _ in attrs}
+        covered = bool(self.stack and self.stack[-1][1]) or "data-i18n" in keys
+        if tag not in ("br", "img", "hr", "input", "meta", "link", "source"):
+            self.stack.append((tag, covered))
+
+    def handle_endtag(self, tag):
+        if tag in SKIP_TAGS and self.skip_depth:
+            self.skip_depth -= 1
+        for i in range(len(self.stack) - 1, -1, -1):
+            if self.stack[i][0] == tag:
+                del self.stack[i:]
+                break
+
+    def handle_data(self, data):
+        if self.skip_depth or not self.stack:
+            return
+        tag, covered = self.stack[-1]
+        if covered:
+            return
+        text = " ".join(data.split())
+        if not text or text.lower() in ALLOWED:
+            return
+        if len(re.findall(r"[A-Za-z]", text)) < 2:
+            return
+        self.found.append((text, tag))
+
+
+legacy = []
+titles = []
+for path in html_files:
+    rel = path.relative_to(ROOT)
+    parser = TextWithoutKey()
+    parser.feed(path.read_text(encoding="utf-8", errors="ignore"))
+    # главная и папка нашего кейса — наша ответственность, остальные кейсы — старый долг
+    ours = rel.name == "index.html" and len(rel.parts) == 1
+    if PREFIX:
+        ours = ours or rel.parts[0].startswith(PREFIX.rstrip("_"))
+    for text, tag in parser.found:
+        msg = f"{rel}: текст без data-i18n в <{tag}>: «{text[:60]}»"
+        if tag == "title":
+            titles.append(msg)
+        else:
+            (problems if ours else legacy).append(msg)
+
+if titles:
+    print(f"Заголовки <title> без перевода ({len(titles)}) — решение по всему сайту сразу:")
+    for m in sorted(set(titles)):
+        print("  ◦", m)
+
+if legacy:
+    print(f"Старый долг в других кейсах ({len(legacy)}) — не правим, только фиксируем:")
+    for m in sorted(set(legacy)):
+        print("  ◦", m)
 
 scope = f" (префикс {PREFIX})" if PREFIX else ""
 if problems:
