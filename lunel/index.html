@@ -176,12 +176,8 @@
                     <div class="lunel-star__cell" data-i18n="lunel_c_star_8">Onboarding</div>
                 </div>
                 <div class="lunel-apps">
-                    <img src="../images/lunel-app-1.png" loading="lazy" alt="Competitor app icon">
-                    <img src="../images/lunel-app-2.png" loading="lazy" alt="Competitor app icon">
-                    <img src="../images/lunel-app-3.png" loading="lazy" alt="Competitor app icon">
-                    <img src="../images/lunel-app-4.png" loading="lazy" alt="Competitor app icon">
-                    <img src="../images/lunel-app-5.png" loading="lazy" alt="Competitor app icon">
-                    <img src="../images/lunel-app-6.png" loading="lazy" alt="Competitor app icon">
+                    <img src="../images/lunel-competitors.png" loading="lazy" alt="Competitor app icons"
+                        data-i18n-alt="lunel_c_competitors_alt">
                 </div>
             </div>
 
@@ -448,17 +444,20 @@
                    фон-подложка шторки и полоса прогресса лежат снаружи .section_content,
                    у них нет своего класса под Lunel. Эти стили живут только пока
                    в шторке загружен кейс Lunel — при открытии другого кейса
-                   showLoading() затирает innerHTML вместе с этим <style>. */
+                   showLoading() затирает innerHTML вместе с этим <style>.
+                   Селектор без .panel-open намеренно: класс снимается в начале
+                   закрытия, а шторка ещё 0.4s видна — с ним полоса успевала
+                   перекраситься в серый прямо на глазах. */
 
                 /* Подложка окна: #FF9E7B 10% поверх белого = #FFF5F2 (Figma) */
-                body.panel-open .panel-overlay {
+                body .panel-overlay {
                     background: rgba(255, 245, 242, 0.82);
                     -webkit-backdrop-filter: blur(4px);
                     backdrop-filter: blur(4px);
                 }
 
                 /* Полоса прогресса чтения — акцент Lunel (Figma) */
-                body.panel-open .project-panel__scroll-indicator__fill {
+                body .project-panel__scroll-indicator__fill {
                     background: #FF956F;
                 }
 
@@ -542,10 +541,9 @@
 
                 .lunel-apps img {
                     display: block;
-                    width: 60px;
-                    height: 60px;
-                    border-radius: 16px;
-                    background: #fff;
+                    width: 100%;
+                    max-width: 444px;
+                    height: auto;
                 }
 
                 /* Длинные слова («персонализированное») не должны вылезать
