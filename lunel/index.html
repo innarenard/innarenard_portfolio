@@ -277,7 +277,6 @@
             </div>
 
             <!-- ═══════ Карточки фазы ═══════ -->
-            <div class="spacer-56 scroll-reveal"></div>
             <div class="content-block lunel-b scroll-reveal case-phase-desc">
                 <h1 class="body_text" data-i18n="lunel_c_phase_desc">Tapping a&nbsp;phase card opens a&nbsp;short description: what happens in&nbsp;this phase and&nbsp;the&nbsp;basic recommendations for&nbsp;its&nbsp;days.</h1>
             </div>
@@ -289,7 +288,6 @@
             </div>
 
             <!-- ═══════ Инсайты ═══════ -->
-            <div class="spacer-56 scroll-reveal"></div>
             <div class="content-block lunel-b scroll-reveal case-insights-desc">
                 <h1 class="body_text" data-i18n="lunel_c_insights_desc">Insights are&nbsp;computed by&nbsp;the&nbsp;Apple language model right on&nbsp;the&nbsp;device – the&nbsp;data never leaves it. A&nbsp;finished card shows everything the&nbsp;app has spotted. If there is&nbsp;still too little data, we&nbsp;say what the&nbsp;card will be&nbsp;about and&nbsp;how much more you&nbsp;need to&nbsp;log.</h1>
             </div>
@@ -301,7 +299,6 @@
             </div>
 
             <!-- ═══════ Прогноз на неделю ═══════ -->
-            <div class="spacer-56 scroll-reveal"></div>
             <div class="content-block lunel-b scroll-reveal case-forecast-desc">
                 <h1 class="body_text" data-i18n="lunel_c_forecast_desc">From the&nbsp;logs we&nbsp;compute the&nbsp;window in&nbsp;which a&nbsp;new cycle may start, and&nbsp;prompt which symptoms usually come with&nbsp;it. It&nbsp;is&nbsp;all built on&nbsp;your own entries – once a&nbsp;week this adds up&nbsp;to&nbsp;a&nbsp;single forecast for&nbsp;the&nbsp;seven days ahead.</h1>
             </div>
@@ -520,6 +517,17 @@
                     line-height: 24px;
                     color: #404040;
                     text-align: center;
+                }
+
+                /* Отступ между картинкой и следующим абзацем внутри блока
+                   «Главная». В макете это спейсер 50 плюс два зазора контейнера
+                   по 20 — от картинки до текста получается 90. На сайте базовый
+                   зазор тоже 20, поэтому добавляем 70. Пустые .spacer-* сюда
+                   не годятся: panel.js вырезает их при загрузке кейса в шторку. */
+                .lunel-b.case-phase-desc,
+                .lunel-b.case-insights-desc,
+                .lunel-b.case-forecast-desc {
+                    padding-top: 70px;
                 }
 
                 /* Серый из макета: #F9F7F7 вместо общего --bg_n (#F2F2F2).
