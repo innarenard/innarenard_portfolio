@@ -6,7 +6,7 @@
       /* ── index.html ── */
       cv_url: "https://drive.google.com/file/d/1zWKoMJA6_vVisBg3zKDaxOqzHrBVsKwa/view?usp=drive_link",
       name: "Inna Ivanova",
-      intro: "Product Designer with\u00A05+ years of\u00A0experience in\u00A0tech product teams",
+      intro: "Product Designer with\u00A06+ years of\u00A0experience in\u00A0tech product teams",
       lunel_title: "Lunel",
       lunel_intro: "Lunel. A\u00A0cycle and\u00A0women's health tracking app that helps you understand your body.",
       lunel_role: "A\u00A0personal B2C project I\u00A0led end-to-end\u00A0– from\u00A0the idea to\u00A0the MVP release on\u00A0the App\u00A0Store, with\u00A0the app itself built through vibe coding in\u00A0Claude\u00A0Code.",
@@ -554,7 +554,7 @@
       /* ── index.html ── */
       cv_url: "https://drive.google.com/file/d/1hrG2EUGzV8upgaKNbsP1EXlfqLdza1i5/view?usp=drive_link",
       name: "Инна Иванова",
-      intro: "Product Designer с\u00A05+ годами опыта в\u00A0tech продуктовых командах",
+      intro: "Product Designer с\u00A06+ годами опыта в\u00A0tech продуктовых командах",
       lunel_title: "Lunel",
       lunel_intro: "Lunel. Приложение для\u00A0отслеживания цикла и\u00A0женского здоровья, помогающее понять своё тело.",
       lunel_role: "Личный B2C-проект: вела end-to-end\u00A0– от\u00A0идеи до\u00A0релиза MVP в\u00A0App\u00A0Store, приложение собрала сама через vibe coding в\u00A0Claude\u00A0Code.",
