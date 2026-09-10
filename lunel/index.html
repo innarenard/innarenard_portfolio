@@ -389,6 +389,24 @@
                    до шторки не доезжает. Все селекторы начинаются с .lunel-, чтобы
                    правила не протекли на главную, которая остаётся в DOM за шторкой. */
 
+                /* Единственное исключение из правила «все селекторы с .lunel-»:
+                   фон-подложка шторки и полоса прогресса лежат снаружи .section_content,
+                   у них нет своего класса под Lunel. Эти стили живут только пока
+                   в шторке загружен кейс Lunel — при открытии другого кейса
+                   showLoading() затирает innerHTML вместе с этим <style>. */
+
+                /* Подложка окна: #FF9E7B 10% поверх белого = #FFF5F2 (Figma) */
+                body.panel-open .panel-overlay {
+                    background: rgba(255, 245, 242, 0.82);
+                    -webkit-backdrop-filter: blur(4px);
+                    backdrop-filter: blur(4px);
+                }
+
+                /* Полоса прогресса чтения — акцент Lunel (Figma) */
+                body.panel-open .project-panel__scroll-indicator__fill {
+                    background: #FF956F;
+                }
+
                 /* Строка тегов: iOS • MVP • FemTech • B2C • 2026 + иконка App Store */
                 .lunel-tags {
                     display: flex;
