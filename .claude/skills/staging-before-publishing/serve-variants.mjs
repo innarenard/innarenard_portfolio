@@ -32,6 +32,7 @@ const SITES = [
   { port: 8014, root: join(BASE, '.variants/v4'), title: 'Вариант 4' },
   { port: 8015, root: join(BASE, '.variants/v5'), title: 'Вариант 5' },
   { port: 8016, root: join(BASE, '.variants/shared/gallery'), title: 'Компоненты Lunel' },
+  { port: 8017, root: join(BASE, '.variants/v6'), title: 'Вариант 6 (сводный)' },
 ];
 
 const TYPES = {
