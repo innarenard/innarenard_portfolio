@@ -19,6 +19,14 @@
     return window.innerWidth <= MOBILE_BP;
   }
 
+  // Язык, выбранный человеком, живёт в адресе (см. js/i18n.js) и должен
+  // переезжать вместе с ним в адрес кейса — иначе скопированная из шторки
+  // ссылка потеряет язык
+  function langQuery() {
+    var m = /[?&]lang=(en|ru)(?:&|$)/.exec(window.location.search);
+    return m ? '?lang=' + m[1] : '';
+  }
+
   function fixImagePaths(html, href) {
     // Use SITE_ROOT to ensure images match the actual location on the server
     var imageBase = SITE_ROOT + 'images/';
@@ -61,49 +69,10 @@
     });
   }
 
+  // Перевод вставленного кейса делает js/i18n.js: там же запоминается
+  // английский оригинал, иначе возврат на английский достать будет неоткуда
   function applyI18n(container) {
-    var lang = document.documentElement.lang || 'en';
-    if (typeof window._i18nTranslations === 'undefined') return;
-    var t = window._i18nTranslations[lang];
-    if (!t) return;
-    container.querySelectorAll('[data-i18n]').forEach(function (el) {
-      var key = el.getAttribute('data-i18n');
-      var value = t[key];
-      if (value != null) {
-        if (value.indexOf('<') !== -1) {
-          el.innerHTML = value;
-        } else {
-          el.textContent = value;
-        }
-      }
-    });
-    container.querySelectorAll('[data-i18n-alt]').forEach(function (el) {
-      var key = el.getAttribute('data-i18n-alt');
-      var val = t[key];
-      if (val != null) el.setAttribute('alt', val);
-    });
-    container.querySelectorAll('[data-i18n-src]').forEach(function (el) {
-      var srcTemplate = el.getAttribute('data-i18n-src');
-      var newSrc = srcTemplate.replace('{lang}', lang);
-      el.setAttribute('src', newSrc);
-
-      // If it's a source inside a video, we need to reload the video
-      if (el.tagName.toLowerCase() === 'source' && el.parentElement && el.parentElement.tagName.toLowerCase() === 'video') {
-        el.parentElement.load();
-
-        // Wait for the video to be ready before playing
-        el.parentElement.oncanplay = function () {
-          el.parentElement.play().catch(function (e) {
-            console.log('Auto-play prevented:', e);
-          });
-        };
-      }
-    });
-    container.querySelectorAll('[data-i18n-poster]').forEach(function (el) {
-      var posterTemplate = el.getAttribute('data-i18n-poster');
-      var newPoster = posterTemplate.replace('{lang}', lang);
-      el.setAttribute('poster', newPoster);
-    });
+    if (typeof window.i18nApply === 'function') window.i18nApply(container);
   }
 
   function loadCaseContent(href) {
@@ -165,7 +134,20 @@
     scrollIndicatorLastPct = 0;
   }
 
-  function openPanel(card) {
+  // GoatCounter считает только настоящие загрузки страниц и не видит history.pushState,
+  // поэтому открытия кейсов в шторке раньше вообще не попадали в статистику
+  function trackPanelView(path, card) {
+    if (!window.goatcounter || typeof window.goatcounter.count !== 'function') return;
+    var titleEl = card.querySelector('.project-card__caption-title');
+    window.goatcounter.count({
+      path: path,
+      title: titleEl ? titleEl.textContent.trim() : document.title,
+      event: false
+    });
+  }
+
+  function openPanel(card, options) {
+    var track = !(options && options.track === false);
     currentCard = card;
     var href = card.getAttribute('data-href') || '';
     // Start loading BEFORE changing the URL to ensure correct relative path resolution
@@ -188,8 +170,11 @@
     document.documentElement.style.overflow = 'hidden';
 
     // Update URL without trailing slash for a clean aesthetic
-    var pushUrl = (SITE_ROOT + href).replace(/\/$/, '');
+    var pushUrl = (SITE_ROOT + href).replace(/\/$/, '') + langQuery();
     history.pushState({ panel: true }, '', pushUrl);
+    // В адресной строке слеш в конце не нужен, а счётчику отдаём путь со слешем:
+    // так заход в шторку и заход по прямой ссылке сходятся в одну строку статистики
+    if (track) trackPanelView(SITE_ROOT + href, card);
 
     contentPromise
       .then(function (html) {
@@ -225,15 +210,25 @@
 
     if (isMobile()) {
       var href = card.getAttribute('data-href');
-      if (href) window.location.href = href;
+      // на телефоне шторки нет, уходим на страницу кейса — язык берём с собой
+      if (href) window.location.href = href + langQuery();
       return;
     }
     openPanel(card);
   }
 
+  // Отдельная страница кейса показывает ту же панель, но содержимое в ней
+  // уже лежит в разметке: карточек нет, openPanel никто не зовёт, закрывать нечего
+  var isStandaloneCase = !document.querySelector('.project-card');
+
   if (panelScroll && scrollIndicator) {
     panelScroll.addEventListener('scroll', updateScrollIndicator);
     window.addEventListener('resize', updateScrollIndicator);
+  }
+
+  if (isStandaloneCase) {
+    updateScrollIndicator();
+    return;
   }
 
   document.querySelectorAll('.project-card').forEach(function (card) {
@@ -273,9 +268,11 @@
       var id = match[1].replace(/\/$/, '');
       var card = document.querySelector('.project-card[data-project="' + id + '"]');
       if (card) {
-        // Clean URL to plain site root before opening panel to ensure clean state
-        history.replaceState(null, '', SITE_ROOT);
-        openPanel(card);
+        // Clean URL to plain site root before opening panel to ensure clean state.
+        // Язык из адреса при этом сохраняем
+        history.replaceState(null, '', SITE_ROOT.replace(/\/$/, '/') + langQuery());
+        // Эту загрузку уже посчитал count.js — второй раз не считаем
+        openPanel(card, { track: false });
       }
     }
   })();

@@ -2,560 +2,11 @@
   var STORAGE_KEY = 'portfolio-lang';
 
   var translations = {
-    en: {
-      /* ── index.html ── */
-      cv_url: "https://drive.google.com/file/d/1zWKoMJA6_vVisBg3zKDaxOqzHrBVsKwa/view?usp=drive_link",
-      name: "Inna Ivanova",
-      intro: "Product Designer with\u00A06\u00A0years of\u00A0experience in\u00A0tech product teams",
-      lunel_title: "Lunel",
-      lunel_intro: "<strong>Lunel</strong>. A\u00A0cycle and\u00A0women's health tracking app that helps you understand your body.",
-      lunel_role: "A\u00A0personal B2C project I\u00A0led end-to-end\u00A0– from\u00A0the idea to\u00A0the MVP release on\u00A0the App\u00A0Store, with\u00A0the app itself built through vibe coding in\u00A0Claude\u00A0Code.",
-      lunel_card_title: "Lunel",
-      lunel_year: "2026",
-      lunel_alt: "Lunel cycle tracker",
-      lunel_stat_1: "Designed from\u00A0scratch",
-      lunel_stat_2: "End-to-end",
-      lunel_stat_3: "MVP released on\u00A0the App\u00A0Store",
-      samokat_title: "Samokat",
-      samokat_intro: "<strong>Samokat</strong>. An express grocery and essentials delivery service, ranked among the leaders of the Russian e-grocery market.",
-      samokat_role: "I developed the B2B product direction, owning and improving the end-to-end experience of dark store employees.",
-      samokat_desc: "Russian rapid grocery and\u00A0ready-to-eat food delivery service operating in\u00A0127 cities and\u00A0handling up\u00A0to\u00A0827\u00A0000 orders per\u00A0day",
-      view_order_picking: "Order picking",
-      order_picking_alt: "Order picking",
-      stat_order_1: "-2,3% Time to\u00A0Task",
-      stat_order_2: "-2 errors",
-      stat_order_3: "UX 4,7\u00A0/ 5",
-      stat_order_4: "B2B",
-      stat_order_5: "2025",
-      view_picking_priority: "Picking priority",
-      picking_priority_alt: "Picking priority",
-      stat_picking_1: "-4,4% Time to\u00A0Task",
-      stat_picking_2: "4,8\u00A0/\u00A05 UX",
-      stat_picking_3: "",
-      stat_picking_4: "B2B",
-      stat_picking_5: "2025",
-      view_picker_schedule: "Picker schedule",
-      picker_schedule_alt: "Picker schedule",
-      stat_ps_1: "-4% order\u2192delivery",
-      stat_ps_2: "-6% order\u2192assembly start",
-      stat_ps_3: "+2%\u00A0peak-hour orders",
-      stat_ps_4: "B2B",
-      stat_ps_5: "2025",
-      view_transfers: "Transfers of\u00A0goods",
-      transfers_alt: "Transfers of\u00A0goods",
-      stat_transfers_1: "Savings of\u00A04\u00A0M RUB",
-      stat_transfers_2: "-5% overdue shipments",
-      stat_transfers_3: "UX 4,8\u00A0/ 5",
-      stat_transfers_4: "B2B",
-      stat_transfers_5: "2024",
-      mes_title: "MES",
-      mes_intro: "<strong>Moscow Electronic School</strong>. A project for\u00A0teachers aimed at\u00A0creating a\u00A0high-tech educational environment in\u00A0Moscow schools",
-      mes_role: "I developed and improved the end-to-end experience of teachers and college administrators",
-      mes_desc: "Moscow Electronic School is a\u00A0project for\u00A0teachers aimed at\u00A0creating a\u00A0high-tech educational environment in\u00A0Moscow schools",
-      view_teachers_journal: "Teacher's journal",
-      teachers_journal_alt: "Teacher's journal",
-      stat_journal_1: "Designed from\u00A0scratch",
-      stat_journal_2: "UX 8,1\u00A0/ 10",
-      stat_journal_3: "B2B",
-      stat_journal_4: "2023",
-      view_colleges: "Colleges",
-      view_case: "Case",
-      view_btn: "Dive",
-      colleges_alt: "Colleges",
-      stat_colleges_1: "Redesign and\u00A0update",
-      stat_colleges_2: "UX 8,9\u00A0/ 10",
-      stat_colleges_3: "B2B",
-      stat_colleges_4: "2023",
-
-      /* ── order-picking.html ── */
-      op_title: "Order picking in\u00A0a\u00A0dark store",
-      op_cover_alt: "Order picking cover",
-      op_desc: "Order picking is one of\u00A0the key products at\u00A0Samokat. The\u00A0business prioritizes fast order picking and\u00A0quick handoff to\u00A0delivery",
-      op_metrics_label: "Metrics",
-      op_metrics_value: "• Time to\u00A0Task<br>• Speed of\u00A0taking a\u00A0task into\u00A0work<br>• Product quality",
-      op_stores_label: "Dark Stores",
-      op_flow: "The picker's task is to\u00A0quickly take the\u00A0customer's order into\u00A0work, start picking it as\u00A0soon as\u00A0possible, specify the\u00A0box numbers, complete the\u00A0picking process, and\u00A0hand the\u00A0assembled order over\u00A0to\u00A0the courier for\u00A0delivery to\u00A0the client.<br>",
-      op_flow_alt: "Order picking flow",
-      op_screen_alt: "Order picking screen",
-      op_hyp_started: "The hypothesis that started it\u00A0all<br>",
-      op_hyp_started_desc: "Dark store products have existed almost since the\u00A0company's founding, so\u00A0the quality of\u00A0the current design solutions raised doubts about their relevance",
-      op_hyp_started_q: "– Do they really work well?<br>– Can we do better and\u00A0positively impact user experience metrics? <br>(Time to\u00A0Task, number of\u00A0errors, usability)<br>",
-      op_role_title: "My role<br>",
-      op_role_desc: "Worked <strong>end-to-end</strong> on\u00A0the project: from\u00A0discovery and\u00A0problem definition through design to\u00A0final release",
-      op_role_1: "• Conducted <strong>field research</strong> in\u00A02 dark stores<br>",
-      op_role_2: "• Conducted <strong>6 interviews</strong> with\u00A0pickers and\u00A0dark store admins<br>",
-      op_role_3: "• <strong>Identified key issues</strong> affecting Time to\u00A0Task, errors, and\u00A0task pickup speed<br>",
-      op_role_4: "• Conducted <strong>10 UX tests</strong><br>",
-      op_role_5: "• Launched an\u00A0<strong>A/B test</strong> with\u00A0the\u00A0product team across 260 dark stores<br>",
-      op_role_6: "• As\u00A0a\u00A0result of\u00A0UMUX surveys, 359 out of\u00A0402 users rated the\u00A0updates 5/5<br>",
-      op_role_7: "• <strong>Released</strong> the\u00A0updates to\u00A02\u00A0400 dark stores<br>",
-      op_pain_title: "User Pain Points<br>",
-      op_pain_1: "Picked items in\u00A0the order remain at\u00A0the top, requiring constant scrolling",
-      op_pain_2: "Have to\u00A0reach for\u00A0the\u00A0button to\u00A0complete the\u00A0order",
-      op_pain_3: "Often forget to\u00A0press the\u00A0\u00ABStart Picking\u00BB button",
-      op_pain_4: "Often forget to\u00A0press the\u00A0\u00ABProceed to\u00A0Box Entry\u00BB button",
-      op_insight_title: "The main insight<br>",
-      op_insight_desc: "Pickers move quickly around the\u00A0dark store, scanning items with\u00A0a\u00A0ring scanner; <strong>the application needs to\u00A0adapt to\u00A0their workflow</strong>",
-      op_hyp_title: "Hypotheses<br>",
-      op_hyp_1: "Starting the\u00A0picking process by\u00A0scanning an\u00A0item eliminates the\u00A0error of\u00A0starting without pressing the\u00A0button",
-      op_hyp_1m: "Time to\u00A0Task, Errors",
-      op_hyp_2: "Automatic screen transitions remove the\u00A0need to\u00A0press buttons",
-      op_hyp_2m: "Time to\u00A0Task, Errors",
-      op_hyp_3: "Moving picked items to\u00A0the bottom speeds up\u00A0picking, keeping only the\u00A0needed items at\u00A0the top",
-      op_hyp_4: "Changing the\u00A0display order accelerates the\u00A0process by\u00A0starting from\u00A0the\u00A0back of\u00A0the warehouse",
-      op_hyp_5: "Auto-opening the\u00A0next task reduces order pickup time",
-      op_hyp_5m: "Task Pickup Speed",
-      op_hyp_6: "Completing the\u00A0picking process via scanning speeds up\u00A0the transition to\u00A0the next task",
-      op_hyp_6m: "Task Pickup Speed",
-      op_start_title: "Start of\u00A0assembly<br>",
-      op_start_desc: "The process begins with\u00A0item scanning, with\u00A0an\u00A0option for\u00A0pickers to\u00A0reverse the\u00A0list sorting",
-      op_start_alt: "Start of\u00A0assembly",
-      op_box_title: "Specifying the\u00A0box numbers<br>",
-      op_box_desc: "The box number screen appears automatically once the\u00A0last item in\u00A0the order is\u00A0scanned",
-      op_box_alt: "Box numbers",
-      op_complete_title: "Order Picking Completion<br>",
-      op_complete_desc: "The picking process can be\u00A0completed by\u00A0scanning a\u00A0barcode",
-      op_next_title: "Next task<br>",
-      op_next_desc: "A\u00A0new picking task opens automatically",
-      op_next_alt: "Next task",
-      op_result_title: "Result<br>",
-      op_result_1: "Launched an\u00A0<strong>A/B test</strong> with\u00A0the\u00A0product team across 260 dark stores.",
-      op_result_2: "As a\u00A0result of\u00A0<strong>UMUX surveys</strong>, 359 out of\u00A0402 users rated the\u00A0updates 5/5.",
-      op_result_3: "<strong>Released</strong> the\u00A0updates to\u00A02\u00A0400 dark stores.",
-      op_res_metric_2: "-2 errors",
-      op_res_label_2: "Only scanning errors remain",
-      op_res_label_3: "UX score based on\u00A0surveys",
-      op_res_metric_4: "A/B test",
-      op_res_label_4: "260 dark stores",
-      op_res_metric_5: "Released",
-      op_res_label_5: "2\u00A0400 dark stores",
-      op_result_summary: "In the\u00A0ideal scenario, <strong>an order can be\u00A0picked and\u00A0completed without touching the\u00A0smartphone</strong>, using only the\u00A0ring scanner",
-      pp_footer_other: "Other cases",
-
-      /* ── picker-schedule.html ── */
-      ps_title: "Picker schedule",
-      ps_cover_alt: "Picker schedule cover",
-      ps_desc: "Pickers arrive at the dark store at the time approved by the administrator and coordination team. It is important for the business to have enough pickers in dark stores during peak order hours.",
-      ps_metrics_label: "Metrics",
-      ps_metrics_value: "• Time to\u00A0Task<br>• Speed of\u00A0taking a\u00A0task into\u00A0work<br>• Product quality",
-      ps_stores_label: "Dark Stores",
-      ps_problem_title: "Business problem<br>",
-      ps_bpain_1: "Administrators scheduled staff without accounting for peak loads, leading to a shortage of pickers during evening hours and causing delays",
-      ps_bpain_2: "Too many people are responsible for pickers\u2019 dark store shifts \u2014 administrators and coordination staff alike",
-      ps_role_title: "My role<br>",
-      ps_role_desc: "Worked <strong>end-to-end</strong> on\u00A0the project: from\u00A0discovery and\u00A0problem definition through design to\u00A0final release",
-      ps_role_1: "• Conducted interviews with\u00A0the business to\u00A0identify key issues<br>",
-      ps_role_2: "• Together with\u00A0a\u00A0researcher, interviewed pickers and\u00A0administrators to\u00A0document the\u00A0AS\u00A0IS process<br>",
-      ps_role_3: "• Created <strong>CJM and Blue Print</strong><br>",
-      ps_role_4: "• Conducted <strong>8 UX tests</strong><br>",
-      ps_role_5: "• Rollout to <strong>2\u00A0400 dark stores</strong><br>",
-      ps_insight_title: "The main insight<br>",
-      ps_insight_desc: "Research revealed that <strong>the method of scheduling pickers\u2019 shifts differs from dark store to dark store</strong>",
-      ps_insight_1: "Pickers indicate their availability through a courier app, causing errors when a staff member is still working as a courier",
-      ps_insight_2: "Pickers write in chats and the admin personally contacts coordination staff when a picker needs to be brought in",
-      ps_insight_alt: "Main insight",
-      ps_task_title: "Task<br>",
-      ps_task_desc: "Based on the research results presented to the business, a decision was made to create a scheduling section for pickers.",
-      ps_task_note: "A section needs to be created where pickers can specify their available shift time. Coordination staff will be responsible for confirming the shift at the dark store.<br>",
-      ps_hyp_title: "Hypotheses<br>",
-      ps_hyp_1: "A dedicated section in the picker app will prevent errors caused by multi-role assignments",
-      ps_hyp_1m: "Time to\u00A0Task",
-      ps_hyp_2: "Removing the administrator from the process will reduce fraud",
-      ps_hyp_2m: "Fraud",
-      ps_hyp_3: "A section where pickers can see their slots will make the process transparent",
-      ps_hyp_3m: "CSAT",
-      ps_hyp_4: "Coordination staff will ensure the right number of employees are present during peak hours",
-      ps_hyp_4m: "Time to\u00A0Task",
-      ps_main_title: "Main<br>",
-      ps_main_desc: "Availability interval is the time indicated by the picker.<br>A slot is the time confirmed by a coordination employee when the picker arrives.",
-      ps_main_alt: "Main screen",
-      ps_section_title: "Section<br>",
-      ps_section_alt: "Section screen",
-      ps_add_title: "Adding a\u00A0slot<br>",
-      ps_add_desc: "Pickers indicate the time at which they are ready to come to the dark store",
-      ps_add_alt: "Add slot",
-      ps_confirm_title: "Slot confirmation<br>",
-      ps_confirm_desc: "Coordination staff confirm the time when the picker must arrive",
-      ps_confirm_alt: "Confirm slot",
-      ps_edit_title: "Editing availability interval<br>",
-      ps_edit_desc: "The picker can always change their availability time",
-      ps_edit_alt: "Edit availability",
-      ps_cancel_title: "Slot cancellation<br>",
-      ps_cancel_desc: "The picker can always cancel a slot, but this will affect their rating",
-      ps_cancel_alt: "Cancel slot",
-      ps_result_title: "Result<br>",
-      ps_res_metric_1: "-4%",
-      ps_res_label_1: "Time from order creation to delivery handoff",
-      ps_res_metric_2: "-6%",
-      ps_res_label_2: "Time from order creation to picking start",
-      ps_res_metric_3: "+2%",
-      ps_res_label_3: "Share of orders picked during peak hours",
-      ps_res_metric_5: "Released",
-      ps_res_label_5: "2\u00A0400 dark stores",
-      ps_result_summary: "The key result was <strong>the presence of a sufficient number of employees in dark stores during peak hours</strong>",
-      ps_footer_other: "Other cases",
-
-      /* ── picking-priority.html ── */
-      pp_title: "Picking priority",
-      pp_cover_alt: "Picking priority cover",
-      pp_desc: "A\u00A0web tool designed to\u00A0optimize the\u00A0order picking sequence based on\u00A0product locations within a\u00A0darkstore.",
-      pp_metrics_label: "Metrics",
-      pp_metrics_value: "• Time to\u00A0Task\u003cbr\u003e• Priority sync between system and dark store",
-      pp_stores_label: "Dark Stores",
-      pp_stores_value: "2 400",
-      pp_problem_title: "Problem<br>",
-      pp_problem_desc: "The previous system was outdated; administrators could only set priorities for entire product groups, and new products often lacked clear group assignment, forcing admins to use external services for clarification.",
-      pp_role_title: "My role<br>",
-      pp_role_desc: "Worked <strong>end-to-end</strong> on\u00A0the project: from\u00A0discovery and\u00A0problem definition through design to\u00A0final release",
-      pp_role_1: "• Conducted <strong>6 interviews</strong> with administrators<br>",
-      pp_role_2: "• Created <strong>CJMs and user stories</strong><br>",
-      pp_role_3: "• Performed <strong>HMW analysis</strong><br>",
-      pp_role_4: "• Conducted <strong>6 UX tests</strong><br>",
-      pp_role_5: "• Managed the <strong>A/B test</strong> on 1,175 locations<br>",
-      pp_role_6: "• <strong>Full rollout</strong> to 2,400 dark stores<br>",
-      pp_insight_title: "The main insight<br>",
-      pp_insight_desc: "Administrators need transparency and speed; <strong>direct visibility of group contents and individual SKU exceptions</strong> are crucial for operational efficiency.",
-      pp_hyp_title: "Hypotheses<br>",
-      pp_hyp_1: "Universal search with barcode scanning reduces Time to Task",
-      pp_hyp_1m: "Time to Task",
-      pp_hyp_2: "Individual SKU exceptions within groups improve picking speed",
-      pp_hyp_2m: "Picking Speed",
-      pp_hyp_3: "Direct visibility of group contents eliminates external tool dependency",
-      pp_hyp_3m: "Operational Efficiency",
-      pp_hyp_4: "Real-time notifications for priority changes reduce coordination errors",
-      pp_main_title: "Main Dashboard<br>",
-      pp_main_desc: "Product tables categorized by priority status with SKU exception markers",
-      pp_main_alt: "Main dashboard",
-      pp_search_title: "Universal Search<br>",
-      pp_search_desc: "Barcode scanning for quick product lookup and group identification",
-      pp_search_alt: "Search interface",
-      pp_group_title: "Group Content Transparency<br>",
-      pp_group_desc: "Side panels for viewing items within a group without leaving the dashboard",
-      pp_group_alt: "Group contents",
-      pp_exceptions_title: "SKU Exceptions<br>",
-      pp_exceptions_desc: "Ability to set individual priorities for specific products within a group",
-      pp_exceptions_alt: "SKU exceptions",
-      pp_result_title: "Result<br>",
-      pp_res_metric_1: "-4,4%",
-      pp_res_label_1: "Time to Task",
-      pp_res_metric_2: "4,8 / 5",
-      pp_res_label_2: "UX score based on surveys",
-      pp_res_metric_3: "A/B test",
-      pp_res_label_3: "1 175 dark stores",
-      pp_res_metric_4: "Lots of positive reviews",
-      pp_res_label_4: "",
-      pp_res_metric_5: "Released",
-      pp_res_label_5: "2 400 dark stores",
-      pp_result_summary: "The tool significantly improved the speed and accuracy of priority management for darkstore administrators.",
-      pp_footer_other: "Other cases",
-
-      /* ── transfers-of-goods.html ── */
-      tr_title: "Transfers of\u00A0goods between dark stores",
-      tr_cover_alt: "Transfers of\u00A0goods cover",
-      tr_desc_1: "The DMS team is\u00A0responsible for\u00A0controlling the\u00A0quality and\u00A0quantity of\u00A0goods in\u00A0the dark store.",
-      tr_desc_2: "For the\u00A0business, it\u00A0is important that the\u00A0data in\u00A0the system matches the\u00A0actual stock.",
-      tr_metrics_label: "Metrics",
-      tr_metrics_value: "• Time to\u00A0Task<br>• Speed of\u00A0taking a\u00A0task into\u00A0work<br>• Product quality",
-      tr_stores_label: "Dark Stores",
-      tr_task_title: "Task<br>",
-      tr_task_desc: "The business requested a\u00A0solution to\u00A0the fraud issue during transfers between dark stores, which caused the\u00A0company to\u00A0lose money and\u00A0goods",
-      tr_process_title: "How the\u00A0process works<br>",
-      tr_process_1: "• A\u00A0dark store administrator creates a\u00A0shipping task, specifies the\u00A0items, then hands them over\u00A0to\u00A0the courier and\u00A0completes the\u00A0task.<br>",
-      tr_process_2: "• The\u00A0administrator at\u00A0the receiving dark store collects the\u00A0goods from\u00A0the\u00A0courier and\u00A0starts the\u00A0receiving process.<br>",
-      tr_process_3: "• During the\u00A0process, they record damage and\u00A0discrepancies in\u00A0quantity.<br>",
-      tr_process_4: "• If violations are found, the\u00A0items in\u00A0the sending dark store are blocked from\u00A0sale and\u00A0must be\u00A0recounted to\u00A0verify the\u00A0accuracy of\u00A0stock data.<br>",
-      tr_role_title: "My role<br>",
-      tr_role_desc: "Worked <strong>end-to-end</strong> on\u00A0the project: from\u00A0discovery and\u00A0problem definition through design to\u00A0final release",
-      tr_role_1: "• Joined <strong>another team</strong> to\u00A0help at\u00A0the legacy product stage.<br>",
-      tr_role_2: "• <strong>Conducted interviews</strong> with\u00A0the\u00A0business and\u00A05\u00A0user interviews.<br>",
-      tr_role_3: "• <strong>Documented the\u00A0pain points</strong> and\u00A0challenges faced by\u00A0the business and\u00A0dark stores.<br>",
-      tr_role_4: "• Created a\u00A0<strong>CJM</strong> together with\u00A0the\u00A0product manager.<br>",
-      tr_role_5: "• Together with\u00A0the\u00A0product manager, I\u00A0formulated improvement <strong>hypotheses</strong>.<br>",
-      tr_role_6: "• Conducted <strong>10 UX tests</strong>.<br>",
-      tr_role_7: "• Step by\u00A0step (3\u00A0stages), we launched updates with\u00A0the\u00A0product team in\u00A02\u00A0400 dark stores.<br>",
-      tr_role_8: "• According to\u00A0UMUX survey results, 422 out of\u00A0450 users rated the\u00A0updates 4.8\u00A0/\u00A05.<br>",
-      tr_role_9: "• After the\u00A0launch, we\u00A0recorded a\u00A0reduction in\u00A0losses.<br>",
-      tr_bpain_title: "Business pain points<br>",
-      tr_bpain_1: "Goods intended for\u00A0shipping disappear from\u00A0the\u00A0storefront before they are actually sent",
-      tr_bpain_2: "Discrepancies between shipped and\u00A0received goods are not tracked",
-      tr_bpain_3: "Administrators create multiple tasks for\u00A0the\u00A0same item",
-      tr_bpain_4: "Shipping tasks are created but\u00A0not dispatched",
-      tr_bpain_5: "Administrators create multiple tasks for the same item",
-      tr_upain_title: "Pain points of\u00A0inventory specialists and\u00A0dark store administrators<br>",
-      tr_upain_1: "Send an\u00A0incorrect quantity of\u00A0goods",
-      tr_upain_2: "There is no visibility into\u00A0delivery timelines",
-      tr_upain_3: "Send items that are not included in\u00A0the request",
-      tr_upain_4: "Forced to\u00A0accept defective goods and\u00A0write them off\u00A0as\u00A0their own losses",
-      tr_upain_5: "Extra items cannot be added, and\u00A0this affects stock balances",
-      tr_upain_6: "The app does not indicate that the\u00A0item is already being shipped",
-      tr_upain_7: "The app does not assist with\u00A0address selection",
-      tr_upain_8: "The app does not remind users about shipments",
-      tr_insight_title: "The main insight<br>",
-      tr_insight_alt: "Main insight",
-      tr_hyp_title: "Hypotheses<br>",
-      tr_hyp_1: "Record discrepancies between declared and\u00A0received quantities",
-      tr_hyp_1m: "Discrepancy tracking",
-      tr_hyp_2: "Record defective items and\u00A0items not listed in\u00A0the task",
-      tr_hyp_2m: "Fraud logging",
-      tr_hyp_3: "Separate the\u00A0shipping process into\u00A0task creation and\u00A0actual dispatch",
-      tr_hyp_3m: "Errors and\u00A0write-offs",
-      tr_hyp_4: "Remind users about existing shipping tasks",
-      tr_hyp_4m: "Errors and\u00A0write-offs",
-      tr_hyp_5: "Indicate that an\u00A0item is already involved in\u00A0another shipping task",
-      tr_hyp_5m: "Errors and\u00A0write-offs",
-      tr_hyp_6: "Before selecting the\u00A0recipient address, add a\u00A0city selection step due to\u00A0similar addresses",
-      tr_hyp_6m: "Errors and\u00A0write-offs",
-      tr_dispatch_title: "Goods dispatch<br>",
-      tr_dispatch_desc: "A\u00A0dark store administrator creates a\u00A0shipping task, specifies the\u00A0items, then hands them over\u00A0to\u00A0the courier and\u00A0completes the\u00A0task",
-      tr_create_title: "Creating a\u00A0task for\u00A0moving<br>",
-      tr_create_desc: "Creating a\u00A0task begins with\u00A0selecting the\u00A0recipient's address",
-      tr_create_alt: "Creating a\u00A0task",
-      tr_add_title: "Add goods<br>",
-
-      tr_add_alt: "Add goods",
-      tr_complete_add_title: "Completion of\u00A0adding goods<br>",
-      tr_complete_add_desc: "If there were changes during the\u00A0process, the\u00A0application will highlight them",
-      tr_complete_add_alt: "Completion of\u00A0adding",
-      tr_reminder_title: "Reminder about shipping goods<br>",
-      tr_reminder_desc: "The app also sends reminders about sending",
-      tr_reminder_alt: "Reminder",
-      tr_shipping_title: "Shipping of\u00A0goods<br>",
-      tr_shipping_alt: "Shipping",
-      tr_accept_title: "Acceptance of\u00A0goods<br>",
-      tr_accept_desc: "The administrator at\u00A0the receiving dark store collects the\u00A0goods from\u00A0the\u00A0courier and\u00A0starts the\u00A0receiving process. During the\u00A0process, they record damage and\u00A0discrepancies in\u00A0quantity",
-      tr_accept_process_title: "The process of\u00A0accepting goods<br>",
-      tr_accept_process_desc: "The administrator opens the\u00A0product card and\u00A0specifies the\u00A0quantity of\u00A0goods",
-      tr_accept_important: "It is important to\u00A0record discrepancies:",
-      tr_accept_disc_1: "• less or\u00A0more than stated in\u00A0the\u00A0task was delivered",
-      tr_accept_disc_2: "• defective goods were delivered",
-      tr_accept_disc_3: "• goods not specified in\u00A0the\u00A0task were delivered",
-      tr_accept_alt: "Acceptance",
-      tr_done_title: "Completion of\u00A0the\u00A0task<br>",
-      tr_done_desc: "All discrepancies are recorded and\u00A0after the\u00A0task is\u00A0completed",
-      tr_done_note: "If there are discrepancies or\u00A0defects, the\u00A0goods that were involved in\u00A0the transfer are blocked for\u00A0sale by\u00A0the sending dark store. It will be necessary to\u00A0recount everything and\u00A0check the\u00A0quality",
-      tr_done_alt: "Completion",
-      tr_result_title: "Result<br>",
-      tr_result_1: "Step by\u00A0step (3\u00A0stages), we launched updates with\u00A0the\u00A0product team in\u00A02\u00A0400 dark stores.",
-      tr_result_2: "According to\u00A0UMUX survey results, 422 out of\u00A0450 users rated the\u00A0updates 4.8\u00A0/\u00A05.",
-      tr_result_3: "After the\u00A0launch, we recorded a\u00A0reduction in\u00A0losses.",
-      tr_res_metric_1: "Savings of\u00A04M RUB",
-      tr_res_label_1: "Reduction in\u00A0annual losses",
-      tr_res_label_2: "Errors in\u00A0address selection",
-      tr_res_label_3: "Overdue shipments",
-      tr_res_label_4: "UX score based on\u00A0surveys",
-      tr_res_metric_5: "Released",
-      tr_res_label_5: "Step by\u00A0step (3\u00A0stages) in\u00A02\u00A0400 dark stores",
-      tr_result_summary: "Updated the\u00A0functionality to\u00A0meet modern needs",
-      tr_footer_other: "Other cases",
-
-
-      /* ── teachers-journal.html ── */
-      tj_title: "Teacher's journal",
-      tj_cover_alt: "Teacher's journal cover",
-      tj_desc_1: "\u00ABJournal MES\u00BB is an\u00A0app that allows teachers to\u00A0keep schedules and\u00A0class journals at\u00A0hand, create and\u00A0check homework, and\u00A0grade students.",
-      tj_desc_2: "Moscow Electronic School is a\u00A0project of\u00A0the Department of\u00A0Education aimed at\u00A0digitalizing education. All documents, including grade journals and\u00A0homework assignment, were handled via a\u00A0web service.<br>",
-      tj_schools_label: "Moscow schools",
-      tj_role_title: "My role<br>",
-      tj_role_desc: "Worked <strong>end-to-end</strong> on\u00A0the project: from\u00A0discovery and\u00A0problem definition through design to\u00A0final release",
-      tj_role_1: "• Joined during active discussions about the\u00A0need for\u00A0the\u00A0app.<br>",
-      tj_role_2: "• <strong>Documented business expectations</strong> – the\u00A0app should replace the\u00A0web version of\u00A0the journal.<br>",
-      tj_role_3: "• <strong>Interviewed users</strong> and\u00A0identified their pain points and\u00A0needs.<br>",
-      tj_role_4: "• Conducted several design thinking sessions as\u00A0a\u00A0team.<br>",
-      tj_role_5: "• Gathered requirements and\u00A0constraints and\u00A0selected the\u00A0best ideas.<br>",
-      tj_role_6: "• Created the\u00A0information architecture for\u00A0the\u00A0future app.<br>",
-      tj_role_7: "• Conducted several design thinking sessions as\u00A0a\u00A0team.<br>",
-      tj_role_8: "• Conducted <strong>13 UX tests</strong> in\u00A0schools.<br>",
-      tj_role_9: "• Released to\u00A0all Moscow schools.<br>",
-      tj_pain_title: "Teacher's Pain Points<br>",
-      tj_pain_1: "After checking homework, they write grades in\u00A0a\u00A0notebook to\u00A0enter them later from\u00A0a\u00A0computer",
-      tj_pain_2: "They are afraid of\u00A0breaking school equipment and\u00A0leaving the\u00A0computer unattended",
-      tj_pain_3: "They sometimes forget to\u00A0assign homework",
-      tj_pain_4: "They cannot step away from\u00A0the\u00A0class even for\u00A0a\u00A0minute",
-      tj_insight_title: "The main insight<br>",
-      tj_insight_desc: "It\u00A0is difficult to\u00A0work on\u00A0school computers. <strong>Teachers experience anxiety and\u00A0lose confidence.</strong>",
-      tj_solution_title: "Solution<br>",
-      tj_solution_desc: "Teachers need to\u00A0be able to\u00A0complete their daily work tasks on\u00A0their own devices – smartphones – which will help maintain confidentiality and\u00A0confidence during lessons",
-      tj_main_title: "Main<br>",
-      tj_main_desc: "The section helps quickly navigate tasks and\u00A0activities",
-      tj_main_alt: "Main screen",
-      tj_schedule_title: "Schedule and\u00A0journals<br>",
-      tj_schedule_desc: "The schedule section supports planning and\u00A0quick updates",
-      tj_schedule_alt: "Schedule and\u00A0journals",
-      tj_lesson_title: "Lesson<br>",
-      tj_lesson_desc: "A\u00A0feature-rich section with\u00A0multiple capabilities: switching between lessons, creating assignments and\u00A0lesson comments, as\u00A0well as\u00A0recording grades or\u00A0attendance",
-      tj_lesson_alt: "Lesson",
-      tj_homework_title: "Homework<br>",
-      tj_homework_desc: "Assigning homework is one of\u00A0the\u00A0key functions of\u00A0the app. The\u00A0workflow requires assigning homework to\u00A0students after each lesson or\u00A0marking that no\u00A0assignment was given.",
-      tj_homework_alt: "Homework",
-      tj_checking_title: "Homework checking<br>",
-      tj_checking_desc: "The functionality in\u00A0the\u00A0mobile app allowed teachers to\u00A0check students' answers at\u00A0any convenient time and\u00A0assign grades",
-      tj_checking_alt: "Homework checking",
-      tj_result_title: "Result<br>",
-      tj_result_1: "Released to\u00A0all Moscow schools",
-      tj_res_label_1: "A\u00A0full replacement of\u00A0the\u00A0web service",
-      tj_res_desc_1: "Teachers find it\u00A0difficult to\u00A0work on\u00A0computers and\u00A0unfamiliar equipment; the\u00A0app on\u00A0their personal smartphones helped reduce anxiety and\u00A0increase confidence during lessons.",
-      tj_res_desc_2: "UX score based on\u00A0surveys for: <br>• mobility and\u00A0accessibility <br>• user-friendly and\u00A0intuitive interface <br>• ability to\u00A0quickly access the\u00A0journal <br>• ease of\u00A0creating homework assignments",
-      tj_result_summary: "The journal became a\u00A0tool that restored teachers' sense of\u00A0safety and\u00A0confidence.",
-      tj_footer_other: "Other cases",
-
-      /* ── colleges.html ── */
-      co_title: "Colleges",
-      co_cover_alt: "Colleges cover",
-      co_desc_1: "Colleges is a\u00A0service for\u00A0administrative work in\u00A0public educational institutions.",
-      co_desc_2: "The business goal was to\u00A0align the\u00A0product with\u00A0the\u00A0Moscow Electronic School visual style.",
-      co_desc_3: "Moscow Electronic School is a\u00A0project of\u00A0the Department of\u00A0Education aimed at\u00A0digitalizing education. The\u00A0service handles student enrollment, transfers, and\u00A0graduations, generates numerous reports, creates educational programs and\u00A0exam groups, and\u00A0much more.<br>",
-      co_colleges_label: "Moscow colleges",
-      co_role_title: "My role<br>",
-      co_role_desc: "Worked <strong>end-to-end</strong> on\u00A0the project: from\u00A0discovery and\u00A0problem definition through design to\u00A0final release",
-      co_role_1: "• Conducted interviews with\u00A0users and\u00A0the\u00A0business.<br>",
-      co_role_2: "• Moved on\u00A0to\u00A0design and\u00A0redesign.<br>",
-      co_role_3: "• The\u00A0key improvement was rethinking large tables.<br>",
-      co_role_4: "• Released to\u00A0all Moscow colleges.<br>",
-      co_pain_title: "Administrator's Pain Points<br>",
-      co_pain_1: "Outdated and\u00A0unattractive interface of\u00A0the service",
-      co_pain_2: "No option for\u00A0precise editing of\u00A0information",
-      co_pain_3: "Huge and\u00A0unwieldy tables",
-      co_pain_4: "Non-intuitive layout of\u00A0elements",
-      co_insight_title: "The main insight<br>",
-      co_insight_desc: "The service is a\u00A0working tool familiar to\u00A0users. <strong>A\u00A0careful redesign and\u00A0a\u00A0revision of\u00A0table handling are needed.</strong>",
-      co_nav_title: "Navigation<br>",
-      co_nav_desc: "An\u00A0important change was the\u00A0sidebar, which made switching between sections easier and\u00A0faster",
-      co_nav_alt: "Navigation",
-      co_block_title: "Block tables<br>",
-      co_block_desc: "Orders are created for\u00A0a\u00A0large number of\u00A0study groups. Filled cards can be collapsed, which helps maintain a\u00A0compact view",
-      co_block_alt: "Block tables",
-      co_block_screen_alt: "Block tables screenshot",
-      co_tables_title: "Tables<br>",
-      co_tables_desc: "The solution for\u00A0huge tables was the\u00A0ability to\u00A0customize column order and\u00A0freeze columns while scrolling",
-      co_tables_alt: "Tables scroll",
-      co_tables_screen_alt: "Tables screenshot",
-      co_result_title: "Result<br>",
-      co_result_1: "Released to\u00A0all Moscow colleges.",
-      co_res_label_1: "Redesign and\u00A0update",
-      co_res_desc_1: "The pilot version showed that users embraced the\u00A0new service and\u00A0noted improvements",
-      co_res_desc_2: "UX score based on\u00A0user surveys. <br>This was achieved because the\u00A0changes were subtle but\u00A0significantly improved the\u00A0quality and\u00A0speed of\u00A0work.",
-      co_result_summary: "The service gained an\u00A0aesthetically pleasing and\u00A0user-friendly design",
-      co_footer_other: "Other cases",
-
-      /* ── lunel.html ── */
-      lunel_c_title: "A\u00A0cycle and\u00A0women's health tracking app",
-      lunel_c_tag_1: "iOS",
-      lunel_c_tag_2: "MVP",
-      lunel_c_tag_3: "FemTech",
-      lunel_c_tag_4: "B2C",
-      lunel_c_tag_5: "2026",
-      lunel_c_cover_alt: "Lunel cover",
-      lunel_c_lead: "Lunel helps you understand your body. A\u00A0daily log (bleeding, mood and\u00A0energy, symptoms, notes), cycle-phase analytics, cards about hormones, Apple Health import and\u00A0an\u00A0export for\u00A0your doctor. Personal insights are computed by\u00A0the built-in Apple Intelligence model\u00A0– right on\u00A0the device, where it\u00A0is\u00A0supported. Everything works offline and\u00A0without an\u00A0account.",
-      lunel_c_card_1_label: "Personal project",
-      lunel_c_card_1_value: "Discovery and\u00A0delivery are mine, the\u00A0code is\u00A0vibe coding with\u00A0Claude Code",
-      lunel_c_card_2_label: "MVP",
-      lunel_c_card_2_value: "Built from\u00A0scratch, MVP released on\u00A0the App Store",
-      lunel_c_card_3_label: "8\u00A0languages",
-      lunel_c_card_3_value: "🇬🇧 🇩🇪 🇪🇸 🇲🇽 🇫🇷 🇵🇹 🇧🇷 🇷🇺",
-      lunel_c_role_title: "My\u00A0role<br>",
-      lunel_c_role_desc: "Worked <strong>end-to-end</strong>: from\u00A0the idea and\u00A0research to\u00A0design and\u00A0release",
-      lunel_c_role_1: "• <strong>A\u00A0personal project</strong>. I\u00A0wanted to\u00A0explore the\u00A0health space and\u00A0take an\u00A0idea all the\u00A0way to\u00A0a\u00A0competitive released product.<br>",
-      lunel_c_role_2: "• Ran <strong>4\u00A0in-depth interviews</strong>, studied <strong>open sources</strong> and\u00A0<strong>articles</strong>, and\u00A0<strong>store reviews</strong>.<br>",
-      lunel_c_role_3: "• Defined the\u00A0<strong>target audience</strong>, built <strong>job stories</strong> and\u00A0<strong>insights</strong>.<br>",
-      lunel_c_role_4: "• Framed the\u00A0user and\u00A0business problems. Matched ideas against technical constraints; at\u00A0the intersection I\u00A0formulated <strong>product hypotheses</strong>.<br>",
-      lunel_c_role_5: "• Built the\u00A0information and\u00A0functional architecture, and\u00A0the flows.<br>",
-      lunel_c_role_6: "• Ran <strong>4\u00A0UX\u00A0tests</strong> to\u00A0check the\u00A0key hypotheses quickly.<br>",
-      lunel_c_role_7: "• Worked out the\u00A0<strong>visual concept</strong>, <strong>tone of\u00A0voice</strong> and\u00A0the <strong>design system</strong>: color tokens, typography, grid, components, icons, illustrations.<br>",
-      lunel_c_role_8: "• During development I\u00A0gave the\u00A0agent the\u00A0task and\u00A0the acceptance criteria, Claude Code wrote the\u00A0SwiftUI code, I\u00A0reviewed it\u00A0– and\u00A0moved recurring requirements into skills.<br>",
-      lunel_c_role_9: "• <strong>Released the\u00A0MVP</strong> on\u00A0the App Store.<br>",
-      lunel_c_artifacts_alt: "Job stories and\u00A0early hypotheses",
-      lunel_c_audience_title: "Audience<br>",
-      lunel_c_audience_stmt: "Women who want to\u00A0understand their body and\u00A0notice patterns and\u00A0the dynamics of\u00A0their symptoms",
-      lunel_c_audience_desc: "The\u00A0working frame for\u00A0the core is\u00A020–55. They need to\u00A0log how they feel quickly, see what repeats, and\u00A0collect it\u00A0into something a\u00A0doctor can read. They are not looking for\u00A0diagnoses or\u00A0conception advice. Adjacent audiences come on\u00A0their own but are not targeted: perimenopause, endometriosis and\u00A0PCOS, teenagers.",
-      lunel_c_jobs_title: "Jobs<br>",
-      lunel_c_jobs_desc: "Job stories were the\u00A0way I\u00A0framed the\u00A0key pains, expectations and\u00A0barriers of\u00A0the users.",
-      lunel_c_job_1: "When I\u00A0am\u00A0short on\u00A0time and\u00A0in\u00A0a\u00A0hurry, I\u00A0want to\u00A0log an\u00A0entry fast, so\u00A0that I\u00A0can stop thinking about it",
-      lunel_c_job_2: "When it\u00A0feels like the\u00A0same symptom repeats cycle after cycle, I\u00A0want to\u00A0check it\u00A0against my\u00A0records, so\u00A0that I\u00A0stop worrying",
-      lunel_c_job_3: "When half of\u00A0the symptom list is\u00A0not about me,\u00A0I\u00A0want to\u00A0tailor it\u00A0to\u00A0myself, so\u00A0that I\u00A0save time",
-      lunel_c_job_4: "When I\u00A0log symptoms every day, I\u00A0want to\u00A0see the\u00A0result of\u00A0my\u00A0effort, so\u00A0that I\u00A0understand why I\u00A0keep logging",
-      lunel_c_job_5: "When I\u00A0am\u00A0going to\u00A0see a\u00A0doctor, I\u00A0want to\u00A0collect my\u00A0records into one summary, so\u00A0that I\u00A0do\u00A0not have to\u00A0remember",
-      lunel_c_job_6: "When something hurts every cycle, I\u00A0want to\u00A0log not only the\u00A0pain but its intensity, so\u00A0that I\u00A0can see the\u00A0dynamics",
-      lunel_c_jobs_more: "+ 22\u00A0more",
-      lunel_c_insight_title: "Key insight<br>",
-      lunel_c_insight_desc: "What kills motivation is\u00A0not how hard it\u00A0is\u00A0to\u00A0log, but the\u00A0silence that follows: <strong>the\u00A0app has to\u00A0answer every entry, adapt, and\u00A0prompt</strong>",
-      lunel_c_market_title: "Competitors and\u00A0market research<br>",
-      lunel_c_market_desc: "I\u00A0analysed direct and\u00A0indirect competitors, found out which features the\u00A0market leaders have and\u00A0which UX\u00A0patterns are the\u00A0standard. I\u00A0singled out what makes each player unique.",
-      lunel_c_star_1: "Audience",
-      lunel_c_star_2: "What it\u00A0is\u00A0good for",
-      lunel_c_star_3: "USP",
-      lunel_c_star_4: "Monetization",
-      lunel_c_star_5: "Retention",
-      lunel_c_star_6: "Gamification",
-      lunel_c_star_7: "Ecosystem",
-      lunel_c_star_8: "Onboarding",
-      lunel_c_competitors_alt: "Competitor app icons",
-      lunel_c_business_title: "Business goal<br>",
-      lunel_c_business_desc: "Launch a\u00A0private tracker that answers your entries, and\u00A0sell a\u00A0subscription to\u00A0analytics, insights and\u00A0export\u00A0– with\u00A0no\u00A0brand, no\u00A0paid traffic and\u00A0no\u00A0team.",
-      lunel_c_pain_title: "Top problems<br>",
-      lunel_c_pain_1: "Trackers live on\u00A0frequent input: to\u00A0show something personalised you need a\u00A0high density of\u00A0data",
-      lunel_c_pain_2: "If\u00A0the\u00A0value does not land right away, people will not pay. Or\u00A0they cannot pay because of\u00A0their age",
-      lunel_c_pain_3: "If\u00A0the\u00A0app does not show that it\u00A0adapts to\u00A0her, she leaves silently",
-      lunel_c_pain_4: "Content that is\u00A0pushy and\u00A0irrelevant to\u00A0the user pushes her away",
-      lunel_c_pain_more: "+ 5\u00A0more",
-      lunel_c_hyp_title: "Hypotheses<br>",
-      lunel_c_hyp_1: "If\u00A0we\u00A0praise her right after an\u00A0entry and\u00A0show what new is\u00A0now clear about her, then the\u00A0daily log stops being a\u00A0contribution to\u00A0nowhere",
-      lunel_c_hyp_1m: "Engagement, retention",
-      lunel_c_hyp_2: "If\u00A0every conclusion shows how many more days or\u00A0cycles she needs to\u00A0log, then waiting becomes a\u00A0clear deadline instead of\u00A0silence",
-      lunel_c_hyp_2m: "Time to\u00A0value, retention",
-      lunel_c_hyp_3: "If\u00A0the\u00A0conclusion is\u00A0built on\u00A0the number of\u00A0her own observations, trust will grow, because we\u00A0have no\u00A0editorial team and\u00A0no\u00A0doctors\u00A0– the\u00A0only thing that can back a\u00A0conclusion is\u00A0her own data",
-      lunel_c_hyp_3m: "Retention",
-      lunel_c_hyp_4: "If\u00A0we\u00A0set up\u00A0a\u00A0two-way exchange with\u00A0Apple Health, activation and\u00A0retention will grow, because body signals cut the\u00A0error roughly threefold",
-      lunel_c_hyp_4m: "Activation, retention",
-      lunel_c_hyp_more: "+ 19\u00A0more",
-      lunel_c_ia_title: "Information architecture and\u00A0flows<br>",
-      lunel_c_ia_desc: "Five sections: onboarding, home, calendar and\u00A0day, trends, settings. The\u00A0daily log is\u00A0the\u00A0most frequent scenario, so\u00A0the\u00A0day is\u00A0collected on\u00A0a\u00A0single screen instead of\u00A0a\u00A0chain of\u00A0forms. Onboarding is\u00A0designed so\u00A0that the\u00A0product works even without answers: every question has an\u00A0“I\u00A0don't remember” option.",
-      lunel_c_ia_alt: "Information architecture and\u00A0flows",
-      lunel_c_home_title: "Home<br>",
-      lunel_c_home_desc: "The\u00A0cycle ring shows where you are right now and\u00A0which phase it\u00A0is; you can move along it\u00A0to\u00A0any day that has passed. Under the\u00A0ring is\u00A0the\u00A0tracking for\u00A0that day: mood, discharge, symptoms, a\u00A0note. Below that are the\u00A0cards about the\u00A0phase.",
-      lunel_c_home_alt: "Home screen",
-      lunel_c_phase_desc: "Tapping a\u00A0phase card opens a\u00A0short description: what happens in\u00A0this phase and\u00A0the\u00A0basic recommendations for\u00A0its\u00A0days.",
-      lunel_c_phase_alt: "Phase cards",
-      lunel_c_insights_desc: "Insights are\u00A0computed by\u00A0the\u00A0Apple language model right on\u00A0the\u00A0device – the\u00A0data never leaves it. A\u00A0finished card shows everything the\u00A0app has spotted. If there is\u00A0still too little data, we\u00A0say what the\u00A0card will be\u00A0about and\u00A0how much more you\u00A0need to\u00A0log.",
-      lunel_c_insights_alt: "Insight card",
-      lunel_c_forecast_desc: "From\u00A0the\u00A0logs we\u00A0compute the\u00A0window in\u00A0which a\u00A0new cycle may start, and\u00A0prompt which symptoms usually come with\u00A0it. It\u00A0is\u00A0all built on\u00A0your own entries – once a\u00A0week this adds up to\u00A0a\u00A0single forecast for\u00A0the\u00A0seven days ahead.",
-      lunel_c_forecast_alt: "Forecast for\u00A0the\u00A0week ahead",
-      lunel_c_calendar_title: "Calendar<br>",
-      lunel_c_calendar_desc: "History and\u00A0forecast, marking the\u00A0days where something has been logged. Pick a\u00A0day and\u00A0you can fill it\u00A0in\u00A0right there or\u00A0look at\u00A0what is\u00A0already recorded.",
-      lunel_c_calendar_alt: "Calendar screen",
-      lunel_c_trends_title: "Trends<br>",
-      lunel_c_trends_desc: "Analytics for\u00A0the past year. A\u00A0deck of\u00A0full-screen cards: cycle and\u00A0period length, discharge intensity, symptoms, mood and\u00A0energy, activity, sex life. The\u00A0cards describe what is\u00A0visible in\u00A0the data, without advice. Everything can be\u00A0exported to\u00A0PDF.",
-      lunel_c_trends_alt: "Trends screens",
-      lunel_c_widgets_title: "Widgets<br>",
-      lunel_c_widgets_desc: "Widgets adapt to\u00A0the\u00A0colour of\u00A0the\u00A0phase: the\u00A0medium size carries the\u00A0checklist for\u00A0the\u00A0day, the\u00A0small one is\u00A0the\u00A0ring with\u00A0the\u00A0cycle day or\u00A0simply a\u00A0line of\u00A0text.",
-      lunel_c_widgets_alt: "Home screen widgets",
-      lunel_c_paywall_title: "Paywall<br>",
-      lunel_c_paywall_desc: "The\u00A0offer depends on\u00A0whether the\u00A0device has Apple Intelligence. Without it\u00A0part of\u00A0the\u00A0value is\u00A0out of\u00A0reach – so\u00A0that person is\u00A0shown a\u00A0shorter and\u00A0cheaper offer.",
-      lunel_c_paywall_alt: "Paywall screens",
-      lunel_c_ds_title: "Building the\u00A0design system<br>",
-      lunel_c_ds_alt: "Design system",
-      lunel_c_result_title: "Result<br>",
-      lunel_c_res_1: "MVP released on\u00A0the App Store",
-      lunel_c_res_2: "A\u00A0project from\u00A0scratch",
-      lunel_c_res_3: "AI\u00A0tooling built for\u00A0the project",
-      lunel_c_res_4: "8\u00A0languages",
-      lunel_c_res_4_flags: "🇬🇧 🇩🇪 🇪🇸 🇲🇽 🇫🇷 🇵🇹 🇧🇷 🇷🇺",
-      lunel_c_next_title: "What is\u00A0next<br>",
-      lunel_c_next_1: "• Trends over time: not a\u00A0slice for\u00A0a\u00A0period, but how the\u00A0numbers change from\u00A0cycle to\u00A0cycle<br>",
-      lunel_c_next_2: "• Pain and\u00A0symptoms on\u00A0a\u00A01–10 scale instead of\u00A0yes / no<br>",
-      lunel_c_next_3: "• A\u00A0passcode or\u00A0Face ID\u00A0to\u00A0open the\u00A0app<br>",
-      lunel_c_next_4: "• An\u00A0extended summary for\u00A0the doctor: more metrics<br>",
-      lunel_c_next_5: "• Family subscriptions<br>",
-      lunel_c_next_6: "• More work on\u00A0the prompts<br>",
-      lunel_c_hard_title: "A\u00A0minute of\u00A0hard parts<br>",
-      lunel_c_hard_desc: "I\u00A0had to\u00A0change the\u00A0name. In\u00A0App Store search Flowen was autocorrected to\u00A0“flower”\u00A0– the\u00A0app could not be\u00A0found by\u00A0its own name. I\u00A0renamed it\u00A0to\u00A0Lunel: the\u00A0icon, the\u00A0copy in\u00A0all 8\u00A0locales, the\u00A0legal pages, the\u00A0export file name, the\u00A0store metadata and\u00A0screenshots. Insights need iOS 26\u00A0and\u00A0Apple Intelligence, so\u00A0we\u00A0split the\u00A0audience by\u00A0device: without the\u00A0model the\u00A0offer is\u00A0shorter and\u00A0cheaper. Trends and\u00A0analytics are the\u00A0same for\u00A0everyone.",
-    },
-
     ru: {
       /* ── index.html ── */
-      cv_url: "https://drive.google.com/file/d/1hrG2EUGzV8upgaKNbsP1EXlfqLdza1i5/view?usp=drive_link",
+      cv_url: "/cv/inna-ivanova-cv-ru.pdf",
       name: "Инна Иванова",
       intro: "Product Designer с\u00A06\u00A0годами опыта в\u00A0tech продуктовых командах",
-      lunel_title: "Lunel",
       lunel_intro: "<strong>Lunel</strong>. Приложение для\u00A0отслеживания цикла и\u00A0женского здоровья, помогающее понять своё тело.",
       lunel_role: "Личный B2C-проект: вела end-to-end\u00A0– от\u00A0идеи до\u00A0релиза MVP в\u00A0App\u00A0Store, приложение собрала сама через vibe coding в\u00A0Claude\u00A0Code.",
       lunel_card_title: "Lunel",
@@ -564,55 +15,42 @@
       lunel_stat_1: "Спроектирован с\u00A0нуля",
       lunel_stat_2: "End-to-end",
       lunel_stat_3: "Релиз MVP в\u00A0App\u00A0Store",
-      samokat_title: "Самокат",
       samokat_intro: "<strong>Самокат</strong>. Сервис экспресс-доставки продуктов и товаров для дома, входит в число лидеров российского рынка e-grocery.",
       samokat_role: "Я развивала B2B-направление продукта, отвечая за улучшение сквозного опыта сотрудников дарксторов.",
-      samokat_desc: "Сервис быстрой доставки продуктов и\u00A0готовой еды в\u00A0127 городах, до\u00A0827\u00A0000 заказов в\u00A0день",
       view_order_picking: "Сбор заказов",
       order_picking_alt: "Сбор заказов",
       stat_order_1: "-2,3% Time to\u00A0Task",
       stat_order_2: "-2 ошибки",
       stat_order_3: "UX 4,7\u00A0/ 5",
-      stat_order_4: "",
       stat_order_5: "2025",
       view_picking_priority: "Приоритет сборки",
       picking_priority_alt: "Приоритет сборки",
       stat_picking_1: "-4,4% Time to\u00A0Task",
       stat_picking_2: "4,8\u00A0/\u00A05 UX",
-      stat_picking_3: "",
-      stat_picking_4: "B2B",
       stat_picking_5: "2025",
       view_picker_schedule: "Расписание сборщиков",
       picker_schedule_alt: "Расписание сборщиков",
       stat_ps_1: "–4% заказ\u2192доставка",
       stat_ps_2: "–6% заказ\u2192старт сборки",
       stat_ps_3: "+2% сборщиков в\u00A0час-пик",
-      stat_ps_4: "B2B",
       stat_ps_5: "2025",
       view_transfers: "Перемещения товаров",
       transfers_alt: "Перемещения товаров",
       stat_transfers_1: "Экономия 4\u00A0млн\u00A0₽",
       stat_transfers_2: "-5% просроченных отправок",
       stat_transfers_3: "UX 4,8\u00A0/ 5",
-      stat_transfers_4: "",
       stat_transfers_5: "2024",
-      mes_title: "МЭШ",
       mes_intro: "<strong>Московская электронная школа</strong>. Проект для\u00A0учителей, направленный на\u00A0создание высокотехнологичной образовательной среды в\u00A0школах Москвы",
       mes_role: "Я развивала и улучшала сквозной опыт учителей и администраторов колледжей",
-      mes_desc: "Московская электронная школа — проект для\u00A0учителей, создание высокотехнологичной образовательной среды в\u00A0школах Москвы",
       view_teachers_journal: "Журнал учителя",
       teachers_journal_alt: "Журнал учителя",
       stat_journal_1: "Спроектировано с\u00A0нуля",
       stat_journal_2: "UX 8,1\u00A0/ 10",
-      stat_journal_3: "B2B",
       stat_journal_4: "2023",
       view_colleges: "Колледжи",
-      view_case: "Перейти к кейсу",
-      view_btn: "Изучить",
       colleges_alt: "Колледжи",
       stat_colleges_1: "Редизайн и\u00A0обновление",
       stat_colleges_2: "UX 8,9\u00A0/ 10",
-      stat_colleges_3: "B2B",
       stat_colleges_4: "2023",
 
       /* ── order-picking.html ── */
@@ -623,7 +61,6 @@
       op_metrics_value: "• Time to\u00A0Task<br>• Скорость взятия задачи в\u00A0работу<br>• Качество продукции",
       op_stores_label: "Dark Stores",
       op_flow: "Задача сборщика — быстро взять заказ клиента в\u00A0работу, как можно скорее начать сбор, указать номера боксов, завершить сбор и\u00A0передать собранный заказ курьеру для доставки клиенту.<br>",
-      op_flow_alt: "Процесс сбора заказов",
       op_screen_alt: "Экран сбора заказов",
       op_hyp_started: "Гипотеза, с\u00A0которой всё началось<br>",
       op_hyp_started_desc: "Продукты Dark stores существуют почти с\u00A0момента основания компании, поэтому качество текущих дизайн-решений вызывало сомнения в\u00A0их актуальности",
@@ -667,18 +104,14 @@
       op_next_desc: "Новая задача на сборку открывается автоматически",
       op_next_alt: "Следующая задача",
       op_result_title: "Результат<br>",
-      op_result_1: "Запустили <strong>A/B-тест</strong> с\u00A0продуктовой командой в\u00A0260 Dark stores.",
-      op_result_2: "По результатам <strong>UMUX-опросов</strong> 359 из\u00A0402 пользователей оценили обновления на\u00A05/5.",
-      op_result_3: "<strong>Release</strong> обновления на\u00A02\u00A0400 Dark stores.",
       op_res_metric_2: "-2 ошибки",
       op_res_label_2: "Остались только ошибки сканирования",
       op_res_label_3: "UX-оценка по\u00A0опросам",
       op_res_metric_4: "A/B-тест",
       op_res_label_4: "260 Dark stores",
-      op_res_metric_5: "Release",
+      op_res_metric_5: "Релиз",
       op_res_label_5: "2\u00A0400 Dark stores",
       op_result_summary: "В\u00A0идеальном сценарии <strong>заказ может быть собран и\u00A0завершён без\u00A0касания смартфона</strong>, используя только скан-кольцо",
-      op_footer_other: "Другие кейсы",
 
       /* ── picker-schedule.html ── */
       ps_title: "Расписание сборщиков",
@@ -701,7 +134,6 @@
       ps_insight_desc: "В ходе исследования выяснила, что <strong>метод формирования выхода сборщиков разнится от дарк стора к дарк стору</strong>",
       ps_insight_1: "Сборщики указывают время доступности через приложение для курьеров, это приводит к ошибкам, если сотрудник ещё работает курьером",
       ps_insight_2: "Сборщики пишут в чате и админ сам пишет сотрудникам координации, когда нужно вывести сборщика",
-      ps_insight_alt: "Главный инсайт",
       ps_task_title: "Задача<br>",
       ps_task_desc: "По итогам презентации результатов исследования бизнесу было принято решение создать раздел с расписанием для сборщиков.",
       ps_task_note: "Нужно создать раздел, в котором сборщики смогут указывать своё доступное для выхода время. За подтверждение выхода в дарк стор будут отвечать сотрудники отдела координации",
@@ -738,10 +170,9 @@
       ps_res_label_2: "Время (сек) от\u00A0создания заказа до\u00A0старта сборки",
       ps_res_metric_3: "+2%",
       ps_res_label_3: "Доля заказов, собираемая сборщиками в\u00A0пиковые часы",
-      ps_res_metric_5: "Released",
+      ps_res_metric_5: "Релиз",
       ps_res_label_5: "2\u00A0400 Dark stores",
       ps_result_summary: "Ключевым результатом стало <strong>присутствие достаточного количества сотрудников в дарк сторах в пиковые часы</strong>",
-      ps_footer_other: "Другие кейсы",
 
       /* ── picking-priority.html ── */
       pp_title: "Приоритет сборки",
@@ -788,14 +219,13 @@
       pp_res_label_1: "Time to Task",
       pp_res_metric_2: "4,8 / 5",
       pp_res_label_2: "UX-оценка по опросам",
-      pp_res_metric_3: "A/B test",
+      pp_res_metric_3: "A/B-тест",
       pp_res_label_3: "1 175 Dark stores",
-      pp_res_metric_4: "Lots of positive reviews",
+      pp_res_metric_4: "Много позитивных отзывов",
       pp_res_label_4: "",
-      pp_res_metric_5: "Release",
+      pp_res_metric_5: "Релиз",
       pp_res_label_5: "2 400 Dark stores",
       pp_result_summary: "Инструмент значительно улучшил скорость и точность управления приоритетами для администраторов Dark store.",
-      pp_footer_other: "Другие кейсы",
 
       /* ── transfers-of-goods.html ── */
       tr_title: "Перемещения товаров между Dark stores",
@@ -826,7 +256,6 @@
       tr_bpain_title: "Боли бизнеса<br>",
       tr_bpain_1: "Товары, предназначенные для отправки, исчезают с\u00A0витрины до\u00A0фактической отправки",
       tr_bpain_2: "Расхождения между отправленными и\u00A0полученными товарами не\u00A0отслеживаются",
-      tr_bpain_3: "Администраторы создают несколько задач на\u00A0один и\u00A0тот же товар",
       tr_bpain_4: "Задачи на\u00A0отправку создаются, но\u00A0не\u00A0отправляются",
       tr_bpain_5: "Администраторы создают несколько задач на один и тот же товар",
       tr_upain_title: "Боли товароведов и\u00A0администраторов Dark stores<br>",
@@ -883,18 +312,14 @@
       tr_done_note: "При наличии расхождений или брака товары, участвовавшие в\u00A0перемещении, блокируются для продажи отправляющим Dark store. Потребуется пересчёт и\u00A0проверка качества",
       tr_done_alt: "Завершение",
       tr_result_title: "Результат<br>",
-      tr_result_1: "Поэтапно (3\u00A0этапа) запустили обновления с\u00A0продуктовой командой в\u00A02\u00A0400 Dark stores.",
-      tr_result_2: "По результатам UMUX-опросов 422 из\u00A0450 пользователей оценили обновления на\u00A04,8\u00A0/\u00A05.",
-      tr_result_3: "После запуска зафиксировали сокращение потерь.",
       tr_res_metric_1: "Экономия 4\u00A0млн\u00A0₽",
       tr_res_label_1: "Сокращение годовых потерь",
       tr_res_label_2: "Ошибки в\u00A0выборе адреса",
       tr_res_label_3: "Просроченные отправки",
       tr_res_label_4: "UX-оценка по\u00A0опросам",
-      tr_res_metric_5: "Released",
+      tr_res_metric_5: "Релиз",
       tr_res_label_5: "Поэтапно (3\u00A0этапа) в\u00A02\u00A0400 Dark stores",
       tr_result_summary: "Обновили функциональность под современные потребности",
-      tr_footer_other: "Другие кейсы",
 
 
       /* ── teachers-journal.html ── */
@@ -944,7 +369,6 @@
       tj_res_desc_1: "Учителям сложно работать на\u00A0компьютерах и\u00A0незнакомом оборудовании; приложение на\u00A0личных смартфонах помогло снизить тревожность и\u00A0повысить уверенность на\u00A0уроках.",
       tj_res_desc_2: "UX-оценка по\u00A0опросам за: <br>• мобильность и\u00A0доступность <br>• понятный и\u00A0интуитивный интерфейс <br>• быстрый доступ к\u00A0журналу <br>• удобство создания домашних заданий",
       tj_result_summary: "Журнал стал инструментом, который вернул учителям чувство безопасности и\u00A0уверенности.",
-      tj_footer_other: "Другие кейсы",
 
       /* ── colleges.html ── */
       co_title: "Колледжи",
@@ -971,11 +395,9 @@
       co_nav_alt: "Навигация",
       co_block_title: "Блочные таблицы<br>",
       co_block_desc: "Приказы создаются для большого количества учебных групп. Заполненные карточки можно свернуть, что помогает сохранить компактный вид",
-      co_block_alt: "Блочные таблицы",
       co_block_screen_alt: "Скриншот блочных таблиц",
       co_tables_title: "Таблицы<br>",
       co_tables_desc: "Решением для огромных таблиц стала возможность настройки порядка колонок и\u00A0закрепления колонок при прокрутке",
-      co_tables_alt: "Прокрутка таблиц",
       co_tables_screen_alt: "Скриншот таблиц",
       co_result_title: "Результат<br>",
       co_result_1: "Выпустили во\u00A0все колледжи Москвы.",
@@ -983,7 +405,6 @@
       co_res_desc_1: "Пилотная версия показала, что пользователи приняли новый сервис и\u00A0отметили улучшения",
       co_res_desc_2: "UX-оценка по\u00A0опросам. <br>Это было достигнуто благодаря тому, что изменения были деликатными, но\u00A0существенно улучшили качество и\u00A0скорость работы.",
       co_result_summary: "Сервис получил эстетичный и\u00A0удобный дизайн",
-      co_footer_other: "Другие кейсы",
 
       /* ── lunel.html ── */
       lunel_c_title: "Приложение для\u00A0отслеживания цикла и\u00A0женского здоровья",
@@ -1101,40 +522,80 @@
 
   window._i18nTranslations = translations;
 
+  /* Язык в адресе. Нужен, чтобы скопированная ссылка открывалась на том языке,
+     на котором её копировали: HR смотрит кейс по-русски, пересылает ссылку —
+     получатель тоже видит русский, а не свой сохранённый язык.
+     Параметр появляется только после явного переключения: пока человек язык
+     не трогал, адрес остаётся чистым. */
+  function langFromUrl() {
+    var m = /[?&]lang=(en|ru)(?:&|$)/.exec(window.location.search);
+    return m ? m[1] : null;
+  }
+
   function getLang() {
+    var fromUrl = langFromUrl();
+    if (fromUrl) return fromUrl;
     var saved = localStorage.getItem(STORAGE_KEY);
     if (saved && (saved === 'en' || saved === 'ru')) return saved;
     return 'en';
   }
 
+  function putLangInUrl(lang) {
+    if (!window.history || !window.history.replaceState) return;
+    var search = window.location.search.replace(/([?&])lang=(?:en|ru)(&|$)/, '$1').replace(/[?&]$/, '');
+    search = search ? search + '&lang=' + lang : '?lang=' + lang;
+    window.history.replaceState(
+      window.history.state, '',
+      window.location.pathname + search + window.location.hash
+    );
+  }
+
   function setLang(lang) {
     localStorage.setItem(STORAGE_KEY, lang);
     document.documentElement.lang = lang === 'ru' ? 'ru' : 'en';
+    putLangInUrl(lang);
     applyTranslations(lang);
     enableSwitcherAnimation();
     updateSwitcher(lang);
   }
 
-  function applyTranslations(lang) {
-    var t = translations[lang];
-    if (!t) return;
-    document.querySelectorAll('[data-i18n]').forEach(function (el) {
+  /* Английской версии больше нет в словаре: она живёт прямо в разметке.
+     При первом проходе по элементу запоминаем его исходное содержимое —
+     это и есть английский. Переключение на ru подставляет перевод,
+     возврат на en достаёт запомненное.
+     Так английский текст существует ровно в одном месте и разъехаться
+     с разметкой, которую читают поисковик и агент, уже не может. */
+  var originals = new Map();
+
+  function original(el, kind, current) {
+    var byKind = originals.get(el);
+    if (!byKind) {
+      byKind = {};
+      originals.set(el, byKind);
+    }
+    if (!(kind in byKind)) byKind[kind] = current;
+    return byKind[kind];
+  }
+
+  function applyTranslations(lang, root) {
+    var scope = root || document;
+    var t = translations[lang] || null;
+    scope.querySelectorAll('[data-i18n]').forEach(function (el) {
       var key = el.getAttribute('data-i18n');
-      var value = t[key];
-      if (value != null) {
-        if (value.indexOf('<') !== -1) {
-          el.innerHTML = value;
-        } else {
-          el.textContent = value;
-        }
-      }
+      var value = original(el, 'html', el.innerHTML);
+      if (t && t[key] != null) value = t[key];
+      // Только innerHTML. Английский оригинал снят через innerHTML и содержит
+      // сущности вида &nbsp;: через textContent они вылезли бы на страницу
+      // буквально, вместе со знаками & и ;
+      el.innerHTML = value;
     });
-    document.querySelectorAll('[data-i18n-alt]').forEach(function (el) {
+    scope.querySelectorAll('[data-i18n-alt]').forEach(function (el) {
       var key = el.getAttribute('data-i18n-alt');
-      var val = t[key];
-      if (val != null) el.setAttribute('alt', val);
+      var value = original(el, 'alt', el.getAttribute('alt') || '');
+      if (t && t[key] != null) value = t[key];
+      el.setAttribute('alt', value);
     });
-    document.querySelectorAll('[data-i18n-src]').forEach(function (el) {
+    scope.querySelectorAll('[data-i18n-src]').forEach(function (el) {
       var srcTemplate = el.getAttribute('data-i18n-src');
       var newSrc = srcTemplate.replace('{lang}', lang);
       el.setAttribute('src', newSrc);
@@ -1151,17 +612,25 @@
         };
       }
     });
-    document.querySelectorAll('[data-i18n-poster]').forEach(function (el) {
+    scope.querySelectorAll('[data-i18n-poster]').forEach(function (el) {
       var posterTemplate = el.getAttribute('data-i18n-poster');
       var newPoster = posterTemplate.replace('{lang}', lang);
       el.setAttribute('poster', newPoster);
     });
-    document.querySelectorAll('[data-i18n-href]').forEach(function (el) {
+    scope.querySelectorAll('[data-i18n-href]').forEach(function (el) {
       var key = el.getAttribute('data-i18n-href');
-      var url = t[key];
-      if (url != null) el.setAttribute('href', url);
+      var value = original(el, 'href', el.getAttribute('href') || '');
+      if (t && t[key] != null) value = t[key];
+      el.setAttribute('href', value);
     });
   }
+
+  /* Для контента, который подгружается в шторку уже после загрузки страницы:
+     js/panel.js зовёт это сразу после вставки. Файл кейса на диске всегда
+     английский, поэтому запоминается именно английский оригинал. */
+  window.i18nApply = function (root) {
+    applyTranslations(getLang(), root);
+  };
 
   function updateSwitcher(lang) {
     document.querySelectorAll('.lang-switcher').forEach(function (switcher) {
@@ -1187,6 +656,9 @@
 
   function init() {
     var lang = getLang();
+    // Пришли по ссылке с языком — запоминаем его, иначе при переходе
+    // на главную человек снова увидит свой старый язык
+    if (langFromUrl()) localStorage.setItem(STORAGE_KEY, lang);
     document.documentElement.lang = lang === 'ru' ? 'ru' : 'en';
     applyTranslations(lang);
     updateSwitcher(lang);

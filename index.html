@@ -1,11 +1,26 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
-  <title>Inna Ivanova</title>
+  <title>Inna Ivanova — Product Designer, B2B and mobile products</title>
+  <meta name="description"
+    content="Product designer with 6 years in tech product teams. B2B tools for dark store and warehouse operations at Samokat, education products at Moscow Electronic School, and Lunel — a personal iOS app taken from idea to App Store release.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="css/home.css?v=20260910b" rel="stylesheet">
+  <link rel="canonical" href="https://innarenard.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Inna Ivanova — Product Designer">
+  <meta property="og:title" content="Inna Ivanova — Product Designer, B2B and mobile products">
+  <meta property="og:description"
+    content="Product designer with 6 years in tech product teams. B2B tools for dark store and warehouse operations at Samokat, education products at Moscow Electronic School, and Lunel — a personal iOS app taken from idea to App Store release.">
+  <meta property="og:url" content="https://innarenard.com/">
+  <meta property="og:image" content="https://innarenard.com/images/lunel-preview_en.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Inna Ivanova — Product Designer, B2B and mobile products">
+  <meta name="twitter:description"
+    content="Product designer with 6 years in tech product teams. B2B tools for dark store and warehouse operations at Samokat, education products at Moscow Electronic School, and Lunel — a personal iOS app taken from idea to App Store release.">
+  <meta name="twitter:image" content="https://innarenard.com/images/lunel-preview_en.png">
+  <link href="css/home.css?v=20261030h" rel="stylesheet">
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
@@ -13,11 +28,35 @@
   <link href="images/favicon-32.png" rel="shortcut icon" type="image/x-icon">
   <link href="images/logo-256.png" rel="apple-touch-icon">
   <script data-goatcounter="https://innarenard.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Inna Ivanova",
+      "jobTitle": "Product Designer",
+      "url": "https://innarenard.com/",
+      "email": "mailto:innarenard@gmail.com",
+      "image": "https://innarenard.com/images/logo-256.png",
+      "description": "Product designer with 6 years in tech product teams. B2B tools for dark store and warehouse operations, education products, and a personal iOS app released on the App Store.",
+      "knowsAbout": ["Product design", "B2B product design", "UX research", "Design systems", "Mobile app design", "iOS", "Usability testing", "A/B testing"],
+      "sameAs": [
+        "https://www.linkedin.com/in/innarenard/",
+        "https://dribbble.com/inna-ivanova",
+        "https://t.me/innarenard"
+      ]
+    }
+  </script>
 </head>
 
 <body>
   <!-- Custom cursor over case cards (CV-style round button) -->
-  <div class="cursor-view-case" id="cursor-view-case" aria-hidden="true"></div>
+  <div class="cursor-view-case" id="cursor-view-case" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round">
+      <line x1="5" y1="12" x2="19" y2="12" />
+      <polyline points="12 5 19 12 12 19" />
+    </svg>
+  </div>
 
   <!-- Gradient banner -->
   <div class="gradient-banner" aria-hidden="true"></div>
@@ -57,8 +96,9 @@
           <line x1="6" y1="6" x2="18" y2="18" />
         </svg>
       </button>
-      <a href="https://drive.google.com/file/d/1zWKoMJA6_vVisBg3zKDaxOqzHrBVsKwa/view?usp=drive_link"
+      <a href="/cv/inna-ivanova-cv-en.pdf"
         target="_blank" data-i18n-href="cv_url">CV</a>
+      <a href="mailto:innarenard@gmail.com">Email</a>
       <a href="https://t.me/innarenard" target="_blank">Telegram</a>
       <a href="https://www.linkedin.com/in/innarenard/" target="_blank">LinkedIn</a>
       <a href="https://dribbble.com/inna-ivanova" target="_blank">Dribbble</a>
@@ -84,8 +124,9 @@
       <!-- Contacts -->
       <nav class="contacts-bar">
         <div class="contacts-bar__links">
-          <a href="https://drive.google.com/file/d/1zWKoMJA6_vVisBg3zKDaxOqzHrBVsKwa/view?usp=drive_link" target="_blank"
+          <a href="/cv/inna-ivanova-cv-en.pdf" target="_blank"
             class="contacts-bar__link" data-i18n-href="cv_url">CV</a>
+          <a href="mailto:innarenard@gmail.com" class="contacts-bar__link">Email</a>
           <a href="https://t.me/innarenard" target="_blank" class="contacts-bar__link">Telegram</a>
           <a href="https://www.linkedin.com/in/innarenard/" target="_blank" class="contacts-bar__link">LinkedIn</a>
           <a href="https://dribbble.com/inna-ivanova" target="_blank" class="contacts-bar__link">Dribbble</a>
@@ -108,7 +149,7 @@
         <div class="project-grid">
 
           <!-- Lunel -->
-          <div class="project-card scroll-reveal" role="button" tabindex="0" data-href="lunel/" data-project="lunel"
+          <a class="project-card scroll-reveal" href="lunel/" data-href="lunel/" data-project="lunel"
             data-company-i18n="lunel_title" data-title-i18n="lunel_card_title">
             <div class="project-card__image">
               <img src="images/lunel-preview_en.png" data-i18n-src="images/lunel-preview_{lang}.png" loading="lazy" alt="Lunel cycle tracker" data-i18n-alt="lunel_alt">
@@ -121,7 +162,7 @@
               <span data-i18n="lunel_stat_2">End-to-end</span>
               <span data-i18n="lunel_stat_3">MVP released on&nbsp;the App&nbsp;Store</span>
             </div>
-          </div>
+          </a>
 
           <!-- Lunel: некликабельный плейсхолдер справа -->
           <div class="lunel-placeholder" aria-hidden="true"
@@ -151,7 +192,7 @@
         <div class="project-grid">
 
           <!-- Order picking -->
-          <div class="project-card scroll-reveal" role="button" tabindex="0" data-href="order-picking/"
+          <a class="project-card scroll-reveal" href="order-picking/" data-href="order-picking/"
             data-project="order-picking" data-company-i18n="samokat_title" data-title-i18n="view_order_picking">
             <div class="project-card__image">
               <img src="images/order-picking-preview_en.png" data-i18n-src="images/order-picking-preview_{lang}.png"
@@ -165,10 +206,10 @@
               <span data-i18n="stat_order_2">-2 errors</span>
               <span data-i18n="stat_order_3">UX 4,7 / 5</span>
             </div>
-          </div>
+          </a>
 
           <!-- Transfers of goods -->
-          <div class="project-card scroll-reveal" role="button" tabindex="0" data-href="transfers-of-goods/"
+          <a class="project-card scroll-reveal" href="transfers-of-goods/" data-href="transfers-of-goods/"
             data-project="transfers" data-company-i18n="samokat_title" data-title-i18n="view_transfers">
             <div class="project-card__image">
               <img src="images/transfers-of-goods-preview_en.png"
@@ -183,10 +224,10 @@
               <span data-i18n="stat_transfers_2">-5% overdue shipments</span>
               <span data-i18n="stat_transfers_3">UX 4,8 / 5</span>
             </div>
-          </div>
+          </a>
 
           <!-- Picking priority -->
-          <div class="project-card scroll-reveal" role="button" tabindex="0" data-href="picking-priority/"
+          <a class="project-card scroll-reveal" href="picking-priority/" data-href="picking-priority/"
             data-project="picking-priority" data-company-i18n="samokat_title" data-title-i18n="view_picking_priority">
             <div class="project-card__image">
               <img src="images/picking-priority-preview_en.png"
@@ -200,10 +241,10 @@
               <span data-i18n="stat_picking_1">-4,4% Time to Task</span>
               <span data-i18n="stat_picking_2">4,8 / 5 UX</span>
             </div>
-          </div>
+          </a>
 
           <!-- Picker schedule -->
-          <div class="project-card scroll-reveal" role="button" tabindex="0" data-href="picker-schedule/"
+          <a class="project-card scroll-reveal" href="picker-schedule/" data-href="picker-schedule/"
             data-project="picker-schedule" data-company-i18n="samokat_title" data-title-i18n="view_picker_schedule">
             <div class="project-card__image">
               <img src="images/picker-schedule-preview_en.png" data-i18n-src="images/picker-schedule-preview_{lang}.png"
@@ -217,7 +258,7 @@
               <span data-i18n="stat_ps_2">-6% order→assembly start</span>
               <span data-i18n="stat_ps_3">+2% peak-hour orders</span>
             </div>
-          </div>
+          </a>
 
         </div>
       </section>
@@ -242,7 +283,7 @@
         <div class="project-grid">
 
           <!-- Teacher's journal -->
-          <div class="project-card scroll-reveal" role="button" tabindex="0" data-href="teachers-journal/"
+          <a class="project-card scroll-reveal" href="teachers-journal/" data-href="teachers-journal/"
             data-project="teachers-journal" data-company-i18n="mes_title" data-title-i18n="view_teachers_journal">
             <div class="project-card__image">
               <img src="images/teachers-journal-preview_en.png"
@@ -256,10 +297,10 @@
               <span data-i18n="stat_journal_1">Designed from scratch</span>
               <span data-i18n="stat_journal_2">UX 8,1 / 10</span>
             </div>
-          </div>
+          </a>
 
           <!-- Colleges -->
-          <div class="project-card scroll-reveal" role="button" tabindex="0" data-href="colleges/"
+          <a class="project-card scroll-reveal" href="colleges/" data-href="colleges/"
             data-project="colleges" data-company-i18n="mes_title" data-title-i18n="view_colleges">
             <div class="project-card__image">
               <img src="images/colleges-preview_en.png" data-i18n-src="images/colleges-preview_{lang}.png"
@@ -272,7 +313,7 @@
               <span data-i18n="stat_colleges_1">Redesign and update</span>
               <span data-i18n="stat_colleges_2">UX 8,9 / 10</span>
             </div>
-          </div>
+          </a>
 
         </div>
       </section>
@@ -281,8 +322,9 @@
       <footer class="site-footer scroll-reveal">
         <span class="site-footer__name" data-i18n="name">Inna Ivanova</span>
         <div class="site-footer__links">
-          <a href="https://drive.google.com/file/d/1zWKoMJA6_vVisBg3zKDaxOqzHrBVsKwa/view?usp=drive_link"
+          <a href="/cv/inna-ivanova-cv-en.pdf"
             target="_blank" data-i18n-href="cv_url">CV</a>
+          <a href="mailto:innarenard@gmail.com">Email</a>
           <a href="https://t.me/innarenard" target="_blank">Telegram</a>
           <a href="https://www.linkedin.com/in/innarenard/" target="_blank">LinkedIn</a>
           <a href="https://dribbble.com/inna-ivanova" target="_blank">Dribbble</a>
@@ -312,11 +354,10 @@
   </div>
   <div class="panel-overlay case-study-drawer__overlay" id="panelOverlay"></div>
 
-  <script src="js/i18n.js?v=20260910g"></script>
-  <script src="js/scroll-reveal.js"></script>
-  <script src="js/panel.js"></script>
-  <script src="js/home-nav.js"></script>
-  <script src="js/cursor-view-case.js"></script>
+  <script src="js/i18n.js?v=20261030f"></script>
+  <script src="js/panel.js?v=20261030g"></script>
+  <script src="js/home-nav.js?v=20261030a"></script>
+  <script src="js/cursor-view-case.js?v=20261030a"></script>
 </body>
 
 </html>
