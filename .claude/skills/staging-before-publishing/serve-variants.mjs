@@ -1,14 +1,15 @@
-// Стенд для сравнения вариантов редизайна.
-// Один процесс поднимает все порты сразу:
+// Стенд редизайна. Один процесс поднимает все порты сразу:
 //
 //   8010  хаб-переключатель
 //   8001  текущий сайт (эталон, ветка redesign/base)
-//   8011  вариант 1   .variants/v1
-//   8012  вариант 2   .variants/v2
-//   8013  вариант 3   .variants/v3
-//   8014  вариант 4   .variants/v4
-//   8015  вариант 5   .variants/v5
 //   8016  галерея интерактивных компонентов Lunel
+//   8017  рабочий вариант  .variants/v6
+//
+// Пять сравнительных вариантов (порты 8011–8015) убраны 30 октября 2026,
+// когда Инна выбрала сводный. Ветки redesign/v1…v5 остались: рабочая копия
+// любой из них поднимается обратно одной командой
+//   git worktree add .variants/vN redesign/vN
+// и строкой в списке ниже.
 //
 // Правила те же, что у serve.mjs: Cache-Control: no-store, иначе браузер
 // держит старый js/i18n.js и новый блок остаётся английским.
@@ -26,13 +27,8 @@ const BASE = '/Users/innaivanova/PortfolioWebsite';
 const SITES = [
   { port: 8010, root: join(BASE, '.variants/hub'), title: 'Хаб' },
   { port: 8001, root: BASE, title: 'Текущий сайт' },
-  { port: 8011, root: join(BASE, '.variants/v1'), title: 'Вариант 1' },
-  { port: 8012, root: join(BASE, '.variants/v2'), title: 'Вариант 2' },
-  { port: 8013, root: join(BASE, '.variants/v3'), title: 'Вариант 3' },
-  { port: 8014, root: join(BASE, '.variants/v4'), title: 'Вариант 4' },
-  { port: 8015, root: join(BASE, '.variants/v5'), title: 'Вариант 5' },
   { port: 8016, root: join(BASE, '.variants/shared/gallery'), title: 'Компоненты Lunel' },
-  { port: 8017, root: join(BASE, '.variants/v6'), title: 'Вариант 6 (сводный)' },
+  { port: 8017, root: join(BASE, '.variants/v6'), title: 'Рабочий вариант' },
 ];
 
 const TYPES = {
