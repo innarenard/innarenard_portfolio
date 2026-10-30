@@ -447,12 +447,16 @@ body.panel-open .site-wrapper {
 /* ---------- Project card ---------- */
 .project-card {
   position: relative;
+  display: block;
+  color: inherit;
+  text-decoration: none;
   border-radius: 28px;
   background: transparent;
   overflow: visible;
   cursor: none;
   transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
 
 @media (hover: none) {
   .project-card {
@@ -464,6 +468,12 @@ body.panel-open .site-wrapper {
 .project-card:focus {
   transform: translateY(-6px);
   outline: none;
+}
+
+/* Карточки стали ссылками — у клавиатурного фокуса должен быть видимый след */
+.project-card:focus-visible {
+  outline: 2px solid #404040;
+  outline-offset: 6px;
 }
 
 .project-card__image {
@@ -564,6 +574,17 @@ body.panel-open .site-wrapper {
 
 .cursor-view-case.is-visible {
   opacity: 0.75;
+}
+
+/* Внутри шара раньше было пусто — курсор пропадал, а взамен не появлялось ничего */
+.cursor-view-case svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  transform: translate(-50%, -50%);
+  color: #404040;
 }
 
 body:has(.project-card:hover) .cursor-view-case.is-visible {
@@ -869,25 +890,15 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   color: #404040;
 }
 
-/* ---------- Scroll reveal ---------- */
-.scroll-reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity .7s cubic-bezier(.4, 0, .2, 1),
-    transform .7s cubic-bezier(.4, 0, .2, 1);
-}
-
+/* ---------- Scroll reveal ----------
+   Анимация появления убрана 30 октября 2026: при быстрой прокрутке блоки
+   не успевали проявиться, и человек видел пустые экраны. Класс в разметке
+   оставлен — на него завязан js/panel.js, — но ничего не скрывает. */
+.scroll-reveal,
 .scroll-reveal.is-visible {
   opacity: 1;
-  transform: translateY(0);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .scroll-reveal {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
+  transform: none;
+  transition: none;
 }
 
 /* ---------- Mobile menu overlay ---------- */

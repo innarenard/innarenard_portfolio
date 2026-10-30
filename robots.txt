@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://innarenard.com/sitemap.xml

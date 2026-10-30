@@ -1,32 +1,50 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
-  <title>Colleges – Inna Ivanova</title>
+  <title>Colleges, Moscow Electronic School — Inna Ivanova</title>
+  <meta name="description" content="Redesign of the administrative service for public colleges, brought in line with the Moscow Electronic School visual style. UX 8.9/10.">
+  <link rel="canonical" href="https://innarenard.com/colleges/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Inna Ivanova — Product Designer">
+  <meta property="og:title" content="Colleges, Moscow Electronic School — Inna Ivanova">
+  <meta property="og:description" content="Redesign of the administrative service for public colleges, brought in line with the Moscow Electronic School visual style. UX 8.9/10.">
+  <meta property="og:url" content="https://innarenard.com/colleges/">
+  <meta property="og:image" content="https://innarenard.com/images/colleges-preview_en.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Colleges, Moscow Electronic School — Inna Ivanova">
+  <meta name="twitter:description" content="Redesign of the administrative service for public colleges, brought in line with the Moscow Electronic School visual style. UX 8.9/10.">
+  <meta name="twitter:image" content="https://innarenard.com/images/colleges-preview_en.png">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="../css/styles.css" rel="stylesheet" type="text/css">
+  <link href="../css/home.css?v=20261030h" rel="stylesheet">
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
     rel="stylesheet">
   <link href="../images/favicon-32.png" rel="shortcut icon" type="image/x-icon">
   <link href="../images/logo-256.png" rel="apple-touch-icon">
-  <script>
-    (function () {
-      if (typeof window !== 'undefined' && (window === window.top) && /\/colleges\/?$/.test(window.location.pathname)) {
-        window.location.replace(window.location.origin + '/?project=colleges');
-      }
-    })();
-  </script>
+  <script data-goatcounter="https://innarenard.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
 
-<body class="body">
-  <section class="section_1280">
-    <!-- Sidebar removed -->
+<body class="body panel-open panel-open--mes">
 
-    <main class="section_content">
-      <div class="content-spacer"></div>
+  <div class="gradient-banner" aria-hidden="true"></div>
+
+  <div class="project-panel case-study-drawer" id="projectPanel" role="dialog" aria-label="Case study">
+    <div class="project-panel__scroll-indicator case-study-drawer__scroll-indicator" id="panelScrollIndicator"
+      aria-hidden="true">
+      <span class="project-panel__scroll-indicator__fill" id="panelScrollIndicatorFill"></span>
+    </div>
+    <a class="project-panel__close" href="../" aria-label="All cases">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    </a>
+    <div class="project-panel__scroll case-study-drawer__scroll-area" id="panelScroll">
+      <main class="project-panel__body case-study-drawer__content panel-case" id="panelBody">
       <div class="content-block scroll-reveal case-hero">
         <h1 class="header" data-i18n="co_title">Colleges</h1>
       </div>
@@ -48,7 +66,6 @@
         <img src="../images/colleges-cover_en.png" data-i18n-src="../images/colleges-cover_{lang}.png" loading="lazy"
           alt="Colleges cover" data-i18n-alt="co_cover_alt">
       </div>
-      <div class="spacer-40 scroll-reveal"></div>
       <div class="content-block scroll-reveal case-description">
         <h1 class="subheader" data-i18n="co_desc_1">Colleges is a service for administrative work in public educational
           institutions.</h1>
@@ -74,8 +91,6 @@
           </div>
         </div>
       </div>
-
-      <div class="spacer-56 scroll-reveal"></div>
       <div class="content-block scroll-reveal case-role-title">
         <h1 class="body_gr" data-i18n="co_role_title">My role<br></h1>
       </div>
@@ -87,11 +102,8 @@
         <h1 class="body_text" data-i18n="co_role_1">• Conducted interviews with users and the business.<br></h1>
         <h1 class="body_text" data-i18n="co_role_2">• Moved on to design and redesign.<br></h1>
         <h1 class="body_text" data-i18n="co_role_3">• The key improvement was rethinking large tables.<br></h1>
-        <div class="content-spacer"></div>
         <h1 class="body_text" data-i18n="co_role_4">• Released to all Moscow colleges.<br></h1>
       </div>
-
-      <div class="spacer-56 scroll-reveal"></div>
       <div class="content-block scroll-reveal case-pain-points-title">
         <h1 class="body_gr" data-i18n="co_pain_title">Administrator's Pain Points<br></h1>
       </div>
@@ -111,8 +123,6 @@
           </div>
         </div>
       </div>
-
-      <div class="spacer-56 scroll-reveal"></div>
       <div class="content-block scroll-reveal case-insight-title">
         <h1 class="body_gr" data-i18n="co_insight_title">The main insight<br></h1>
       </div>
@@ -120,8 +130,6 @@
         <h1 class="subheader" data-i18n="co_insight_desc">The service is a working tool familiar to users. <strong>A
             careful redesign and a revision of table handling are needed.</strong></h1>
       </div>
-
-      <div class="spacer-56 scroll-reveal"></div>
       <div class="content-block scroll-reveal case-navigation-title">
         <h1 class="body_gr" data-i18n="co_nav_title">Navigation<br></h1>
       </div>
@@ -144,7 +152,6 @@
             alt="Navigation screenshot" data-i18n-alt="co_nav_alt">
         </div>
       </div>
-      <div class="spacer-40 scroll-reveal"></div>
       <div class="content-block scroll-reveal case-block-tables-title">
         <h1 class="body_gr" data-i18n="co_block_title">Block tables<br></h1>
       </div>
@@ -166,7 +173,6 @@
             loading="lazy" alt="Block tables screenshot" data-i18n-alt="co_block_screen_alt">
         </div>
       </div>
-      <div class="spacer-40 scroll-reveal"></div>
       <div class="content-block scroll-reveal case-tables-title">
         <h1 class="body_gr" data-i18n="co_tables_title">Tables<br></h1>
       </div>
@@ -188,8 +194,6 @@
             loading="lazy" alt="Tables screenshot" data-i18n-alt="co_tables_screen_alt">
         </div>
       </div>
-
-      <div class="spacer-56 scroll-reveal"></div>
       <div class="content-block scroll-reveal case-result-title">
         <h1 class="body_gr" data-i18n="co_result_title">Result<br></h1>
       </div>
@@ -214,14 +218,15 @@
         <div class="subheader" data-i18n="co_result_summary">The service gained an aesthetically pleasing and
           user-friendly design</div>
       </div>
-
-      <div class="spacer-56 scroll-reveal"></div>
       <!-- Footer with Other cases removed -->
-    </main>
-  </section>
-  <script src="../js/i18n.js"></script>
+          </main>
+    </div>
+  </div>
+  <div class="panel-overlay case-study-drawer__overlay" aria-hidden="true"></div>
+<script src="../js/i18n.js?v=20261030f"></script>
   <!-- nav.js removed -->
-  <script src="../js/scroll-reveal.js"></script>
+  <script src="../js/panel.js?v=20261030g"></script>
+
 </body>
 
 </html>
