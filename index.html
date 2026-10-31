@@ -203,12 +203,36 @@
             </div>
           </a>
 
-          <!-- Lunel: некликабельный плейсхолдер справа -->
-          <div class="lunel-placeholder" aria-hidden="true"
-            style="aspect-ratio: 4 / 3; border-radius: 28px; overflow: hidden; pointer-events: none; cursor: default;">
-            <img src="images/lunel-placeholder_en.png" data-i18n-src="images/lunel-placeholder_{lang}.png"
-              loading="lazy" alt="" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+          <!-- Lunel: справа, вместо скриншота, живые компоненты приложения.
+               Разметка и подключения лежат внутри блока Lunel, общие css/ и js/
+               не тронуты. Без JS и если компонент не поднялся, на месте фрейма
+               остаётся тот же коллаж. -->
+          <link
+            href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,100..900,0..100,0..1&amp;family=Lora:wght@400..700&amp;display=swap"
+            rel="stylesheet">
+          <link href="lunel/interactive/lunel-tokens.css?v=20261031a" rel="stylesheet">
+          <link href="lunel/interactive/lunel-core.css?v=20261031a" rel="stylesheet">
+          <link href="lunel/interactive/cycle-ring.css?v=20261031a" rel="stylesheet">
+          <link href="lunel/interactive/trends.css?v=20261031a" rel="stylesheet">
+          <link href="lunel/interactive/insights.css?v=20261031a" rel="stylesheet">
+          <link href="lunel/interactive/checklist.css?v=20261031a" rel="stylesheet">
+          <link href="lunel/interactive/home.css?v=20261031a" rel="stylesheet">
+          <link href="lunel/interactive/insight-screen.css?v=20261031a" rel="stylesheet">
+          <link href="lunel/frame.css?v=20261031a" rel="stylesheet">
+
+          <div class="lunel-frame" data-lunel-frame aria-hidden="true">
+            <img class="lunel-frame__fallback" src="images/lunel-placeholder_en.png"
+              data-i18n-src="images/lunel-placeholder_{lang}.png" loading="lazy" alt="">
           </div>
+
+          <script src="lunel/interactive/lunel-core.js?v=20261031a" defer></script>
+          <script src="lunel/interactive/cycle-ring.js?v=20261031a" defer></script>
+          <script src="lunel/interactive/trends.js?v=20261031a" defer></script>
+          <script src="lunel/interactive/insights.js?v=20261031a" defer></script>
+          <script src="lunel/interactive/checklist.js?v=20261031a" defer></script>
+          <script src="lunel/interactive/home.js?v=20261031a" defer></script>
+          <script src="lunel/interactive/insight-screen.js?v=20261031a" defer></script>
+          <script src="lunel/frame.js?v=20261031a" defer></script>
 
         </div>
       </section>

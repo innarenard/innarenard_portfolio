@@ -1,0 +1,435 @@
+/* ==========================================================================
+   Lunel interactive replicas — shared shell
+   --------------------------------------------------------------------------
+   The phone frame, the screen surface, the safe areas, the type scale and the
+   few utilities all six components share.
+
+   Scoping contract
+   ----------------
+   Every selector in this file and in every component file starts with
+   `.lunel`. Nothing is declared on :root, on element selectors or on `*`
+   outside `.lunel`. The host page's font-family / color / box-sizing are
+   neutralised on the way in by the scoped reset below, and nothing escapes
+   outward because no selector can match outside the subtree.
+
+   The one thing a host CAN still break: a `transform`, `filter`, `opacity`
+   or `will-change` applied to an ANCESTOR of `.lunel` creates a stacking
+   context. That is fine. Applying one to `.lunel` itself is also fine. What
+   is not fine is applying one BETWEEN `.lunel-ring__orbs` and
+   `.lunel-ring__noise` — see cycle-ring.css, the colour-burn note.
+   ========================================================================== */
+
+/* ---------- scoped reset ------------------------------------------------ */
+
+.lunel,
+.lunel *,
+.lunel *::before,
+.lunel *::after {
+  box-sizing: border-box;
+}
+
+.lunel * {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+  text-transform: none;
+  text-align: inherit;
+  text-decoration: none;
+  list-style: none;
+  line-height: inherit;
+  vertical-align: baseline;
+}
+
+.lunel button,
+.lunel [role="slider"] {
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.lunel img,
+.lunel svg,
+.lunel canvas {
+  display: block;
+  max-width: none;
+}
+
+/* ---------- root -------------------------------------------------------- */
+
+.lunel {
+  font-family: var(--lunel-sans);
+  font-size: var(--lunel-body2-size);
+  line-height: var(--lunel-body2-line);
+  font-weight: 400;
+  color: var(--lunel-text);
+  letter-spacing: normal;
+  text-align: left;
+  font-variant-ligatures: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  /* No dark mode anywhere in Lunel. Pin the scheme so a host page in dark
+     mode cannot have the UA invert form controls or scrollbars inside. */
+  color-scheme: light;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ---------- type scale -------------------------------------------------- */
+
+.lunel-h1,
+.lunel-h2,
+.lunel-h3 {
+  font-family: var(--lunel-serif);
+  font-variation-settings: var(--lunel-fraunces-axes);
+  font-weight: var(--lunel-weight-semibold);
+  font-synthesis-weight: none;
+}
+
+/* Fraunces has no Cyrillic — Lora SemiBold at the same size and line box.
+   :lang() reads the nearest lang attribute, so setting lang="ru" anywhere
+   above the component is enough. */
+.lunel-h1:lang(ru),
+.lunel-h2:lang(ru),
+.lunel-h3:lang(ru) {
+  font-family: var(--lunel-serif-ru);
+  font-variation-settings: normal;
+}
+
+.lunel-h1 {
+  font-size: var(--lunel-h1-size);
+  line-height: var(--lunel-h1-line);
+  font-variation-settings: var(--lunel-fraunces-axes), "opsz" 24;
+}
+.lunel-h1:lang(ru) { font-variation-settings: normal; }
+
+.lunel-h2 {
+  font-size: var(--lunel-h2-size);
+  line-height: var(--lunel-h2-line);
+  font-variation-settings: var(--lunel-fraunces-axes), "opsz" 20;
+}
+.lunel-h2:lang(ru) { font-variation-settings: normal; }
+
+.lunel-h3 {
+  font-size: var(--lunel-h3-size);
+  line-height: var(--lunel-h3-line);
+  font-variation-settings: var(--lunel-fraunces-axes), "opsz" 14;
+}
+.lunel-h3:lang(ru) { font-variation-settings: normal; }
+
+.lunel-subtitle2 {
+  font-size: var(--lunel-subtitle2-size);
+  line-height: var(--lunel-subtitle2-line);
+  font-weight: 500;
+  letter-spacing: var(--lunel-subtitle2-tracking);
+  text-transform: uppercase;
+}
+
+.lunel-body1 {
+  font-size: var(--lunel-body1-size);
+  line-height: var(--lunel-body1-line);
+  font-weight: var(--lunel-weight-semibold);
+  letter-spacing: var(--lunel-body-tracking);
+}
+.lunel-body2 {
+  font-size: var(--lunel-body2-size);
+  line-height: var(--lunel-body2-line);
+  font-weight: 400;
+  letter-spacing: var(--lunel-body-tracking);
+}
+.lunel-body3 {
+  font-size: var(--lunel-body3-size);
+  line-height: var(--lunel-body3-line);
+  font-weight: 500;
+}
+.lunel-body4 {
+  font-size: var(--lunel-body4-size);
+  line-height: var(--lunel-body4-line);
+  font-weight: 400;
+}
+.lunel-caption1 {
+  font-size: var(--lunel-caption1-size);
+  line-height: var(--lunel-caption1-line);
+  font-weight: 500;
+}
+.lunel-caption2 {
+  font-size: var(--lunel-caption2-size);
+  line-height: var(--lunel-caption2-line);
+  font-weight: 400;
+}
+.lunel-caption3 {
+  font-size: var(--lunel-caption3-size);
+  line-height: var(--lunel-caption3-line);
+  font-weight: var(--lunel-weight-semibold);
+  text-transform: uppercase;
+}
+
+.lunel-tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- phone frame ------------------------------------------------- */
+
+/* The stage centres the device and, when the column is narrower than the
+   device, carries the scale set by Lunel.fitFrame(). */
+.lunel-stage {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.lunel-device {
+  position: relative;
+  flex: none;
+  width: calc(var(--lunel-frame-w) + 2 * var(--lunel-frame-bezel-width));
+  height: calc(var(--lunel-frame-h) + 2 * var(--lunel-frame-bezel-width));
+  padding: var(--lunel-frame-bezel-width);
+  border-radius: calc(var(--lunel-frame-radius) + var(--lunel-frame-bezel-width));
+  background: var(--lunel-frame-bezel);
+  box-shadow: var(--lunel-shadow-frame);
+  transform: scale(var(--lunel-frame-scale));
+  transform-origin: top center;
+}
+
+.lunel-screen {
+  position: relative;
+  width: var(--lunel-frame-w);
+  height: var(--lunel-frame-h);
+  border-radius: var(--lunel-frame-radius);
+  background: var(--lunel-bg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Solid cream strip: the app fills the top safe area so content scrolling
+   under it is fully hidden. */
+.lunel-screen__statusbar {
+  position: relative;
+  flex: none;
+  height: var(--lunel-safe-top);
+  background: var(--lunel-bg);
+  z-index: 3;
+}
+
+/* Экран, по которому контент прокручивается ПОД статус-бар. Так устроена
+   главная: скролл-вью занимает весь экран, а верхнюю безопасную зону
+   приложение закрашивает сплошным #FAF7F2 поверх него (спека §12.13).
+   Статус-бар перестаёт быть строкой потока и ложится слоем сверху. */
+.lunel-screen[data-under-status] > .lunel-screen__statusbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 6;
+}
+.lunel-screen[data-under-status] > .lunel-screen__content {
+  position: absolute;
+  inset: 0;
+}
+
+.lunel-island {
+  position: absolute;
+  top: 11px;
+  left: 50%;
+  width: 125px;
+  height: 37px;
+  margin-left: -62.5px;
+  border-radius: 999px;
+  background: #0b0a0a;
+}
+
+/* Содержимое статус-бара. Замерено по 121_home_follicular_02 на y 30:
+   часы занимают x 50–92, сигнал 282,2–301,3, вай-фай 311,3–322,6,
+   батарея 332,9–360,6 — то есть правый отступ 32. */
+.lunel-statusbar__time {
+  position: absolute;
+  left: 50px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 17px;
+  line-height: 22px;
+  font-weight: 590;
+  font-variant-numeric: tabular-nums;
+  color: var(--lunel-text);
+}
+.lunel-statusbar__icons {
+  position: absolute;
+  right: 32px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--lunel-text);
+}
+.lunel-statusbar__icons svg { display: block; fill: currentColor; }
+
+.lunel-screen__content {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.lunel-screen__home-indicator {
+  position: absolute;
+  left: 50%;
+  bottom: 8px;
+  width: 139px;
+  height: 5px;
+  margin-left: -69.5px;
+  border-radius: 3px;
+  background: rgba(38, 36, 34, 0.3);
+  z-index: 3;
+}
+
+.lunel-safe-bottom {
+  flex: none;
+  height: var(--lunel-safe-bottom);
+}
+
+/* ---------- focus ------------------------------------------------------- */
+
+.lunel :focus {
+  outline: none;
+}
+
+.lunel :focus-visible {
+  outline: var(--lunel-focus-width) solid var(--lunel-focus-color);
+  outline-offset: var(--lunel-focus-offset);
+  border-radius: 6px;
+}
+
+/* ---------- utilities --------------------------------------------------- */
+
+.lunel-vh {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.lunel [hidden] {
+  display: none !important;
+}
+
+/* ---------- section subheader (§2.4) ------------------------------------ */
+
+.lunel-subheader {
+  padding-left: var(--lunel-subheader-inset);
+  margin-bottom: var(--lunel-subheader-gap);
+  height: 20px;
+  line-height: 20px;
+  font-size: var(--lunel-body3-size);
+  font-weight: 500;
+  text-transform: uppercase;
+  color: var(--lunel-text-grey);
+}
+
+/* ---------- decorative tab bar ------------------------------------------
+   The iOS 26 Liquid Glass tab bar that floats over Home / Calendar / Trends /
+   Settings. It is chrome, not a control: aria-hidden and pointer-events:none
+   in every component, so nothing here is a dead link or a focus trap.
+   Shared so all six screens sit in the same phone. */
+
+.lunel-tabbar {
+  /* Обведён левый верхний угол на 122_home_follicular_03 по ровному крему:
+     край выходит на 20,0 к середине бара, верх 772, низ 830. То есть бар
+     стоит по колонке контента (отступ 20), высота 58, от низа экрана 22,
+     а угол — не капсула: по профилю радиус ≈ 26. */
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 22px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: stretch;
+  height: 58px;
+  /* Замерено: иконки занимают y 784–802, подписи 812–818 при баре 772,7–830,7.
+     Отсюда 10 сверху, иконка 22, зазор 5, строка подписи 13, 8 снизу. */
+  /* По центрам подписей на эталоне (71,3 · 154,0 · 238,8 · 321,5) шаг
+     ячейки 83,4, то есть поле под пункты 333 — значит по бокам 10, а не 4. */
+  padding: 10px 10px 8px;
+  border-radius: 26px;
+  background: var(--lunel-white-medium);
+  -webkit-backdrop-filter: blur(var(--lunel-blur-glass)) saturate(180%);
+  backdrop-filter: blur(var(--lunel-blur-glass)) saturate(180%);
+  /* Тени под баром нет: на эталоне край выходит ровно на 20,0 и снаружи
+     кремовый фон не затемнён вовсе. Остаётся только кромка стекла. */
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  pointer-events: none;
+  z-index: 4;
+}
+.lunel-tabbar__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  border-radius: var(--lunel-r-pill);
+  color: var(--lunel-icon);
+}
+/* Капсула под активным табом едва светлее самого стекла, а не белое пятно. */
+.lunel-tabbar__item[data-active] {
+  background: rgba(255, 255, 255, 0.28);
+  color: var(--lunel-brand);
+}
+.lunel-tabbar__icon {
+  display: block;
+  width: 22px;
+  height: 22px;
+}
+.lunel-tabbar__item svg {
+  display: block;
+  width: 22px;
+  height: 22px;
+}
+/* Иконки взяты из Assets.xcassets/Icons/Tab*.svg как есть; заливка и обводка
+   переведены на currentColor, чтобы активный таб красился брендом. */
+.lunel-tabbar__stroke {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-miterlimit: 10;
+}
+.lunel-tabbar__label {
+  /* 10/13, а не Caption 1: высота прописной в эталоне 6 pt против 10 у 12 px */
+  font-size: 10px;
+  line-height: 13px;
+  font-weight: 590;
+  color: currentColor;
+  white-space: nowrap;
+}
+
+/* Ghost / secondary pill button (header "Today"), §2.2 */
+.lunel-ghost-btn {
+  display: inline-flex;
+  align-items: center;
+  height: 32px;
+  padding: 0 14px;
+  border-radius: var(--lunel-r-pill);
+  background: var(--lunel-white-medium);
+  box-shadow: inset 0 0 0 1px rgba(38, 36, 34, 0.06);
+  color: var(--lunel-text-dark-grey);
+  font-size: var(--lunel-body3-size);
+  line-height: var(--lunel-body3-line);
+  font-weight: 500;
+  white-space: nowrap;
+  transition: transform var(--lunel-spring-card-dur) var(--lunel-spring-card),
+    opacity 160ms var(--lunel-ease-in-out);
+}
+.lunel-ghost-btn:active {
+  transform: scale(0.96);
+}

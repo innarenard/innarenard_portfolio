@@ -1,0 +1,395 @@
+/* ==========================================================================
+   Lunel interactive replicas — Living Cycle Ring
+   --------------------------------------------------------------------------
+   Home screen: the 28 day-circles, the drifting orb field, the noise overlay
+   and the centre date / "Day N · Phase" / countdown tag.
+
+   Layer order inside .lunel-ring (bottom → top), and why it matters:
+     1  __orbs    6 Lissajous-drifting blurred ellipses + the radial base tint
+     2  __bridge  <canvas>, the SDF metaball bridge between two day circles
+     3  __circles the day circles and their day numbers
+     4  __center  date / phase / tag
+     5  __noise   tiled noise, masked, mix-blend-mode: color-burn
+     6  __input   transparent, role="slider", takes the pointer and the keys
+
+   The noise MUST carry its own mask and its own blend mode on the SAME
+   element. Moving the mask to a wrapper gives that wrapper a stacking
+   context, the blend then resolves against transparency instead of against
+   the orbs, and color-burn degrades to a flat grey wash. (Spec §12.8.)
+   For the same reason nothing between .lunel-ring and .lunel-ring__noise may
+   get transform / filter / opacity / will-change. .lunel-ring itself carries
+   `isolation: isolate` so the blend cannot reach the host page either.
+   ========================================================================== */
+
+.lunel-home {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* ---------- header (§3.1: height 60, padding 4 / 8 / 24) ---------------- */
+
+.lunel-home__header {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  height: 60px;
+  padding: 4px var(--lunel-gutter-24) 8px;
+}
+
+.lunel-home__title {
+  color: var(--lunel-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lunel-home__today[hidden] {
+  display: none;
+}
+
+/* ---------- ring block --------------------------------------------------- */
+
+.lunel-home__stage {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lunel-ring {
+  position: relative;
+  width: calc(100% - 2 * var(--lunel-gutter-24));
+  aspect-ratio: 1 / 1;
+  isolation: isolate;
+  touch-action: pan-y;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* 1 — orbs ---------------------------------------------------------------- */
+
+/* The field is laid out in a box 2× the ring and masked back down, so the
+   blobs bleed past the ring edge exactly as they do in SwiftUI. */
+.lunel-ring__orbs {
+  position: absolute;
+  /* a box 2× the ring, centred on it: the blobs bleed past the ring edge */
+  inset: -50%;
+  /* Радиус маски — closest-side, то есть 345 на коробке 690. Остановки
+     подобраны по эталону: поле сходит на нет примерно в 200 pt от центра,
+     что совпадает с дальностью базовой подложки из спеки §3.4 (0,5 размера
+     блока = 172 pt). Прежние 40/70/100 держали поле сплошным до 241 pt,
+     и оно залезало в шапку. */
+  -webkit-mask-image: radial-gradient(
+    circle closest-side,
+    #fff 0%,
+    #fff 20%,
+    rgba(255, 255, 255, 0) 58%
+  );
+  mask-image: radial-gradient(
+    circle closest-side,
+    #fff 0%,
+    #fff 20%,
+    rgba(255, 255, 255, 0) 58%
+  );
+  opacity: 0;
+  transform: scale(1.6);
+  pointer-events: none;
+  transition: opacity var(--lunel-dur-intro-text) var(--lunel-ease-in-out),
+    transform var(--lunel-dur-intro-text) var(--lunel-ease-in-out);
+}
+
+.lunel-ring__orbs[data-intro-done] {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.lunel-orb-base,
+.lunel-orb {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.lunel-orb-base {
+  width: 50%;
+  height: 50%;
+}
+
+.lunel-orb {
+  will-change: transform;
+}
+
+.lunel-orb-base__fill,
+.lunel-orb__fill {
+  position: absolute;
+  opacity: 0;
+  transition: opacity var(--lunel-dur-phase-crossfade) var(--lunel-ease-in-out);
+}
+
+.lunel-orb-base__fill {
+  inset: 0;
+}
+
+.lunel-orb-base__fill[data-active],
+.lunel-orb__fill[data-active] {
+  opacity: 1;
+}
+
+/* The transform lives on the wrapper and the blur on a static child, so the
+   blurred ellipse is rasterised once and every frame is a composite. */
+.lunel-orb__fill {
+  border-radius: 50%;
+  filter: blur(var(--orb-blur, 28px));
+}
+
+/* 2 — metaball bridge ------------------------------------------------------ */
+
+.lunel-ring__bridge {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* 3 — day circles ---------------------------------------------------------- */
+
+.lunel-ring__circles,
+.lunel-ring__numbers {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.lunel-day {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  background: var(--day-color);
+  box-shadow: var(--lunel-shadow-ring-circle);
+  /* deliberately NOT promoted with will-change: the circles are re-rastered
+     every frame so the enlarged selected circle stays crisp instead of being
+     a magnified 16 px texture. */
+}
+
+/* Past days: hollow with a 1.5pt ring of the phase colour at 70%.
+   The stroke is drawn inside with an inset shadow so the element keeps its
+   box and the transform scale affects the stroke exactly as SwiftUI's
+   .scaleEffect does. */
+.lunel-day[data-past] {
+  background: transparent;
+  box-shadow: inset 0 0 0 1.5px var(--day-stroke);
+}
+
+.lunel-day[data-past][data-selected] {
+  background: var(--day-fill-30);
+}
+
+.lunel-day__note {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--lunel-brand);
+}
+
+.lunel-day-number {
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--lunel-text-white);
+  font-size: 16px;
+  line-height: 16px;
+  font-weight: var(--lunel-weight-semibold);
+  letter-spacing: var(--lunel-body-tracking);
+  font-variant-numeric: tabular-nums;
+  opacity: 0;
+  transition: opacity var(--lunel-dur-daynumber) var(--lunel-ease-in-out);
+}
+
+.lunel-day-number[data-on] {
+  opacity: 1;
+}
+
+.lunel-ring[data-dragging] .lunel-day-number {
+  transition: none;
+}
+
+/* no-JS / pre-mount fallback: the ring exactly as it rests, drawn in SVG */
+.lunel-ring__fallback {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.lunel[data-lunel-ready] .lunel-ring__fallback {
+  display: none;
+}
+
+/* 4 — centre label (§3.2: date → 8 → phase → 12 → tag) --------------------- */
+
+.lunel-ring__center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  /* Замерено на 111_home_menstrual_clean: блок из трёх строк стоит не по
+     центру кольца, а на 7,5 pt ниже (262–335,5 против центра 291,5).
+     Сдвигаем отступом, а не трансформом: трансформ здесь создал бы свой
+     контекст наложения и испортил бы color-burn шума поверх. */
+  padding: 15px 22% 0;
+  pointer-events: none;
+  color: var(--phase-dark, var(--lunel-text));
+}
+
+/* Visible by default so the no-JS markup reads correctly; once the component
+   has booted it is the intro that fades it in. */
+.lunel[data-lunel-ready] .lunel-ring__center {
+  opacity: 0;
+  transition: opacity var(--lunel-dur-intro-text) var(--lunel-ease-in-out);
+}
+
+.lunel[data-lunel-ready] .lunel-ring__center[data-on] {
+  opacity: 1;
+}
+
+.lunel-ring__date {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 8px;
+  white-space: nowrap;
+}
+
+.lunel-ring__month {
+  display: inline-block;
+  transition: opacity 180ms var(--lunel-ease-in-out);
+}
+
+.lunel-ring__daynum {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  font-variant-numeric: tabular-nums;
+  vertical-align: bottom;
+}
+
+.lunel-ring__daynum span {
+  display: block;
+}
+
+.lunel-ring__daynum span + span {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+}
+
+.lunel-ring__phase {
+  margin-bottom: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.lunel-ring__tag {
+  padding: 4px 12px;
+  border-radius: var(--lunel-r-pill);
+  background: var(--lunel-white-light);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+/* Russian is ~15% longer: at 393px "Менструальная фаза" is the longest line
+   in the component. Give the centre column a little more room and let the
+   phase line drop one step rather than clip. */
+.lunel-ring__center:lang(ru) {
+  padding: 15px 14% 0;
+}
+
+/* 5 — noise ---------------------------------------------------------------- */
+
+.lunel-ring__noise {
+  position: absolute;
+  inset: -4%;
+  pointer-events: none;
+  background-image: var(--lunel-noise-image);
+  background-repeat: repeat;
+  background-size: 120px 120px;
+  opacity: var(--lunel-noise-opacity);
+  mix-blend-mode: color-burn;
+  /* mask on THIS element, before the blend — see the header comment */
+  -webkit-mask-image: radial-gradient(
+    circle closest-side,
+    #fff 0%,
+    #fff 72%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  mask-image: radial-gradient(
+    circle closest-side,
+    #fff 0%,
+    #fff 72%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+/* 6 — input layer ---------------------------------------------------------- */
+
+.lunel-ring__input {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: grab;
+  touch-action: pan-y;
+}
+
+.lunel-ring__input:active {
+  cursor: grabbing;
+}
+
+.lunel-ring__input[data-pointer-focus]:focus-visible {
+  outline: none;
+}
+
+.lunel-ring__input:focus-visible {
+  outline: var(--lunel-focus-width) solid var(--lunel-focus-color);
+  outline-offset: -2px;
+}
+
+/* ---------- reduced motion ------------------------------------------------
+   The durations are already zeroed in lunel-tokens.css; cycle-ring.js stops
+   the rAF loop and paints the FINISHED state — full ring, orb field at its
+   t=0 positions, centre text visible. Never a blank box, never a fast
+   version of the animation. Dragging and the arrow keys keep working: that
+   is direct manipulation, not decoration. */
+@media (prefers-reduced-motion: reduce) {
+  .lunel-ring__orbs {
+    transform: none;
+  }
+  .lunel-ring__center,
+  .lunel-day-number,
+  .lunel-ring__month,
+  .lunel-orb__fill,
+  .lunel-orb-base__fill {
+    transition: none;
+  }
+}

@@ -1,0 +1,140 @@
+/* ==========================================================================
+   Фрейм Lunel на главной
+   --------------------------------------------------------------------------
+   Живые компоненты приложения на месте коллажа images/lunel-placeholder_*.png.
+   Внутри фрейма лежит «холст» в координатах самого коллажа (1899 × 1426), и
+   каждый кусок стоит там, где он замерен на картинке. Холст целиком
+   масштабируется под ширину колонки, поэтому размеры и позиции не разъезжаются
+   ни на какой ширине.
+
+   Вёрстка кейса Lunel, в общие css/ ничего не добавлено.
+   ========================================================================== */
+
+.lunel-frame {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  border-radius: 28px;
+  /* Подложка коллажа: белая сверху, кремовая снизу — тот же Background/Main,
+     что у экранов приложения, поэтому стык кусков не читается. */
+  background: linear-gradient(162deg, #ffffff 0%, #fdfbf9 46%, #f7f4f0 100%);
+}
+
+/* Скриншот остаётся честным состоянием без JS и на случай, если компонент
+   не поднялся. Фрейм прячет его только когда собрался. */
+.lunel-frame__fallback {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.lunel-frame[data-lunel-frame-ready] .lunel-frame__fallback {
+  display: none;
+}
+
+.lunel-frame__canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1899px;
+  height: 1426px;
+  transform-origin: 0 0;
+  transform: scale(var(--lunel-frame-k, 0.342));
+}
+
+.lunel-frame__piece {
+  position: absolute;
+  overflow: hidden;
+}
+
+/* Кусок, у которого вместо обрезки маска: белая карточка режется по прямой,
+   а бублик над ней остаётся целым — как на коллаже. */
+.lunel-frame__piece--masked {
+  overflow: visible;
+  --cut: 84px;
+  --dot-x: 100px;
+  --dot-y: 93px;
+  --dot-r: 60px;
+  -webkit-mask-image:
+    linear-gradient(to bottom, transparent 0 var(--cut), #000 var(--cut)),
+    radial-gradient(circle var(--dot-r) at var(--dot-x) var(--dot-y), #000 98%, transparent 100%);
+  mask-image:
+    linear-gradient(to bottom, transparent 0 var(--cut), #000 var(--cut)),
+    radial-gradient(circle var(--dot-r) at var(--dot-x) var(--dot-y), #000 98%, transparent 100%);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-composite: source-over;
+  mask-composite: add;
+}
+
+/* Карточка инсайта: белый прямоугольник коллажа, внутри — экран приложения. */
+.lunel-frame__piece--insight {
+  background: var(--lunel-white, #fff);
+  border-radius: 56px;
+  box-shadow: 0 24px 56px rgba(38, 36, 34, 0.08);
+}
+
+.lunel-frame__mount {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform-origin: 0 0;
+}
+
+/* Телефон коллажа в светлой рамке, а не в чёрной: токен, а не правка бандла. */
+.lunel-frame__piece--phone .lunel {
+  --lunel-frame-bezel: #f2f1ef;
+  --lunel-frame-bezel-width: 7px;
+}
+
+/* Кольцо стоит на подложке фрейма, без экрана и без шапки «Today». */
+.lunel-frame__piece--ring {
+  overflow: visible;
+}
+
+.lunel-frame__piece--ring .lunel-home {
+  background: none;
+}
+
+.lunel-frame__piece--ring .lunel-home__header {
+  display: none;
+}
+
+/* Колода трендов живёт в коробке размером с экран: .lunel-trends тянется
+   на 100% высоты родителя. */
+.lunel-frame__screenbox {
+  width: 393px;
+  height: 759px;
+}
+
+/* Нужная страница колоды выставляется скроллом из frame.js, а сам скроллер
+   закрыт: иначе колёсико мыши уводит карточку из коробки. */
+.lunel-frame__piece--mood .lunel-trends__pages {
+  overflow: hidden;
+  scroll-snap-type: none;
+}
+
+/* Куски без рамки телефона — столбец шириной с экран. */
+.lunel-frame__col {
+  width: 393px;
+}
+
+/* Поле над заголовком карточки инсайта: на коллаже 34 px холста. */
+.lunel-frame__piece--insight .lunel-frame__col {
+  padding-top: 18px;
+}
+
+/* Декорация: мышью всё живое, в порядок обхода с клавиатуры не лезет —
+   на месте этого блока раньше стояла картинка. */
+.lunel-frame [data-lunel-component] :focus-visible {
+  outline: none;
+}
+
+@media (max-width: 768px) {
+  .lunel-frame {
+    border-radius: 20px;
+  }
+}

@@ -1,0 +1,68 @@
+/* ==========================================================================
+   Lunel interactive replicas — AI insight screen
+   --------------------------------------------------------------------------
+   AIInsightScreenView: title, meta, callout, the model's paragraphs and the
+   reliability footnote. Geometry from its `Layout` enum — horizontal 24,
+   navToTitle 12, titleToMeta 4, blockSpacing 16, footnoteExtraTop 12.
+
+   The pinned nav header (back / copy), the loader, the error and the Plus
+   gate are not reproduced: this replica only shows state 5, Ready.
+   ========================================================================== */
+
+.lunel .lunel-insight {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lunel-insight-block, 16px);
+  padding: 0 var(--lunel-gutter-24);
+  text-align: left;
+}
+
+/* Title + meta: 4 apart, the H2 line box is 32 even on one line. */
+.lunel .lunel-insight__head {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.lunel .lunel-insight__title {
+  color: var(--lunel-text);
+  min-height: var(--lunel-h2-line);
+}
+
+.lunel .lunel-insight__meta {
+  color: var(--lunel-text-grey);
+}
+
+/* Callout: Body 4 in Text/Grey behind a 2pt Brand bar, 12 apart, the bar as
+   tall as the text. */
+.lunel .lunel-insight__callout {
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+}
+
+.lunel .lunel-insight__bar {
+  flex: 0 0 2px;
+  border-radius: 1px;
+  background: var(--lunel-brand);
+}
+
+.lunel .lunel-insight__callout p {
+  color: var(--lunel-text-grey);
+}
+
+.lunel .lunel-insight__text {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.lunel .lunel-insight__text p {
+  color: var(--lunel-text);
+}
+
+/* 16 of block spacing plus the footnote's own 12. */
+.lunel .lunel-insight__footnote {
+  margin-top: 12px;
+  color: var(--lunel-text-grey);
+}

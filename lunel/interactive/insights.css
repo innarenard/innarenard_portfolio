@@ -1,0 +1,252 @@
+/* ==========================================================================
+   Lunel interactive replicas — AI insights
+   --------------------------------------------------------------------------
+   The 2-column card grid from Home and the "Your week" modal, including the
+   honest "Collecting data / No data yet" state — the product saying it does
+   not know yet rather than guessing.
+
+   Blur note (§12.11): the card's glow is blur(30px) in CSS. 30 is the Figma
+   stdDeviation; SwiftUI's own 21 is that value × 0.7 because SwiftUI spreads
+   wider. Using 21 here would make the glow visibly tighter than the app's.
+   ========================================================================== */
+
+.lunel-insights {
+  padding: 0 var(--lunel-gutter);
+}
+
+.lunel-insights__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.lunel-icard {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--lunel-r-insight-card);
+  background: var(--card-light);
+  padding: 20px 12px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  box-shadow: inset 0 0 16px rgba(250, 247, 242, 0.5);
+  transition: transform var(--lunel-spring-card-dur) var(--lunel-spring-card);
+}
+
+.lunel-icard[data-ready] {
+  cursor: pointer;
+}
+
+.lunel-icard[data-ready]:active {
+  transform: scale(0.97) translateY(1px);
+}
+
+.lunel-icard[aria-disabled="true"] {
+  cursor: default;
+}
+
+/* glow ellipse: card-wide, 160 tall, pulled 58 above the top edge */
+.lunel-icard::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -58px;
+  height: 160px;
+  border-radius: 50%;
+  background: var(--card-medium);
+  opacity: 0.6;
+  filter: blur(var(--lunel-blur-insight-glow));
+  pointer-events: none;
+}
+
+.lunel-icard > * {
+  position: relative;
+}
+
+.lunel-ipill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px 4px 4px;
+  border-radius: 16px;
+  background: var(--lunel-white-light);
+  color: var(--lunel-text-grey);
+  font-size: var(--lunel-caption3-size);
+  line-height: var(--lunel-caption3-line);
+  font-weight: var(--lunel-weight-semibold);
+  text-transform: uppercase;
+}
+
+.lunel-icard[data-ready] .lunel-ipill {
+  border-radius: 12px;
+  background: var(--lunel-white);
+  color: var(--lunel-text);
+  box-shadow: 0 0 0 2px var(--card-dark-20);
+}
+
+.lunel-ipill svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.lunel-icard__name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  font-size: var(--lunel-body1-size);
+  line-height: var(--lunel-body1-line);
+  font-weight: var(--lunel-weight-semibold);
+  color: var(--lunel-text);
+}
+
+.lunel-icard__caption {
+  font-size: var(--lunel-caption2-size);
+  line-height: var(--lunel-caption2-line);
+  color: var(--lunel-text-grey);
+}
+
+/* ---------- page dim behind the modal -----------------------------------
+   The app never uses the system grey scrim: the PAGE shrinks to .9 from its
+   top edge and fades to .25 onto its own colour (§2.5). */
+
+.lunel-dimmable {
+  transform-origin: top center;
+  transition: transform var(--lunel-spring-sheet-dur) var(--lunel-spring-sheet),
+    opacity var(--lunel-spring-sheet-dur) var(--lunel-spring-sheet);
+}
+
+.lunel-dimmable[data-dimmed] {
+  transform: scale(0.9);
+  opacity: 0.25;
+  pointer-events: none;
+}
+
+/* ---------- weekly modal ------------------------------------------------- */
+
+.lunel-weekly {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+}
+
+.lunel-weekly[hidden] {
+  display: none !important;
+}
+
+.lunel-weekly__dismiss {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+}
+
+.lunel-weekly__panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-height: calc(100% - 59px);
+  overflow-y: auto;
+  background: var(--lunel-white);
+  border-radius: var(--lunel-r-card-xl) var(--lunel-r-card-xl) 0 0;
+  padding-bottom: calc(var(--lunel-safe-bottom) + 20px);
+  transform: translateY(0);
+  transition: transform var(--lunel-dur-sheet) var(--lunel-ease-ios);
+}
+
+.lunel-weekly[data-closed] .lunel-weekly__panel {
+  transform: translateY(100%);
+}
+
+.lunel-weekly__grabber {
+  height: 16px;
+  display: flex;
+  justify-content: center;
+  padding-top: 5px;
+}
+
+.lunel-weekly__grabber::before {
+  content: "";
+  width: 36px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--lunel-text-light-grey);
+}
+
+.lunel-weekly__title {
+  margin-top: 8px;
+  padding: 0 var(--lunel-gutter-24);
+  text-align: center;
+  color: var(--lunel-text);
+}
+
+.lunel-weekly__subtitle {
+  margin-top: 4px;
+  padding: 0 var(--lunel-gutter-24) 12px;
+  text-align: center;
+  font-size: var(--lunel-body3-size);
+  line-height: var(--lunel-body3-line);
+  color: var(--lunel-text-grey);
+}
+
+.lunel-weekly__sections {
+  padding: 8px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.lunel-weekly__sub {
+  padding-left: 24px;
+  margin-bottom: 8px;
+  height: 20px;
+  line-height: 20px;
+  font-size: var(--lunel-subtitle2-size);
+  font-weight: 500;
+  letter-spacing: var(--lunel-subtitle2-tracking);
+  text-transform: uppercase;
+  color: var(--lunel-text-grey);
+}
+
+.lunel-weekly__block {
+  border-radius: var(--lunel-r-insight-card);
+  padding: 24px;
+  background: var(--lunel-bg-medium);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.lunel-weekly__lead {
+  font-size: var(--lunel-body2-size);
+  line-height: var(--lunel-body2-line);
+  color: var(--lunel-text);
+}
+
+.lunel-weekly__basis {
+  font-size: var(--lunel-body4-size);
+  line-height: var(--lunel-body4-line);
+  color: var(--lunel-text-grey);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lunel-icard,
+  .lunel-dimmable,
+  .lunel-weekly__panel {
+    transition: none;
+  }
+}
+
+.lunel[data-reduce-motion] .lunel-icard,
+.lunel[data-reduce-motion] .lunel-dimmable,
+.lunel[data-reduce-motion] .lunel-weekly__panel {
+  transition: none;
+}

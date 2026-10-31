@@ -1,0 +1,306 @@
+/* ==========================================================================
+   Lunel interactive replicas — design tokens
+   --------------------------------------------------------------------------
+   Every token from lunel-spec.md §1, declared on the scoping class `.lunel`
+   and NOT on :root, so five differently-styled host pages can embed these
+   components without the tokens leaking into the host's own CSS.
+
+   Retheming from the outside: write the same custom property on `.lunel`
+   (or on any ancestor of it) in the host stylesheet — e.g.
+
+       .case-lunel .lunel { --lunel-frame-bezel: #1b1a19; }
+
+   Rules carried over from the app (do not "fix" these):
+   · Alpha is baked into the -medium / -light tokens. Never stack opacity.
+   · There is no dark mode. Nothing here reacts to prefers-color-scheme.
+   · Blur values are the ORIGINAL Figma stdDeviation, not the SwiftUI radius
+     (SwiftUI radius ≈ stdDeviation × 0.7). CSS blur() takes a stdDeviation.
+   ========================================================================== */
+
+.lunel {
+  /* ---- Brand & colour families (Main / Dark; Medium = 55%, Light = 10%) ---- */
+  --lunel-brand-dark: #9c362d;
+  --lunel-brand: #e86c61;
+  --lunel-brand-medium: rgba(232, 108, 97, 0.55);
+  --lunel-brand-light: rgba(232, 108, 97, 0.1);
+
+  --lunel-crimson-dark: #933454;
+  --lunel-crimson: #dd608c;
+  --lunel-crimson-medium: rgba(221, 96, 140, 0.55);
+  --lunel-crimson-light: rgba(221, 96, 140, 0.1);
+
+  --lunel-pink-dark: #903080;
+  --lunel-pink: #d16cc0;
+  --lunel-pink-medium: rgba(209, 108, 192, 0.55);
+  --lunel-pink-light: rgba(209, 108, 192, 0.1);
+
+  --lunel-purple-dark: #6f4392;
+  --lunel-purple: #af7bd6;
+  --lunel-purple-medium: rgba(175, 123, 214, 0.55);
+  --lunel-purple-light: rgba(175, 123, 214, 0.1);
+
+  --lunel-violet-dark: #4e4fa1;
+  --lunel-violet: #8c87e7;
+  --lunel-violet-medium: rgba(140, 135, 231, 0.55);
+  --lunel-violet-light: rgba(140, 135, 231, 0.1);
+
+  --lunel-green-dark: #16590c;
+  --lunel-green: #47a747;
+  --lunel-green-medium: rgba(71, 167, 71, 0.55);
+  --lunel-green-light: rgba(71, 167, 71, 0.1);
+
+  --lunel-lightgreen-dark: #48540a;
+  --lunel-lightgreen: #8aa12e;
+  --lunel-lightgreen-medium: rgba(138, 161, 46, 0.55);
+  --lunel-lightgreen-light: rgba(138, 161, 46, 0.1);
+
+  --lunel-turquoise-dark: #0c5349;
+  --lunel-turquoise: #0eac9b;
+  --lunel-turquoise-medium: rgba(14, 172, 155, 0.55);
+  --lunel-turquoise-light: rgba(14, 172, 155, 0.1);
+
+  --lunel-orange-dark: #8f4100;
+  --lunel-orange: #fe9f5d;
+  --lunel-orange-medium: rgba(254, 159, 93, 0.55);
+  --lunel-orange-light: rgba(254, 159, 93, 0.1);
+
+  --lunel-yellow-dark: #8d5400;
+  --lunel-yellow: #ffbf25;
+  --lunel-yellow-medium: rgba(255, 191, 37, 0.55);
+  --lunel-yellow-light: rgba(255, 191, 37, 0.12); /* 12%, not 10% */
+
+  /* ---- Cycle phases ---- */
+  --lunel-phase-menstrual-dark: #660004;
+  --lunel-phase-menstrual: #f06c86;
+  --lunel-phase-menstrual-medium: rgba(240, 108, 134, 0.55);
+  --lunel-phase-menstrual-light: rgba(240, 108, 134, 0.1);
+
+  --lunel-phase-follicular-dark: #00463f;
+  --lunel-phase-follicular: #4cd7c8;
+  --lunel-phase-follicular-medium: rgba(76, 215, 200, 0.55);
+  --lunel-phase-follicular-light: rgba(76, 215, 200, 0.1);
+
+  --lunel-phase-ovulation-dark: #502905;
+  --lunel-phase-ovulation: #f5bb41;
+  --lunel-phase-ovulation-medium: rgba(245, 187, 65, 0.55);
+  --lunel-phase-ovulation-light: rgba(245, 187, 65, 0.1);
+
+  --lunel-phase-luteal-dark: #2e0041;
+  --lunel-phase-luteal: #ce7fef;
+  --lunel-phase-luteal-medium: rgba(206, 127, 239, 0.55);
+  --lunel-phase-luteal-light: rgba(206, 127, 239, 0.1);
+
+  /* ---- Flow intensity ---- */
+  --lunel-flow-mild: #fa5a64;
+  --lunel-flow-moderate: #db2b2b;
+  --lunel-flow-heavy: #900d15;
+  --lunel-flow-very-heavy: #710002;
+
+  /* ---- Surfaces ---- */
+  --lunel-bg: #faf7f2;
+  --lunel-bg-dark: #f5f1eb;
+  --lunel-bg-medium: rgba(250, 247, 242, 0.7);
+  --lunel-white: #ffffff;
+  --lunel-white-medium: rgba(255, 255, 255, 0.7);
+  --lunel-white-light: rgba(255, 255, 255, 0.4);
+
+  /* ---- Text & icons ---- */
+  --lunel-text: #262422;
+  --lunel-text-dark-grey: rgba(38, 36, 34, 0.8);
+  --lunel-text-grey: rgba(38, 36, 34, 0.6);
+  --lunel-text-light-grey: rgba(38, 36, 34, 0.2);
+  --lunel-text-white: #ffffff;
+  --lunel-icon: rgba(38, 36, 34, 0.8);
+  --lunel-icon-secondary: rgba(38, 36, 34, 0.6);
+  --lunel-icon-disabled: rgba(38, 36, 34, 0.2);
+
+  /* ---- Accents ---- */
+  --lunel-success: #00cb34;
+  --lunel-success-light: rgba(0, 203, 52, 0.12);
+  --lunel-error: #ff383c;
+  --lunel-error-light: rgba(255, 56, 60, 0.12);
+  --lunel-legacy-accent: #c4605e; /* iOS tint; selected-calendar-day shadow */
+
+  /* ---- Type ----
+     Fraunces / Lora are NOT loaded by these files (no CDN dependency).
+     The host page adds one <link> — see README §Fonts — and the stack below
+     picks them up. Without it everything falls back to Georgia honestly. */
+  --lunel-serif: "Fraunces", "Fraunces 72pt", ui-serif, Georgia, "Times New Roman", serif;
+  --lunel-serif-ru: "Lora", ui-serif, Georgia, "Times New Roman", serif;
+  --lunel-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display",
+    "Inter", "Helvetica Neue", Arial, sans-serif;
+  --lunel-fraunces-axes: "SOFT" 0, "WONK" 1;
+
+  --lunel-h1-size: 24px;
+  --lunel-h1-line: 32px;
+  --lunel-h2-size: 20px;
+  --lunel-h2-line: 32px;
+  --lunel-h3-size: 14px;
+  --lunel-h3-line: 24px;
+  --lunel-subtitle2-size: 14px;
+  --lunel-subtitle2-line: 20px;
+  --lunel-subtitle2-tracking: 0.28px;
+  --lunel-body1-size: 16px;
+  --lunel-body1-line: 20px;
+  --lunel-body2-size: 16px;
+  --lunel-body2-line: 20px;
+  --lunel-body3-size: 14px;
+  --lunel-body3-line: 20px;
+  --lunel-body4-size: 14px;
+  --lunel-body4-line: 20px;
+  --lunel-caption1-size: 12px;
+  --lunel-caption1-line: 16px;
+  --lunel-caption2-size: 12px;
+  --lunel-caption2-line: 16px;
+  --lunel-caption3-size: 9px;
+  --lunel-caption3-line: 12px;
+  --lunel-body-tracking: -0.016px;
+  --lunel-weight-semibold: 600; /* see README: 590 when Inter is the fallback */
+
+  /* ---- Radii (continuous squircles in iOS; CSS arcs read ~8% tighter) ---- */
+  --lunel-r-pill: 999px;
+  --lunel-r-card: 20px;
+  --lunel-r-card-lg: 24px;
+  --lunel-r-card-xl: 28px;
+  --lunel-r-insight-card: 40px;
+  --lunel-r-note: 32px;
+  --lunel-r-checklist-row: 44px;
+  --lunel-r-toast: 24px;
+  --lunel-r-story: 34px;
+  --lunel-r-promo: 32px;
+
+  /* ---- Spacing ---- */
+  --lunel-gutter: 20px;
+  --lunel-gutter-24: 24px;
+  --lunel-card-pad: 16px;
+  --lunel-card-pad-sm: 14px;
+  --lunel-card-pad-lg: 24px;
+  --lunel-section-gap: 24px;
+  --lunel-subheader-gap: 8px;
+  --lunel-subheader-inset: 16px;
+  --lunel-sheet-top-offset: 32px;
+
+  /* ---- Elevation (Figma blur values — CSS blur px == Figma stdDeviation) ---- */
+  --lunel-shadow-thumb: 0 2px 8px rgba(196, 96, 94, 0.26);
+  --lunel-shadow-toast: 0 0 20px rgba(0, 0, 0, 0.12);
+  --lunel-shadow-ring-circle: 0 3px 6px rgba(0, 0, 0, 0.15);
+  --lunel-shadow-frame: 0 32px 80px rgba(38, 36, 34, 0.22), 0 4px 16px rgba(38, 36, 34, 0.1);
+  --lunel-blur-insight-glow: 30px; /* NOT 21 — see README §Blur conversion */
+  --lunel-blur-glass: 20px;
+  --lunel-noise-opacity: 0.32;
+  /* Assets/Images/Noise, regenerated as a tiled SVG so the bundle stays
+     dependency-free. Swap this one property to use the real PNG. */
+  --lunel-noise-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='0.22' intercept='0.76'/%3E%3CfeFuncG type='linear' slope='0.22' intercept='0.76'/%3E%3CfeFuncB type='linear' slope='0.22' intercept='0.76'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+
+  /* ---- Phone frame ---- */
+  --lunel-frame-w: 393px;
+  --lunel-frame-h: 852px;
+  --lunel-frame-radius: 55px;
+  --lunel-safe-top: 59px;
+  --lunel-safe-bottom: 34px;
+  --lunel-frame-bezel: #262422;
+  --lunel-frame-bezel-width: 10px;
+  --lunel-frame-scale: 1;
+
+  /* ---- Motion: timed ---- */
+  --lunel-ease-ios: cubic-bezier(0.32, 0.72, 0, 1);
+  --lunel-ease-in-out: cubic-bezier(0.42, 0, 0.58, 1);
+  --lunel-dur-press: 140ms;
+  --lunel-dur-chip: 220ms;
+  --lunel-dur-sheet: 420ms;
+  --lunel-dur-toast-in: 250ms;
+  --lunel-dur-toast-out: 250ms;
+  --lunel-dur-daynumber: 200ms;
+  --lunel-dur-phase-crossfade: 1500ms; /* orb re-tint, easeInOut */
+  --lunel-dur-intro-ring: 1000ms;
+  --lunel-dur-intro-text: 900ms;
+  --lunel-dur-numeric-roll: 160ms;
+
+  /* ---- Motion: springs, as CSS linear() easings ----
+     Generated from SwiftUI spring(response:dampingFraction:);
+     the *-dur token is the settle time of that spring. Pair them:
+       transition: transform var(--lunel-spring-card-dur) var(--lunel-spring-card); */
+  --lunel-spring-standard: linear(0, 0.0843, 0.2896, 0.5473, 0.801, 1.0113, 1.1577, 1.2357, 1.2531, 1.225, 1.1694, 1.1032, 1.0402, 0.9894, 0.9553, 0.9384, 0.9363, 0.945, 0.9598, 0.9767, 0.9923, 1.0045, 1.0124, 1.016, 1.016, 1.0134, 1.0095, 1.0052, 1.0013, 0.9984, 0.9966, 0.9959, 0.996, 0.9968, 0.9978, 0.9989, 0.9998, 1.0005, 1.0009, 1.0011, 1);
+  --lunel-spring-standard-dur: 976ms;
+  --lunel-spring-snappy: linear(0, 0.0212, 0.0749, 0.1489, 0.2339, 0.323, 0.4115, 0.4959, 0.5742, 0.6452, 0.7083, 0.7634, 0.8108, 0.851, 0.8847, 0.9125, 0.9351, 0.9533, 0.9677, 0.9789, 0.9875, 0.9939, 0.9985, 1.0018, 1.004, 1.0053, 1.006, 1.0063, 1.0062, 1.0059, 1.0055, 1.0049, 1.0044, 1.0038, 1.0033, 1.0028, 1.0023, 1.0019, 1.0016, 1.0012, 1);
+  --lunel-spring-snappy-dur: 307ms;
+  --lunel-spring-card: linear(0, 0.0182, 0.0658, 0.1334, 0.2135, 0.3001, 0.3884, 0.475, 0.5573, 0.6336, 0.7027, 0.7642, 0.8178, 0.8639, 0.9027, 0.9347, 0.9607, 0.9813, 0.9972, 1.0091, 1.0175, 1.0232, 1.0265, 1.0281, 1.0283, 1.0275, 1.0259, 1.0238, 1.0215, 1.019, 1.0165, 1.0141, 1.0118, 1.0097, 1.0078, 1.0061, 1.0047, 1.0035, 1.0024, 1.0016, 1);
+  --lunel-spring-card-dur: 179ms;
+  --lunel-spring-sheet: linear(0, 0.0212, 0.0749, 0.1487, 0.2334, 0.322, 0.4099, 0.4937, 0.5714, 0.6419, 0.7044, 0.7592, 0.8063, 0.8463, 0.88, 0.9078, 0.9306, 0.9489, 0.9636, 0.9751, 0.984, 0.9907, 0.9957, 0.9993, 1.0017, 1.0034, 1.0044, 1.0049, 1.005, 1.0049, 1.0047, 1.0043, 1.0039, 1.0034, 1.003, 1.0026, 1.0022, 1.0018, 1.0015, 1.0012, 1);
+  --lunel-spring-sheet-dur: 587ms;
+  --lunel-spring-toast: linear(0, 0.0213, 0.0751, 0.1493, 0.2344, 0.3237, 0.4122, 0.4967, 0.5751, 0.6461, 0.7091, 0.7642, 0.8115, 0.8517, 0.8853, 0.913, 0.9356, 0.9537, 0.968, 0.9792, 0.9877, 0.9941, 0.9987, 1.0019, 1.004, 1.0054, 1.006, 1.0063, 1.0062, 1.0059, 1.0054, 1.0049, 1.0043, 1.0038, 1.0033, 1.0028, 1.0023, 1.0019, 1.0015, 1.0012, 1);
+  --lunel-spring-toast-dur: 559ms;
+  --lunel-spring-ring-displace: linear(0, 0.0201, 0.0716, 0.1436, 0.2274, 0.3164, 0.4058, 0.492, 0.5728, 0.6465, 0.7125, 0.7704, 0.8203, 0.8627, 0.8982, 0.9273, 0.9508, 0.9694, 0.9838, 0.9947, 1.0026, 1.0082, 1.0118, 1.014, 1.015, 1.0151, 1.0147, 1.0138, 1.0126, 1.0113, 1.0099, 1.0086, 1.0073, 1.0061, 1.005, 1.0041, 1.0032, 1.0025, 1.0019, 1.0014, 1);
+  --lunel-spring-ring-displace-dur: 405ms;
+  --lunel-spring-ring-drag-end: linear(0, 0.0202, 0.0722, 0.1446, 0.2289, 0.3184, 0.4082, 0.4947, 0.5755, 0.6493, 0.7152, 0.773, 0.8228, 0.865, 0.9001, 0.929, 0.9522, 0.9706, 0.9848, 0.9954, 1.0032, 1.0086, 1.0121, 1.0141, 1.015, 1.0151, 1.0146, 1.0136, 1.0125, 1.0111, 1.0098, 1.0084, 1.0071, 1.006, 1.0049, 1.0039, 1.0031, 1.0024, 1.0018, 1.0013, 1);
+  --lunel-spring-ring-drag-end-dur: 339ms;
+  --lunel-spring-ring-select: linear(0, 0.0294, 0.1036, 0.2051, 0.3198, 0.4375, 0.5508, 0.6546, 0.7461, 0.824, 0.8881, 0.9389, 0.9778, 1.0061, 1.0255, 1.0376, 1.044, 1.046, 1.0448, 1.0415, 1.0369, 1.0317, 1.0263, 1.021, 1.0162, 1.012, 1.0083, 1.0054, 1.003, 1.0011, 0.9998, 0.9989, 0.9983, 0.998, 0.9979, 0.9979, 0.9981, 0.9983, 0.9985, 0.9988, 1);
+  --lunel-spring-ring-select-dur: 492ms;
+  --lunel-spring-ring-today: linear(0, 0.0293, 0.1033, 0.2046, 0.3191, 0.4367, 0.5498, 0.6536, 0.7451, 0.8231, 0.8872, 0.9382, 0.9772, 1.0056, 1.0252, 1.0374, 1.0439, 1.046, 1.0449, 1.0417, 1.0371, 1.0319, 1.0265, 1.0212, 1.0164, 1.0121, 1.0085, 1.0055, 1.0031, 1.0012, 0.9999, 0.9989, 0.9983, 0.998, 0.9979, 0.9979, 0.9981, 0.9983, 0.9985, 0.9988, 1);
+  --lunel-spring-ring-today-dur: 655ms;
+  --lunel-spring-ring-highlight: linear(0, 0.0193, 0.0693, 0.1395, 0.2219, 0.31, 0.3991, 0.4856, 0.567, 0.6417, 0.709, 0.7683, 0.8197, 0.8635, 0.9002, 0.9304, 0.9548, 0.9741, 0.989, 1.0002, 1.0083, 1.0138, 1.0173, 1.0192, 1.0199, 1.0197, 1.0188, 1.0174, 1.0158, 1.0141, 1.0123, 1.0106, 1.0089, 1.0074, 1.006, 1.0048, 1.0038, 1.0029, 1.0021, 1.0015, 1);
+  --lunel-spring-ring-highlight-dur: 370ms;
+  --lunel-spring-header-day: linear(0, 0.0213, 0.0751, 0.1492, 0.2343, 0.3235, 0.4121, 0.4966, 0.5749, 0.6459, 0.709, 0.764, 0.8114, 0.8516, 0.8852, 0.9129, 0.9355, 0.9536, 0.968, 0.9791, 0.9877, 0.994, 0.9986, 1.0019, 1.004, 1.0054, 1.006, 1.0063, 1.0062, 1.0059, 1.0054, 1.0049, 1.0044, 1.0038, 1.0033, 1.0028, 1.0023, 1.0019, 1.0015, 1.0012, 1);
+  --lunel-spring-header-day-dur: 489ms;
+
+  /* ---- Focus ring (keyboard only) ---- */
+  --lunel-focus-color: #9c362d;
+  --lunel-focus-width: 3px;
+  --lunel-focus-offset: 3px;
+}
+
+/* Reduced motion: every duration collapses to zero so a transition that still
+   fires lands on its finished value instead of animating or being sped up.
+   Components must additionally stop their rAF loops — see lunel-core.js. */
+@media (prefers-reduced-motion: reduce) {
+  .lunel {
+    --lunel-dur-press: 0ms;
+    --lunel-dur-chip: 0ms;
+    --lunel-dur-sheet: 0ms;
+    --lunel-dur-toast-in: 0ms;
+    --lunel-dur-toast-out: 0ms;
+    --lunel-dur-daynumber: 0ms;
+    --lunel-dur-phase-crossfade: 0ms;
+    --lunel-dur-intro-ring: 0ms;
+    --lunel-dur-intro-text: 0ms;
+    --lunel-dur-numeric-roll: 0ms;
+    --lunel-spring-standard-dur: 0ms;
+    --lunel-spring-snappy-dur: 0ms;
+    --lunel-spring-card-dur: 0ms;
+    --lunel-spring-sheet-dur: 0ms;
+    --lunel-spring-toast-dur: 0ms;
+    --lunel-spring-ring-displace-dur: 0ms;
+    --lunel-spring-ring-drag-end-dur: 0ms;
+    --lunel-spring-ring-select-dur: 0ms;
+    --lunel-spring-ring-today-dur: 0ms;
+    --lunel-spring-ring-highlight-dur: 0ms;
+    --lunel-spring-header-day-dur: 0ms;
+  }
+}
+
+/* Same zeroing, driven by hand. The gallery workbench uses it so Inna can see
+   the reduced-motion presentation without changing a system setting;
+   Lunel.motion.override(true) sets the attribute and tells the components. */
+.lunel[data-reduce-motion] {
+    --lunel-dur-press: 0ms;
+    --lunel-dur-chip: 0ms;
+    --lunel-dur-sheet: 0ms;
+    --lunel-dur-toast-in: 0ms;
+    --lunel-dur-toast-out: 0ms;
+    --lunel-dur-daynumber: 0ms;
+    --lunel-dur-phase-crossfade: 0ms;
+    --lunel-dur-intro-ring: 0ms;
+    --lunel-dur-intro-text: 0ms;
+    --lunel-dur-numeric-roll: 0ms;
+    --lunel-spring-standard-dur: 0ms;
+    --lunel-spring-snappy-dur: 0ms;
+    --lunel-spring-card-dur: 0ms;
+    --lunel-spring-sheet-dur: 0ms;
+    --lunel-spring-toast-dur: 0ms;
+    --lunel-spring-ring-displace-dur: 0ms;
+    --lunel-spring-ring-drag-end-dur: 0ms;
+    --lunel-spring-ring-select-dur: 0ms;
+    --lunel-spring-ring-today-dur: 0ms;
+    --lunel-spring-ring-highlight-dur: 0ms;
+    --lunel-spring-header-day-dur: 0ms;
+  }

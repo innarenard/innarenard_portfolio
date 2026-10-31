@@ -1,0 +1,707 @@
+/* ==========================================================================
+   Lunel interactive replicas — Bilingual Checklist
+   --------------------------------------------------------------------------
+   The three 56pt Home rows, the one sheet that morphs Flow → Daily log → Mood
+   without ever closing, and the toast that follows.
+
+   Two motion notes:
+   · Rows are absolutely positioned and ordered with translateY, so a row
+     sinking below the unfilled ones is a transform, never a reflow.
+   · The sheet does not animate `height`. The panel is a fixed, over-tall
+     rounded surface pinned to the bottom and pushed down by translateY; the
+     visible top edge is what moves. The button bar is a separate layer pinned
+     to the screen bottom so it never rides down with the panel.
+   ========================================================================== */
+
+/* ---------- section ------------------------------------------------------ */
+
+.lunel-checklist {
+  padding: 0 var(--lunel-gutter);
+}
+
+.lunel-subheader {
+  padding-left: var(--lunel-subheader-inset);
+  margin-bottom: var(--lunel-subheader-gap);
+  color: var(--lunel-text-grey);
+  font-size: var(--lunel-body3-size);
+  line-height: 20px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.lunel-rows {
+  position: relative;
+  height: 176px; /* 3 × 56 + 2 × 4 */
+}
+
+.lunel-row {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 56px;
+  transition: transform var(--lunel-spring-sheet-dur) var(--lunel-spring-sheet);
+}
+
+.lunel-row__btn {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 56px;
+  padding: 0 16px;
+  gap: 8px;
+  border-radius: var(--lunel-r-checklist-row);
+  background: var(--lunel-white);
+  text-align: left;
+  transition: transform var(--lunel-spring-card-dur) var(--lunel-spring-card);
+}
+
+.lunel-row__btn:active {
+  transform: scale(0.97) translateY(1px);
+}
+
+/* Filled: Background/White light over cream, with a 2pt stroke drawn INSIDE
+   so the row keeps its 56pt box (spec §12.14). */
+.lunel-row[data-filled] .lunel-row__btn {
+  background: var(--lunel-white-light);
+  box-shadow: inset 0 0 0 2px var(--lunel-white);
+}
+
+.lunel-row__check {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+}
+
+.lunel-row__check::before {
+  content: "";
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.4px dashed var(--lunel-brand);
+}
+
+.lunel-row[data-filled] .lunel-row__check::before {
+  width: 24px;
+  height: 24px;
+  border: 0;
+  background: var(--lunel-success-light)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6.2 12.6l3.9 3.9 7.7-8.6' fill='none' stroke='%2300CB34' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+    center / 19.2px 19.2px no-repeat;
+}
+
+.lunel-row__q {
+  flex: 1 1 auto;
+  min-width: 0;
+  color: var(--lunel-text-grey);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lunel-row__label {
+  flex: none;
+  color: var(--lunel-text-grey);
+  font-size: var(--lunel-caption2-size);
+  line-height: 24px;
+  padding-top: 2px;
+  white-space: nowrap;
+}
+
+.lunel-row__value {
+  flex: 1 1 auto;
+  min-width: 0;
+  text-align: right;
+  color: var(--lunel-text);
+  font-size: var(--lunel-body2-size);
+  line-height: var(--lunel-body2-line);
+  /* never wraps — a long Russian value clips, it does not reflow (§12.18) */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Daily-log row shows overlapping chips instead of a value */
+.lunel-row__chips {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 0;
+  min-width: 0;
+}
+
+.lunel-chip {
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--lunel-bg);
+  box-shadow: 0 0 0 2px var(--lunel-white);
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.lunel-chip + .lunel-chip {
+  margin-left: -8px;
+}
+
+.lunel-chip--more {
+  width: 32px;
+  height: 32px;
+  background: var(--lunel-brand-light);
+  color: var(--lunel-brand);
+  font-size: var(--lunel-caption3-size);
+  font-weight: var(--lunel-weight-semibold);
+}
+
+/* ---------- sheet -------------------------------------------------------- */
+
+.lunel-sheet {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+}
+
+.lunel-sheet[hidden] {
+  display: none !important;
+}
+
+.lunel-sheet__dismiss {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  cursor: default;
+}
+
+.lunel-sheet__panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--sheet-max, 620px);
+  background: var(--lunel-white);
+  border-radius: var(--lunel-r-card-xl) var(--lunel-r-card-xl) 0 0;
+  display: flex;
+  flex-direction: column;
+  /* Панель всегда одной высоты, а верхний край морфится сдвигом — так
+     «изменение высоты» остаётся трансформом. Но нижняя панель с кнопкой
+     должна оставаться у низа ЭКРАНА, а не уезжать вниз вместе со сдвигом,
+     поэтому снизу отводим ровно столько же. */
+  transform: translateY(var(--sheet-drop, 0px));
+  transition: transform var(--lunel-spring-sheet-dur) var(--lunel-spring-sheet);
+}
+
+.lunel-sheet[data-entering] .lunel-sheet__panel,
+.lunel-sheet[data-leaving] .lunel-sheet__panel {
+  transform: translateY(100%);
+  transition: transform var(--lunel-dur-sheet) var(--lunel-ease-ios);
+}
+
+.lunel-sheet__grabber {
+  flex: none;
+  height: 16px;
+  display: flex;
+  justify-content: center;
+  padding-top: 5px;
+}
+
+.lunel-sheet__grabber::before {
+  content: "";
+  width: 36px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--lunel-text-light-grey);
+}
+
+.lunel-sheet__title {
+  flex: none;
+  margin-top: 8px;
+  padding: 0 var(--lunel-gutter-24) 12px;
+  text-align: center;
+  color: var(--lunel-text);
+}
+
+.lunel-sheet__body {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.lunel-step {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms var(--lunel-ease-in-out);
+}
+
+.lunel-step[data-active] {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* bottom bar: its own layer pinned to the screen, never rides with the panel */
+.lunel-sheet__bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  /* Панель сдвинута вниз на --sheet-drop, поэтому её собственный низ уходит
+     за экран; нижнюю панель с кнопкой поднимаем на столько же, чтобы она
+     осталась у низа экрана. Раньше она просто уезжала за кадр. */
+  bottom: var(--sheet-drop, 0px);
+  /* Снизу 28, а не безопасная зона плюс 8: по эталону кнопка стоит
+     718–771, то есть под призрачной кнопкой остаётся 28 pt. */
+  padding: 48px var(--lunel-gutter) 28px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, var(--lunel-white) 44%);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  pointer-events: none;
+}
+
+.lunel-sheet__bar > * {
+  pointer-events: auto;
+}
+
+/* Primary CTA — the "juicy" rendering, §2.1 */
+.lunel-cta {
+  position: relative;
+  height: 56px;
+  border-radius: 28px;
+  background: var(--lunel-brand);
+  color: var(--lunel-text-white);
+  font-size: var(--lunel-body1-size);
+  line-height: var(--lunel-body1-line);
+  font-weight: var(--lunel-weight-semibold);
+  letter-spacing: var(--lunel-body-tracking);
+  padding: 0 24px;
+  overflow: hidden;
+  transition: transform var(--lunel-spring-standard-dur) var(--lunel-spring-standard),
+    opacity 180ms var(--lunel-ease-in-out);
+}
+
+.lunel-cta::after {
+  /* 2pt HDR-ish inner stroke, masked top-leading + bottom-trailing (§12.9) */
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.9);
+  -webkit-mask-image: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0) 38%),
+    linear-gradient(315deg, #fff 0%, rgba(255, 255, 255, 0) 38%);
+  mask-image: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0) 38%),
+    linear-gradient(315deg, #fff 0%, rgba(255, 255, 255, 0) 38%);
+  -webkit-mask-composite: source-over;
+  mask-composite: add;
+  pointer-events: none;
+}
+
+.lunel-cta:active {
+  transform: scale(1.03, 1.08);
+}
+
+.lunel-cta[hidden] {
+  display: none !important;
+}
+
+.lunel-ghost-large {
+  min-height: 48px;
+  padding: 0 20px;
+  border-radius: 24px;
+  color: var(--lunel-brand);
+  font-size: var(--lunel-body1-size);
+  line-height: var(--lunel-body1-line);
+  font-weight: var(--lunel-weight-semibold);
+}
+
+.lunel-ghost-large[hidden] {
+  display: none !important;
+}
+
+.lunel-ghost-large[disabled] {
+  color: var(--lunel-text-light-grey);
+  cursor: default;
+}
+
+/* ---------- step 1: flow ------------------------------------------------- */
+
+.lunel-flow {
+  padding: 0 var(--lunel-gutter);
+}
+
+.lunel-result {
+  height: 128px;
+  border-radius: var(--lunel-r-note);
+  background: var(--lunel-bg-medium);
+  padding: 16px 12px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.lunel-result__title {
+  height: 40px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  font-size: var(--lunel-body1-size);
+  line-height: var(--lunel-body1-line);
+  font-weight: var(--lunel-weight-semibold);
+  color: var(--result-color, var(--lunel-text));
+  transition: opacity 180ms var(--lunel-ease-in-out);
+}
+
+.lunel-result__levels {
+  height: 18px;
+  font-size: var(--lunel-caption2-size);
+  line-height: 18px;
+  color: var(--lunel-text-grey);
+}
+
+.lunel-result__desc {
+  height: 40px;
+  margin-top: 8px;
+  font-size: var(--lunel-body4-size);
+  line-height: var(--lunel-body4-line);
+  color: var(--lunel-text);
+  transition: opacity 180ms var(--lunel-ease-in-out);
+}
+
+.lunel-scale {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  touch-action: none;
+  cursor: grab;
+  padding: 4px 0 8px;
+  border-radius: 24px;
+}
+
+.lunel-scale:active {
+  cursor: grabbing;
+}
+
+.lunel-scale__cap {
+  font-size: var(--lunel-caption2-size);
+  line-height: 16px;
+  color: var(--lunel-text-grey);
+}
+
+.lunel-scale__col {
+  position: relative;
+  width: 100px;
+  height: 204px; /* 4 × 24 + 3 × 36 */
+  margin: 20px 0;
+}
+
+.lunel-scale__dot {
+  position: absolute;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background: var(--scale-color, var(--lunel-flow-moderate));
+  box-shadow: 0 0 4px var(--scale-color, var(--lunel-flow-moderate));
+  opacity: 0.5;
+  transition: opacity 180ms var(--lunel-ease-in-out);
+}
+
+.lunel-scale__thumb {
+  position: absolute;
+  left: 50%;
+  width: 24px;
+  height: 24px;
+  margin: -12px 0 0 -12px;
+  border-radius: 50%;
+  background: var(--scale-color, var(--lunel-flow-moderate));
+  box-shadow: 0 0 8px var(--scale-color, var(--lunel-flow-moderate));
+  transition: transform var(--lunel-spring-ring-select-dur) var(--lunel-spring-ring-select),
+    background-color 180ms var(--lunel-ease-in-out);
+}
+
+/* ---------- step 2: daily log -------------------------------------------- */
+
+.lunel-log {
+  padding: 0 16px 8px;
+}
+
+.lunel-log__group + .lunel-log__group {
+  margin-top: 24px;
+}
+
+.lunel-log__sub {
+  padding-left: 8px;
+  margin-bottom: 8px;
+  font-size: var(--lunel-subtitle2-size);
+  line-height: 20px;
+  font-weight: 500;
+  letter-spacing: var(--lunel-subtitle2-tracking);
+  text-transform: uppercase;
+  color: var(--lunel-text-grey);
+}
+
+.lunel-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.lunel-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 36px;
+  padding: 0 12px 0 8px;
+  border-radius: var(--lunel-r-pill);
+  background: var(--lunel-bg);
+  color: var(--lunel-text);
+  font-size: var(--lunel-body4-size);
+  line-height: var(--lunel-body4-line);
+  transition: transform var(--lunel-spring-snappy-dur) var(--lunel-spring-snappy);
+}
+
+.lunel-pill__emoji {
+  width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.lunel-pill:active {
+  transform: scale(0.92);
+}
+
+.lunel-pill[aria-pressed="true"] {
+  background: var(--tag-tint);
+  box-shadow: inset 0 0 0 2px var(--tag-tint);
+  color: var(--tag-dark);
+  font-weight: 500;
+}
+
+.lunel-pill--more {
+  padding: 0 8px 0 12px;
+  background: var(--lunel-bg-dark);
+  font-weight: 500;
+}
+
+.lunel-pill--more svg {
+  width: 16px;
+  height: 16px;
+  stroke: var(--lunel-icon);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  fill: none;
+}
+
+/* ---------- step 3: mood ------------------------------------------------- */
+
+.lunel-mood {
+  padding: 0 var(--lunel-gutter);
+}
+
+.lunel-mood__result .lunel-result__title {
+  color: var(--mood-color, var(--lunel-text));
+}
+
+.lunel-grid-block {
+  padding: 16px 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.lunel-grid-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.lunel-grid-cap {
+  font-size: var(--lunel-caption2-size);
+  line-height: 16px;
+  color: var(--lunel-text-grey);
+  white-space: nowrap;
+}
+
+.lunel-grid-cap--left {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+.lunel-grid-cap--right {
+  writing-mode: vertical-rl;
+}
+
+.lunel-grid {
+  position: relative;
+  width: 264px; /* 5 × 24 + 4 × 36 */
+  height: 264px;
+  touch-action: none;
+  cursor: grab;
+}
+
+.lunel-grid:active {
+  cursor: grabbing;
+}
+
+.lunel-grid__dot {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background: var(--mood-color, var(--lunel-green));
+  opacity: 0.2;
+  transition: opacity 160ms var(--lunel-ease-in-out);
+}
+
+.lunel-grid__dot[data-lit] {
+  opacity: 0.55;
+  box-shadow: 0 0 4px var(--mood-color, var(--lunel-green));
+}
+
+.lunel-grid__sel {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  margin: -12px 0 0 -12px;
+  border-radius: 50%;
+  background: var(--mood-color, var(--lunel-green));
+  box-shadow: 0 0 8px var(--mood-color, var(--lunel-green));
+  transition: transform var(--lunel-spring-ring-select-dur) var(--lunel-spring-ring-select),
+    background-color 200ms var(--lunel-ease-in-out);
+}
+
+/* ---------- page dim behind the sheet ------------------------------------ */
+
+.lunel-page {
+  transform-origin: top center;
+  transition: transform var(--lunel-spring-sheet-dur) var(--lunel-spring-sheet),
+    opacity var(--lunel-spring-sheet-dur) var(--lunel-spring-sheet);
+}
+
+.lunel-page[data-dimmed] {
+  transform: scale(0.9);
+  opacity: 0.25;
+}
+
+/* ---------- toast -------------------------------------------------------- */
+
+.lunel-toast {
+  position: absolute;
+  left: var(--lunel-gutter);
+  right: var(--lunel-gutter);
+  /* Тост живёт слоем экрана, поэтому отсчитываем от безопасной зоны, а не от
+     верха экрана: иначе он наезжает на часы и индикаторы. */
+  top: calc(var(--lunel-safe-top) + 8px);
+  z-index: 12;
+  display: block;
+  width: calc(100% - 2 * var(--lunel-gutter));
+  padding: 20px;
+  border-radius: var(--lunel-r-toast);
+  background: var(--lunel-white-medium);
+  -webkit-backdrop-filter: blur(var(--lunel-blur-glass)) saturate(180%);
+  backdrop-filter: blur(var(--lunel-blur-glass)) saturate(180%);
+  box-shadow: var(--lunel-shadow-toast);
+  text-align: left;
+  opacity: 0;
+  transform: translateY(-24px);
+  transition: transform var(--lunel-spring-toast-dur) var(--lunel-spring-toast),
+    opacity 250ms var(--lunel-ease-in-out);
+}
+
+.lunel-toast[hidden] {
+  display: none !important;
+}
+
+.lunel-toast[data-on] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.lunel-toast__title {
+  font-size: var(--lunel-body1-size);
+  line-height: 20px;
+  font-weight: var(--lunel-weight-semibold);
+  color: var(--lunel-text);
+}
+
+/* the 🎉 is deliberately set in the system emoji font, never in SF Pro */
+.lunel-toast__party {
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+}
+
+.lunel-toast__msg {
+  margin-top: 8px;
+  font-size: var(--lunel-body4-size);
+  line-height: var(--lunel-body4-line);
+  color: var(--lunel-text-grey);
+}
+
+.lunel-confetti {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 11;
+}
+
+.lunel-confetti i {
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  width: 8px;
+  height: 10px;
+  border-radius: 2px;
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lunel-row,
+  .lunel-row__btn,
+  .lunel-sheet__panel,
+  .lunel-step,
+  .lunel-page,
+  .lunel-toast,
+  .lunel-scale__thumb,
+  .lunel-grid__sel {
+    transition: none;
+  }
+  .lunel-confetti {
+    display: none;
+  }
+}
+
+.lunel[data-reduce-motion] .lunel-row,
+.lunel[data-reduce-motion] .lunel-row__btn,
+.lunel[data-reduce-motion] .lunel-sheet__panel,
+.lunel[data-reduce-motion] .lunel-step,
+.lunel[data-reduce-motion] .lunel-page,
+.lunel[data-reduce-motion] .lunel-toast,
+.lunel[data-reduce-motion] .lunel-scale__thumb,
+.lunel[data-reduce-motion] .lunel-grid__sel {
+  transition: none;
+}
+
+.lunel[data-reduce-motion] .lunel-confetti {
+  display: none;
+}
+
+/* Шаг шторки получает фокус программно — кольцо фокуса на нём было бы ложью:
+   его никто не запрашивал с клавиатуры. Снимается на первом же keydown. */
+.lunel [data-pointer-focus]:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
