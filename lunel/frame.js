@@ -162,15 +162,19 @@
      нарисовать карточку: после монтирования двигаем содержимое так, чтобы
      нужный элемент лёг ровно в коробку. */
   function offsetTo(part, target, align) {
+    /* Сдвиг считаем от нуля, а не прибавляем к тому, что уже стоит: иначе
+       один неудачный проход (вызов до того, как встали шрифты или ширина)
+       уезжает навсегда, а следующий проход прибавляет к испорченному. Так
+       функция даёт один и тот же результат, сколько её ни зови. */
+    part.wrap.style.left = '0px';
+    part.wrap.style.top = '0px';
     var k = currentK();
     var box = part.el.getBoundingClientRect();
     var rect = target.getBoundingClientRect();
-    var dx = (box.left - rect.left) / k;
-    var dy = align === 'bottom'
-      ? (box.bottom - rect.bottom) / k
-      : (box.top - rect.top) / k;
-    part.wrap.style.left = (parseFloat(part.wrap.style.left) || 0) + dx + 'px';
-    part.wrap.style.top = (parseFloat(part.wrap.style.top) || 0) + dy + 'px';
+    part.wrap.style.left = (box.left - rect.left) / k + 'px';
+    part.wrap.style.top = (align === 'bottom'
+      ? (box.bottom - rect.bottom)
+      : (box.top - rect.top)) / k + 'px';
   }
 
   /* Колода трендов — вертикальный скроллер со снапом, и её собственный goTo
@@ -190,16 +194,20 @@
     return page.querySelectorAll('.lunel-tcard')[index] || null;
   }
 
+  /* Кольцо ставим по центру, а не по углу коробки: у куска нет своей рамки,
+     и на коллаже он опознаётся именно центром. Как и offsetTo — от нуля. */
   function placeRing() {
     var ringEl = ring.root.querySelector('[data-ring]');
     if (!ringEl) return;
+    ring.el.style.left = '0px';
+    ring.el.style.top = '0px';
     var k = currentK();
     var hostBox = host.getBoundingClientRect();
     var rect = ringEl.getBoundingClientRect();
     var cx = (rect.left + rect.width / 2 - hostBox.left) / k;
     var cy = (rect.top + rect.height / 2 - hostBox.top) / k;
-    ring.el.style.left = (parseFloat(ring.el.style.left) || 0) + (487 - cx) + 'px';
-    ring.el.style.top = (parseFloat(ring.el.style.top) || 0) + (1369 - cy) + 'px';
+    ring.el.style.left = 487 - cx + 'px';
+    ring.el.style.top = 1369 - cy + 'px';
   }
 
   /* Вторая карточка на коллаже срезана сверху по прямой, но её бублик торчит
@@ -242,9 +250,16 @@
     if (w) host.style.setProperty('--lunel-frame-k', w / CANVAS_W);
   }
 
+  var placed = false;
+
+  function refit() {
+    fit();
+    if (placed) layout();
+  }
+
   fit();
-  if (typeof ResizeObserver === 'function') new ResizeObserver(fit).observe(host);
-  else window.addEventListener('resize', fit);
+  if (typeof ResizeObserver === 'function') new ResizeObserver(refit).observe(host);
+  else window.addEventListener('resize', refit);
 
   /* --------------------------------------------------------------- языки */
 
@@ -273,6 +288,7 @@
 
   function ready() {
     layout();
+    placed = true;
     syncLang();
     /* Декорация: мышью всё живое, с клавиатуры блок пропускается — на его
        месте стояла картинка, и шесть лишних остановок табом на главной
@@ -298,9 +314,14 @@
   });
   setTimeout(readyOnce, 300);
 
+  /* Шрифты меняют высоту карточек, а картинки — высоту страницы: после
+     каждого такого события расстановку надо повторить. Повтор безопасен,
+     offsetTo и placeRing считают от нуля. */
   if (document.fonts && document.fonts.ready) {
     document.fonts.ready.then(function () { requestAnimationFrame(layout); });
   }
+
+  window.addEventListener('load', function () { requestAnimationFrame(layout); });
 
   window.addEventListener('resize', function () {
     requestAnimationFrame(layout);
