@@ -174,7 +174,9 @@
         var ec = out(-rel);
         card.style.transform = "translate3d(0," + (-ec * (b.projectUp[k] || 200)).toFixed(1) +
           "px,0) scale(" + (1 - ec * CARD_UP).toFixed(4) + ")";
-        card.style.opacity = clamp((1 + rel) / 0.25).toFixed(3);
+        // гаснет по той же резвой кривой, что и движение, и быстрее неё:
+        // иначе уходящая карточка наезжает на блок компании и сливается с ним
+        card.style.opacity = clamp(1 - ec * 1.9).toFixed(3);
         card.style.zIndex = "1";
       } else {
         // поднимается из-за нижнего края блока — заранее её не видно
