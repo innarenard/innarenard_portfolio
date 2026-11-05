@@ -1379,6 +1379,8 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
    топбар 1440×88, поля 70px при 1440 → контент 1300.
    ================================================================ */
 :root {
+  /* блок кейса тянется по окну: вся высота минус шапка */
+  --block-height: max(560px, calc(100vh - 88px));
   /* чернила и их прозрачности — всё из макета */
   --portfolio-ink: #040725;
   --portfolio-ink-90: rgba(4, 7, 37, .9);
@@ -1700,9 +1702,9 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 676px;
+  height: var(--block-height);
   margin-bottom: 0;
-  padding: 16px 0 30px;
+  padding: 16px 20px 16px 0;
 }
 
 .hero__stage {
@@ -1712,7 +1714,9 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   align-items: center;
   justify-content: center;
   min-width: 0;
-  height: 630px;
+  height: 100%;
+  /* сцена кейсов шириной 1300 не должна вылезать на узком окне */
+  overflow: hidden;
 }
 
 /* ---------- Текст ---------- */
@@ -1879,10 +1883,11 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 /* ---------- Работы кейса под курсором ---------- */
 .hero__scene {
   position: absolute;
-  top: -16px;
+  top: 50%;
   left: 0;
   width: 1300px;
   height: 676px;
+  margin-top: -338px;
   z-index: 1;
   pointer-events: none;
 }
@@ -1982,7 +1987,11 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
    Семь звёзд 8×8, координаты и цвета из макета. */
 .hero__stars {
   position: absolute;
-  inset: 0;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 630px;
+  margin-top: -315px;
   z-index: 0;
   pointer-events: none;
 }
@@ -3261,7 +3270,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 .case-screen__inner {
   position: sticky;
   top: 88px;
-  height: 676px;
+  height: var(--block-height);
 }
 
 /* полотно во всю ширину, как у первого экрана */
@@ -3278,12 +3287,12 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 
 .case-screen__row {
   display: grid;
-  grid-template-columns: 417px 1fr 20px;
+  grid-template-columns: 417px 1fr;
   grid-template-rows: auto auto 1fr;
   align-content: start;
   column-gap: 24px;
-  height: 644px;
-  padding-top: 16px;
+  height: 100%;
+  padding: 16px 20px 16px 0;
 }
 
 .case-card--company {
@@ -3296,11 +3305,6 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
    уезжают в разные клетки сетки */
 .case-item {
   display: contents;
-}
-
-.case-screen__dots {
-  grid-column: 3;
-  grid-row: 1 / -1;
 }
 
 /* ---------- Карточки слева ---------- */
@@ -3495,31 +3499,6 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   transform: scale(1.03);
 }
 
-/* ---------- Точки справа ---------- */
-.case-screen__dots {
-  display: flex;
-  flex: 0 0 20px;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  width: 20px;
-  margin-left: 24px;
-  padding: 8px 0;
-}
-
-.case-screen__dots span {
-  display: block;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgba(4, 7, 37, .1);
-  transition: background-color .3s ease;
-}
-
-.case-screen__dots span.is-active {
-  background: var(--portfolio-ink);
-}
-
 /* старые секции кейсов заменены стопкой обложек */
 .company-section.is-replaced-by-stack {
   display: none;
@@ -3610,7 +3589,82 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
     border-radius: 24px;
   }
 
-  .case-screen__dots {
+}
+
+/* ================================================================
+   Точки разделов: одна колонка на все блоки
+   Девять точек: пять смысловых блоков, внутри которых семь кейсов.
+   По макету точки разные: ближние к активной 8px, дальше 6 и 4.
+   Колонка центрована по блоку — то есть по области под шапкой.
+   ================================================================ */
+.page-dots {
+  position: fixed;
+  top: calc(88px + (100vh - 88px) / 2);
+  right: var(--page-gutter);
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 20px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.page-dots__dot {
+  display: block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(4, 7, 37, .1);
+  transition: width .25s ease, height .25s ease, background-color .25s ease;
+}
+
+.page-dots__dot.is-near {
+  width: 6px;
+  height: 6px;
+}
+
+.page-dots__dot.is-close {
+  width: 8px;
+  height: 8px;
+}
+
+.page-dots__dot.is-active {
+  width: 8px;
+  height: 8px;
+  background: var(--portfolio-ink);
+}
+
+/* ---------- «Обо мне» — последний блок стопки ---------- */
+.case-flow > .about {
+  position: relative;
+  z-index: 6;
+  margin-bottom: 0;
+  padding: 80px 0 96px;
+  background: #fff;
+  min-height: var(--block-height);
+}
+
+/* блоки наезжают друг на друга в порядке разметки */
+#case-lunel { z-index: 2; }
+#case-samokat { z-index: 3; }
+#case-mes { z-index: 4; }
+
+@media (prefers-reduced-motion: reduce) {
+  .page-dots__dot {
+    transition: none;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .page-dots {
     display: none;
+  }
+
+  .case-flow > .about {
+    min-height: 0;
+    padding: 40px 0 56px;
   }
 }
