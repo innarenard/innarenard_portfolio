@@ -7,7 +7,8 @@
 
   var HEADER = 88;
   var MOBILE = 700;
-  var DIM = 0.02;   // насколько уезжающий блок уменьшается, пока исчезает
+  var DIM = 0.03;   // насколько содержимое уменьшается, пока исчезает
+  var FADE = 1.6;   // во сколько раз исчезание опережает наезд
 
   var flow = document.querySelector('.case-flow');
   var hero = document.querySelector('.hero');
@@ -17,12 +18,13 @@
 
   var dots = dotsBox ? [].slice.call(dotsBox.querySelectorAll('.page-dots__dot')) : [];
 
-  var blocks = [{ el: hero, spacer: null, count: 1, firstDot: 0, doors: [], projects: [], active: 0 }];
+  var blocks = [{ el: hero, content: hero.querySelector('.hero__stage'), spacer: null, count: 1, firstDot: 0, doors: [], projects: [], active: 0 }];
 
   [].slice.call(flow.querySelectorAll('.case-screen')).forEach(function (el) {
     var id = el.getAttribute('data-case-screen');
     blocks.push({
       el: el,
+      content: el.querySelector('.case-screen__inner'),
       spacer: flow.querySelector('.case-spacer[data-spacer-for="' + id + '"]'),
       count: parseInt(el.getAttribute('data-cases'), 10) || 1,
       firstDot: parseInt(el.getAttribute('data-dot'), 10) || 0,
@@ -58,8 +60,9 @@
     blocks.forEach(function (b) { b.flowTop = flowTop + b.el.offsetTop; });
     if (mobile) {
       blocks.forEach(function (b) {
-        b.el.style.opacity = '';
-        b.el.style.transform = '';
+        if (!b.content) return;
+        b.content.style.opacity = '';
+        b.content.style.transform = '';
       });
     }
   }
@@ -131,8 +134,12 @@
 
       // следующий блок наезжает: от нижнего края экрана до шапки
       var cover = clamp((HEADER + h - r.nextTop) / h);
-      b.el.style.opacity = String(1 - cover);
-      b.el.style.transform = cover ? "scale(" + (1 - DIM * cover) + ")" : "";
+      // гаснет только содержимое: полотно под ним остаётся на месте
+      var fade = clamp(cover * FADE);
+      if (b.content) {
+        b.content.style.opacity = String(1 - fade);
+        b.content.style.transform = fade ? "scale(" + (1 - DIM * fade) + ")" : "";
+      }
 
       if (window.pageYOffset + HEADER >= b.flowTop - 1) {
         dot = b.firstDot + (b.active > 0 ? b.active : 0);

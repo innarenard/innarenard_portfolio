@@ -1717,6 +1717,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   height: 100%;
   /* сцена кейсов шириной 1300 не должна вылезать на узком окне */
   overflow: hidden;
+  will-change: opacity;
 }
 
 /* ---------- Текст ---------- */
@@ -3268,12 +3269,12 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   position: sticky;
   top: 88px;
   height: var(--block-height);
-  will-change: opacity;
 }
 
 .case-screen__inner {
   position: relative;
   height: 100%;
+  will-change: opacity;
 }
 
 /* распорка даёт прокрутку, пока блок приколот: по экрану на кейс */
@@ -3283,7 +3284,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 }
 
 /* полотно во всю ширину, как у первого экрана */
-.case-screen__inner::before {
+.case-screen::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -3550,6 +3551,10 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   .case-screen {
     position: static;
     height: auto !important;
+  }
+
+  .case-screen__inner,
+  .hero__stage {
     opacity: 1 !important;
     transform: none !important;
   }
