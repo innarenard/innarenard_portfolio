@@ -3662,7 +3662,8 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 .case-flow > .about {
   position: relative;
   z-index: 6;
-  margin-bottom: 0;
+  /* отступы обнулены: остановки прокрутки должны идти ровно через экран */
+  margin: 0;
   padding: 80px 0 96px;
   background: #fff;
   min-height: var(--block-height);

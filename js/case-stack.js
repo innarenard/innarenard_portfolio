@@ -10,6 +10,9 @@
   var DIM = 0.03;   // насколько содержимое уменьшается, пока исчезает
   var FADE = 1.3;   // во сколько раз исчезание опережает наезд
   var LAND = 0.68;  // на какой доле перехода блок уже стоит у шапки
+  var THIRD = 1 / 3; // с какой доли экрана прокрутка доводится сама
+  var SNAP_MS = 700; // сколько держим себя занятыми, пока идёт доводка
+  var IDLE_MS = 110; // через сколько после остановки руки она включается
 
   var flow = document.querySelector('.case-flow');
   var hero = document.querySelector('.hero');
@@ -55,7 +58,7 @@
     var h = blockHeight();
     blocks.forEach(function (b) {
       if (!b.spacer) return;
-      b.spacer.style.height = mobile ? '' : (h * b.count) + 'px';
+      b.spacer.style.height = mobile ? '' : (h * (b.count - 1)) + 'px';
     });
     // место блока в потоке — его и спрашиваем, дошёл ли он до шапки
     var flowTop = flow.getBoundingClientRect().top + window.pageYOffset;
@@ -124,6 +127,8 @@
     function pull(flowTop) {
       var d = flowTop - y - HEADER;     // сколько осталось до шапки
       if (d <= 0) return { d: d, left: 0, shift: 0 };
+      // дальше экрана блок ещё не в переходе — не трогаем
+      if (d >= h) return { d: d, left: d, shift: 0 };
       var t = clamp(1 - d / h);         // 0 у нижнего края, 1 у шапки
       var p = clamp(t / LAND);
       var left = h * (1 - p) * (1 - p); // сколько должно остаться на вид
@@ -146,8 +151,9 @@
 
       if (b.spacer) {
         // распорка начинается на экран ниже шапки; считаем, сколько её съели
+        // +0.002: на самой границе дробь даёт 0.99999 и кейс не переключался
         var used = (HEADER + h) - spacerTops[k];
-        var i = Math.floor(used / h);
+        var i = Math.floor(used / h + 0.002);
         setActive(b, i < 0 ? 0 : (i > b.count - 1 ? b.count - 1 : i));
       }
 
@@ -170,8 +176,69 @@
     paintDots(dot);
   }
 
+  /* ---------- Доводка до ближайшей остановки ----------
+     Остановки стоят ровно через экран: 0 — первый экран, дальше по одной
+     на каждый кейс, последняя — «Обо мне». Если рука остановилась,
+     пройдя больше трети экрана, страница сама доезжает до следующей;
+     меньше трети — возвращается к текущей. Ниже «Обо мне» не трогаем. */
+  var stops = 0;        // сколько остановок в стопке
+  var stackTop = 0;     // прокрутка, при которой первый экран у шапки
+  var animTimer = 0;
+  var animating = false;
+  var idleTimer = 0;
+
+  function measureStops() {
+    var h = blockHeight();
+    stackTop = flow.getBoundingClientRect().top + window.pageYOffset - HEADER;
+    stops = 1; // первый экран
+    blocks.forEach(function (b, i) { if (i) stops += b.count; });
+    if (about) stops += 1;
+    return h;
+  }
+
+  function stopAnim() {
+    // своя доводка уступает руке: браузер сам прервёт плавный скролл,
+    // нам достаточно снять флаг, чтобы не считать себя занятыми
+    animating = false;
+    if (animTimer) clearTimeout(animTimer);
+    animTimer = 0;
+  }
+
+  function glideTo(to) {
+    if (Math.abs(to - window.pageYOffset) < 2) return;
+    animating = true;
+    if (animTimer) clearTimeout(animTimer);
+    animTimer = setTimeout(function () { animating = false; animTimer = 0; }, SNAP_MS);
+    window.scrollTo({ top: to, behavior: 'smooth' });
+  }
+
+  function settle() {
+    if (isMobile() || animating) return;
+    var h = measureStops();
+    var rel = (window.pageYOffset - stackTop) / h;
+    if (rel < -0.02 || rel > stops - 1 + 0.02) return;   // мы уже не в стопке
+    var base = Math.floor(rel + 1e-6);
+    var frac = rel - base;
+    if (frac < 0.004 || frac > 0.996) return;            // и так стоим на месте
+    var target = base + (frac >= THIRD ? 1 : 0);
+    if (target < 0) target = 0;
+    if (target > stops - 1) target = stops - 1;
+    glideTo(stackTop + target * h);
+  }
+
+  function onScroll() {
+    update();
+    if (idleTimer) clearTimeout(idleTimer);
+    idleTimer = setTimeout(settle, IDLE_MS);
+  }
+
+  // пока человек крутит сам, доводку не навязываем
+  ['wheel', 'touchstart', 'keydown', 'mousedown'].forEach(function (e) {
+    window.addEventListener(e, stopAnim, { passive: true });
+  });
+
   // браузер и так шлёт scroll не чаще кадра, лишняя защёлка только мешает
-  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', function () { layout(); update(); });
   window.addEventListener('load', function () { layout(); update(); });
 })();
