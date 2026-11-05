@@ -1373,6 +1373,506 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 }
 
 /* ================================================================
+   Концепция Lunel: палитра и хедер
+   Замеры из Figma (node 3866-2519, секция «Компоненты → Topbar»):
+   полотно rgba(4,7,37,.04), контролы белые, чернила #040725,
+   топбар 1440×88, поля 70px при 1440 → контент 1300.
+   ================================================================ */
+:root {
+  /* чернила и их прозрачности — всё из макета */
+  --portfolio-ink: #040725;
+  --portfolio-ink-90: rgba(4, 7, 37, .9);
+  --portfolio-ink-80: rgba(4, 7, 37, .8);
+  --portfolio-ink-60: rgba(4, 7, 37, .6);
+  /* полотно: rgba(4,7,37,.04) поверх белого = #F5F5F6, берём непрозрачным */
+  --portfolio-canvas: #F5F5F6;
+  --portfolio-canvas-tint: rgba(4, 7, 37, .04);
+  --portfolio-surface: #fff;
+  --portfolio-online: #0BA400;
+  /* 1440 − 2×70 = 1300 */
+  --page-gutter: max(24px, calc((100vw - 1300px) / 2));
+  /* градиенты бренда для ховера соцкнопок */
+  --brand-linkedin: linear-gradient(225deg, #007AB5 15%, #0046E5 85%);
+  --brand-dribbble: linear-gradient(225deg, #F26798 15%, #C82093 76%, #C11592 85%);
+  --brand-telegram: linear-gradient(225deg, #37BAFE 15%, #24A1DE 76%, #0E90CD 85%);
+  --brand-google: linear-gradient(213deg, #FFFFFF 12%, #FBFFD2 93%);
+}
+
+.gradient-banner {
+  display: none;
+}
+
+.site-wrapper {
+  padding-left: var(--page-gutter);
+  padding-right: var(--page-gutter);
+}
+
+/* ---------- Полотно под хедером и первым экраном ----------
+   В макете топбар и блок первого экрана — одна светлая плашка
+   во всю ширину (88 + 676 = 764). Рисуем её двумя подложками,
+   чтобы каждая тянулась за своим блоком. */
+.site-header::before,
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(-1 * var(--page-gutter));
+  width: calc(100% + 2 * var(--page-gutter));
+  background: var(--portfolio-canvas);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* ---------- Хедер ---------- */
+.site-header {
+  height: 88px;
+  padding: 0;
+}
+
+.site-header__identity {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: #212121;
+  white-space: nowrap;
+}
+
+.site-header__identity > img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.site-header__name {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.site-header__availability {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--portfolio-online);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+}
+
+.site-header__availability-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.site-header__right {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+/* ---------- Соцкнопки ----------
+   Состав и порядок по макету: LinkedIn, Dribbble, Telegram, Google.
+   Покой 44, ховер 56, соседи 40 — ширина группы остаётся 200:
+   56 + 3×40 + 3×8 = 200 = 4×44 + 3×8. */
+.site-header__socials {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.site-header__social {
+  position: relative;
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--portfolio-surface);
+  color: var(--portfolio-ink-90);
+  transition: width .22s ease, height .22s ease, color .22s ease;
+}
+
+/* градиент бренда отдельным слоем — чтобы он проявлялся плавно */
+.site-header__social::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background-image: var(--brand);
+  opacity: 0;
+  transition: opacity .22s ease;
+}
+
+.site-header__social--linkedin { --brand: var(--brand-linkedin); }
+.site-header__social--dribbble { --brand: var(--brand-dribbble); }
+.site-header__social--telegram { --brand: var(--brand-telegram); }
+.site-header__social--google { --brand: var(--brand-google); }
+
+.site-header__glyph {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  background: currentColor;
+  -webkit-mask: var(--glyph) no-repeat center / contain;
+  mask: var(--glyph) no-repeat center / contain;
+  transition: width .22s ease, height .22s ease, opacity .18s ease;
+}
+
+.site-header__social--linkedin .site-header__glyph { --glyph: url(../images/header-linkedin.svg); }
+.site-header__social--dribbble .site-header__glyph { --glyph: url(../images/header-dribbble.svg); }
+.site-header__social--telegram .site-header__glyph { --glyph: url(../images/header-telegram.svg); }
+.site-header__social--google .site-header__glyph { --glyph: url(../images/header-google.svg); }
+
+/* самолётик в макете смещён от центра — держим смещение в долях иконки */
+.site-header__social--telegram .site-header__glyph {
+  transform: translate(-10%, 5%);
+}
+
+/* цветной Google проявляется поверх монохромного */
+.site-header__glyph--color {
+  position: absolute;
+  background: none;
+  -webkit-mask: none;
+  mask: none;
+  background-image: url(../images/header-google-color.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  opacity: 0;
+}
+
+/* соседи ужимаются, пока курсор внутри группы */
+.site-header__socials:hover .site-header__social,
+.site-header__socials:focus-within .site-header__social {
+  width: 40px;
+  height: 40px;
+}
+
+.site-header__socials:hover .site-header__glyph,
+.site-header__socials:focus-within .site-header__glyph {
+  width: 18px;
+  height: 18px;
+}
+
+.site-header__socials .site-header__social:hover,
+.site-header__socials .site-header__social:focus-visible {
+  width: 56px;
+  height: 56px;
+  color: #fff;
+}
+
+.site-header__socials .site-header__social:hover .site-header__glyph,
+.site-header__socials .site-header__social:focus-visible .site-header__glyph {
+  width: 30.5px;
+  height: 30.5px;
+}
+
+.site-header__social:hover::before,
+.site-header__social:focus-visible::before {
+  opacity: 1;
+}
+
+.site-header__social--google:hover .site-header__glyph,
+.site-header__social--google:focus-visible .site-header__glyph {
+  opacity: 0;
+}
+
+.site-header__social--google:hover .site-header__glyph--color,
+.site-header__social--google:focus-visible .site-header__glyph--color {
+  opacity: 1;
+}
+
+/* ---------- Кнопка CV ----------
+   Покой 56 (16 + «CV» + 16), ховер 81: появляется стрелка и зазор 8. */
+.site-header__cv {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  height: 44px;
+  padding: 0 16px;
+  border-radius: 100px;
+  background: var(--portfolio-surface);
+  color: var(--portfolio-ink-90);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  transition: gap .22s ease, background-color .22s ease, color .22s ease;
+}
+
+.site-header__cv-arrow {
+  display: inline-flex;
+  align-items: center;
+  width: 0;
+  height: 16px;
+  overflow: hidden;
+  opacity: 0;
+  transition: width .22s ease, opacity .22s ease;
+}
+
+.site-header__cv-arrow svg {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+}
+
+.site-header__cv:hover,
+.site-header__cv:focus-visible {
+  gap: 8px;
+  background: var(--portfolio-ink);
+  color: #fff;
+  font-weight: 600;
+}
+
+.site-header__cv:hover .site-header__cv-arrow,
+.site-header__cv:focus-visible .site-header__cv-arrow {
+  width: 16px;
+  opacity: 1;
+}
+
+/* ---------- Переключатель языка ----------
+   Дорожка rgba(4,7,37,.04) поверх полотна, активная таблетка белая.
+   2 + 10 + 20 + 10 + 2 = 44 — та же высота, что у соцкнопок и CV. */
+.site-header__right .lang-switcher {
+  margin-left: 0;
+}
+
+.site-header__right .lang-switcher__track {
+  padding: 2px;
+  background: var(--portfolio-canvas-tint);
+  border-radius: 100px;
+}
+
+.site-header__right .lang-switcher__thumb {
+  top: 2px;
+  left: 2px;
+  height: calc(100% - 4px);
+  background: var(--portfolio-surface);
+  border: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.site-header__right .lang-switcher__btn {
+  padding: 10px;
+  border-radius: 100px;
+  color: var(--portfolio-ink-60);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  transition: color .2s ease, background-color .2s ease;
+}
+
+.site-header__right .lang-switcher__btn:hover:not(.lang-switcher__active) {
+  background: rgba(255, 255, 255, .2);
+  color: var(--portfolio-ink-90);
+}
+
+.site-header__right .lang-switcher__btn.lang-switcher__active {
+  color: var(--portfolio-ink-90);
+  font-weight: 500;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header__social,
+  .site-header__social::before,
+  .site-header__glyph,
+  .site-header__cv,
+  .site-header__cv-arrow {
+    transition: none;
+  }
+}
+
+.hero {
+  position: relative;
+  height: 676px;
+  margin-bottom: 0;
+}
+
+.hero__copy {
+  position: absolute;
+  top: 80px;
+  left: 0;
+  width: min(918px, 72%);
+}
+
+.hero__intro {
+  max-width: 918px;
+  color: var(--portfolio-ink-soft);
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 48px;
+}
+
+.hero__intro strong {
+  color: var(--portfolio-ink);
+  font-weight: 600;
+}
+
+.hero__body {
+  width: 581px;
+  max-width: 100%;
+  margin-top: 20px;
+  color: var(--portfolio-ink-soft);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+}
+
+.hero__body strong {
+  color: var(--portfolio-ink);
+  font-weight: 500;
+}
+
+.hero__based {
+  margin-top: 20px;
+  color: var(--portfolio-ink);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24.8px;
+}
+
+.hero__based span {
+  color: var(--portfolio-ink-soft);
+  font-weight: 400;
+}
+
+.hero__visual {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hero__visual-card {
+  position: absolute;
+  width: 88px;
+  height: 88px;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+.hero__visual-card--lunel {
+  top: 320px;
+  left: 72%;
+  transform: rotate(-12.46deg);
+}
+
+.hero__visual-card--mes {
+  top: 264px;
+  left: 81%;
+  transform: rotate(18.13deg);
+}
+
+.hero__visual-card--other {
+  top: 422px;
+  left: 81%;
+  transform: rotate(7.29deg);
+}
+
+.hero__page-control {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  transform: translateY(-50%);
+  padding: 8px 0;
+}
+
+.hero__page-control span {
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(4, 7, 37, .1);
+}
+
+.hero__page-control span.is-active {
+  background: var(--portfolio-ink);
+}
+
+@media screen and (max-width: 700px) {
+  .site-wrapper {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .site-header {
+    height: 72px;
+    padding: 0 16px;
+  }
+
+  /* на телефоне хедер фиксированный и уже во всю ширину — подложку не растягиваем */
+  .site-header::before {
+    left: 0;
+    width: 100%;
+  }
+
+  .site-header__name {
+    font-size: 16px;
+  }
+
+  .site-header__availability,
+  .site-header__socials,
+  .site-header__cv,
+  .site-header__right > .lang-switcher {
+    display: none;
+  }
+
+  .site-header__burger {
+    display: inline-flex;
+    background: var(--portfolio-ink);
+  }
+
+  .main-content {
+    padding: 72px 0 80px;
+  }
+
+  .hero {
+    height: auto;
+    min-height: 620px;
+    padding: 56px 0 80px;
+  }
+
+  .hero__copy {
+    position: relative;
+    top: auto;
+    width: 100%;
+  }
+
+  .hero__intro {
+    font-size: 24px;
+    line-height: 34px;
+  }
+
+  .hero__body {
+    width: 100%;
+    margin-top: 24px;
+  }
+
+  .hero__based {
+    margin-top: 24px;
+  }
+
+  .hero__visual {
+    display: none;
+  }
+
+  .hero__page-control {
+    display: none;
+  }
+}
+
+/* ================================================================
    Panel case content – restyle Webflow classes
    ================================================================ */
 .panel-loading {

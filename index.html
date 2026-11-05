@@ -20,7 +20,7 @@
   <meta name="twitter:description"
     content="Product designer based in Lisbon, Portugal. 6 years in tech product teams, owning the full cycle from research to a measured result: B2B tools for dark store and warehouse operations at Samokat, education products at Moscow Electronic School, and Lunel — a personal iOS app taken from idea to App Store release.">
   <meta name="twitter:image" content="https://innarenard.com/images/lunel-preview_en.png">
-  <link href="css/home.css?v=20261030q" rel="stylesheet">
+  <link href="css/home.css?v=20261105a" rel="stylesheet">
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
@@ -75,17 +75,36 @@
 
     <!-- Header -->
     <header class="site-header">
-      <a href="./" class="site-header__logo" aria-label="Home">
-        <img src="images/logo-256.png" alt="Inna Ivanova" loading="lazy">
+      <a href="./" class="site-header__identity" aria-label="Home">
+        <img src="images/lunel-hero-avatar.png" alt="Inna Ivanova" loading="lazy">
+        <span class="site-header__name" data-i18n="name">Inna Ivanova</span>
+        <span class="site-header__availability">
+          <span class="site-header__availability-dot" aria-hidden="true"></span>
+          <span data-i18n="hero_status">Open to work</span>
+        </span>
       </a>
       <div class="site-header__right">
-        <div class="site-header__lang" aria-hidden="false">
-          <div class="lang-switcher lang-switcher--desktop" role="group" aria-label="Language">
-            <div class="lang-switcher__track">
-              <span class="lang-switcher__thumb" aria-hidden="true"></span>
-              <button type="button" class="lang-switcher__btn" data-lang="en" aria-current="false">EN</button>
-              <button type="button" class="lang-switcher__btn" data-lang="ru" aria-current="false">RU</button>
-            </div>
+        <nav class="site-header__socials" aria-label="Social links">
+          <a class="site-header__social site-header__social--linkedin" href="https://www.linkedin.com/in/innarenard/" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <span class="site-header__glyph" aria-hidden="true"></span>
+          </a>
+          <a class="site-header__social site-header__social--dribbble" href="https://dribbble.com/inna-ivanova" target="_blank" rel="noopener" aria-label="Dribbble">
+            <span class="site-header__glyph" aria-hidden="true"></span>
+          </a>
+          <a class="site-header__social site-header__social--telegram" href="https://t.me/innarenard" target="_blank" rel="noopener" aria-label="Telegram">
+            <span class="site-header__glyph" aria-hidden="true"></span>
+          </a>
+          <a class="site-header__social site-header__social--google" href="mailto:innarenard@gmail.com" aria-label="Email">
+            <span class="site-header__glyph" aria-hidden="true"></span>
+            <span class="site-header__glyph site-header__glyph--color" aria-hidden="true"></span>
+          </a>
+        </nav>
+        <a class="site-header__cv" href="/cv/inna-ivanova-cv-en.pdf" target="_blank" rel="noopener" data-i18n-href="cv_url"><span>CV</span><span class="site-header__cv-arrow" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none"><path d="M9.62 3.95333L13.6667 8L9.62 12.0467" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M2.33333 8H13.5533" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+        <div class="lang-switcher lang-switcher--desktop" role="group" aria-label="Language">
+          <div class="lang-switcher__track">
+            <span class="lang-switcher__thumb" aria-hidden="true"></span>
+            <button type="button" class="lang-switcher__btn" data-lang="en" aria-current="false">EN</button>
+            <button type="button" class="lang-switcher__btn" data-lang="ru" aria-current="false">RU</button>
           </div>
         </div>
         <button class="site-header__burger" id="burgerBtn" aria-label="Menu">
@@ -125,15 +144,17 @@
 
       <!-- Hero -->
       <section class="hero">
-        <div class="hero__meta">
-          <span class="hero__location" data-i18n="hero_location">Lisbon, Portugal</span>
-          <span class="hero__status" data-i18n="hero_status">Open to work</span>
+        <div class="hero__copy">
+          <p class="hero__intro" data-i18n="intro"><strong>Product Designer</strong> with 6 years of experience specializing in <strong>B2B products</strong> and internal tools, with additional experience in <strong>B2C product</strong> development.</p>
+          <p class="hero__body" data-i18n="hero_body">I own the <strong>end-to-end</strong> product design process – from <strong>UX research</strong> and hypothesis validation to launch and measuring <strong>business impact</strong>. I apply a <strong>data-driven</strong> approach to transform complex business processes into effective digital products.</p>
+          <p class="hero__based" data-i18n="hero_based"><span>Based in </span><strong>Lisbon, Portugal</strong></p>
         </div>
-        <h1 class="hero__name" data-i18n="name">Inna Ivanova</h1>
-        <p class="hero__subtitle" data-i18n="intro">Product designer with 6&nbsp;years in&nbsp;tech product teams.
-          I&nbsp;own the&nbsp;full cycle&nbsp;– from&nbsp;research to&nbsp;a&nbsp;measured result.</p>
-        <p class="hero__focus" data-i18n="hero_focus">B2B (E-commerce, EdTech)&nbsp;· B2C (FemTech)&nbsp;·
-          iOS, Android, Web</p>
+        <div class="hero__visual" aria-hidden="true">
+          <img class="hero__visual-card hero__visual-card--lunel" src="images/lunel-hero-logo.png" alt="">
+          <img class="hero__visual-card hero__visual-card--mes" src="images/lunel-hero-mes.png" alt="">
+          <img class="hero__visual-card hero__visual-card--other" src="images/lunel-hero-card.png" alt="">
+        </div>
+        <div class="hero__page-control" aria-hidden="true"><span class="is-active"></span><span></span><span></span><span></span><span></span></div>
       </section>
 
       <!-- Достижения: каждая подпись начинается с глагола, то есть с того, что сделала она сама -->
@@ -492,7 +513,7 @@
   </div>
   <div class="panel-overlay case-study-drawer__overlay" id="panelOverlay"></div>
 
-  <script src="js/i18n.js?v=20261030q"></script>
+  <script src="js/i18n.js?v=20261105a"></script>
   <script src="js/panel.js?v=20261030g"></script>
   <script src="js/home-nav.js?v=20261030a"></script>
   <script src="js/cursor-view-case.js?v=20261030a"></script>
