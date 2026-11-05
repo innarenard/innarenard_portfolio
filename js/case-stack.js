@@ -11,8 +11,8 @@
   var FADE = 1.3;   // во сколько раз исчезание опережает наезд
   var LAND = 0.68;  // на какой доле перехода блок уже стоит у шапки
   var THIRD = 1 / 3; // с какой доли экрана прокрутка доводится сама
-  var SNAP_MS = 700; // сколько держим себя занятыми, пока идёт доводка
-  var IDLE_MS = 110; // через сколько после остановки руки она включается
+  var GLIDE_MS = 520; // сколько едет доводка
+  var IDLE_MS = 120; // через сколько после остановки руки она включается
 
   var flow = document.querySelector('.case-flow');
   var hero = document.querySelector('.hero');
@@ -176,68 +176,90 @@
     paintDots(dot);
   }
 
-  /* ---------- Доводка до ближайшей остановки ----------
-     Остановки стоят ровно через экран: 0 — первый экран, дальше по одной
-     на каждый кейс, последняя — «Обо мне». Если рука остановилась,
-     пройдя больше трети экрана, страница сама доезжает до следующей;
-     меньше трети — возвращается к текущей. Ниже «Обо мне» не трогаем. */
-  var stops = 0;        // сколько остановок в стопке
-  var stackTop = 0;     // прокрутка, при которой первый экран у шапки
-  var animTimer = 0;
-  var animating = false;
+  /* ---------- Доводка до остановки ----------
+     Остановки стоят ровно через экран. Рука свободно тянет блок до трети
+     экрана; как только треть пройдена, блок сам доезжает до шапки, и на
+     это время колесо отключается — иначе инерция тачпада дерётся
+     с доводкой и блок дёргается. Если рука остановилась, не дойдя
+     до трети, блок так же сам возвращается назад. Ниже стопки не трогаем. */
+  var stops = 0;       // сколько остановок в стопке
+  var stackTop = 0;    // прокрутка, при которой первый экран у шапки
+  var anchor = 0;      // остановка, от которой считаем
+  var gliding = false;
+  var glideRaf = 0;
   var idleTimer = 0;
 
-  function measureStops() {
+  function metrics() {
     var h = blockHeight();
     stackTop = flow.getBoundingClientRect().top + window.pageYOffset - HEADER;
-    stops = 1; // первый экран
+    stops = 1;
     blocks.forEach(function (b, i) { if (i) stops += b.count; });
     if (about) stops += 1;
     return h;
   }
 
-  function stopAnim() {
-    // своя доводка уступает руке: браузер сам прервёт плавный скролл,
-    // нам достаточно снять флаг, чтобы не считать себя занятыми
-    animating = false;
-    if (animTimer) clearTimeout(animTimer);
-    animTimer = 0;
+  function relNow(h) { return (window.pageYOffset - stackTop) / h; }
+
+  function inStack(rel) { return rel >= -0.02 && rel <= stops - 1 + 0.02; }
+
+  function glideTo(index, h) {
+    var to = stackTop + index * h;
+    var from = window.pageYOffset;
+    var dist = to - from;
+    if (Math.abs(dist) < 1) { anchor = index; return; }
+    if (glideRaf) cancelAnimationFrame(glideRaf);
+    gliding = true;
+    var t0 = 0;
+    var step = function (now) {
+      if (!t0) t0 = now;
+      var k = (now - t0) / GLIDE_MS;
+      if (k > 1) k = 1;
+      var e = 1 - Math.pow(1 - k, 3);   // быстро стартует, мягко тормозит
+      window.scrollTo({ top: from + dist * e, behavior: 'instant' });
+      if (k < 1) { glideRaf = requestAnimationFrame(step); }
+      else { glideRaf = 0; gliding = false; anchor = index; }
+    };
+    glideRaf = requestAnimationFrame(step);
   }
 
-  function glideTo(to) {
-    if (Math.abs(to - window.pageYOffset) < 2) return;
-    animating = true;
-    if (animTimer) clearTimeout(animTimer);
-    animTimer = setTimeout(function () { animating = false; animTimer = 0; }, SNAP_MS);
-    window.scrollTo({ top: to, behavior: 'smooth' });
-  }
-
-  function settle() {
-    if (isMobile() || animating) return;
-    var h = measureStops();
-    var rel = (window.pageYOffset - stackTop) / h;
-    if (rel < -0.02 || rel > stops - 1 + 0.02) return;   // мы уже не в стопке
-    var base = Math.floor(rel + 1e-6);
-    var frac = rel - base;
-    if (frac < 0.004 || frac > 0.996) return;            // и так стоим на месте
-    var target = base + (frac >= THIRD ? 1 : 0);
-    if (target < 0) target = 0;
-    if (target > stops - 1) target = stops - 1;
-    glideTo(stackTop + target * h);
-  }
+  // пока блок едет сам, колесо и клавиши не вмешиваются
+  function block(e) { if (gliding) e.preventDefault(); }
 
   function onScroll() {
     update();
+    if (gliding || isMobile()) return;
+
+    var h = metrics();
+    var rel = relNow(h);
+    if (!inStack(rel)) {
+      anchor = Math.max(0, Math.min(stops - 1, Math.round(rel)));
+      return;
+    }
+
+    var delta = rel - anchor;
+    // вниз от последней остановки уходим свободно: там «Обо мне» и подвал
+    if (delta > 0 && anchor >= stops - 1) return;
+
+    if (delta >= THIRD || delta <= -THIRD) {
+      var jump = delta > 0 ? Math.max(1, Math.round(delta)) : Math.min(-1, Math.round(delta));
+      glideTo(Math.max(0, Math.min(stops - 1, anchor + jump)), h);
+      return;
+    }
+
     if (idleTimer) clearTimeout(idleTimer);
-    idleTimer = setTimeout(settle, IDLE_MS);
+    idleTimer = setTimeout(function () {
+      if (gliding || isMobile()) return;
+      var hh = metrics();
+      var r = relNow(hh);
+      if (!inStack(r)) return;
+      var d = r - anchor;
+      if (d > 0 && anchor >= stops - 1) return;
+      if (Math.abs(d) < 0.01 || Math.abs(d) >= THIRD) return;
+      glideTo(anchor, hh);
+    }, IDLE_MS);
   }
 
-  // пока человек крутит сам, доводку не навязываем
-  ['wheel', 'touchstart', 'keydown', 'mousedown'].forEach(function (e) {
-    window.addEventListener(e, stopAnim, { passive: true });
-  });
-
-  // браузер и так шлёт scroll не чаще кадра, лишняя защёлка только мешает
+  window.addEventListener('wheel', block, { passive: false });
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', function () { layout(); update(); });
   window.addEventListener('load', function () { layout(); update(); });
