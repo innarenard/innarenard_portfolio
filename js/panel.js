@@ -235,6 +235,21 @@
     card.addEventListener('click', handleCardClick);
   });
 
+  // Обложки и названия кейсов в стопке — обычные ссылки на страницу кейса.
+  // Без перехвата клик уводил на отдельную страницу, а её крестик грузил главную
+  // заново, с первого экрана. Теперь на десктопе они открывают ту же шторку,
+  // что и карточка кейса, и после закрытия человек остаётся там, откуда нажал
+  document.querySelectorAll('.case-door, .case-project').forEach(function (link) {
+    var card = document.querySelector('.project-card[data-href="' + link.getAttribute('href') + '"]');
+    if (!card) return;
+    link.addEventListener('click', function (e) {
+      if (isMobile()) return; // на телефоне шторки нет — обычный переход по ссылке
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return; // во вкладку — как у ссылки
+      e.preventDefault();
+      openPanel(card);
+    });
+  });
+
   if (panelClose) {
     panelClose.addEventListener('click', function () {
       closePanel();
