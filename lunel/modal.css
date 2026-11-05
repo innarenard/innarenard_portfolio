@@ -1,49 +1,23 @@
 /* ==========================================================================
-   Модалка кейса Lunel на главной — по макету Figma «Case · Lunel» (3820:2243)
+   Модалка кейса Lunel на главной
    --------------------------------------------------------------------------
-   Механика общая (js/panel.js): адрес /lunel, крестик вверху справа,
-   прогресс-бар сверху, закрытие по Esc, фону и «назад». Здесь меняется только
-   вид, и только пока открыт Lunel — класс panel-open--lunel ставит lunel/modal.js.
+   Размер, скругление, тень, отступы, крестик и прогресс-бар — общие, из
+   css/home.css, как у «Сборки заказа» Самоката и у кейсов МЭШ. Здесь только
+   цвет кейса, как у Самоката (panel-open--samokat) и МЭШ (panel-open--mes).
 
-   Макет, 1440 × 764:
-     фон            #F6EBEA, сплошной — шапка, точки и страница под ним не видны
-     карточка       x 70, y 26, 1300 × 712, радиус 40, белая
-     тень           0 0 20px rgba(255, 165, 142, .2)
-     заголовок      x 294, ширина 852 — совпадает с текущей колонкой шторки
-   Боковые 70px — те же, что у шапки и контента сайта (calc(100vw / 24 + …)
-   на 1440 даёт ровно 70), поэтому края карточки встают в линию со страницей.
+   Цвета — те же, что задаёт сам кейс в <style> lunel/index.html. Тот <style>
+   приезжает вместе с содержимым шторки, поэтому без этого файла пока кейс
+   грузится, подложка белая и потом перекрашивается.
    ========================================================================== */
 
+/* Подложка окна: #FF9E7B 10% поверх белого = #FFF5F2, прозрачность и блюр как у Самоката */
 body.panel-open--lunel .panel-overlay {
-  background: #F6EBEA;
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
+  background: rgba(255, 245, 242, 0.82);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
 }
 
-body.panel-open--lunel .project-panel {
-  top: 26px;
-  bottom: 26px;
-  left: 70px;
-  right: 70px;
-  border-radius: 40px;
-  box-shadow: 0 0 20px rgba(255, 165, 142, .2);
-}
-
-body.panel-open--lunel .project-panel__scroll {
-  border-radius: 40px;
-  clip-path: inset(0 0 0 0 round 40px);
-}
-
-body.panel-open--lunel .project-panel__scroll-indicator {
-  border-radius: 40px 40px 0 0;
-  clip-path: inset(0 0 0 0 round 40px 40px 0 0);
-}
-
+/* Полоса прогресса чтения — акцент Lunel */
 body.panel-open--lunel .project-panel__scroll-indicator__fill {
-  background: #d16cc0; /* --lunel-pink из lunel-tokens.css */
-}
-
-/* Заголовок в макете начинается на 42px ниже края карточки, а не на 100 */
-body.panel-open--lunel .project-panel__body {
-  padding-top: 22px;
+  background: #FF956F;
 }
