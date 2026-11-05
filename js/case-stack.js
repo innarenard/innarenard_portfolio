@@ -7,10 +7,9 @@
 
   var HEADER = 88;
   var MOBILE = 700;
-  var DIM = 0.03;   // насколько содержимое уменьшается, пока исчезает
   var FADE = 1.3;   // во сколько раз исчезание опережает наезд
-  var LAND = 0.68;  // на какой доле перехода блок уже стоит у шапки
-  var THIRD = 1 / 3; // с какой доли экрана прокрутка доводится сама
+  var THIRD = 1 / 3;  // с какой доли экрана прокрутка доводится сама
+  var DEAD = 0.05;    // мельче этого не возвращаем: иначе блок прыгает от любого касания
   var GLIDE_MS = 300; // сколько едет доводка
   var IDLE_MS = 120; // через сколько после остановки руки она включается
 
@@ -64,13 +63,10 @@
     var flowTop = flow.getBoundingClientRect().top + window.pageYOffset;
     blocks.forEach(function (b) { b.flowTop = flowTop + b.el.offsetTop; });
     if (about) aboutFlowTop = flowTop + about.offsetTop;
-    if (mobile && about) about.style.transform = '';
+
     if (mobile) {
       blocks.forEach(function (b) {
-        b.el.style.transform = '';
-        if (!b.content) return;
-        b.content.style.opacity = '';
-        b.content.style.transform = '';
+        if (b.content) b.content.style.opacity = '';
       });
     }
   }
@@ -120,35 +116,23 @@
     var h = blockHeight();
     var y = window.pageYOffset;
 
-    // Магнит. Блок идёт к шапке быстрее прокрутки: оставшееся расстояние
-    // считается не один к одному, а по кривой, и доходит до нуля, когда
-    // прокручено LAND от перехода. Дальше сдвиг сам сходит на нет,
-    // потому что блок и так дополз до шапки.
-    function pull(flowTop) {
-      var d = flowTop - y - HEADER;     // сколько осталось до шапки
-      if (d <= 0) return { d: d, left: 0, shift: 0 };
-      // дальше экрана блок ещё не в переходе — не трогаем
-      if (d >= h) return { d: d, left: d, shift: 0 };
-      var t = clamp(1 - d / h);         // 0 у нижнего края, 1 у шапки
-      var p = clamp(t / LAND);
-      var left = h * (1 - p) * (1 - p); // сколько должно остаться на вид
-      if (left > d) left = d;           // вниз не тянем
-      return { d: d, left: left, shift: left - d };
+    // Блоки едут один в один с прокруткой: никаких подтягиваний транформом.
+    // Раньше блок тянуло к шапке по кривой, и крошечное движение колеса
+    // давало втрое больший прыжок — отсюда и дёрганье. К шапке его доводит
+    // не кривая, а доводка прокрутки ниже.
+    function left(flowTop) {
+      var d = flowTop - y - HEADER;   // сколько осталось до шапки
+      return d < 0 ? 0 : (d > h ? h : d);
     }
 
-    var pulls = blocks.map(function (b) { return pull(b.flowTop); });
-    var aboutPull = about ? pull(aboutFlowTop) : null;
+    var lefts = blocks.map(function (b) { return left(b.flowTop); });
+    var aboutLeft = about ? left(aboutFlowTop) : h;
     var spacerTops = blocks.map(function (b) {
       return b.spacer ? b.spacer.getBoundingClientRect().top : 0;
     });
 
     var dot = 0;
     blocks.forEach(function (b, k) {
-      var me = pulls[k];
-      var next = pulls[k + 1] || aboutPull;
-
-      b.el.style.transform = me.shift ? "translate3d(0," + me.shift.toFixed(1) + "px,0)" : "";
-
       if (b.spacer) {
         // распорка начинается на экран ниже шапки; считаем, сколько её съели
         // +0.002: на самой границе дробь даёт 0.99999 и кейс не переключался
@@ -157,22 +141,17 @@
         setActive(b, i < 0 ? 0 : (i > b.count - 1 ? b.count - 1 : i));
       }
 
-      // наезд считаем по тому, где следующий блок виден, а не где он в потоке
-      var cover = next ? clamp(1 - next.left / h) : 0;
+      // наезд следующего блока: 0 у нижнего края экрана, 1 у шапки
+      var nextLeft = k + 1 < lefts.length ? lefts[k + 1] : aboutLeft;
+      var cover = clamp(1 - nextLeft / h);
+      // гаснет только содержимое, полотно под ним остаётся на месте
       var fade = clamp(cover * FADE);
-      if (b.content) {
-        b.content.style.opacity = String(1 - fade);
-        b.content.style.transform = fade ? "scale(" + (1 - DIM * fade) + ")" : "";
-      }
+      if (b.content) b.content.style.opacity = fade ? String(1 - fade) : "";
 
-      // блок считается текущим, как только доехал до шапки на вид
-      if (me.left <= 0) dot = b.firstDot + (b.active > 0 ? b.active : 0);
+      if (lefts[k] <= 0) dot = b.firstDot + (b.active > 0 ? b.active : 0);
     });
 
-    if (about) {
-      about.style.transform = aboutPull.shift ? "translate3d(0," + aboutPull.shift.toFixed(1) + "px,0)" : "";
-      if (aboutPull.left <= 0) dot = dots.length - 1;
-    }
+    if (aboutLeft <= 0) dot = dots.length - 1;
     paintDots(dot);
   }
 
@@ -214,7 +193,8 @@
       if (!t0) t0 = now;
       var k = (now - t0) / GLIDE_MS;
       if (k > 1) k = 1;
-      var e = 1 - Math.pow(1 - k, 3);   // быстро стартует, мягко тормозит
+      // мягко трогается и мягко тормозит — так движение читается уверенным
+      var e = k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
       window.scrollTo({ top: from + dist * e, behavior: 'instant' });
       if (k < 1) { glideRaf = requestAnimationFrame(step); }
       else { glideRaf = 0; gliding = false; anchor = index; }
@@ -254,7 +234,7 @@
       if (!inStack(r)) return;
       var d = r - anchor;
       if (d > 0 && anchor >= stops - 1) return;
-      if (Math.abs(d) < 0.01 || Math.abs(d) >= THIRD) return;
+      if (Math.abs(d) < DEAD || Math.abs(d) >= THIRD) return;
       glideTo(anchor, hh);
     }, IDLE_MS);
   }
