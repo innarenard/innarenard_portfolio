@@ -10,6 +10,12 @@
   var FADE = 1.3;   // во сколько раз исчезание опережает наезд
   var THIRD = 1 / 3;  // с какой доли экрана прокрутка доводится сама
   var DEAD = 0.05;    // мельче этого не возвращаем: иначе блок прыгает от любого касания
+  /* Доводим на пиксель дальше точной остановки. При дробном devicePixelRatio
+     (у Инны 1.8) шапка высотой 88px раскладывается в 87.99, и остановка
+     попадает ровно на границу прилипания: браузер на каждом кадре решает
+     заново, приклеен блок или ещё нет, и тот дёргается на треть пикселя.
+     Лишний пиксель уводит блок за границу — на глаз незаметно. */
+  var BIAS = 1;
   var GLIDE_MS = 300; // сколько едет доводка
   var IDLE_MS = 120; // через сколько после остановки руки она включается
 
@@ -66,7 +72,7 @@
 
     if (mobile) {
       blocks.forEach(function (b) {
-        if (b.content) b.content.style.opacity = '';
+        if (b.content) b.content.style.opacity = mobile ? '' : '1';
       });
     }
   }
@@ -146,7 +152,7 @@
       var cover = clamp(1 - nextLeft / h);
       // гаснет только содержимое, полотно под ним остаётся на месте
       var fade = clamp(cover * FADE);
-      if (b.content) b.content.style.opacity = fade ? String(1 - fade) : "";
+      if (b.content) b.content.style.opacity = (1 - fade).toFixed(3);
 
       if (lefts[k] <= 0) dot = b.firstDot + (b.active > 0 ? b.active : 0);
     });
@@ -182,7 +188,7 @@
   function inStack(rel) { return rel >= -0.02 && rel <= stops - 1 + 0.02; }
 
   function glideTo(index, h) {
-    var to = stackTop + index * h;
+    var to = stackTop + index * h + BIAS;
     var from = window.pageYOffset;
     var dist = to - from;
     if (Math.abs(dist) < 1) { anchor = index; return; }

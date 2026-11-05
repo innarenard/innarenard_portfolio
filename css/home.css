@@ -1718,6 +1718,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   /* сцена кейсов шириной 1300 не должна вылезать на узком окне */
   overflow: hidden;
   will-change: opacity;
+  transform: translateZ(0);
 }
 
 /* ---------- Текст ---------- */
@@ -3275,6 +3276,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   position: relative;
   height: 100%;
   will-change: opacity;
+  transform: translateZ(0);
 }
 
 /* распорка даёт прокрутку, пока блок приколот: по экрану на кейс */
