@@ -3257,20 +3257,29 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   z-index: 1;
 }
 
+/* обёртка не должна быть контейнером: липкие блоки считаются от .case-flow,
+   иначе блок отлипает на своей же границе и уезжает вверх */
 .case-stack {
-  position: relative;
-  z-index: 2;
+  display: contents;
 }
 
-/* высоту трека задаёт скрипт: один экран прокрутки на кейс */
+/* каждый блок приклеен к шапке и остаётся на месте — следующий наезжает сверху */
 .case-screen {
-  position: relative;
-}
-
-.case-screen__inner {
   position: sticky;
   top: 88px;
   height: var(--block-height);
+  will-change: opacity;
+}
+
+.case-screen__inner {
+  position: relative;
+  height: 100%;
+}
+
+/* распорка даёт прокрутку, пока блок приколот: по экрану на кейс */
+.case-spacer {
+  position: relative;
+  z-index: 0;
 }
 
 /* полотно во всю ширину, как у первого экрана */
@@ -3539,7 +3548,14 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   }
 
   .case-screen {
+    position: static;
     height: auto !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .case-spacer {
+    display: none;
   }
 
   .case-screen__inner {
