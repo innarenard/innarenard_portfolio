@@ -491,6 +491,7 @@
     var bodyEl = sheet.querySelector('[data-sheet-body]');
     var nextBtn = sheet.querySelector('[data-sheet-next]');
     var ghostBtn = sheet.querySelector('[data-sheet-ghost]');
+    var barEl = sheet.querySelector('.lunel-sheet__bar');
     var dismissEl = sheet.querySelector('[data-sheet-dismiss]');
     var page = host.querySelector('[data-page]');
     var toast = layer('[data-toast]');
@@ -518,9 +519,10 @@
     };
 
     function scaleY(index) {
-      /* 4 rows, 24pt tall, 36pt apart, index 0 at the BOTTOM */
-      var pitch = 60;
-      return 204 - 12 - (3 - (3 - index)) * 0 - index * pitch;
+      /* BleedingVerticalScale: a 204pt column, stops 60 apart, the lightest 12
+         above its bottom edge (58 apart on the simulator under the sheet's
+         0.958 scale). Index 0 = bottom. */
+      return 192 - index * 60;
     }
 
     function buildScale() {
@@ -536,7 +538,7 @@
     function renderFlow() {
       var level = FLOW[state.draftFlow];
       scaleEl.style.setProperty('--scale-color', level.color);
-      scaleThumb.style.transform = 'translateY(' + (scaleY(state.draftFlow) + 12) + 'px)';
+      scaleThumb.style.transform = 'translateY(' + scaleY(state.draftFlow) + 'px)';
       for (var i = 0; i < scaleDots.length; i++) {
         scaleDots[i].style.opacity = i === state.draftFlow ? '0' : '0.5';
       }
@@ -661,6 +663,20 @@
         wrap.appendChild(pills);
         logEl.appendChild(wrap);
       });
+      /* DailyLogEditorView: «I don't want to log» is the list's last row, not
+         a bottom-bar button — the bar only appears once a tag is picked. */
+      var decline = document.createElement('button');
+      decline.type = 'button';
+      decline.className = 'lunel-ghost-large lunel-log__decline';
+      decline.setAttribute('data-group-title', "I don't want to log");
+      decline.textContent = L.i18n.t("I don't want to log", lang, []);
+      decline.addEventListener('click', function () {
+        commitStep('log', true);
+        var next = nextStep('log');
+        if (next) showStep(next);
+        else closeSheet(true);
+      });
+      logEl.appendChild(decline);
     }
 
     function toggleTag(group, tag, pill) {
@@ -736,14 +752,68 @@
 
     function moodIndex(row, col) { return row * 5 + col; }
 
-    function renderMood() {
+    /* MoodField's selection circle rides a DisplayLinkSpringState (response
+       0.45, damping 0.65): every frame it is pulled toward its target, which
+       while dragging is the active cell's centre plus a rubber band toward
+       the finger, and on release the centre itself. */
+    var SEL_W = 2 * Math.PI / 0.45;
+    var SEL_Z = 0.65;
+    var selPos = null;
+    var selVel = { x: 0, y: 0 };
+    var selTarget = null;
+    var selRaf = 0;
+    var selLast = 0;
+
+    function paintSel() {
+      gridSel.style.transform = 'translate(' + selPos.x + 'px, ' + selPos.y + 'px)';
+    }
+
+    function selSnap(p) {
+      selPos = { x: p.x, y: p.y };
+      selVel = { x: 0, y: 0 };
+      selTarget = { x: p.x, y: p.y };
+      if (selRaf) { cancelAnimationFrame(selRaf); selRaf = 0; }
+      paintSel();
+    }
+
+    function selTick(t) {
+      var dt = selLast ? Math.min((t - selLast) / 1000, 1 / 30) : 1 / 60;
+      selLast = t;
+      ['x', 'y'].forEach(function (k) {
+        var d = selPos[k] - selTarget[k];
+        var a = -2 * SEL_Z * SEL_W * selVel[k] - SEL_W * SEL_W * d;
+        selVel[k] += a * dt;
+        selPos[k] += selVel[k] * dt;
+      });
+      paintSel();
+      var dist = Math.abs(selPos.x - selTarget.x) + Math.abs(selPos.y - selTarget.y);
+      if (dist < 0.2 && Math.abs(selVel.x) + Math.abs(selVel.y) < 1) {
+        selSnap(selTarget);
+        return;
+      }
+      selRaf = requestAnimationFrame(selTick);
+    }
+
+    function selTo(p) {
+      if (!selPos || L.motion.reduced() || !sheet || sheet.hidden) { selSnap(p); return; }
+      selTarget = { x: p.x, y: p.y };
+      if (!selRaf) { selLast = 0; selRaf = requestAnimationFrame(selTick); }
+    }
+
+    /* MoodField.rubberBand: the circle leans toward the finger but never
+       more than about half a cell away from the centre. */
+    function rubber(d) {
+      return d * 0.45 / (1 + Math.abs(d) / PITCH * 0.9);
+    }
+
+    function renderMood(keepSel) {
       var row = state.draftMood.row;
       var col = state.draftMood.col;
       var color = moodColor(row, col);
       var cell = MOOD[moodIndex(row, col)];
       var p = cellXY(row, col);
       gridEl.style.setProperty('--mood-color', color);
-      gridSel.style.transform = 'translate(' + p.x + 'px, ' + p.y + 'px)';
+      if (!keepSel) selTo(p);
       for (var i = 0; i < gridDots.length; i++) {
         var d = gridDots[i];
         if (d.row === row || d.col === col) d.el.setAttribute('data-lit', '');
@@ -759,17 +829,41 @@
         moodResult.title.textContent + '. ' + moodResult.levels.textContent);
     }
 
-    function moodFromPointer(event) {
+    function fingerIn(event) {
       var rect = gridEl.getBoundingClientRect();
       var scale = rect.width / 264 || 1;
-      var x = (event.clientX - rect.left) / scale;
-      var y = (event.clientY - rect.top) / scale;
-      var col = U.clamp(Math.round((x - CELL / 2) / PITCH), 0, 4);
-      var row = U.clamp(Math.round((y - CELL / 2) / PITCH), 0, 4);
-      if (row !== state.draftMood.row || col !== state.draftMood.col) {
-        state.draftMood = { row: row, col: col };
-        renderMood();
-      }
+      return { x: (event.clientX - rect.left) / scale, y: (event.clientY - rect.top) / scale };
+    }
+
+    function nearestCell(f) {
+      return {
+        col: U.clamp(Math.round((f.x - CELL / 2) / PITCH), 0, 4),
+        row: U.clamp(Math.round((f.y - CELL / 2) / PITCH), 0, 4)
+      };
+    }
+
+    function setCell(row, col) {
+      if (row === state.draftMood.row && col === state.draftMood.col) return;
+      state.draftMood = { row: row, col: col };
+      renderMood(true);
+    }
+
+    /* MoodField's DragGesture: the touch lands on the cell under the finger;
+       from there the active cell steps by one whenever the finger is more
+       than half a pitch from its centre; the circle follows with the rubber
+       band and grows to 1.25 while held. */
+    function moodDrag(event) {
+      var f = fingerIn(event);
+      var c = cellXY(state.draftMood.row, state.draftMood.col);
+      var row = state.draftMood.row;
+      var col = state.draftMood.col;
+      var cdy = (f.y - c.y) / PITCH;
+      var cdx = (f.x - c.x) / PITCH;
+      if (cdy > 0.5 && row < 4) row += 1; else if (cdy < -0.5 && row > 0) row -= 1;
+      if (cdx > 0.5 && col < 4) col += 1; else if (cdx < -0.5 && col > 0) col -= 1;
+      setCell(row, col);
+      var centre = cellXY(state.draftMood.row, state.draftMood.col);
+      selTo({ x: centre.x + rubber(f.x - centre.x), y: centre.y + rubber(f.y - centre.y) });
     }
 
     var gridDragging = false;
@@ -777,16 +871,19 @@
       gridDragging = true;
       gridEl.setPointerCapture(event.pointerId);
       gridEl.focus({ preventScroll: true });
-      gridSel.style.transform += ' scale(1.25)';
-      moodFromPointer(event);
+      gridSel.setAttribute('data-drag', '');
+      var n = nearestCell(fingerIn(event));
+      setCell(n.row, n.col);
+      moodDrag(event);
     });
     gridEl.addEventListener('pointermove', function (event) {
-      if (gridDragging) moodFromPointer(event);
+      if (gridDragging) moodDrag(event);
     });
     function gridRelease() {
       if (!gridDragging) return;
       gridDragging = false;
-      renderMood();
+      gridSel.removeAttribute('data-drag');
+      selTo(cellXY(state.draftMood.row, state.draftMood.col));
     }
     gridEl.addEventListener('pointerup', gridRelease);
     gridEl.addEventListener('pointercancel', gridRelease);
@@ -826,6 +923,9 @@
     var stepHeights = {};
 
     function panelHeightFor(step) {
+      /* The daily log is a fixed detent, symptomsFraction 0.82 of the
+         largest: on the simulator it stands from 222 to 865, i.e. 671 here. */
+      if (step === 'log') return 671;
       if (stepHeights[step]) return stepHeights[step];
       var el = stepEls[step];
       var prev = el.getAttribute('style') || '';
@@ -833,11 +933,12 @@
       var content = el.scrollHeight;
       el.setAttribute('style', prev);
       /* grabber 16 + title block 52 + content + bottom bar room */
-      var h = 16 + 52 + content + 132;
-      /* Потолок — 637: и у «Выделений», и у «Моего дня» верх панели на
-         эталоне ровно 215, то есть 852 − 637. Длинное содержимое прокручивается
-         внутри, панель выше не поднимается. */
-      stepHeights[step] = U.clamp(h, 320, 637);
+      var h = 16 + 52 + content + 173;
+      /* Потолок — 656 в масштабе раскладки: на симуляторе iPhone 17
+         «Выделения» стоят от 236,7 до 865, то есть 628,3 видимых, а шторка
+         нарисована в 0,958 (--lunel-sheet-scale). Длинное содержимое
+         прокручивается внутри, панель выше не поднимается. */
+      stepHeights[step] = U.clamp(h, 320, 656);
       return stepHeights[step];
     }
 
@@ -851,7 +952,8 @@
       titleEl.setAttribute('data-sheet-title', stepTitleKey(step));
       var max = parseFloat(getComputedStyle(panel).getPropertyValue('--sheet-max')) || 620;
       var h = panelHeightFor(step);
-      panel.style.setProperty('--sheet-drop', (max - h) + 'px');
+      panel.style.setProperty('--sheet-h', h + 'px');
+      void max;
       state.visited[step] = true;
       updateSheetButtons();
       /* Фокус мы ставим сами, пользователь клавиатуры его не просил —
@@ -885,12 +987,12 @@
       nextBtn.textContent = L.i18n.t(isLast ? 'Done' : 'Continue', lang, []);
       nextBtn.setAttribute('data-cta-key', isLast ? 'Done' : 'Continue');
       /* Daily log: Continue only appears once at least one tag is picked */
+      barEl.hidden = false;
       if (step === 'log') {
         var any = Object.keys(state.draftLog).length > 0;
         nextBtn.hidden = !any;
-        ghostBtn.hidden = false;
-        ghostBtn.textContent = L.i18n.t("I don't want to log", lang, []);
-        ghostBtn.setAttribute('data-ghost-key', "I don't want to log");
+        ghostBtn.hidden = true;
+        barEl.hidden = !any;
       } else if (step === 'flow') {
         nextBtn.hidden = false;
         ghostBtn.hidden = false;
@@ -944,6 +1046,23 @@
       }
     });
 
+    /* Each shrinking block scales about the same screen point (the middle of
+       the screen, just under the status bar), so the blocks keep their
+       places relative to each other while the header stays untouched. */
+    function aimDimScale() {
+      var screenEl = page.closest('.lunel-screen');
+      if (!screenEl) return;
+      var sr = screenEl.getBoundingClientRect();
+      var k = sr.width / (screenEl.offsetWidth || sr.width) || 1;
+      var top = parseFloat(getComputedStyle(screenEl).getPropertyValue('--lunel-safe-top')) || 62;
+      page.querySelectorAll('[data-dim-scale]').forEach(function (el) {
+        var r = el.getBoundingClientRect();
+        var ox = (sr.left + sr.width / 2 - r.left) / k;
+        var oy = (sr.top + top * k - r.top) / k;
+        el.style.transformOrigin = ox + 'px ' + oy + 'px';
+      });
+    }
+
     function openSheet(step) {
       if (state.open) { showStep(step); return; }
       lastFocus = document.activeElement;
@@ -951,8 +1070,11 @@
       state.visited = {};
       sheet.hidden = false;
       sheet.setAttribute('data-entering', '');
-      panel.style.setProperty('--sheet-max', '637px');
-      if (page) page.setAttribute('data-dimmed', '');
+      panel.style.setProperty('--sheet-max', '671px');
+      if (page) {
+        aimDimScale();
+        page.setAttribute('data-dimmed', '');
+      }
       /* Стартовое положение должно примениться до того, как мы его снимем,
          иначе перехода не будет. Раньше это делали через два requestAnimationFrame
          — и шторка не открывалась вовсе, когда вкладка в фоне: кадры там не
@@ -1214,6 +1336,15 @@
       var fill = root.getAttribute('data-fill') || 'empty';
       if (fill === 'empty') return;
 
+      /* `log-mood`: the app's newUser day — Daily log with one tag
+         (Sleepiness) and Mood Calm filled, Flow still open. */
+      if (fill === 'log-mood') {
+        state.log = [{ key: 'Sleepiness', emoji: '🥱' }];
+        state.mood = { row: 2, col: 2 };
+        renderRows();
+        return;
+      }
+
       /* Melancholy — row 3, col 1 — is the value the case screenshots show. */
       state.mood = { row: 3, col: 1 };
       if (fill === 'partial') { renderRows(); return; }
@@ -1234,6 +1365,10 @@
 
     return {
       open: function (step) { openSheet(step || 'flow'); },
+      /* state of the mood circle's spring — for tests (lunel/state.html) */
+      get moodCircle() {
+        return { pos: selPos, target: selTarget, running: !!selRaf, cell: state.draftMood };
+      },
       close: function () { closeSheet(false); },
       advance: function () { nextBtn.click(); },
       setFlow: function (index) { state.draftFlow = U.clamp(index, 0, 3); renderFlow(); },

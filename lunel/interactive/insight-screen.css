@@ -5,8 +5,8 @@
    reliability footnote. Geometry from its `Layout` enum — horizontal 24,
    navToTitle 12, titleToMeta 4, blockSpacing 16, footnoteExtraTop 12.
 
-   The pinned nav header (back / copy), the loader, the error and the Plus
-   gate are not reproduced: this replica only shows state 5, Ready.
+   The loader, the error and the Plus gate are not reproduced: this replica
+   only shows state 5, Ready.
    ========================================================================== */
 
 .lunel .lunel-insight {
@@ -61,8 +61,43 @@
   color: var(--lunel-text);
 }
 
-/* 16 of block spacing plus the footnote's own 12. */
-.lunel .lunel-insight__footnote {
+/* 16 of block spacing plus the footnote's own 12. Specific enough to beat
+   the paragraph colour above. */
+.lunel .lunel-insight__text .lunel-insight__footnote {
   margin-top: 12px;
   color: var(--lunel-text-grey);
 }
+
+/* ---------- nav header (back / copy) ------------------------------------ */
+
+.lunel .lunel-insight__nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px var(--lunel-gutter-24) 0;
+  margin-bottom: 12px;
+}
+.lunel .lunel-insight__navbtn {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  background: var(--lunel-white-medium);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, .8), 0 1px 6px rgba(60, 50, 40, .04);
+}
+.lunel .lunel-insight__navbtn svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-miterlimit: 10;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.lunel .lunel-insight__navbtn--back { color: var(--lunel-text-dark-grey); }
+.lunel .lunel-insight__navbtn--copy { color: var(--lunel-text-grey); }

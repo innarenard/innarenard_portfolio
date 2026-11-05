@@ -192,12 +192,26 @@
      dependency-free. Swap this one property to use the real PNG. */
   --lunel-noise-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='0.22' intercept='0.76'/%3E%3CfeFuncG type='linear' slope='0.22' intercept='0.76'/%3E%3CfeFuncB type='linear' slope='0.22' intercept='0.76'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
 
-  /* ---- Phone frame ---- */
-  --lunel-frame-w: 393px;
-  --lunel-frame-h: 852px;
+  /* ---- Phone frame ----
+     iPhone 17: 402 × 874 pt, safe area 62 / 34 — the simulator the app is
+     checked on (FlowenTracker, scripts/simulator.sh). */
+  --lunel-frame-w: 402px;
+  --lunel-frame-h: 874px;
   --lunel-frame-radius: 55px;
-  --lunel-safe-top: 59px;
+  --lunel-safe-top: 62px;
   --lunel-safe-bottom: 34px;
+  /* iOS 26 draws a non-full-screen sheet as the full-width sheet scaled to
+     385/402 and lifted 9 pt: on the simulator every size inside it reads
+     0.958 of the spec (a 36pt pill is 34,6, the 56pt button 53,8) and its
+     edges stand 8,5 in from the sides and 9 above the bottom. Sheets lay out
+     at full width and take this transform. */
+  --lunel-sheet-lift: 9px;
+  --lunel-sheet-scale: 0.9577;
+  /* The sheet rising (and Home dimming under it), fitted to 60 fps video of
+     the simulator: top edge 822 → 696 → 550 → 443 → 368 → 320 → 285 every
+     33 ms, settling by ~0.4 s with no overshoot. */
+  --lunel-sheet-open: cubic-bezier(0.25, 0.3, 0.15, 1);
+  --lunel-sheet-open-dur: 380ms;
   --lunel-frame-bezel: #262422;
   --lunel-frame-bezel-width: 10px;
   --lunel-frame-scale: 1;

@@ -55,7 +55,18 @@
   L.define('insight-screen', function (root) {
     var lang = L.i18n.langOf(root);
 
-    root.innerHTML =
+    /* navHeader: ⌀44 back (Text/Dark grey) and copy (Text/Grey) on White/Medium
+       tinted glass, 4pt under the safe area, 12 above the title. Hosts that
+       only want the text (the home page collage) pass data-no-nav. */
+    var nav = root.hasAttribute('data-no-nav') ? '' :
+      '<div class="lunel-insight__nav">' +
+      '<button type="button" class="lunel-insight__navbtn lunel-insight__navbtn--back" data-i18n-label="Back" aria-label="Back">' +
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5698 5.93005L3.4998 12.0001L9.5698 18.0701M20.4997 12H3.66973"/></svg></button>' +
+      '<button type="button" class="lunel-insight__navbtn lunel-insight__navbtn--copy" data-i18n-label="Copy" aria-label="Copy">' +
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.9998 12.9V17.1C15.9998 20.6 14.5998 22 11.0998 22H6.89981C3.3998 22 1.9998 20.6 1.9998 17.1V12.9C1.9998 9.40002 3.3998 8.00002 6.89981 8.00002H11.0998M15.9998 12.9C15.9998 9.40002 14.5998 8.00002 11.0998 8.00002M15.9998 12.9V16H17.0998C20.5998 16 21.9998 14.6 21.9998 11.1V6.90002C21.9998 3.40002 20.5998 2.00002 17.0998 2.00002H12.8998C9.3998 2.00002 7.9998 3.40002 7.9998 6.90002V8.00002H11.0998"/></svg></button>' +
+      '</div>';
+
+    root.innerHTML = nav +
       '<article class="lunel-insight">' +
       '<div class="lunel-insight__head">' +
       '<h2 class="lunel-h2 lunel-insight__title" data-title></h2>' +

@@ -45,7 +45,22 @@
     var scrollEl = root.querySelector('[data-cal-scroll]');
     var todayBtn = root.querySelector('[data-cal-today]');
 
-    var selected = startOfDay(today);
+    /* The header's right button is the same HeaderGlassIconButton as on Home
+       (⌀44 clear glass, CalendarEdit glyph); hosts may still ship the old
+       placeholder span, so it is upgraded in place. */
+    var iconBtn = root.querySelector('.lunel-cal__actions .lunel-icon-btn');
+    if (iconBtn) {
+      iconBtn.className = 'lunel-home__action';
+      iconBtn.innerHTML = L.icons.calendarEdit;
+    }
+
+    /* Nothing is selected on open: on the simulator today only wears its
+       ring (Brand border); a tap opens the day sheet. The selection exists
+       once a day is tapped. */
+    var selected = null;
+    /* The app follows the locale: en_US starts the week on Sunday, ru on
+       Monday (iPhone 17 simulator, both languages). */
+    var weekStart = /^ru/.test(lang) ? 1 : 0;
     var cells = [];
 
     /* Logged entries — canned, only on days that are not in the future. */
@@ -81,14 +96,12 @@
     /* ----------------------------------------------------------- render */
 
     function firstWeekdayIndex(date) {
-      /* Monday-first, as the app's rotated weekday symbols are in both
-         shipped locales. */
-      return (date.getDay() + 6) % 7;
+      return (date.getDay() - weekStart + 7) % 7;
     }
 
     function buildWeekdays() {
       weekdaysEl.textContent = '';
-      var base = new Date(2026, 2, 2); /* a Monday */
+      var base = L.dates.addDays(new Date(2026, 2, 1), weekStart); /* 1 March 2026 is a Sunday */
       for (var i = 0; i < 7; i++) {
         var span = document.createElement('span');
         var d = L.dates.addDays(base, i);
@@ -96,7 +109,7 @@
         try {
           text = new Intl.DateTimeFormat(lang, { weekday: 'narrow' }).format(d);
         } catch (e) {
-          text = ['M', 'T', 'W', 'T', 'F', 'S', 'S'][i];
+          text = ['S', 'M', 'T', 'W', 'T', 'F', 'S'][(i + weekStart) % 7];
         }
         span.textContent = text.toUpperCase();
         weekdaysEl.appendChild(span);
@@ -106,7 +119,10 @@
     function monthLabel(date) {
       var text;
       try {
-        text = new Intl.DateTimeFormat(lang, { month: 'long', year: 'numeric' }).format(date);
+        /* The year only for months outside the current one: "DECEMBER",
+           then "JANUARY 2027". */
+        text = new Intl.DateTimeFormat(lang, date.getFullYear() === today.getFullYear()
+          ? { month: 'long' } : { month: 'long', year: 'numeric' }).format(date);
       } catch (e) {
         text = String(date.getMonth() + 1);
       }
@@ -187,10 +203,13 @@
       if (logged[dayKey(date)] && entry.state === 'past') el.setAttribute('data-logged', '');
       else el.removeAttribute('data-logged');
 
-      var isSelected = dayDiff(date, selected) === 0 && entry.selectable;
+      var isSelected = !!selected && dayDiff(date, selected) === 0 && entry.selectable;
       if (isSelected) el.setAttribute('data-selected', '');
       else el.removeAttribute('data-selected');
-      if (entry.selectable) el.tabIndex = isSelected ? 0 : -1;
+      if (entry.selectable) {
+        var stop = selected ? isSelected : dayDiff(date, today) === 0;
+        el.tabIndex = stop ? 0 : -1;
+      }
 
       if (entry.selectable) {
         var day = cycleDayOf(date);
@@ -220,12 +239,12 @@
     function repaintAll() {
       for (var i = 0; i < cells.length; i++) paint(cells[i]);
       titleEl.textContent = headerTitle();
-      todayBtn.hidden = dayDiff(selected, today) === 0;
+      todayBtn.hidden = !selected || dayDiff(selected, today) === 0;
     }
 
     function headerTitle() {
       try {
-        var text = new Intl.DateTimeFormat(lang, { month: 'long' }).format(selected);
+        var text = new Intl.DateTimeFormat(lang, { month: 'long' }).format(selected || today);
         return text.charAt(0).toUpperCase() + text.slice(1);
       } catch (e) {
         return '';
@@ -288,8 +307,12 @@
         '[data-month="' + date.getFullYear() + '-' + date.getMonth() + '"]'
       );
       if (section) {
+        /* The app parks the month's first week right under the weekday bar,
+           its label tucked behind the header (simulator: label 135,5, first
+           row 162). So the scroll target is the grid, not the label. */
+        var grid = section.querySelector('.lunel-cal__grid') || section;
         scrollEl.scrollTo({
-          top: section.offsetTop - scrollEl.offsetTop,
+          top: grid.getBoundingClientRect().top - scrollEl.getBoundingClientRect().top + scrollEl.scrollTop,
           behavior: L.motion.reduced() ? 'auto' : 'smooth'
         });
       }
@@ -297,13 +320,14 @@
 
     root.addEventListener('lunel:lang', function () {
       lang = L.i18n.langOf(root);
+      /* The week start follows the language, so the grids are rebuilt, not
+         just relabelled; the scroll position survives the rebuild. */
+      weekStart = /^ru/.test(lang) ? 1 : 0;
+      var keep = scrollEl.scrollTop;
       buildWeekdays();
-      var labels = scrollEl.querySelectorAll('[data-month-label]');
-      var first = new Date(today.getFullYear(), today.getMonth() - 2, 1);
-      for (var i = 0; i < labels.length; i++) {
-        labels[i].textContent = monthLabel(new Date(first.getFullYear(), first.getMonth() + i, 1));
-      }
+      buildMonths();
       repaintAll();
+      scrollEl.scrollTop = keep;
     });
 
     buildWeekdays();
@@ -320,7 +344,7 @@
         scrollToDate(date);
       },
       scrollToToday: function () { scrollToDate(today); },
-      get selected() { return new Date(selected); }
+      get selected() { return selected ? new Date(selected) : null; }
     };
   });
 })();

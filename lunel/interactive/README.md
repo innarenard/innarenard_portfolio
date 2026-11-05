@@ -47,10 +47,10 @@ tokens leaking out — and `lunel-core.css` neutralises the host's `font-family`
 ```
 
 * `.lunel-stage` is the host's column. Any `.lunel-device` directly inside one is scaled
-  to fit automatically (`Lunel.fitFrames`, run after every mount) — at 393 px the frame
-  lands at about 0.82 and the page gets no horizontal scrollbar.
-* `.lunel-device` is the 393 × 852 phone with 59/34 safe areas and a 55 px screen radius,
-  per spec §12.13. Bezel colour, bezel width, shadow, safe areas and radius are all
+  to fit automatically (`Lunel.fitFrames`, run after every mount) — on a 393 px page the
+  frame lands at about 0.8 and the page gets no horizontal scrollbar.
+* `.lunel-device` is the 402 × 874 phone (iPhone 17, the simulator the app is checked on)
+  with 62/34 safe areas and a 55 px screen radius. Bezel colour, bezel width, shadow, safe areas and radius are all
   tokens, so a site can tint the frame without touching anything in here.
 * `data-lunel-component="<name>"` is what mounts it. `Lunel.define(name, factory)`
   registers; mounting happens on `DOMContentLoaded` and again whenever a component file

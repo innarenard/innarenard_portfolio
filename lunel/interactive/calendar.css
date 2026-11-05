@@ -40,7 +40,7 @@
 .lunel-cal__actions {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 3px;
   flex: none;
 }
 
@@ -106,6 +106,8 @@
 
 .lunel-cal__sub {
   margin-bottom: 8px;
+  /* Simulator: month label text at x 40 — 16 in from the grid's 24. */
+  padding-left: 16px;
   height: 20px;
   line-height: 20px;
   font-size: var(--lunel-body3-size);
@@ -135,7 +137,8 @@
   font-size: var(--lunel-body2-size);
   line-height: var(--lunel-body2-line);
   color: var(--lunel-text-grey);
-  font-variant-numeric: tabular-nums;
+  /* Proportional digits, as the app's day cells: "12" is 14,3 pt wide on the
+     simulator, tabular figures made it 16. */
 }
 
 .lunel-cal__day > b {

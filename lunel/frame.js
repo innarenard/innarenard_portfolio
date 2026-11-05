@@ -100,7 +100,7 @@
 
   var INSIGHT_ROOT =
     '<div class="lunel lunel-frame__col" lang="en">' +
-    '<div data-lunel-component="insight-screen"></div>' +
+    '<div data-lunel-component="insight-screen" data-no-nav></div>' +
     '</div>';
 
   var PHONE_ROOT =
@@ -184,7 +184,8 @@
      карточку из коробки. */
   function moodCard(part, index) {
     var pagesEl = part.root.querySelector('[data-pages]');
-    var page = part.root.querySelectorAll('.lunel-trends__page')[1];
+    /* Page 0 is the summary, 1 Flow intensity, 2 Mood and energy. */
+    var page = part.root.querySelectorAll('.lunel-trends__page')[2];
     if (!pagesEl || !page) return null;
     part.root.querySelectorAll('.lunel-trends__page').forEach(function (p) {
       p.setAttribute('data-drawn', '');

@@ -647,7 +647,10 @@
 
     function startLoop() {
       if (tickerHandle) return;
-      tickerHandle = L.ticker.add(frame, root);
+      /* Watch the ring block, not the root: inside Home the root is
+         display: contents (so the header can stay pinned) and has no box for
+         an IntersectionObserver to see. */
+      tickerHandle = L.ticker.add(frame, ring || root);
     }
 
     function stopLoop() {
@@ -726,53 +729,9 @@
       return L.dates.addDays(anchorDate, day - 1);
     }
 
-    /* iOS .numericText: the digit rolls vertically. Rapid drags fire this
-       many times a second, so an in-flight roll is collapsed to its target
-       first — otherwise the strip can be left showing the stale digit. */
+    /* iOS .numericText via Lunel.text.numeric (see lunel-core.js). */
     function rollDayNumber(text, countsDown) {
-      if (!el.daynum.firstElementChild) {
-        var seed = document.createElement('span');
-        seed.textContent = text;
-        el.daynum.appendChild(seed);
-        return;
-      }
-      /* keep only the newest span and stop its animation */
-      while (el.daynum.children.length > 1) {
-        el.daynum.removeChild(el.daynum.firstElementChild);
-      }
-      var current = el.daynum.firstElementChild;
-      if (current.getAnimations) {
-        current.getAnimations().forEach(function (a) { a.cancel(); });
-      }
-      if (current.textContent === text) return;
-      if (L.motion.reduced() || !current.animate) {
-        current.textContent = text;
-        return;
-      }
-      var next = document.createElement('span');
-      next.textContent = text;
-      el.daynum.appendChild(next);
-      var dir = countsDown ? -1 : 1;
-      var options = { duration: 160, easing: 'cubic-bezier(.42,0,.58,1)', fill: 'none' };
-      current.animate(
-        [
-          { transform: 'translateY(0)', opacity: 1 },
-          { transform: 'translateY(' + -dir * 100 + '%)', opacity: 0 }
-        ],
-        options
-      );
-      var anim = next.animate(
-        [
-          { transform: 'translateY(' + dir * 100 + '%)', opacity: 0 },
-          { transform: 'translateY(0)', opacity: 1 }
-        ],
-        options
-      );
-      anim.onfinish = function () {
-        if (current.parentNode === el.daynum && el.daynum.children.length > 1) {
-          el.daynum.removeChild(current);
-        }
-      };
+      L.text.numeric(el.daynum, text, countsDown ? -1 : 1);
     }
 
     function headerTitle(lang) {
@@ -802,18 +761,34 @@
       var phase = phaseForSelected();
       var date = dateForDay(state.selectedDay);
 
-      el.month.textContent = L.dates.monthStandalone(date, lang) + ',';
+      /* CycleProgressView: the month (with its comma) swaps by blurReplace,
+         the day number, the "Day N · Phase" line and the tag by numericText,
+         the header title too (HomeScreenHeader). */
+      var dir = countsDown ? -1 : 1;
+      L.text.blurReplace(el.month, L.dates.monthStandalone(date, lang) + ',');
       rollDayNumber(String(date.getDate()), countsDown);
 
-      el.phase.textContent = L.i18n.t('home_ring_day_phase', lang, [
+      L.text.numeric(el.phase, L.i18n.t('home_ring_day_phase', lang, [
         state.selectedDay,
         L.i18n.t(phase.title, lang, [])
-      ]);
-      el.tag.textContent = tagText(lang, phase);
+      ]), dir);
+      L.text.numeric(el.tag, tagText(lang, phase), dir);
       el.center.style.setProperty('--phase-dark', phase.dark);
 
-      if (el.title) el.title.textContent = headerTitle(lang);
-      if (el.todayBtn) el.todayBtn.hidden = state.selectedDay === currentDay;
+      if (el.title) L.text.numeric(el.title, headerTitle(lang), dir);
+      if (el.todayBtn) {
+        var hide = state.selectedDay === currentDay;
+        /* .transition(.opacity.combined(with: .scale(0.9))) on a
+           spring(response .35, damping .85) */
+        if (el.todayBtn.hidden && !hide && el.todayBtn.animate && !L.motion.reduced()) {
+          el.todayBtn.hidden = false;
+          el.todayBtn.animate([
+            { opacity: 0, transform: 'scale(0.9)' },
+            { opacity: 1, transform: 'scale(1)' }
+          ], { duration: 350, easing: 'cubic-bezier(.3,1.1,.5,1)' });
+        }
+        el.todayBtn.hidden = hide;
+      }
 
       el.input.setAttribute('aria-valuenow', String(state.selectedDay));
       /* The accessible NAME is the visible "Day N · Phase" line
@@ -822,7 +797,7 @@
          app copy; there is no invented a11y string anywhere in the component. */
       el.input.setAttribute(
         'aria-valuetext',
-        el.month.textContent + ' ' + date.getDate() + '. ' + el.tag.textContent
+        L.dates.monthStandalone(date, lang) + ', ' + date.getDate() + '. ' + tagText(lang, phase)
       );
 
       if (phase.key !== state.phaseKey) {
@@ -1094,7 +1069,7 @@
       finishIntro();
     } else {
       startLoop();
-      L.inView(root, playIntro, { threshold: 0.3 });
+      L.inView(ring || root, playIntro, { threshold: 0.3 });
     }
 
     return {
