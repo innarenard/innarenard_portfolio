@@ -33,20 +33,43 @@
   flex: none;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  justify-content: flex-start;
+  gap: 0;
   height: 60px;
   padding: 4px var(--lunel-gutter-24) 8px;
 }
 
 .lunel-home__title {
+  /* HStack: title · Spacer(minLength: 8) · [Today] · edit button */
+  flex: 1 1 auto;
+  min-width: 0;
+  margin-right: 8px;
   color: var(--lunel-text);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.lunel-home__today[hidden] {
+/* HeaderTodayButton: plain Body 1 in Brand, 20 at the sides, 48 tall, no
+   capsule — it stands right against the edit button (simulator: x
+   251,8–330,6 next to the button at 334). Shared with the calendar header. */
+.lunel .lunel-home__today,
+.lunel .lunel-cal__actions [data-cal-today] {
+  flex: none;
+  height: 48px;
+  padding: 0 20px;
+  border-radius: 999px;
+  background: none;
+  box-shadow: none;
+  color: var(--lunel-brand);
+  font-size: var(--lunel-body1-size);
+  line-height: var(--lunel-body1-line);
+  font-weight: var(--lunel-weight-semibold);
+  letter-spacing: var(--lunel-body-tracking);
+}
+
+.lunel-home__today[hidden],
+.lunel-cal__actions [data-cal-today][hidden] {
   display: none;
 }
 
@@ -62,6 +85,11 @@
 
 .lunel-ring {
   position: relative;
+  /* На симуляторе iPhone 17 все 28 кругов стоят ровно на 8 pt ниже, чем
+     у коробки 354 сразу под шапкой: центр кольца 201,307, а не 201,299,
+     при совпадающих x и диаметрах. Сдвиг без влияния на поток — чек-лист
+     под кольцом стоит на своём месте (y 524), его не трогаем. */
+  top: 8px;
   width: calc(100% - 2 * var(--lunel-gutter-24));
   aspect-ratio: 1 / 1;
   isolation: isolate;
@@ -251,7 +279,10 @@
      центру кольца, а на 7,5 pt ниже (262–335,5 против центра 291,5).
      Сдвигаем отступом, а не трансформом: трансформ здесь создал бы свой
      контекст наложения и испортил бы color-burn шума поверх. */
-  padding: 15px 22% 0;
+  /* Кольцо ушло на 8 вниз (см. .lunel-ring), а текст на симуляторе остался
+     где был: дата 264, фаза 301,7, тег 332 — то есть блок на 2 pt выше
+     центра кольца. */
+  padding: 0 22% 1px;
   pointer-events: none;
   color: var(--phase-dark, var(--lunel-text));
 }
@@ -284,20 +315,7 @@
 .lunel-ring__daynum {
   position: relative;
   display: inline-block;
-  overflow: hidden;
-  font-variant-numeric: tabular-nums;
   vertical-align: bottom;
-}
-
-.lunel-ring__daynum span {
-  display: block;
-}
-
-.lunel-ring__daynum span + span {
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
 }
 
 .lunel-ring__phase {
@@ -322,7 +340,9 @@
    in the component. Give the centre column a little more room and let the
    phase line drop one step rather than clip. */
 .lunel-ring__center:lang(ru) {
-  padding: 15px 14% 0;
+  /* Same vertical recipe as English (see .lunel-ring__center): simulator RU
+     frames are date 263,3 / phase 302,3 / tag 332,7. */
+  padding: 0 14% 1px;
 }
 
 /* 5 — noise ---------------------------------------------------------------- */

@@ -75,18 +75,21 @@
   place-items: center;
 }
 
+/* ChecklistTodoCheck: Circle().stroke(lineWidth 1.4, dash [5.6, 5.6]) on a 22
+   frame — the stroke rides the r = 11 path and starts at 3 o'clock, which an
+   SVG circle does too. A CSS dashed border draws a different dash count. */
 .lunel-row__check::before {
   content: "";
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  border: 1.4px dashed var(--lunel-brand);
+  width: 24px;
+  height: 24px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='11' fill='none' stroke='%23E86C61' stroke-width='1.4' stroke-dasharray='5.6 5.6'/%3E%3C/svg%3E") center / 24px 24px no-repeat;
 }
 
 .lunel-row[data-filled] .lunel-row__check::before {
   width: 24px;
   height: 24px;
   border: 0;
+  border-radius: 50%;
   background: var(--lunel-success-light)
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6.2 12.6l3.9 3.9 7.7-8.6' fill='none' stroke='%2300CB34' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
     center / 19.2px 19.2px no-repeat;
@@ -179,26 +182,32 @@
 }
 
 .lunel-sheet__panel {
+  /* Laid out full width, then scaled and lifted like an iOS 26 sheet (see
+     --lunel-sheet-scale): rounded on every corner. */
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
-  height: var(--sheet-max, 620px);
+  /* The detent: the sheet's bottom edge stays put and its height follows
+     the step, as UISheetPresentationController animates a custom detent. */
+  height: var(--sheet-h, var(--sheet-max, 620px));
   background: var(--lunel-white);
-  border-radius: var(--lunel-r-card-xl) var(--lunel-r-card-xl) 0 0;
+  border-radius: 40px;
+  transform-origin: 50% 100%;
   display: flex;
   flex-direction: column;
   /* Панель всегда одной высоты, а верхний край морфится сдвигом — так
      «изменение высоты» остаётся трансформом. Но нижняя панель с кнопкой
      должна оставаться у низа ЭКРАНА, а не уезжать вниз вместе со сдвигом,
      поэтому снизу отводим ровно столько же. */
-  transform: translateY(var(--sheet-drop, 0px));
-  transition: transform var(--lunel-spring-sheet-dur) var(--lunel-spring-sheet);
+  transform: translateY(calc(-1 * var(--lunel-sheet-lift))) scale(var(--lunel-sheet-scale));
+  transition: transform var(--lunel-sheet-open-dur) var(--lunel-sheet-open),
+    height var(--lunel-spring-sheet-dur) var(--lunel-spring-sheet);
 }
 
 .lunel-sheet[data-entering] .lunel-sheet__panel,
 .lunel-sheet[data-leaving] .lunel-sheet__panel {
-  transform: translateY(100%);
+  transform: translateY(calc(100% + 10px)) scale(var(--lunel-sheet-scale));
   transition: transform var(--lunel-dur-sheet) var(--lunel-ease-ios);
 }
 
@@ -252,13 +261,16 @@
   position: absolute;
   left: 0;
   right: 0;
+  border-radius: 0 0 40px 40px;
   /* Панель сдвинута вниз на --sheet-drop, поэтому её собственный низ уходит
      за экран; нижнюю панель с кнопкой поднимаем на столько же, чтобы она
      осталась у низа экрана. Раньше она просто уезжала за кадр. */
-  bottom: var(--sheet-drop, 0px);
+  bottom: 0;
   /* Снизу 28, а не безопасная зона плюс 8: по эталону кнопка стоит
      718–771, то есть под призрачной кнопкой остаётся 28 pt. */
-  padding: 48px var(--lunel-gutter) 28px;
+  /* Unscaled: 20 at the sides; Period ended ends ~19 above the sheet's
+     bottom edge (22 × 0.958 on the simulator, under the sheet's scale). */
+  padding: 48px var(--lunel-gutter) 21px;
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, var(--lunel-white) 44%);
   display: flex;
   flex-direction: column;
@@ -273,6 +285,10 @@
 /* Primary CTA — the "juicy" rendering, §2.1 */
 .lunel-cta {
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   height: 56px;
   border-radius: 28px;
   background: var(--lunel-brand);
@@ -287,24 +303,31 @@
     opacity 180ms var(--lunel-ease-in-out);
 }
 
-.lunel-cta::after {
-  /* 2pt HDR-ish inner stroke, masked top-leading + bottom-trailing (§12.9) */
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.9);
-  -webkit-mask-image: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0) 38%),
-    linear-gradient(315deg, #fff 0%, rgba(255, 255, 255, 0) 38%);
-  mask-image: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0) 38%),
-    linear-gradient(315deg, #fff 0%, rgba(255, 255, 255, 0) 38%);
-  -webkit-mask-composite: source-over;
-  mask-composite: add;
-  pointer-events: none;
+/* JuicyButton rim, measured on the simulator: one device pixel of a darker
+   red (214,89,78) all round, a bright line (255,137,123) just inside the top
+   and the bottom edge, nothing on the sides; the fill is a hair lighter at
+   the very top and bottom (236 → 232 → 239). */
+.lunel-cta {
+  background:
+    linear-gradient(to bottom, #ec6f63 0%, #e86c61 30%, #e86c61 70%, #ef7266 100%);
+  box-shadow:
+    inset 0 0 0 0.34px rgba(170, 50, 40, 0.7),
+    inset 0 1px 0 0 rgba(255, 150, 136, 0.9),
+    inset 0 -1px 0 0 rgba(255, 140, 126, 0.9);
 }
 
 .lunel-cta:active {
   transform: scale(1.03, 1.08);
+}
+
+.lunel-sheet__bar[hidden] {
+  display: none !important;
+}
+
+/* The list's last row: 24 under the last group (groupSpacing), full width. */
+.lunel-log__decline {
+  width: 100%;
+  margin-top: 24px;
 }
 
 .lunel-cta[hidden] {
@@ -312,6 +335,10 @@
 }
 
 .lunel-ghost-large {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   min-height: 48px;
   padding: 0 20px;
   border-radius: 24px;
@@ -333,21 +360,24 @@
 /* ---------- step 1: flow ------------------------------------------------- */
 
 .lunel-flow {
-  padding: 0 var(--lunel-gutter);
+  /* bleedingCardInset: 16 inside the sheet's own edge. */
+  padding: 0 16px;
 }
 
+/* Card 119 tall (114 on the simulator under the sheet's 0.958), its two
+   lines centred in it. */
 .lunel-result {
-  height: 128px;
+  height: 119px;
   border-radius: var(--lunel-r-note);
   background: var(--lunel-bg-medium);
-  padding: 16px 12px;
+  padding: 12px;
   text-align: center;
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 .lunel-result__title {
-  height: 40px;
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -366,12 +396,27 @@
 }
 
 .lunel-result__desc {
-  height: 40px;
-  margin-top: 8px;
+  margin-top: 5px;
   font-size: var(--lunel-body4-size);
   line-height: var(--lunel-body4-line);
   color: var(--lunel-text);
   transition: opacity 180ms var(--lunel-ease-in-out);
+}
+
+/* Mood card: its lines sit at the top, 16 in (simulator: Calm 17 below the
+   card's edge, the energy line 2 further than in the flow card). */
+.lunel-mood__result {
+  justify-content: flex-start;
+  padding-top: 16px;
+}
+.lunel-mood__result .lunel-result__levels {
+  margin-top: 2px;
+}
+
+/* With no ghost under it (the Mood step), the button stands 23 above the
+   sheet's edge — 22 on the simulator under the 0.958. */
+.lunel-sheet__bar:has(.lunel-ghost-large[hidden]) {
+  padding-bottom: 23px;
 }
 
 .lunel-scale {
@@ -381,7 +426,7 @@
   align-items: center;
   touch-action: none;
   cursor: grab;
-  padding: 4px 0 8px;
+  padding: 0;
   border-radius: 24px;
 }
 
@@ -398,7 +443,7 @@
 .lunel-scale__col {
   position: relative;
   width: 100px;
-  height: 204px; /* 4 × 24 + 3 × 36 */
+  height: 204px; /* 4 × 24 + 3 × 36 — 195,9 on the simulator under the 0.958 */
   margin: 20px 0;
 }
 
@@ -562,39 +607,74 @@
   height: 6px;
   margin: -3px 0 0 -3px;
   border-radius: 50%;
-  background: var(--mood-color, var(--lunel-green));
-  opacity: 0.2;
-  transition: opacity 160ms var(--lunel-ease-in-out);
+  /* Simulator: the dots off the selected row and column are a neutral grey
+     (212,211,211 on white — 20 % of the text colour), the lit cross is the
+     mood colour itself (71,167,71 for Calm), not a tint of it. */
+  background: rgba(38, 36, 34, 0.2);
+  transition: background-color 160ms var(--lunel-ease-in-out);
 }
 
 .lunel-grid__dot[data-lit] {
-  opacity: 0.55;
-  box-shadow: 0 0 4px var(--mood-color, var(--lunel-green));
+  background: var(--mood-color, var(--lunel-green));
+  box-shadow: 0 0 3px var(--mood-color, var(--lunel-green));
 }
 
 .lunel-grid__sel {
   position: absolute;
+  left: 0;
+  top: 0;
   width: 24px;
   height: 24px;
   margin: -12px 0 0 -12px;
+  /* position: a JS spring (checklist.js, selTick) writes this transform
+     every frame. The circle itself is the ::before, so its own scale does not
+     stretch the translation. */
+}
+.lunel-grid__sel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
   border-radius: 50%;
   background: var(--mood-color, var(--lunel-green));
   box-shadow: 0 0 8px var(--mood-color, var(--lunel-green));
-  transition: transform var(--lunel-spring-ring-select-dur) var(--lunel-spring-ring-select),
-    background-color 200ms var(--lunel-ease-in-out);
+  /* 1.25 while held — spring(response .35, damping .6) */
+  transition: transform 450ms cubic-bezier(.3, 1.4, .5, 1),
+    background-color 200ms var(--lunel-ease-in-out),
+    box-shadow 200ms var(--lunel-ease-in-out);
+}
+.lunel-grid__sel[data-drag]::before {
+  transform: scale(1.25);
 }
 
 /* ---------- page dim behind the sheet ------------------------------------ */
 
 .lunel-page {
-  transform-origin: top center;
-  transition: transform var(--lunel-spring-sheet-dur) var(--lunel-spring-sheet),
-    opacity var(--lunel-spring-sheet-dur) var(--lunel-spring-sheet);
+  transition: opacity var(--lunel-sheet-open-dur) var(--lunel-sheet-open);
 }
 
+/* Under a checklist sheet Home fades to 0.3 (simulator: «Today» goes from 9
+   to 186 on the cream) and its content shrinks to 0.9 about the point under
+   the status bar (201, 62) — Learn cards map 20 → 38,1 and 856 → 776,6 —
+   but the pinned header does not shrink: «Today» stays at x 24. So the
+   scale goes on the blocks under the header ([data-dim-scale]); checklist.js
+   points each one's origin at that same screen point. */
 .lunel-page[data-dimmed] {
+  opacity: 0.3;
+}
+.lunel-page [data-dim-scale] {
+  transition: transform var(--lunel-sheet-open-dur) var(--lunel-sheet-open);
+}
+.lunel-page[data-dimmed] [data-dim-scale] {
   transform: scale(0.9);
-  opacity: 0.25;
+}
+/* A host page without such blocks shrinks whole, as before. */
+.lunel-page:not(:has([data-dim-scale])) {
+  transform-origin: 50% var(--lunel-safe-top);
+  transition: transform var(--lunel-sheet-open-dur) var(--lunel-sheet-open),
+    opacity var(--lunel-sheet-open-dur) var(--lunel-sheet-open);
+}
+.lunel-page[data-dimmed]:not(:has([data-dim-scale])) {
+  transform: scale(0.9);
 }
 
 /* ---------- toast -------------------------------------------------------- */

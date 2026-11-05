@@ -18,23 +18,92 @@
 }
 
 .lunel-trends__header {
+  /* The 60pt bar under the status bar (simulator: export button 334,68,
+     large title text at y 75,2; compact title 73,3 over the window line 91,5). */
+  position: relative;
   flex: none;
-  padding: 4px var(--lunel-gutter-24) 12px;
+  height: 60px;
+}
+
+.lunel-trends__large {
+  position: absolute;
+  left: var(--lunel-gutter-24);
+  top: 12.5px;
 }
 
 .lunel-trends__title {
   color: var(--lunel-text);
 }
 
+.lunel-trends__compact {
+  position: absolute;
+  left: 72px;
+  right: 72px;
+  top: 6px;
+  height: 44px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.lunel-trends__compact-title {
+  color: var(--lunel-text);
+  line-height: 20px;
+}
+
 .lunel-trends__window {
-  margin-top: 2px;
-  font-size: var(--lunel-body3-size);
-  line-height: var(--lunel-body3-line);
   color: var(--lunel-text-grey);
+  white-space: nowrap;
   font-variant-numeric: tabular-nums;
 }
 
+.lunel-trends__export {
+  position: absolute;
+  right: var(--lunel-gutter-24);
+  top: 6px;
+}
+.lunel .lunel-trends__export svg { stroke-width: 1.5; }
+
+/* ---------- summary page (AnalyticsView+SummaryCards) -------------------- */
+
+.lunel-trends__page--summary .lunel-subheader { margin-top: 0; }
+.lunel-trends__page--summary { margin-top: -3px; }
+.lunel-tsum__pair + .lunel-subheader,
+.lunel-tsum__card--wide + .lunel-subheader { margin-top: 24px; }
+.lunel-tsum__pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.lunel-tsum__card {
+  /* 72 tall: label at 15,5, value 5,8 under it, 14,4 below (simulator). */
+  padding: 15.5px 16px 14.4px;
+  border-radius: 24px;
+  background: var(--lunel-white);
+}
+.lunel-tsum__card--wide { padding: 19.5px 16px 18.4px; }
+.lunel-tsum__label {
+  font-size: var(--lunel-body3-size);
+  line-height: 17px;
+  font-weight: 400;
+  color: var(--lunel-text-grey);
+}
+.lunel-tsum__value {
+  margin-top: 5.8px;
+  font-size: var(--lunel-body2-size);
+  line-height: 19.3px;
+  color: var(--lunel-text);
+  white-space: nowrap;
+}
+
 .lunel-trends__pages {
+  /* Page titles sit at y 135,7 on the simulator: 10 below the 60pt bar. */
+  padding-top: 10px;
+  scroll-padding-top: 10px;
   flex: 1 1 auto;
   min-height: 0;
   overflow-y: auto;
@@ -58,8 +127,8 @@
 
 .lunel-seg {
   position: relative;
-  display: inline-flex;
-  max-width: 100%;
+  display: flex;
+  width: 100%;
   padding: 4px;
   border-radius: var(--lunel-r-pill);
   background: var(--lunel-bg-dark);
@@ -72,28 +141,27 @@
   top: 4px;
   bottom: 4px;
   left: 4px;
-  width: var(--seg-w, 50%);
+  right: 50%;
   border-radius: var(--lunel-r-pill);
   background: var(--lunel-white);
   /* no shadow — the app's selected pill is flat white */
-  transform: translateX(var(--seg-x, 0px)) scaleX(var(--seg-sx, 1));
-  transform-origin: left center;
   z-index: -1;
 }
 
 .lunel-seg button {
-  /* sized by content, not halves: "3 ПОСЛЕДНИХ ЦИКЛА" is 40% longer than
-     "LAST 3 CYCLES" and would clip in a fixed half */
-  flex: 0 1 auto;
+  /* Two equal halves (simulator: 173 × 36 each at x 28 / 201), Subtitle 2
+     in sentence case — "Last 3 cycles", "3 последних цикла". */
+  flex: 1 1 0;
   min-width: 0;
   min-height: 36px;
-  padding: 0 12px;
+  padding: 0 8px;
+  text-align: center;
+  justify-content: center;
   border-radius: var(--lunel-r-pill);
   font-size: var(--lunel-subtitle2-size);
   line-height: var(--lunel-subtitle2-line);
   font-weight: 500;
   letter-spacing: var(--lunel-subtitle2-tracking);
-  text-transform: uppercase;
   color: var(--lunel-text);
   white-space: nowrap;
   overflow: hidden;
@@ -232,28 +300,28 @@
 /* ---------- page dots ---------------------------------------------------- */
 
 .lunel-trends__dots {
+  /* deckPageControl in the right gutter: dots centred on x 393, the column
+     centred at y ≈ 428 on the screen. */
   position: absolute;
   right: 5px;
-  top: 50%;
+  top: calc(50% - 40px);
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  align-items: center;
+  gap: 8px;
   z-index: 3;
   pointer-events: none;
 }
 
 .lunel-trends__dots i {
-  width: 6px;
-  height: 6px;
+  display: block;
   border-radius: 50%;
-  background: var(--lunel-text-light-grey);
-  transition: transform 200ms var(--lunel-ease-ios), background-color 200ms linear;
+  background: var(--lunel-brand-medium);
 }
 
 .lunel-trends__dots i[data-on] {
   background: var(--lunel-brand);
-  transform: scale(1.4);
 }
 
 @media (prefers-reduced-motion: reduce) {

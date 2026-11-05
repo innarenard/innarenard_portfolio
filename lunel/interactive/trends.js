@@ -21,6 +21,15 @@
         'Flow intensity': 'Flow intensity',
         'Mood and energy by phase': 'Mood and energy by phase',
         'Activity by phase': 'Activity by phase',
+        'Next period': 'Next period',
+        'Expected start': 'Expected start',
+        'Days until': 'Days until',
+        Overview: 'Overview',
+        'Completed cycles': 'Completed cycles',
+        Logged: 'Logged',
+        'Data Summary': 'Data summary',
+        'Based on data from': 'Based on data from',
+        Export: 'Export',
         'Last 3 cycles': 'Last 3 cycles',
         'All time': 'All time',
         flow_mild: 'Mild',
@@ -55,6 +64,15 @@
         'Flow intensity': 'Интенсивность выделений',
         'Mood and energy by phase': 'Настроение и энергия по фазам',
         'Activity by phase': 'Активность по фазам',
+        'Next period': 'Следующий цикл',
+        'Expected start': 'Ожидаемый старт',
+        'Days until': 'Осталось дней',
+        Overview: 'Обзор',
+        'Completed cycles': 'Завершено циклов',
+        Logged: 'Отмечено',
+        'Data Summary': 'Сводка данных',
+        'Based on data from': 'На основе данных с',
+        Export: 'Экспорт',
         'Last 3 cycles': '3 последних цикла',
         'All time': 'Всё время',
         flow_mild: 'Скудные',
@@ -229,7 +247,9 @@
   function windowStart(iso, lang, withYear) {
     var p = iso.split('-');
     var date = new Date(+p[0], +p[1] - 1, +p[2]);
-    var opts = { day: 'numeric', month: 'short' };
+    /* The app formats these with the abbreviated month, which in Russian
+       comes out spelled in full ("26 марта–Сегодня", "26 марта 2026 г."). */
+    var opts = { day: 'numeric', month: /^ru/.test(lang) ? 'long' : 'short' };
     if (withYear) opts.year = 'numeric';
     try {
       return new Intl.DateTimeFormat(lang, opts).format(date);
@@ -241,6 +261,27 @@
   L.define('trends', function (root) {
     var lang = L.i18n.langOf(root);
     var windowKey = 'last3';
+
+    /* MainScreenHeader in its continuous Trends mode: a leading H1 «Trends»
+       on the first page, cross-faded by the deck's scroll into a centred H3
+       title over the Caption 1 window line, and the ⌀44 glass export button
+       on the right. Hosts may still ship the old title + window markup; it is
+       replaced here. */
+    var headerEl = root.querySelector('.lunel-trends__header');
+    if (headerEl) {
+      headerEl.innerHTML =
+        '<div class="lunel-trends__large" data-large>' +
+        '<h2 class="lunel-h1 lunel-trends__title" data-i18n="Trends">Trends</h2></div>' +
+        '<div class="lunel-trends__compact" data-compact aria-hidden="true">' +
+        '<p class="lunel-h3 lunel-trends__compact-title" data-i18n="Trends">Trends</p>' +
+        '<p class="lunel-caption1 lunel-trends__window" data-window></p></div>' +
+        '<button type="button" class="lunel-home__action lunel-trends__export" data-i18n-label="Export" aria-label="Export">' +
+        '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.99951 17.0001C2.99951 17.9301 2.99951 18.3951 3.10174 18.7766C3.37914 19.8118 4.18778 20.6205 5.22306 20.8979C5.60456 21.0001 6.06954 21.0001 6.9995 21.0001H16.9995C17.9295 21.0001 18.3945 21.0001 18.776 20.8979C19.8112 20.6205 20.6199 19.8118 20.8973 18.7766C20.9995 18.3951 20.9995 17.9301 20.9995 17.0001M16.5001 11.5002C16.5001 11.5002 13.1859 16.0002 12 16.0002C10.8142 16.0002 7.5001 11.5002 7.5001 11.5002M12 15.0002V3.00012" style="stroke-width:1.5"/></svg>' +
+        '</button>';
+      L.i18n.apply(headerEl, lang);
+    }
+    var largeEl = root.querySelector('[data-large]');
+    var compactEl = root.querySelector('[data-compact]');
 
     var pagesEl = root.querySelector('[data-pages]');
     var dotsEl = root.querySelector('[data-dots]');
@@ -276,33 +317,28 @@
       return seg;
     }
 
-    /* The pill's two edges move on different springs, 70 ms apart, so it
-       stretches into a drop and settles (§2.7). Here: translateX on the
-       leading edge plus a scaleX overshoot that lands 70 ms later. */
+    /* TrendsSegmentedControl: two equal halves, a flat white capsule. Its
+       edge in the direction of travel springs fast (response .26), the other
+       follows 70 ms later on a softer spring (.36), so the pill stretches into
+       a drop and settles. Here the two edges are the pill's left and right,
+       each on its own transition. */
     function placePill(record, animate) {
       var index = windowKey === 'all' ? 1 : 0;
-      var target = record.buttons[index];
-      var seg = record.el;
-      var x = target.offsetLeft - 4;
-      var w = target.offsetWidth;
-      record.pill.style.width = w + 'px';
-      var prev = parseFloat(record.pill.style.getPropertyValue('--seg-x')) || 0;
-      record.pill.style.setProperty('--seg-x', x + 'px');
-      if (!animate || L.motion.reduced() || !record.pill.animate) {
-        record.pill.style.setProperty('--seg-sx', '1');
-        return;
+      var pill = record.pill;
+      var left = index * 50;
+      var right = (1 - index) * 50;
+      if (!animate || L.motion.reduced()) {
+        pill.style.transition = 'none';
+      } else {
+        var movingRight = index === 1;
+        var front = 'var(--lunel-spring-snappy-dur, 300ms) var(--lunel-spring-snappy, cubic-bezier(.3,1.25,.45,1))';
+        var back = '420ms cubic-bezier(.3,1.15,.45,1) 70ms';
+        pill.style.transition = movingRight
+          ? 'right ' + front + ', left ' + back
+          : 'left ' + front + ', right ' + back;
       }
-      var distance = Math.abs(x - prev);
-      var stretch = 1 + Math.min(distance / w, 0.45);
-      record.pill.animate(
-        [
-          { transform: 'translateX(' + prev + 'px) scaleX(1)' },
-          { transform: 'translateX(' + (prev + (x - prev) * 0.55) + 'px) scaleX(' + stretch + ')', offset: 0.45 },
-          { transform: 'translateX(' + x + 'px) scaleX(1)' }
-        ],
-        { duration: 420, easing: 'cubic-bezier(.26,.8,.2,1)', fill: 'none' }
-      );
-      void seg;
+      pill.style.left = 'calc(4px + ' + left + '% - ' + (left / 50) * 4 + 'px)';
+      pill.style.right = 'calc(4px + ' + right + '% - ' + (right / 50) * 4 + 'px)';
     }
 
     function card() {
@@ -329,6 +365,62 @@
       top.appendChild(logs);
       body.appendChild(top);
       return { name: name, logs: logs };
+    }
+
+    /* -------- page 0: summary (AnalyticsView+SummaryCards) --------
+       NEXT PERIOD (expected start · days until), OVERVIEW (completed cycles ·
+       logged days), DATA SUMMARY (based on data from). Not window-dependent. */
+
+    var SUMMARY = { anchor: '2026-03-01', today: 2, cycle: 28, completed: 7, logged: 118, from: '2025-12-01' };
+
+    function summaryValues() {
+      var p = SUMMARY.anchor.split('-');
+      var anchor = new Date(+p[0], +p[1] - 1, +p[2]);
+      var start = L.dates.addDays(anchor, SUMMARY.cycle - 1);
+      var end = L.dates.addDays(anchor, SUMMARY.cycle + 2);
+      var lower = SUMMARY.cycle - SUMMARY.today;
+      var upper = lower + 3;
+      return {
+        expected: L.dates.shortRange(start, end, lang),
+        until: lower + '–' + L.i18n.t('analytics_days_until_count', lang, [upper]),
+        completed: String(SUMMARY.completed),
+        logged: L.i18n.t('analytics_days_until_count', lang, [SUMMARY.logged]),
+        from: windowStart(SUMMARY.from, lang, true) + ' – ' + L.i18n.t('Today', lang, [])
+      };
+    }
+
+    function summaryItem(labelKey, valueKey) {
+      return '<div class="lunel-tsum__item">' +
+        '<p class="lunel-tsum__label" data-block-title="' + labelKey + '"></p>' +
+        '<p class="lunel-tsum__value" data-sum="' + valueKey + '"></p></div>';
+    }
+
+    function buildSummaryPage() {
+      var page = document.createElement('section');
+      page.className = 'lunel-trends__page lunel-trends__page--summary';
+      page.innerHTML =
+        '<h3 class="lunel-subheader" data-block-title="Next period"></h3>' +
+        '<div class="lunel-tsum__pair">' +
+        '<div class="lunel-tsum__card">' + summaryItem('Expected start', 'expected') + '</div>' +
+        '<div class="lunel-tsum__card">' + summaryItem('Days until', 'until') + '</div></div>' +
+        '<h3 class="lunel-subheader" data-block-title="Overview"></h3>' +
+        '<div class="lunel-tsum__pair">' +
+        '<div class="lunel-tsum__card">' + summaryItem('Completed cycles', 'completed') + '</div>' +
+        '<div class="lunel-tsum__card">' + summaryItem('Logged', 'logged') + '</div></div>' +
+        '<h3 class="lunel-subheader" data-block-title="Data Summary"></h3>' +
+        '<div class="lunel-tsum__card lunel-tsum__card--wide">' + summaryItem('Based on data from', 'from') + '</div>';
+      page.querySelectorAll('[data-block-title]').forEach(function (el) {
+        el.textContent = L.i18n.t(el.getAttribute('data-block-title'), lang, []);
+      });
+      pages.push({ el: page, kind: 'summary', rows: [] });
+      pagesEl.appendChild(page);
+    }
+
+    function renderSummary() {
+      var v = summaryValues();
+      root.querySelectorAll('[data-sum]').forEach(function (el) {
+        el.textContent = v[el.getAttribute('data-sum')];
+      });
     }
 
     /* -------- page 1: flow intensity -------- */
@@ -452,6 +544,7 @@
     /* ------------------------------------------------------ rendering */
 
     function render(animate) {
+      renderSummary();
       var data = DATA[windowKey];
       windowEl.textContent =
         windowStart(data.window, lang, windowKey === 'all') + '–' +
@@ -538,21 +631,42 @@
 
     /* ---------------------------------------------------------- pages */
 
+    /* deckPageControl: a sliding window of at most five dots, 8 pt with an
+       8 pt gap; dots next to a window edge with hidden pages beyond taper to 6
+       and 4. Current = Brand/Main, the rest Brand/Medium. */
+    var currentIndex = 0;
+
     function buildDots() {
       dotsEl.textContent = '';
-      pages.forEach(function (page, index) {
+      var count = pages.length;
+      if (count < 2) return;
+      var visible = Math.min(5, count);
+      var start = Math.max(0, Math.min(currentIndex - 2, count - visible));
+      for (var i = start; i < start + visible; i++) {
         var dot = document.createElement('i');
-        if (index === 0) dot.setAttribute('data-on', '');
+        var fromStart = i - start;
+        var fromEnd = start + visible - 1 - i;
+        var size = 8;
+        if (start + visible < count) { if (fromEnd === 0) size = 4; else if (fromEnd === 1) size = 6; }
+        if (start > 0) { if (fromStart === 0) size = 4; else if (fromStart === 1) size = 6; }
+        dot.style.width = dot.style.height = size + 'px';
+        if (i === currentIndex) dot.setAttribute('data-on', '');
         dotsEl.appendChild(dot);
-      });
+      }
+    }
+
+    function syncHeader() {
+      /* The large title fades out over the first 40 pt of deck scroll. */
+      var p = U.clamp(pagesEl.scrollTop / 40, 0, 1);
+      if (largeEl) largeEl.style.opacity = String(1 - p);
+      if (compactEl) compactEl.style.opacity = String(p);
     }
 
     function syncDots() {
       var index = Math.round(pagesEl.scrollTop / Math.max(pagesEl.clientHeight, 1));
-      var dots = dotsEl.children;
-      for (var i = 0; i < dots.length; i++) {
-        if (i === index) dots[i].setAttribute('data-on', '');
-        else dots[i].removeAttribute('data-on');
+      if (index !== currentIndex) {
+        currentIndex = index;
+        buildDots();
       }
       /* draw a page in the first time it is reached */
       var page = pages[index];
@@ -563,16 +677,19 @@
     }
 
     pagesEl.addEventListener('scroll', function () {
+      syncHeader();
       window.clearTimeout(pagesEl._t);
       pagesEl._t = window.setTimeout(syncDots, 60);
     });
 
     /* ----------------------------------------------------------- boot */
 
+    buildSummaryPage();
     buildFlowPage();
     buildMoodPage();
     buildActivityPage();
     buildDots();
+    syncHeader();
     render(false);
 
     segs.forEach(function (record) {
@@ -586,6 +703,7 @@
 
     function drawIn() {
       pages[0].el.setAttribute('data-drawn', '');
+      if (pages[1]) pages[1].el.setAttribute('data-drawn', '');
       render(true);
     }
 
@@ -607,6 +725,7 @@
       root.querySelectorAll('[data-seg-label]').forEach(function (el) {
         el.textContent = L.i18n.t(el.getAttribute('data-seg-label'), lang, []);
       });
+      if (headerEl) L.i18n.apply(headerEl, lang);
       render(false);
       segs.forEach(function (record) { placePill(record, false); });
     });

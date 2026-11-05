@@ -45,58 +45,52 @@
   top: 0;
   z-index: 3;
 }
-/* Замерено по 121_home_follicular_02, x=196: от низа статус-бара крем держится
-   сплошным примерно до y 85, дальше просвечивает карточка и к y 127 вуаль
-   сходит на нет. Это 68 pt от верха шапки, сплошных из них около трети. */
+/* Шапка стоит внутри хоста кольца (.lunel-home высотой 414), а sticky не
+   выходит за родителя — на прокрутке 390 шапка уезжала вместе с кольцом.
+   В приложении она приколота на 62 на всю прокрутку, поэтому обе обёртки
+   растворяются в колонке и шапка липнет к самой колонке. */
+.lunel .lunel-home__scroll > [data-lunel-component="cycle-ring"],
+.lunel .lunel-home__scroll > [data-lunel-component="cycle-ring"] > .lunel-home {
+  display: contents;
+}
+/* HomeScreenHeader.backdrop: the 60pt row is a linear Background/Main →
+   clear gradient over ProgressiveBlurView — a light UIBlurEffect held at
+   30 % (≈ radius 8) and masked black → clear top to bottom. Measured on the
+   iPhone 17 simulator: a subheader scrolled to the header's bottom edge is
+   as sharp as anywhere else and only ~4 % lighter. */
 .lunel .lunel-home__header::before {
   content: "";
   position: absolute;
-  inset: 0 0 -8px;
+  inset: 0;
   z-index: -1;
   pointer-events: none;
-  background: linear-gradient(
-    to bottom,
-    var(--lunel-bg) 0%,
-    var(--lunel-bg) 30%,
-    rgba(250, 247, 242, 0) 100%);
+  background: linear-gradient(to bottom, var(--lunel-bg) 0%, rgba(250, 247, 242, 0) 100%);
 }
 .lunel .lunel-home__blur {
   position: absolute;
   left: 0;
   right: 0;
-  top: -1px;
-  height: 84px;
+  top: 0;
+  height: 60px;
   z-index: -2;
   pointer-events: none;
 }
 .lunel .lunel-home__blur span {
   position: absolute;
   inset: 0;
-  display: block;
+  display: none;
 }
 .lunel .lunel-home__blur span:nth-child(1) {
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
-  mask-image: linear-gradient(to bottom, #000 0%, #000 100%);
-}
-.lunel .lunel-home__blur span:nth-child(2) {
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  mask-image: linear-gradient(to bottom, #000 0%, #000 62%, transparent 86%);
-}
-.lunel .lunel-home__blur span:nth-child(3) {
-  backdrop-filter: blur(11px);
-  -webkit-backdrop-filter: blur(11px);
-  mask-image: linear-gradient(to bottom, #000 0%, #000 40%, transparent 64%);
-}
-.lunel .lunel-home__blur span:nth-child(4) {
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  mask-image: linear-gradient(to bottom, #000 0%, #000 20%, transparent 42%);
+  display: block;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  mask-image: linear-gradient(to bottom, #000 0%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 100%);
 }
 
 /* The ⌀44 header button. iOS 26 Liquid Glass is *clear* here — no tint, the
-   page shows through (§12.10). */
+   page shows through (§12.10). Measured on the iPhone 17 simulator: the fill is
+   the page darkened by ~1 %, the edge a hairline of about (180,176,170). */
 .lunel .lunel-home__action {
   flex: none;
   width: 44px;
@@ -106,21 +100,26 @@
   border: 0;
   border-radius: 999px;
   cursor: pointer;
-  background: var(--lunel-white-light);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .5);
+  background: rgba(120, 100, 80, .025);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  box-shadow:
+    inset 0 0 0 .5px rgba(70, 62, 52, .42),
+    inset 0 1px 1px rgba(255, 255, 255, .7),
+    0 1px 6px rgba(60, 50, 40, .05);
   color: var(--lunel-icon);
 }
 .lunel .lunel-home__action svg {
-  width: 21px;
-  height: 21px;
+  width: 24px;
+  height: 24px;
   fill: none;
   stroke: currentColor;
-  stroke-width: 1.7;
+  stroke-width: 1.25;
+  stroke-miterlimit: 10;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+.lunel .lunel-home__action svg .dot { stroke-width: 1.66667; }
 
 /* ---------- sections below the ring ------------------------------------- */
 
@@ -169,10 +168,11 @@
   flex: none;
   width: 20px;
   height: 20px;
-  color: var(--lunel-brand);
+  /* NoteExpand is a template image tinted Icons/Main — grey, not Brand. */
+  color: var(--lunel-icon);
   fill: none;
   stroke: currentColor;
-  stroke-width: 1.8;
+  stroke-width: 1.5;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
@@ -180,54 +180,74 @@
 
 /* ---------- learn about this phase -------------------------------------- */
 
-/* Measured off the simulator (121_home_follicular_02, y 283–387): three cards
-   across 353 with a 12pt gutter — 109.7 wide — and 104 tall. Not the 8pt the
-   rest of the screen uses. */
+/* iPhone 17 simulator, accessibility frames (2026-11-05): three cards at
+   x 20 / 143,3 / 266,7, each 115,3 × 104 — an 8pt gutter. (An older build
+   measured on 393 pt had 12.) */
 .lunel .lunel-learn__row {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
+  gap: 8px;
 }
+/* HomeStoryThumbnailCardView: a 104pt tile, radius 28, padding 16 / 12.
+   Phase *light* fill (10 %) with a phase *medium* (55 %) disc as wide as the
+   card, centred 19pt below the top edge and blurred by width × 0.156; a 32pt
+   White/Medium circle holding the 20pt glyph in the phase colour; 20pt below
+   it a centred Body 3 label in the phase dark colour. */
 .lunel .lunel-learn__card {
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 14px;
-  min-height: 104px;
-  padding: 12px;
+  align-items: center;
+  /* VStack centred in the fixed 104: 32 + 20 + 17 = 69 inside 72 of
+     padding box, so the circle starts at 17,5 (simulator: glyph at 23,7). */
+  justify-content: center;
+  gap: 20px;
+  height: 104px;
+  padding: 16px 12px;
   border: 0;
-  border-radius: var(--lunel-r-card-lg);
+  border-radius: 28px;
   cursor: pointer;
   font: inherit;
-  text-align: left;
+  text-align: center;
   color: var(--lunel-learn-dark);
   overflow: hidden;
-  /* Замерено по 121_home_follicular_02: вертикальный градиент цвета фазы
-     поверх кремовой страницы, сверху 43 %, снизу 11 % — #B2EAE1 → #E7F3ED.
-     Никакой диагонали и никакого тёмного низа. */
-  background: linear-gradient(
-    to bottom,
-    rgba(var(--lunel-learn-rgb), 0.43) 0%,
-    rgba(var(--lunel-learn-rgb), 0.11) 100%);
+  isolation: isolate;
+  background: rgba(var(--lunel-learn-rgb), 0.1);
+}
+.lunel .lunel-learn__glow {
+  position: absolute;
+  left: 0;
+  top: 19px;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: rgba(var(--lunel-learn-rgb), 0.55);
+  filter: blur(18px);
+  z-index: -1;
+  pointer-events: none;
 }
 .lunel .lunel-learn__icon {
+  flex: none;
   width: 32px;
   height: 32px;
   display: grid;
   place-items: center;
   border-radius: 999px;
-  /* кружок заметно насыщеннее карточки: замерено ~52 % того же цвета */
-  background: rgba(var(--lunel-learn-rgb), 0.52);
+  background: var(--lunel-white-medium);
+  color: var(--lunel-learn-main);
 }
 .lunel .lunel-learn__icon svg {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   fill: currentColor;
-  color: var(--lunel-text-white);
 }
-/* подпись — тёмный тон фазы (#003D35 на фолликулярной), не белый */
-.lunel .lunel-learn__name { color: var(--lunel-learn-dark); }
+.lunel .lunel-learn__name {
+  width: 100%;
+  line-height: 17px;
+  color: var(--lunel-learn-dark);
+  white-space: nowrap;
+}
 
 /* ---------- empty Home (§3.6 AwaitingFirstPeriodView) ------------------- */
 
@@ -308,3 +328,8 @@
   animation: none;
   transform: rotate(145deg);
 }
+
+/* Inside Home the section already carries the 20pt gutter; the standalone
+   insights screen keeps its own. Simulator: cards at x 20 and 205, 177 wide. */
+.lunel .lunel-home__block .lunel-insights,
+.lunel .lunel-home__sections .lunel-insights { padding: 0; }

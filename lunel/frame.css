@@ -88,6 +88,12 @@
 .lunel-frame__piece--phone .lunel {
   --lunel-frame-bezel: #f2f1ef;
   --lunel-frame-bezel-width: 7px;
+  /* Коллаж снят на 393 × 852 (iPhone 16), и все коробки в frame.js
+     посчитаны от этой ширины. Компоненты с 2026-11-05 сверены с iPhone 17
+     (402 × 874), но внутри фрейма телефон остаётся прежнего размера. */
+  --lunel-frame-w: 393px;
+  --lunel-frame-h: 852px;
+  --lunel-safe-top: 59px;
 }
 
 /* Кольцо стоит на подложке фрейма, без экрана и без шапки «Today». */

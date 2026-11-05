@@ -66,6 +66,9 @@
   position: relative;
 }
 
+/* AIInsightStatusPill: 14pt icon + Caption 3 (SF 9/12 semibold), padding
+   4 / 8 / 4 / 4, gap 4. Collecting: White/Light, radius 16, Text/Grey.
+   Ready: White, radius 12, Text/Black, a 2pt glow in the tint dark at 20 %. */
 .lunel-ipill {
   display: inline-flex;
   align-items: center;
@@ -77,24 +80,29 @@
   font-size: var(--lunel-caption3-size);
   line-height: var(--lunel-caption3-line);
   font-weight: var(--lunel-weight-semibold);
-  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .lunel-icard[data-ready] .lunel-ipill {
   border-radius: 12px;
   background: var(--lunel-white);
   color: var(--lunel-text);
-  box-shadow: 0 0 0 2px var(--card-dark-20);
+  box-shadow: 0 0 2px var(--card-dark-20);
 }
 
-.lunel-ipill svg {
-  width: 14px;
-  height: 14px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+.lunel-ipill svg { flex: none; display: block; }
+.lunel-ipill__collecting {
+  width: 15px;
+  height: 14.98px;
+  margin: -0.98px -1px 0 0;
+  transform: translate(0.5px, -0.49px);
+}
+.lunel-ipill__ready {
+  width: 12px;
+  height: 12px;
+  margin: 1px 0 1px 2px;
+  transform: translateX(1px);
+  fill: var(--lunel-text-dark-grey);
 }
 
 .lunel-icard__name {
@@ -105,14 +113,20 @@
   font-size: var(--lunel-body1-size);
   line-height: var(--lunel-body1-line);
   font-weight: var(--lunel-weight-semibold);
+  letter-spacing: var(--lunel-body-tracking);
   color: var(--lunel-text);
 }
 
+/* AIInsightCardCaption: Caption 3 in a 12pt row; Updated in Text/Dark grey. */
 .lunel-icard__caption {
-  font-size: var(--lunel-caption2-size);
-  line-height: var(--lunel-caption2-line);
+  height: 12px;
+  font-size: var(--lunel-caption3-size);
+  line-height: var(--lunel-caption3-line);
+  font-weight: var(--lunel-weight-semibold);
   color: var(--lunel-text-grey);
+  white-space: nowrap;
 }
+.lunel-icard__caption[data-updated] { color: var(--lunel-text-dark-grey); }
 
 /* ---------- page dim behind the modal -----------------------------------
    The app never uses the system grey scrim: the PAGE shrinks to .9 from its
@@ -124,9 +138,11 @@
     opacity var(--lunel-spring-sheet-dur) var(--lunel-spring-sheet);
 }
 
-.lunel-dimmable[data-dimmed] {
-  transform: scale(0.9);
-  opacity: 0.25;
+/* Behind «Your week» the page only fades — «Today» keeps its place (iPhone
+   17 simulator). The checklist sheets are different: there the page also
+   shrinks to 0.9 (.lunel-page[data-dimmed] in checklist.css). */
+.lunel-dimmable[data-faded] {
+  opacity: 0.3;
   pointer-events: none;
 }
 
@@ -149,21 +165,24 @@
 }
 
 .lunel-weekly__panel {
+  /* iOS 26 content-hugging sheet: laid out full width, then scaled and lifted
+     (--lunel-sheet-scale), rounded on every corner. The grid's own 20 is the
+     only bottom padding. */
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
-  max-height: calc(100% - 59px);
+  max-height: calc(100% - 70px);
   overflow-y: auto;
   background: var(--lunel-white);
-  border-radius: var(--lunel-r-card-xl) var(--lunel-r-card-xl) 0 0;
-  padding-bottom: calc(var(--lunel-safe-bottom) + 20px);
-  transform: translateY(0);
+  border-radius: 40px; /* 38 on the simulator, under the 0.958 */
+  transform-origin: 50% 100%;
+  transform: translateY(calc(-1 * var(--lunel-sheet-lift))) scale(var(--lunel-sheet-scale));
   transition: transform var(--lunel-dur-sheet) var(--lunel-ease-ios);
 }
 
 .lunel-weekly[data-closed] .lunel-weekly__panel {
-  transform: translateY(100%);
+  transform: translateY(calc(100% + 10px)) scale(var(--lunel-sheet-scale));
 }
 
 .lunel-weekly__grabber {
@@ -225,6 +244,11 @@
   gap: 4px;
 }
 
+.lunel-weekly__lead b { font-weight: var(--lunel-weight-semibold); }
+.lunel-weekly__block .lunel-weekly__lead:only-of-type,
+[data-weekly-next-lead] {
+  font-weight: var(--lunel-weight-semibold);
+}
 .lunel-weekly__lead {
   font-size: var(--lunel-body2-size);
   line-height: var(--lunel-body2-line);

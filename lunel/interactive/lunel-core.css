@@ -343,56 +343,78 @@
    Shared so all six screens sit in the same phone. */
 
 .lunel-tabbar {
-  /* Обведён левый верхний угол на 122_home_follicular_03 по ровному крему:
-     край выходит на 20,0 к середине бара, верх 772, низ 830. То есть бар
-     стоит по колонке контента (отступ 20), высота 58, от низа экрана 22,
-     а угол — не капсула: по профилю радиус ≈ 26. */
+  /* Замерено на симуляторе iPhone 17 (FlowenTracker, Home, 2026-11-05):
+     бар x 20,5–381,5, y 790,5–853,3 — капсула высотой 62,8, от низа экрана
+     20,7. Центры пунктов 72,6 · 158,2 · 243,7 · 329,5: шаг 85,6, то есть
+     по бокам внутри бара по 9,3. Заливки почти нет — крем просвечивает,
+     кромка — тонкая серая линия (≈171,168,161 на крае). */
   position: absolute;
-  left: 20px;
-  right: 20px;
-  bottom: 22px;
+  left: 20.5px;
+  right: 20.5px;
+  bottom: 20.7px;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   align-items: stretch;
-  height: 58px;
-  /* Замерено: иконки занимают y 784–802, подписи 812–818 при баре 772,7–830,7.
-     Отсюда 10 сверху, иконка 22, зазор 5, строка подписи 13, 8 снизу. */
-  /* По центрам подписей на эталоне (71,3 · 154,0 · 238,8 · 321,5) шаг
-     ячейки 83,4, то есть поле под пункты 333 — значит по бокам 10, а не 4. */
-  padding: 10px 10px 8px;
-  border-radius: 26px;
-  background: var(--lunel-white-medium);
-  -webkit-backdrop-filter: blur(var(--lunel-blur-glass)) saturate(180%);
-  backdrop-filter: blur(var(--lunel-blur-glass)) saturate(180%);
-  /* Тени под баром нет: на эталоне край выходит ровно на 20,0 и снаружи
-     кремовый фон не затемнён вовсе. Остаётся только кромка стекла. */
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  height: 62.8px;
+  padding: 0 9.3px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.32);
+  -webkit-backdrop-filter: blur(6px) saturate(140%);
+  backdrop-filter: blur(6px) saturate(140%);
+  /* Edge on the simulator: one device pixel of (171,168,161) on the sides
+     and bottom, a light (236→226) line with white under it on top, and no
+     shadow outside — the cream around the bar stays (250,247,242). */
+  box-shadow:
+    inset 0 0 0 0.34px rgba(70, 64, 56, 0.62),
+    inset 0 0.67px 0 rgba(255, 255, 255, 0.9);
   pointer-events: none;
   z-index: 4;
 }
 .lunel-tabbar__item {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 5px;
-  border-radius: var(--lunel-r-pill);
+  justify-content: flex-start;
+  /* Иконка 24 по центру на 815 (24,5 от верха бара), прописные подписи
+     с 832,3: строка 13 стоит с 829,6. */
+  padding-top: 12.5px;
+  gap: 2.6px;
   color: var(--lunel-icon);
 }
-/* Капсула под активным табом едва светлее самого стекла, а не белое пятно. */
+/* Капсула под активным пунктом шире колонки: x 25–120 при колонке
+   29,8–115,4, по вертикали 4,5 от краёв бара. Серая, а не белая. */
+.lunel-tabbar__item[data-active]::before {
+  content: "";
+  position: absolute;
+  top: 4.5px;
+  bottom: 4.3px;
+  left: -4.8px;
+  right: -4.8px;
+  border-radius: 999px;
+  background: rgba(60, 50, 40, 0.1);
+  z-index: -1;
+}
 .lunel-tabbar__item[data-active] {
-  background: rgba(255, 255, 255, 0.28);
   color: var(--lunel-brand);
 }
 .lunel-tabbar__icon {
   display: block;
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
 }
 .lunel-tabbar__item svg {
   display: block;
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
+}
+/* The On glyphs are 28-unit art drawn at 28pt (simulator: the selected
+   calendar is 20,3 × 23,7 against 17,7 × 20,3 at 24), centred where the
+   24pt Off glyph sits. */
+.lunel-tabbar__item[data-active] svg {
+  width: 28px;
+  height: 28px;
+  margin: -2px;
 }
 /* Иконки взяты из Assets.xcassets/Icons/Tab*.svg как есть; заливка и обводка
    переведены на currentColor, чтобы активный таб красился брендом. */
@@ -405,12 +427,18 @@
   stroke-miterlimit: 10;
 }
 .lunel-tabbar__label {
-  /* 10/13, а не Caption 1: высота прописной в эталоне 6 pt против 10 у 12 px */
+  /* 10/13, а не Caption 1: высота прописной в эталоне 7,5 pt. Подпись
+     неактивного пункта почти чёрная (симулятор: самый тёмный пиксель
+     13,11,10), не серая, как его иконка. */
   font-size: 10px;
   line-height: 13px;
   font-weight: 590;
-  color: currentColor;
+  color: #000;
   white-space: nowrap;
+}
+/* Подпись активного пункта темнее иконки: стекло гасит тинт (замер 182,81,79). */
+.lunel-tabbar__item[data-active] .lunel-tabbar__label {
+  color: #b6514f;
 }
 
 /* Ghost / secondary pill button (header "Today"), §2.2 */
@@ -432,4 +460,31 @@
 }
 .lunel-ghost-btn:active {
   transform: scale(0.96);
+}
+
+/* ---------- numericText ------------------------------------------------- */
+
+/* One span per character (Lunel.text.numeric): inline-block so a glyph can
+   move on its own; white-space: pre keeps the spaces. */
+.lunel-nt {
+  display: inline-block;
+  white-space: pre;
+}
+.lunel-nt--out {
+  pointer-events: none;
+}
+
+/* ---------- no scroll indicators ---------------------------------------- */
+
+/* The app shows no scroll bars anywhere — not in the Home column, the
+   calendar, the Trends deck or the sheets' lists. */
+.lunel,
+.lunel * {
+  scrollbar-width: none;
+}
+.lunel::-webkit-scrollbar,
+.lunel *::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
 }
