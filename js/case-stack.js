@@ -69,6 +69,10 @@
     var flowTop = flow.getBoundingClientRect().top + window.pageYOffset;
     blocks.forEach(function (b) { b.flowTop = flowTop + b.el.offsetTop; });
     if (about) aboutFlowTop = flowTop + about.offsetTop;
+    blocks.forEach(function (b) {
+      b.projectTravel = b.projects.map(function (p) { return p.offsetHeight + 24; });
+      b.doorTravel = b.doors.length && b.doors[0].offsetHeight ? b.doors[0].offsetHeight : h;
+    });
 
     if (mobile) {
       blocks.forEach(function (b) {
@@ -109,11 +113,75 @@
 
   function clamp(v) { return v < 0 ? 0 : (v > 1 ? 1 : v); }
 
+  /* ---------- Карточки внутри блока ----------
+     u — дробный номер кейса: 2.0 значит «третий стоит», 2.4 — «третий
+     прошёл сорок процентов пути к четвёртому». Уходящая карточка чуть
+     уменьшается и медленно уезжает вверх, следующая быстро поднимается
+     снизу и растёт из маленькой. Разная скорость на одном отрезке
+     прокрутки и даёт параллакс. Карточка проекта уезжает под карточку
+     компании: у той z-index выше. */
+  var DOOR_UP = 0.3;      // доля высоты, на которую уходит обложка вверх
+  var DOOR_SMALL = 0.14;  // насколько мельчает уходящая обложка
+  var DOOR_IN = 0.18;     // с какого уменьшения начинается приходящая
+  var CARD_SMALL = 0.15;  // то же для карточки проекта
+
+  function paintCards(b, u) {
+    for (var k = 0; k < b.doors.length; k++) {
+      var rel = k - u;                 // 0 — эта карточка сейчас на месте
+      if (rel > -0.01 && rel < 0.01) rel = 0;   // на остановке карточка стоит ровно
+      var off = rel < -1 || rel > 1;
+
+      var door = b.doors[k];
+      if (door) {
+        if (off) {
+          door.style.opacity = "0";
+        } else if (rel <= 0) {
+          door.style.transform = "translate3d(0," + (rel * DOOR_UP * b.doorTravel).toFixed(1) +
+            "px,0) scale(" + (1 + rel * DOOR_SMALL).toFixed(4) + ")";
+          door.style.opacity = clamp(1 + rel * 1.6).toFixed(3);
+          door.style.zIndex = "1";
+        } else {
+          door.style.transform = "translate3d(0," + (rel * b.doorTravel).toFixed(1) +
+            "px,0) scale(" + (1 - rel * DOOR_IN).toFixed(4) + ")";
+          door.style.opacity = "1";
+          door.style.zIndex = "2";
+        }
+      }
+
+      var card = b.projects[k];
+      if (!card) continue;
+      var travel = b.projectTravel[k] || 200;
+      if (off) {
+        card.style.opacity = "0";
+      } else if (rel <= 0) {
+        // уезжает под карточку компании, поэтому гаснет только у самого края
+        card.style.transform = "translate3d(0," + (rel * travel).toFixed(1) +
+          "px,0) scale(" + (1 + rel * CARD_SMALL).toFixed(4) + ")";
+        card.style.opacity = clamp((1 + rel) / 0.3).toFixed(3);
+        card.style.zIndex = "1";
+      } else {
+        card.style.transform = "translate3d(0," + (rel * travel).toFixed(1) +
+          "px,0) scale(" + (1 - rel * CARD_SMALL).toFixed(4) + ")";
+        card.style.opacity = "1";
+        card.style.zIndex = "2";
+      }
+    }
+  }
+
+  function clearCards(b) {
+    b.doors.concat(b.projects).forEach(function (el) {
+      el.style.transform = "";
+      el.style.opacity = "";
+      el.style.zIndex = "";
+    });
+  }
+
   function update() {
     if (isMobile()) {
       blocks.forEach(function (b) {
         b.doors.forEach(function (d) { toggle(d, true); });
         b.projects.forEach(function (p) { toggle(p, true); });
+        clearCards(b);
         b.active = -1;
       });
       return;
@@ -143,8 +211,12 @@
         // распорка начинается на экран ниже шапки; считаем, сколько её съели
         // +0.002: на самой границе дробь даёт 0.99999 и кейс не переключался
         var used = (HEADER + h) - spacerTops[k];
-        var i = Math.floor(used / h + 0.002);
-        setActive(b, i < 0 ? 0 : (i > b.count - 1 ? b.count - 1 : i));
+        var u = used / h + 0.002;
+        if (u < 0) u = 0;
+        if (u > b.count - 1) u = b.count - 1;
+        var i = Math.floor(u);
+        setActive(b, i);
+        paintCards(b, u);
       }
 
       // наезд следующего блока: 0 у нижнего края экрана, 1 у шапки
@@ -153,6 +225,8 @@
       // гаснет только содержимое, полотно под ним остаётся на месте
       var fade = clamp(cover * FADE);
       if (b.content) b.content.style.opacity = (1 - fade).toFixed(3);
+
+      if (!b.spacer) paintCards(b, 0);
 
       if (lefts[k] <= 0) dot = b.firstDot + (b.active > 0 ? b.active : 0);
     });
