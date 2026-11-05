@@ -8,7 +8,8 @@
   var HEADER = 88;
   var MOBILE = 700;
   var DIM = 0.03;   // насколько содержимое уменьшается, пока исчезает
-  var FADE = 1.6;   // во сколько раз исчезание опережает наезд
+  var FADE = 1.3;   // во сколько раз исчезание опережает наезд
+  var LAND = 0.68;  // на какой доле перехода блок уже стоит у шапки
 
   var flow = document.querySelector('.case-flow');
   var hero = document.querySelector('.hero');
@@ -17,6 +18,7 @@
   if (!flow || !hero) return;
 
   var dots = dotsBox ? [].slice.call(dotsBox.querySelectorAll('.page-dots__dot')) : [];
+  var aboutFlowTop = 0;
 
   var blocks = [{ el: hero, content: hero.querySelector('.hero__stage'), spacer: null, count: 1, firstDot: 0, doors: [], projects: [], active: 0 }];
 
@@ -58,8 +60,11 @@
     // место блока в потоке — его и спрашиваем, дошёл ли он до шапки
     var flowTop = flow.getBoundingClientRect().top + window.pageYOffset;
     blocks.forEach(function (b) { b.flowTop = flowTop + b.el.offsetTop; });
+    if (about) aboutFlowTop = flowTop + about.offsetTop;
+    if (mobile && about) about.style.transform = '';
     if (mobile) {
       blocks.forEach(function (b) {
+        b.el.style.transform = '';
         if (!b.content) return;
         b.content.style.opacity = '';
         b.content.style.transform = '';
@@ -110,48 +115,61 @@
     }
 
     var h = blockHeight();
+    var y = window.pageYOffset;
 
-    // сначала читаем геометрию, потом пишем стили — чтобы не дёргать раскладку
-    var read = blocks.map(function (b) {
-      return {
-        top: b.el.getBoundingClientRect().top,
-        spacerTop: b.spacer ? b.spacer.getBoundingClientRect().top : 0,
-        nextTop: b.next ? b.next.getBoundingClientRect().top : Infinity
-      };
+    // Магнит. Блок идёт к шапке быстрее прокрутки: оставшееся расстояние
+    // считается не один к одному, а по кривой, и доходит до нуля, когда
+    // прокручено LAND от перехода. Дальше сдвиг сам сходит на нет,
+    // потому что блок и так дополз до шапки.
+    function pull(flowTop) {
+      var d = flowTop - y - HEADER;     // сколько осталось до шапки
+      if (d <= 0) return { d: d, left: 0, shift: 0 };
+      var t = clamp(1 - d / h);         // 0 у нижнего края, 1 у шапки
+      var p = clamp(t / LAND);
+      var left = h * (1 - p) * (1 - p); // сколько должно остаться на вид
+      if (left > d) left = d;           // вниз не тянем
+      return { d: d, left: left, shift: left - d };
+    }
+
+    var pulls = blocks.map(function (b) { return pull(b.flowTop); });
+    var aboutPull = about ? pull(aboutFlowTop) : null;
+    var spacerTops = blocks.map(function (b) {
+      return b.spacer ? b.spacer.getBoundingClientRect().top : 0;
     });
-    var aboutTop = about ? about.getBoundingClientRect().top : Infinity;
 
     var dot = 0;
     blocks.forEach(function (b, k) {
-      var r = read[k];
+      var me = pulls[k];
+      var next = pulls[k + 1] || aboutPull;
+
+      b.el.style.transform = me.shift ? "translate3d(0," + me.shift.toFixed(1) + "px,0)" : "";
 
       if (b.spacer) {
         // распорка начинается на экран ниже шапки; считаем, сколько её съели
-        var used = (HEADER + h) - r.spacerTop;
+        var used = (HEADER + h) - spacerTops[k];
         var i = Math.floor(used / h);
         setActive(b, i < 0 ? 0 : (i > b.count - 1 ? b.count - 1 : i));
       }
 
-      // следующий блок наезжает: от нижнего края экрана до шапки
-      var cover = clamp((HEADER + h - r.nextTop) / h);
-      // гаснет только содержимое: полотно под ним остаётся на месте
+      // наезд считаем по тому, где следующий блок виден, а не где он в потоке
+      var cover = next ? clamp(1 - next.left / h) : 0;
       var fade = clamp(cover * FADE);
       if (b.content) {
         b.content.style.opacity = String(1 - fade);
         b.content.style.transform = fade ? "scale(" + (1 - DIM * fade) + ")" : "";
       }
 
-      if (window.pageYOffset + HEADER >= b.flowTop - 1) {
-        dot = b.firstDot + (b.active > 0 ? b.active : 0);
-      }
+      // блок считается текущим, как только доехал до шапки на вид
+      if (me.left <= 0) dot = b.firstDot + (b.active > 0 ? b.active : 0);
     });
 
-    if (aboutTop <= HEADER + 1) dot = dots.length - 1;
+    if (about) {
+      about.style.transform = aboutPull.shift ? "translate3d(0," + aboutPull.shift.toFixed(1) + "px,0)" : "";
+      if (aboutPull.left <= 0) dot = dots.length - 1;
+    }
     paintDots(dot);
   }
 
-  layout();
-  update();
   // браузер и так шлёт scroll не чаще кадра, лишняя защёлка только мешает
   window.addEventListener('scroll', update, { passive: true });
   window.addEventListener('resize', function () { layout(); update(); });
