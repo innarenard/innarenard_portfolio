@@ -70,7 +70,16 @@
     blocks.forEach(function (b) { b.flowTop = flowTop + b.el.offsetTop; });
     if (about) aboutFlowTop = flowTop + about.offsetTop;
     blocks.forEach(function (b) {
-      b.projectTravel = b.projects.map(function (p) { return p.offsetHeight + 24; });
+      // меряем по раскладке (offsetTop), а не по rect: на карточках уже
+      // висит сдвиг от прошлого кадра, и rect показал бы его же
+      var innerH = b.content ? b.content.offsetHeight : 0;
+      b.projectUp = b.projects.map(function (c) { return c.offsetHeight + 24; });
+      // вниз — за нижний край блока, чтобы следующую карточку не было
+      // видно заранее: блок обрезает содержимое по себе
+      b.projectDown = b.projects.map(function (c) {
+        var d = innerH - c.offsetTop + 16;
+        return d > 0 ? d : c.offsetHeight + 24;
+      });
       b.doorTravel = b.doors.length && b.doors[0].offsetHeight ? b.doors[0].offsetHeight : h;
     });
 
@@ -120,10 +129,15 @@
      снизу и растёт из маленькой. Разная скорость на одном отрезке
      прокрутки и даёт параллакс. Карточка проекта уезжает под карточку
      компании: у той z-index выше. */
-  var DOOR_UP = 0.3;      // доля высоты, на которую уходит обложка вверх
-  var DOOR_SMALL = 0.14;  // насколько мельчает уходящая обложка
-  var DOOR_IN = 0.18;     // с какого уменьшения начинается приходящая
-  var CARD_SMALL = 0.15;  // то же для карточки проекта
+  var DOOR_UP = 0.32;     // доля высоты, на которую уходит обложка вверх
+  var DOOR_SMALL = 0.22;  // насколько мельчает уходящая обложка
+  var DOOR_IN = 0.2;      // с какого уменьшения начинается приходящая
+  var CARD_UP = 0.18;     // то же для карточки проекта
+  var CARD_IN = 0.18;
+
+  // уходит — резво с самого начала; приходит — резво, а в конце мягко садится
+  function out(t) { var k = 1 - t; return 1 - k * k; }
+  function inc(t) { var k = 1 - t; return k * k; }
 
   function paintCards(b, u) {
     for (var k = 0; k < b.doors.length; k++) {
@@ -136,13 +150,16 @@
         if (off) {
           door.style.opacity = "0";
         } else if (rel <= 0) {
-          door.style.transform = "translate3d(0," + (rel * DOOR_UP * b.doorTravel).toFixed(1) +
-            "px,0) scale(" + (1 + rel * DOOR_SMALL).toFixed(4) + ")";
-          door.style.opacity = clamp(1 + rel * 1.6).toFixed(3);
+          var e = out(-rel);
+          door.style.transform = "translate3d(0," + (-e * DOOR_UP * b.doorTravel).toFixed(1) +
+            "px,0) scale(" + (1 - e * DOOR_SMALL).toFixed(4) + ")";
+          // гаснет чуть медленнее, чем мельчает, иначе уменьшения не видно
+          door.style.opacity = clamp(1 + rel * 1.7).toFixed(3);
           door.style.zIndex = "1";
         } else {
-          door.style.transform = "translate3d(0," + (rel * b.doorTravel).toFixed(1) +
-            "px,0) scale(" + (1 - rel * DOOR_IN).toFixed(4) + ")";
+          var r = inc(1 - rel);
+          door.style.transform = "translate3d(0," + (r * b.doorTravel).toFixed(1) +
+            "px,0) scale(" + (1 - r * DOOR_IN).toFixed(4) + ")";
           door.style.opacity = "1";
           door.style.zIndex = "2";
         }
@@ -150,18 +167,20 @@
 
       var card = b.projects[k];
       if (!card) continue;
-      var travel = b.projectTravel[k] || 200;
       if (off) {
         card.style.opacity = "0";
       } else if (rel <= 0) {
         // уезжает под карточку компании, поэтому гаснет только у самого края
-        card.style.transform = "translate3d(0," + (rel * travel).toFixed(1) +
-          "px,0) scale(" + (1 + rel * CARD_SMALL).toFixed(4) + ")";
-        card.style.opacity = clamp((1 + rel) / 0.3).toFixed(3);
+        var ec = out(-rel);
+        card.style.transform = "translate3d(0," + (-ec * (b.projectUp[k] || 200)).toFixed(1) +
+          "px,0) scale(" + (1 - ec * CARD_UP).toFixed(4) + ")";
+        card.style.opacity = clamp((1 + rel) / 0.25).toFixed(3);
         card.style.zIndex = "1";
       } else {
-        card.style.transform = "translate3d(0," + (rel * travel).toFixed(1) +
-          "px,0) scale(" + (1 - rel * CARD_SMALL).toFixed(4) + ")";
+        // поднимается из-за нижнего края блока — заранее её не видно
+        var rc = inc(1 - rel);
+        card.style.transform = "translate3d(0," + (rc * (b.projectDown[k] || 300)).toFixed(1) +
+          "px,0) scale(" + (1 - rc * CARD_IN).toFixed(4) + ")";
         card.style.opacity = "1";
         card.style.zIndex = "2";
       }
