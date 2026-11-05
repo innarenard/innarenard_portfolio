@@ -20,7 +20,7 @@
   <meta name="twitter:description"
     content="Product designer based in Lisbon, Portugal. 6 years in tech product teams, owning the full cycle from research to a measured result: B2B tools for dark store and warehouse operations at Samokat, education products at Moscow Electronic School, and Lunel — a personal iOS app taken from idea to App Store release.">
   <meta name="twitter:image" content="https://innarenard.com/images/lunel-preview_en.png">
-  <link href="css/home.css?v=20261105a" rel="stylesheet">
+  <link href="css/home.css?v=20261105c" rel="stylesheet">
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
@@ -144,15 +144,55 @@
 
       <!-- Hero -->
       <section class="hero">
-        <div class="hero__copy">
-          <p class="hero__intro" data-i18n="intro"><strong>Product Designer</strong> with 6 years of experience specializing in <strong>B2B products</strong> and internal tools, with additional experience in <strong>B2C product</strong> development.</p>
-          <p class="hero__body" data-i18n="hero_body">I own the <strong>end-to-end</strong> product design process – from <strong>UX research</strong> and hypothesis validation to launch and measuring <strong>business impact</strong>. I apply a <strong>data-driven</strong> approach to transform complex business processes into effective digital products.</p>
-          <p class="hero__based" data-i18n="hero_based"><span>Based in </span><strong>Lisbon, Portugal</strong></p>
-        </div>
-        <div class="hero__visual" aria-hidden="true">
-          <img class="hero__visual-card hero__visual-card--lunel" src="images/lunel-hero-logo.png" alt="">
-          <img class="hero__visual-card hero__visual-card--mes" src="images/lunel-hero-mes.png" alt="">
-          <img class="hero__visual-card hero__visual-card--other" src="images/lunel-hero-card.png" alt="">
+        <div class="hero__stage">
+
+          <!-- Работы кейса, которые показываются при наведении на его логотип в тексте -->
+          <div class="hero__scene" aria-hidden="true">
+            <div class="hero__scene-group hero__scene-group--mes">
+              <img class="hero__art hero__art--mes-phone" src="images/hero-mes-phone.png" alt="" loading="lazy">
+              <img class="hero__art hero__art--mes-chart" src="images/hero-mes-chart.png" alt="" loading="lazy">
+              <img class="hero__art hero__art--mes-pic" src="images/hero-mes-art.png" alt="" loading="lazy">
+            </div>
+            <div class="hero__scene-group hero__scene-group--samokat">
+              <img class="hero__art hero__art--samokat-thumb" src="images/hero-samokat-thumb.png" alt="" loading="lazy">
+              <img class="hero__art hero__art--samokat-card-1" src="images/hero-samokat-card-1.png" alt="" loading="lazy">
+              <img class="hero__art hero__art--samokat-card-2" src="images/hero-samokat-card-2.png" alt="" loading="lazy">
+              <img class="hero__art hero__art--samokat-sign" src="images/hero-samokat-sign.png" alt="" loading="lazy">
+            </div>
+            <div class="hero__scene-group hero__scene-group--lunel">
+              <img class="hero__art hero__art--lunel-ring" src="images/hero-lunel-ring.png" alt="" loading="lazy">
+            </div>
+          </div>
+
+          <!-- Северная Корона: семь звёзд, порядок и цвет по макету -->
+          <div class="hero__stars" aria-hidden="true">
+            <span class="hero__star hero__star--1"></span>
+            <span class="hero__star hero__star--2"></span>
+            <span class="hero__star hero__star--3"></span>
+            <span class="hero__star hero__star--4"></span>
+            <span class="hero__star hero__star--5"></span>
+            <span class="hero__star hero__star--6"></span>
+            <span class="hero__star hero__star--7"></span>
+          </div>
+
+          <div class="hero__copy">
+            <p class="hero__intro"><span
+                data-i18n="intro"><strong>Product&nbsp;Designer</strong> with 6&nbsp;years of&nbsp;experience specializing in</span>
+              <span class="hero__nowrap"><strong>B2B</strong><span
+                  class="hero__chip hero__chip--work"><span class="hero__chip-logo hero__chip-logo--mes" tabindex="0"
+                    role="img" aria-label="MES"></span><span class="hero__chip-logo hero__chip-logo--samokat"
+                    tabindex="0" role="img" aria-label="Samokat"></span></span></span> <span
+                data-i18n="intro_mid"><span class="hero__ink">products:</span> <strong>apps and web</strong>, with additional experience in</span>
+              <span class="hero__nowrap"><strong>B2C</strong><span
+                  class="hero__chip hero__chip--lunel"><span class="hero__chip-logo hero__chip-logo--lunel"
+                    tabindex="0" role="img" aria-label="Lunel"></span></span></span> <span
+                data-i18n="intro_end"><span class="hero__ink">product</span> development</span></p>
+            <p class="hero__based"><span class="hero__based-lead" data-i18n="hero_based">Based in</span>
+              <span class="hero__nowrap"><strong data-i18n="hero_city">Lisbon</strong><span
+                  class="hero__chip hero__chip--nata"><span
+                    class="hero__chip-logo hero__chip-logo--nata"></span></span></span> <span
+                data-i18n="hero_based_end">Portugal</span></p>
+          </div>
         </div>
         <div class="hero__page-control" aria-hidden="true"><span class="is-active"></span><span></span><span></span><span></span><span></span></div>
       </section>
@@ -513,7 +553,7 @@
   </div>
   <div class="panel-overlay case-study-drawer__overlay" id="panelOverlay"></div>
 
-  <script src="js/i18n.js?v=20261105a"></script>
+  <script src="js/i18n.js?v=20261105c"></script>
   <script src="js/panel.js?v=20261030g"></script>
   <script src="js/home-nav.js?v=20261030a"></script>
   <script src="js/cursor-view-case.js?v=20261030a"></script>

@@ -1690,22 +1690,42 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   }
 }
 
+/* ================================================================
+   Первый экран по макету (Figma, фрейм Hero/default)
+   Плашка 1440×676, внутри блок (70,16) 1300×630: слева сцена,
+   справа точки. Колонка текста — 150px полей внутри сцены.
+   ================================================================ */
 .hero {
   position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   height: 676px;
   margin-bottom: 0;
+  padding: 16px 0 30px;
 }
 
+.hero__stage {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  height: 630px;
+}
+
+/* ---------- Текст ---------- */
 .hero__copy {
-  position: absolute;
-  top: 80px;
-  left: 0;
-  width: min(918px, 72%);
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: 0 150px;
+  text-align: center;
 }
 
 .hero__intro {
-  max-width: 918px;
-  color: var(--portfolio-ink-soft);
+  color: var(--portfolio-ink-80);
   font-size: 32px;
   font-weight: 400;
   line-height: 48px;
@@ -1716,75 +1736,280 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   font-weight: 600;
 }
 
-.hero__body {
-  width: 581px;
-  max-width: 100%;
-  margin-top: 20px;
-  color: var(--portfolio-ink-soft);
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 22px;
+/* полный цвет, но без насыщения — ts5 в макете */
+/* слово и плашка после него не разъезжаются по строкам */
+.hero__nowrap {
+  white-space: nowrap;
 }
 
-.hero__body strong {
+.hero__ink {
   color: var(--portfolio-ink);
-  font-weight: 500;
 }
 
 .hero__based {
   margin-top: 20px;
   color: var(--portfolio-ink);
   font-size: 16px;
-  font-weight: 600;
-  line-height: 24.8px;
-}
-
-.hero__based span {
-  color: var(--portfolio-ink-soft);
   font-weight: 400;
+  line-height: 24px;
 }
 
-.hero__visual {
+.hero__based-lead {
+  color: var(--portfolio-ink-80);
+}
+
+.hero__based strong {
+  color: var(--portfolio-ink);
+  font-weight: 600;
+}
+
+/* ---------- Фреймы с логотипами, вписанные в строку ----------
+   Отрицательные поля гасят высоту: строка остаётся 48px,
+   а плашка выходит за неё вверх и вниз, как в макете. */
+.hero__chip {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  background: var(--portfolio-surface);
+  border-radius: 100px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, .06);
+}
+
+/* top правит разницу между vertical-align:middle (середина x-height)
+   и серединой строки 48px: замер показал 3px, у строки 16px — 1px */
+.hero__chip--work {
+  top: -3px;
+  width: 87px;
+  height: 52px;
+  margin: -26px 4px;
+}
+
+.hero__chip--lunel {
+  top: -3px;
+  width: 52px;
+  height: 52px;
+  margin: -26px 4px;
+}
+
+.hero__chip--nata {
+  top: -1px;
+  width: 28px;
+  height: 24px;
+  margin: -12px 4px;
+  box-shadow: 0 0 2.26px rgba(0, 0, 0, .06);
+}
+
+.hero__chip-logo {
   position: absolute;
-  inset: 0;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  transition: inset .25s cubic-bezier(.34, 1.3, .64, 1), width .25s cubic-bezier(.34, 1.3, .64, 1), height .25s cubic-bezier(.34, 1.3, .64, 1);
+}
+
+.hero__chip-logo--mes,
+.hero__chip-logo--samokat {
+  border-radius: 6.82px;
+}
+
+/* покой / ховер — обе пары чисел из макета */
+.hero__chip-logo--mes {
+  left: 7px;
+  top: 5px;
+  width: 37.85px;
+  height: 37.85px;
+  background-image: url(../images/hero-logo-mes.png);
+}
+
+.hero__chip-logo--mes:hover,
+.hero__chip-logo--mes:focus-visible {
+  left: 6.2px;
+  top: -1.98px;
+  width: 50.36px;
+  height: 50.36px;
+}
+
+.hero__chip-logo--samokat {
+  left: 41px;
+  top: 10px;
+  width: 37.97px;
+  height: 37.97px;
+  background-image: url(../images/hero-logo-samokat.png);
+}
+
+.hero__chip-logo--samokat:hover,
+.hero__chip-logo--samokat:focus-visible {
+  left: 26.47px;
+  top: -2.32px;
+  width: 52.51px;
+  height: 52.51px;
+}
+
+.hero__chip-logo--lunel {
+  left: 12px;
+  top: 11px;
+  width: 29px;
+  height: 29px;
+  background-image: url(../images/hero-logo-lunel.png);
+  background-size: contain;
+}
+
+.hero__chip-logo--lunel:hover,
+.hero__chip-logo--lunel:focus-visible {
+  left: 0;
+  top: -1px;
+  width: 52px;
+  height: 52px;
+}
+
+.hero__chip-logo--nata {
+  left: .95px;
+  top: 2.51px;
+  width: 25.11px;
+  height: 19.99px;
+  background-image: url(../images/hero-nata.png);
+  background-size: contain;
+}
+
+.hero__chip-logo:focus-visible {
+  outline: 2px solid var(--portfolio-ink);
+  outline-offset: 3px;
+}
+
+/* ---------- Работы кейса под курсором ---------- */
+.hero__scene {
+  position: absolute;
+  top: -16px;
+  left: 0;
+  width: 1300px;
+  height: 676px;
+  z-index: 1;
   pointer-events: none;
 }
 
-.hero__visual-card {
+.hero__scene-group {
   position: absolute;
-  width: 88px;
-  height: 88px;
-  border-radius: 20px;
+  inset: 0;
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+
+.hero__art {
+  position: absolute;
+  transform: translateY(8px);
+  transition: transform .4s cubic-bezier(.22, 1, .36, 1);
+}
+
+.hero__stage:has(.hero__chip-logo--mes:hover) .hero__scene-group--mes,
+.hero__stage:has(.hero__chip-logo--mes:focus-visible) .hero__scene-group--mes,
+.hero__stage:has(.hero__chip-logo--samokat:hover) .hero__scene-group--samokat,
+.hero__stage:has(.hero__chip-logo--samokat:focus-visible) .hero__scene-group--samokat,
+.hero__stage:has(.hero__chip-logo--lunel:hover) .hero__scene-group--lunel,
+.hero__stage:has(.hero__chip-logo--lunel:focus-visible) .hero__scene-group--lunel {
+  opacity: 1;
+}
+
+.hero__stage:has(.hero__chip-logo--mes:hover) .hero__scene-group--mes .hero__art,
+.hero__stage:has(.hero__chip-logo--samokat:hover) .hero__scene-group--samokat .hero__art,
+.hero__stage:has(.hero__chip-logo--lunel:hover) .hero__scene-group--lunel .hero__art {
+  transform: translateY(0);
+}
+
+/* координаты из макета, минус 70px левого поля плашки */
+.hero__art--mes-phone {
+  left: 1px;
+  top: 157px;
+  width: 111.47px;
+  height: 243.51px;
+  border: 2.3px solid #E0E0E0;
+  border-radius: 17.42px;
   object-fit: cover;
 }
 
-.hero__visual-card--lunel {
+.hero__art--mes-chart {
+  left: 73px;
   top: 320px;
-  left: 72%;
-  transform: rotate(-12.46deg);
+  width: 124px;
+  height: 100.8px;
+  border-radius: 7px;
 }
 
-.hero__visual-card--mes {
-  top: 264px;
-  left: 81%;
-  transform: rotate(18.13deg);
+.hero__art--mes-pic {
+  left: 717px;
+  top: 444px;
+  width: 370px;
+  height: 233px;
 }
 
-.hero__visual-card--other {
-  top: 422px;
-  left: 81%;
-  transform: rotate(7.29deg);
+.hero__art--samokat-thumb {
+  left: 38px;
+  top: 367px;
+  width: 133.42px;
+  height: 276px;
+  object-fit: cover;
+  object-position: top;
 }
 
-.hero__page-control {
+.hero__art--samokat-card-1 {
+  left: 1052px;
+  top: 361px;
+  width: 155.44px;
+}
+
+.hero__art--samokat-card-2 {
+  left: 200px;
+  top: 568px;
+  width: 155.44px;
+}
+
+.hero__art--samokat-sign {
+  left: 913px;
+  top: 98px;
+  width: 118px;
+  height: 96px;
+}
+
+/* кольцо в макете 220×220 на (529,447); картинка шире на размытие:
+   270×247, поэтому сдвигаем на половину вылета — 25 и 13.5 */
+.hero__art--lunel-ring {
+  left: 434px;
+  top: 433.5px;
+  width: 270px;
+  height: 247px;
+}
+
+/* ---------- Северная Корона ----------
+   Семь звёзд 8×8, координаты и цвета из макета. */
+.hero__stars {
   position: absolute;
-  top: 50%;
-  right: 0;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero__star {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.hero__star--1 { left: 39px;   top: 221px; background: #3D84E0; }
+.hero__star--2 { left: 112px;  top: 460px; background: #FF3B65; }
+.hero__star--3 { left: 270px;  top: 571px; background: #FF3B65; }
+.hero__star--4 { left: 561px;  top: 561px; background: #E86021; }
+.hero__star--5 { left: 857px;  top: 537px; background: #3D84E0; }
+.hero__star--6 { left: 1122px; top: 367px; background: #FF3B65; }
+.hero__star--7 { left: 972px;  top: 126px; background: #FF3B65; }
+
+/* ---------- Точки справа ---------- */
+.hero__page-control {
   display: flex;
+  flex: 0 0 auto;
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  transform: translateY(-50%);
+  width: 20px;
   padding: 8px 0;
 }
 
@@ -1798,6 +2023,18 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 
 .hero__page-control span.is-active {
   background: var(--portfolio-ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__chip-logo,
+  .hero__scene-group,
+  .hero__art {
+    transition: none;
+  }
+
+  .hero__art {
+    transform: none;
+  }
 }
 
 @media screen and (max-width: 700px) {
@@ -1838,35 +2075,66 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   }
 
   .hero {
+    display: block;
     height: auto;
-    min-height: 620px;
-    padding: 56px 0 80px;
+    min-height: 0;
+    padding: 40px 0 56px;
+  }
+
+  .hero__stage {
+    display: block;
+    height: auto;
   }
 
   .hero__copy {
-    position: relative;
-    top: auto;
-    width: 100%;
+    padding: 0;
   }
 
   .hero__intro {
     font-size: 24px;
-    line-height: 34px;
+    line-height: 36px;
   }
 
-  .hero__body {
-    width: 100%;
-    margin-top: 24px;
+  /* на телефоне плашки мельче, чтобы строка не рвалась */
+  .hero__chip--work {
+    width: 64px;
+    height: 38px;
+    margin: -19px 8px;
+  }
+
+  .hero__chip--work .hero__chip-logo--mes {
+    left: 5px;
+    top: 4px;
+    width: 28px;
+    height: 28px;
+  }
+
+  .hero__chip--work .hero__chip-logo--samokat {
+    left: 30px;
+    top: 7px;
+    width: 28px;
+    height: 28px;
+  }
+
+  .hero__chip--lunel {
+    width: 38px;
+    height: 38px;
+    margin: -19px 8px;
+  }
+
+  .hero__chip--lunel .hero__chip-logo--lunel {
+    left: 9px;
+    top: 8px;
+    width: 21px;
+    height: 21px;
   }
 
   .hero__based {
     margin-top: 24px;
   }
 
-  .hero__visual {
-    display: none;
-  }
-
+  .hero__scene,
+  .hero__stars,
   .hero__page-control {
     display: none;
   }
