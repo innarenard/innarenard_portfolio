@@ -8,16 +8,14 @@
   var HEADER = 88;
   var MOBILE = 700;
   var FADE = 1.3;   // во сколько раз исчезание опережает наезд
-  var THIRD = 1 / 3;  // с какой доли экрана прокрутка доводится сама
-  var DEAD = 0.05;    // мельче этого не возвращаем: иначе блок прыгает от любого касания
   /* Доводим на пиксель дальше точной остановки. При дробном devicePixelRatio
      (у Инны 1.8) шапка высотой 88px раскладывается в 87.99, и остановка
      попадает ровно на границу прилипания: браузер на каждом кадре решает
      заново, приклеен блок или ещё нет, и тот дёргается на треть пикселя.
      Лишний пиксель уводит блок за границу — на глаз незаметно. */
   var BIAS = 1;
-  var GLIDE_MS = 300; // сколько едет доводка
-  var IDLE_MS = 120; // через сколько после остановки руки она включается
+  // карточка проекта отстаёт от обложки компании: лёгкий параллакс по времени
+  var LAG_TAU = 0.05;  // с
 
   var flow = document.querySelector('.case-flow');
   var hero = document.querySelector('.hero');
@@ -81,6 +79,7 @@
         return d > 0 ? d : c.offsetHeight + 24;
       });
       b.doorTravel = b.doors.length && b.doors[0].offsetHeight ? b.doors[0].offsetHeight : h;
+      b.uc = null;   // после перекладки опоздание сбрасываем, иначе карточка поедет сама
     });
 
     if (mobile) {
@@ -139,11 +138,14 @@
   function out(t) { var k = 1 - t; return 1 - k * k; }
   function inc(t) { var k = 1 - t; return k * k; }
 
-  function paintCards(b, u) {
+  function paintCards(b, u, uc) {
     for (var k = 0; k < b.doors.length; k++) {
       var rel = k - u;                 // 0 — эта карточка сейчас на месте
       if (rel > -0.01 && rel < 0.01) rel = 0;   // на остановке карточка стоит ровно
       var off = rel < -1 || rel > 1;
+      var relC = k - uc;               // карточка проекта идёт с небольшим опозданием
+      if (relC > -0.01 && relC < 0.01) relC = 0;
+      var offC = relC < -1 || relC > 1;
 
       var door = b.doors[k];
       if (door) {
@@ -167,11 +169,11 @@
 
       var card = b.projects[k];
       if (!card) continue;
-      if (off) {
+      if (offC) {
         card.style.opacity = "0";
-      } else if (rel <= 0) {
+      } else if (relC <= 0) {
         // уезжает под карточку компании, поэтому гаснет только у самого края
-        var ec = out(-rel);
+        var ec = out(-relC);
         card.style.transform = "translate3d(0," + (-ec * (b.projectUp[k] || 200)).toFixed(1) +
           "px,0) scale(" + (1 - ec * CARD_UP).toFixed(4) + ")";
         // гаснет по той же резвой кривой, что и движение, и быстрее неё:
@@ -180,7 +182,7 @@
         card.style.zIndex = "1";
       } else {
         // поднимается из-за нижнего края блока — заранее её не видно
-        var rc = inc(1 - rel);
+        var rc = inc(1 - relC);
         card.style.transform = "translate3d(0," + (rc * (b.projectDown[k] || 300)).toFixed(1) +
           "px,0) scale(" + (1 - rc * CARD_IN).toFixed(4) + ")";
         card.style.opacity = "1";
@@ -210,6 +212,11 @@
 
     var h = blockHeight();
     var y = window.pageYOffset;
+    var now = performance.now();
+    var dtU = lastUpd ? Math.min(0.05, (now - lastUpd) / 1000) : 1;
+    lastUpd = now;
+    var kLag = 1 - Math.exp(-dtU / LAG_TAU);
+    var lagLive = false;
 
     // Блоки едут один в один с прокруткой: никаких подтягиваний транформом.
     // Раньше блок тянуло к шапке по кривой, и крошечное движение колеса
@@ -237,7 +244,12 @@
         if (u > b.count - 1) u = b.count - 1;
         var i = Math.floor(u);
         setActive(b, i);
-        paintCards(b, u);
+        if (b.uc == null) b.uc = u;
+        else {
+          b.uc += (u - b.uc) * kLag;
+          if (Math.abs(u - b.uc) < 0.0005) b.uc = u; else lagLive = true;
+        }
+        paintCards(b, u, b.uc);
       }
 
       // наезд следующего блока: 0 у нижнего края экрана, 1 у шапки
@@ -247,27 +259,60 @@
       var fade = clamp(cover * FADE);
       if (b.content) b.content.style.opacity = (1 - fade).toFixed(3);
 
-      if (!b.spacer) paintCards(b, 0);
+      if (!b.spacer) paintCards(b, 0, 0);
 
       if (lefts[k] <= 0) dot = b.firstDot + (b.active > 0 ? b.active : 0);
     });
 
     if (aboutLeft <= 0) dot = dots.length - 1;
     paintDots(dot);
-  }
 
-  /* ---------- Доводка до остановки ----------
-     Остановки стоят ровно через экран. Рука свободно тянет блок до трети
-     экрана; как только треть пройдена, блок сам доезжает до шапки, и на
-     это время колесо отключается — иначе инерция тачпада дерётся
-     с доводкой и блок дёргается. Если рука остановилась, не дойдя
-     до трети, блок так же сам возвращается назад. Ниже стопки не трогаем. */
+    // прокрутка встала, а карточка проекта ещё догоняет — дорисовываем сами
+    if (lagLive && !lagRaf) lagRaf = requestAnimationFrame(function () { lagRaf = 0; update(); });
+  }
+  var lastUpd = 0;
+  var lagRaf = 0;
+
+  /* ---------- Плавная прокрутка и доводка ----------
+     Главный принцип: скорость нигде не обрывается, и рука может перебить
+     движение в любой момент.
+     1. Колесо двигает не страницу, а цель. Страница догоняет цель по
+        экспоненте (TAU): щелчки мыши превращаются в ровный ход, а задержки
+        на глаз нет.
+     2. Решение «к какому кейсу ехать» принимается в конце жеста, а не
+        посреди него: по позиции плюс прикидке инерции (куда страница
+        доехала бы сама). Дальше одной остановки за жест не уезжаем.
+     3. Доводка — критически задемпфированная пружина: стартует с той
+        скоростью, с которой страница уже ехала, и садится без отскока.
+     4. Колесо не блокируется. Затухающий хвост инерции тачпада доводка
+        поглощает, а новый жест — усиление, смена направления или пауза —
+        сразу отдаёт управление руке.
+     На телефоне и при «уменьшить движение» в системе всё это выключено:
+     там обычная прокрутка браузера. */
+  var TAU = 0.085;      // с: за это время страница проходит ~63% пути до цели
+  var OMEGA = 12;       // рад/с: жёсткость пружины доводки
+  var ADV_PAD = 0.14;   // доля экрана: дальше — едем к следующему кейсу (тачпад)
+  var ADV_WHEEL = 0.05; // мышке хватает одного щелчка колеса
+  var END_MS = 90;      // столько тишины колеса — жест закончен
+  var EXT_MS = 140;     // то же для прокрутки ползунком и прочего не-колеса
+  var FLICK = 22;       // px за событие: с такого пика жест считаем броском
+
+  var reduceMotion = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+
   var stops = 0;       // сколько остановок в стопке
   var stackTop = 0;    // прокрутка, при которой первый экран у шапки
-  var anchor = 0;      // остановка, от которой считаем
-  var gliding = false;
-  var glideRaf = 0;
-  var idleTimer = 0;
+
+  var pos = window.pageYOffset;  // где страница сейчас (дробное)
+  var target = pos;              // куда её тянет колесо
+  var vel = 0;                   // px/с
+  var mode = 'idle';             // idle | follow | spring
+  var springTo = 0;
+  var raf = 0, lastT = 0;
+  var written = -1;              // последняя прокрутка, выставленная нами
+
+  var lastWheelT = 0, lastDelta = 0, peak = 0, decays = 0;
+  var gestureDir = 0, mouseLike = false;
+  var endTimer = 0, extTimer = 0, lastExtY = 0;
 
   function metrics() {
     var h = blockHeight();
@@ -278,70 +323,215 @@
     return h;
   }
 
-  function relNow(h) { return (window.pageYOffset - stackTop) / h; }
-
   function inStack(rel) { return rel >= -0.02 && rel <= stops - 1 + 0.02; }
 
-  function glideTo(index, h) {
-    var to = stackTop + index * h + BIAS;
-    var from = window.pageYOffset;
-    var dist = to - from;
-    if (Math.abs(dist) < 1) { anchor = index; return; }
-    if (glideRaf) cancelAnimationFrame(glideRaf);
-    gliding = true;
-    var t0 = 0;
-    var step = function (now) {
-      if (!t0) t0 = now;
-      var k = (now - t0) / GLIDE_MS;
-      if (k > 1) k = 1;
-      // мягко трогается и мягко тормозит — так движение читается уверенным
-      var e = k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
-      window.scrollTo({ top: from + dist * e, behavior: 'instant' });
-      if (k < 1) { glideRaf = requestAnimationFrame(step); }
-      else { glideRaf = 0; gliding = false; anchor = index; }
-    };
-    glideRaf = requestAnimationFrame(step);
+  function maxScroll() {
+    return Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
   }
 
-  // пока блок едет сам, колесо и клавиши не вмешиваются
-  function block(e) { if (gliding) e.preventDefault(); }
+  // шторка кейса и мобильное меню запирают страницу — тогда не вмешиваемся
+  function locked() {
+    return document.documentElement.style.overflow === 'hidden' ||
+      document.body.style.overflow === 'hidden' ||
+      document.body.classList.contains('panel-open');
+  }
+
+  function engineOn() {
+    return !isMobile() && !(reduceMotion && reduceMotion.matches) && !locked();
+  }
+
+  function write(y) {
+    written = y;
+    window.scrollTo({ top: y, behavior: 'instant' });
+    update();   // в том же кадре, иначе карточки отстанут от липкого блока на кадр
+  }
+
+  function run() {
+    if (!raf) raf = requestAnimationFrame(frame);
+  }
+
+  function stop() {
+    mode = 'idle';
+    vel = 0;
+    if (raf) { cancelAnimationFrame(raf); raf = 0; }
+    lastT = 0;
+  }
+
+  function frame(t) {
+    raf = 0;
+    var dt = lastT ? Math.min(0.05, (t - lastT) / 1000) : 1 / 60;
+    lastT = t;
+    if (!dt) { run(); return; }
+    var prev = pos;
+
+    if (mode === 'follow') {
+      pos += (target - pos) * (1 - Math.exp(-dt / TAU));
+      if (Math.abs(target - pos) < 0.25) pos = target;
+      vel = (pos - prev) / dt;
+    } else if (mode === 'spring') {
+      // точное решение x'' = -ω²x - 2ωx' на шаге dt: не зависит от частоты кадров
+      var w = OMEGA, x0 = pos - springTo, v0 = vel, e = Math.exp(-w * dt);
+      var c = v0 + w * x0;
+      var x = (x0 + c * dt) * e;
+      vel = (v0 - w * c * dt) * e;
+      pos = springTo + x;
+      if (Math.abs(x) < 0.35 && Math.abs(vel) < 10) { pos = springTo; vel = 0; }
+      target = pos;
+    }
+
+    write(pos);
+
+    if ((mode === 'follow' && pos === target) || (mode === 'spring' && pos === springTo && vel === 0)) {
+      mode = 'idle';
+      vel = 0;
+      lastT = 0;
+      return;
+    }
+    run();
+  }
+
+  function springToStop(index, h) {
+    springTo = Math.min(maxScroll(), stackTop + index * h + BIAS);
+    mode = 'spring';
+    target = springTo;
+    run();
+  }
+
+  /* extra — сколько ещё страница проехала бы сама по инерции */
+  function snap(extra) {
+    if (!engineOn()) return;
+    var h = metrics();
+    var rel = (pos - stackTop) / h;
+    if (!inStack(rel)) return;
+    var proj = (target + extra - stackTop) / h;
+    var dir = proj > rel + 1e-4 ? 1 : (proj < rel - 1e-4 ? -1 : gestureDir);
+    if (!dir) dir = 1;
+    var base = dir > 0 ? Math.floor(rel + 1e-3) : Math.ceil(rel - 1e-3);
+    // вниз от последней остановки уходим свободно: там «Обо мне» и подвал
+    if (dir > 0 && base >= stops - 1) return;
+    var adv = mouseLike ? ADV_WHEEL : ADV_PAD;
+    var idx = Math.abs(proj - base) > adv ? base + dir : base;
+    idx = Math.max(0, Math.min(stops - 1, idx));
+    springToStop(idx, h);
+  }
+
+  // у элемента своя прокрутка и ему есть куда ехать — колесо его
+  function scrollsInside(el, dy) {
+    for (var n = el; n && n.nodeType === 1 && n !== document.body && n !== document.documentElement; n = n.parentElement) {
+      var oy = getComputedStyle(n).overflowY;
+      if ((oy === 'auto' || oy === 'scroll') && n.scrollHeight > n.clientHeight + 1) {
+        if (dy > 0 ? n.scrollTop + n.clientHeight < n.scrollHeight - 1 : n.scrollTop > 0) return true;
+      }
+    }
+    return false;
+  }
+
+  function onWheel(e) {
+    if (e.ctrlKey || e.defaultPrevented || !engineOn()) return;
+    var dy = e.deltaY * (e.deltaMode === 1 ? 16 : (e.deltaMode === 2 ? window.innerHeight : 1));
+    if (!dy || Math.abs(e.deltaX) > Math.abs(dy)) return;
+    if (scrollsInside(e.target, dy)) return;
+    e.preventDefault();
+
+    var now = performance.now();
+    var gap = now - lastWheelT;
+    var dir = dy > 0 ? 1 : -1;
+    var ad = Math.abs(dy);
+    var prevAd = Math.abs(lastDelta);
+
+    if (gap > END_MS || dir !== gestureDir) {
+      // новый жест; тачпад начинает с мелких шагов, мышь — сразу щелчком
+      mouseLike = e.deltaMode !== 0 || ad >= 40;
+      peak = 0;
+      decays = 0;
+    }
+    // хвост инерции тачпада: без паузы, в ту же сторону, каждое событие не сильнее прошлого
+    var tail = !mouseLike && gap < 60 && dir === gestureDir && ad <= prevAd + 0.5;
+    if (ad > peak) peak = ad;
+    decays = tail && ad < prevAd ? decays + 1 : (tail ? decays : 0);
+
+    lastWheelT = now;
+    lastDelta = dy;
+    gestureDir = dir;
+
+    if (mode === 'spring' && tail) return;   // доводка уже решила, хвост её не дёргает
+
+    if (mode !== 'follow') {
+      // перехватываем руку с того места и той скорости, что есть сейчас
+      target = pos;
+      mode = 'follow';
+    }
+    target = Math.max(0, Math.min(maxScroll(), target + dy));
+    run();
+
+    if (endTimer) clearTimeout(endTimer);
+    // бросок тачпадом: пик пройден и шаги стабильно гаснут — решаем сразу,
+    // не дожидаясь, пока инерция дотечёт до конца
+    if (!mouseLike && peak >= FLICK && decays >= 3 && ad < peak * 0.6) {
+      var r = prevAd ? Math.max(0.8, Math.min(0.97, ad / prevAd)) : 0.9;
+      var rest = Math.min(blockHeight() * 1.2, ad * r / (1 - r));
+      snap(dir * rest);
+      return;
+    }
+    endTimer = setTimeout(function () { endTimer = 0; if (mode === 'follow') snap(0); }, END_MS);
+  }
+
+  function editable(el) {
+    return el && (el.isContentEditable || /^(INPUT|TEXTAREA|SELECT|BUTTON)$/.test(el.tagName));
+  }
+
+  // стрелки, Page Up/Down и пробел внутри стопки листают по одному кейсу
+  function onKey(e) {
+    if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey || !engineOn()) return;
+    if (editable(document.activeElement)) return;
+    var dir = 0;
+    if (e.key === 'ArrowDown' || e.key === 'PageDown' || (e.key === ' ' && !e.shiftKey)) dir = 1;
+    else if (e.key === 'ArrowUp' || e.key === 'PageUp' || (e.key === ' ' && e.shiftKey)) dir = -1;
+    if (!dir) return;
+    var h = metrics();
+    var from = mode === 'spring' ? springTo : pos;
+    var rel = (from - stackTop) / h;
+    if (!inStack(rel)) return;
+    var cur = Math.round(rel);
+    if (dir > 0 && cur >= stops - 1) return;
+    if (dir < 0 && cur <= 0) return;
+    e.preventDefault();
+    gestureDir = dir;
+    if (mode === 'idle') vel = 0;
+    springToStop(cur + dir, h);
+  }
 
   function onScroll() {
+    var y = window.pageYOffset;
+    if (written >= 0 && Math.abs(y - written) < 1.5) return;   // это мы сами
+    // ползунок, поиск по странице, фокус, мобильная прокрутка — едет не наш движок
+    if (mode !== 'idle') stop();
+    gestureDir = y > lastExtY ? 1 : (y < lastExtY ? -1 : gestureDir);
+    lastExtY = y;
+    pos = target = y;
+    written = -1;
     update();
-    if (gliding || isMobile()) return;
-
-    var h = metrics();
-    var rel = relNow(h);
-    if (!inStack(rel)) {
-      anchor = Math.max(0, Math.min(stops - 1, Math.round(rel)));
-      return;
-    }
-
-    var delta = rel - anchor;
-    // вниз от последней остановки уходим свободно: там «Обо мне» и подвал
-    if (delta > 0 && anchor >= stops - 1) return;
-
-    if (delta >= THIRD || delta <= -THIRD) {
-      var jump = delta > 0 ? Math.max(1, Math.round(delta)) : Math.min(-1, Math.round(delta));
-      glideTo(Math.max(0, Math.min(stops - 1, anchor + jump)), h);
-      return;
-    }
-
-    if (idleTimer) clearTimeout(idleTimer);
-    idleTimer = setTimeout(function () {
-      if (gliding || isMobile()) return;
-      var hh = metrics();
-      var r = relNow(hh);
-      if (!inStack(r)) return;
-      var d = r - anchor;
-      if (d > 0 && anchor >= stops - 1) return;
-      if (Math.abs(d) < DEAD || Math.abs(d) >= THIRD) return;
-      glideTo(anchor, hh);
-    }, IDLE_MS);
+    if (extTimer) clearTimeout(extTimer);
+    extTimer = setTimeout(function () {
+      extTimer = 0;
+      if (mode !== 'idle' || !engineOn()) return;
+      pos = target = window.pageYOffset;
+      mouseLike = false;
+      snap(0);
+    }, EXT_MS);
   }
 
-  window.addEventListener('wheel', block, { passive: false });
+  function resync() {
+    stop();
+    pos = target = window.pageYOffset;
+    written = -1;
+    layout();
+    update();
+  }
+
+  window.addEventListener('wheel', onWheel, { passive: false });
+  window.addEventListener('keydown', onKey);
   window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', function () { layout(); update(); });
-  window.addEventListener('load', function () { layout(); update(); });
+  window.addEventListener('resize', resync);
+  window.addEventListener('load', resync);
 })();
