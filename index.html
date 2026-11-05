@@ -20,7 +20,7 @@
   <meta name="twitter:description"
     content="Product designer based in Lisbon, Portugal. 6 years in tech product teams, owning the full cycle from research to a measured result: B2B tools for dark store and warehouse operations at Samokat, education products at Moscow Electronic School, and Lunel — a personal iOS app taken from idea to App Store release.">
   <meta name="twitter:image" content="https://innarenard.com/images/lunel-preview_en.png">
-  <link href="css/home.css?v=20261105c" rel="stylesheet">
+  <link href="css/home.css?v=20261105e" rel="stylesheet">
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
@@ -143,6 +143,8 @@
     <main class="main-content">
 
       <!-- Hero -->
+      <!-- Первый экран и обложки живут в одном потоке: так липкий первый экран кончается вместе со стопкой -->
+      <div class="case-flow">
       <section class="hero">
         <div class="hero__stage">
 
@@ -197,6 +199,183 @@
         <div class="hero__page-control" aria-hidden="true"><span class="is-active"></span><span></span><span></span><span></span><span></span></div>
       </section>
 
+      <!-- Обложки кейсов: блоки примагничиваются к хедеру и наезжают друг на друга -->
+      <div class="case-stack" id="caseStack">
+        <section class="case-screen" id="case-lunel" data-case-screen="lunel" data-cases="1" data-dot="1">
+          <div class="case-screen__inner">
+            <div class="case-screen__row">
+              <div class="case-card case-card--company">
+                <div class="case-company">
+                  <span class="case-company__mark"><img src="images/lunel-logo.png" alt="" loading="lazy"></span>
+                  <span class="case-company__id">
+                    <span class="case-company__name">Lunel</span>
+                    <span class="case-company__period" data-i18n="about_p1_period">January 2026&nbsp;– now</span>
+                  </span>
+                </div>
+                <p class="case-company__about" data-i18n="case_lunel_about">A&nbsp;cycle and&nbsp;women’s health tracking app that helps you understand your body.</p>
+                <p class="case-company__role" data-i18n="lunel_role">A&nbsp;personal B2C project I&nbsp;led end-to-end&nbsp;– from&nbsp;the idea to&nbsp;the MVP release on&nbsp;the App&nbsp;Store, with&nbsp;the app itself built through vibe coding in&nbsp;Claude&nbsp;Code.</p>
+              </div>
+              <div class="case-item" data-index="0">
+                <a class="case-door is-active" href="lunel/">
+                  <img src="images/lunel-cover_en.png" data-i18n-src="images/lunel-cover_{lang}.png" alt="" loading="lazy">
+                </a>
+                <a class="case-project is-active" href="lunel/">
+                  <span class="case-project__head">
+                    <span class="case-project__name" data-i18n="lunel_card_title">Lunel</span>
+                    <span class="case-project__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14.43 5.93 20.5 12l-6.07 6.07M3.5 12h16.83" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                  </span>
+                  <span class="case-project__tags">
+                    <span class="case-tag" data-i18n="lunel_year">2026</span>
+                    <span class="case-tag">B2C</span>
+                    <span class="case-tag">iOS</span>
+                    <span class="case-tag" data-i18n="lunel_stat_1">Designed from&nbsp;scratch</span>
+                    <span class="case-tag">Vibe coding</span>
+                    <span class="case-tag" data-i18n="lunel_stat_3">MVP released on&nbsp;the App&nbsp;Store</span>
+                  </span>
+                </a>
+              </div>
+              <div class="case-screen__dots" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+            </div>
+          </div>
+        </section>
+        <section class="case-screen" id="case-samokat" data-case-screen="samokat" data-cases="4" data-dot="2">
+          <div class="case-screen__inner">
+            <div class="case-screen__row">
+              <div class="case-card case-card--company">
+                <div class="case-company">
+                  <span class="case-company__mark"><img src="images/hero-logo-samokat.png" alt="" loading="lazy"></span>
+                  <span class="case-company__id">
+                    <span class="case-company__name" data-i18n="case_samokat_name">Samokat</span>
+                    <span class="case-company__period" data-i18n="about_p2_period">June 2023&nbsp;– December 2025</span>
+                  </span>
+                </div>
+                <p class="case-company__about" data-i18n="case_samokat_about">An express grocery and&nbsp;essentials delivery service, ranked among the&nbsp;leaders of&nbsp;the Russian e-grocery market.</p>
+                <p class="case-company__role" data-i18n="samokat_role">I developed the B2B product direction, owning and improving the end-to-end experience of dark store employees.</p>
+              </div>
+              <div class="case-item" data-index="0">
+                <a class="case-door is-active" href="order-picking/">
+                  <img src="images/order-picking-cover-hero_en.png" data-i18n-src="images/order-picking-cover-hero_{lang}.png" alt="" loading="lazy">
+                </a>
+                <a class="case-project is-active" href="order-picking/">
+                  <span class="case-project__head">
+                    <span class="case-project__name" data-i18n="view_order_picking">Order picking</span>
+                    <span class="case-project__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14.43 5.93 20.5 12l-6.07 6.07M3.5 12h16.83" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                  </span>
+                  <span class="case-project__tags">
+                    <span class="case-tag" data-i18n="stat_order_5">2025</span>
+                    <span class="case-tag" data-i18n="stat_order_1">-2,3% Time to Task</span>
+                    <span class="case-tag" data-i18n="stat_order_2">-2 errors</span>
+                    <span class="case-tag" data-i18n="stat_order_3">UX 4,7 / 5</span>
+                  </span>
+                </a>
+              </div>
+              <div class="case-item" data-index="1">
+                <a class="case-door" href="transfers-of-goods/" tabindex="-1" aria-hidden="true">
+                  <img src="images/transfers-cover_en.png" data-i18n-src="images/transfers-cover_{lang}.png" alt="" loading="lazy">
+                </a>
+                <a class="case-project" href="transfers-of-goods/" tabindex="-1" aria-hidden="true">
+                  <span class="case-project__head">
+                    <span class="case-project__name" data-i18n="view_transfers">Transfers of goods</span>
+                    <span class="case-project__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14.43 5.93 20.5 12l-6.07 6.07M3.5 12h16.83" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                  </span>
+                  <span class="case-project__tags">
+                    <span class="case-tag" data-i18n="stat_transfers_5">2024</span>
+                    <span class="case-tag" data-i18n="stat_transfers_1">Savings of 4M RUB</span>
+                    <span class="case-tag" data-i18n="stat_transfers_2">-5% overdue shipments</span>
+                    <span class="case-tag" data-i18n="stat_transfers_3">UX 4,8 / 5</span>
+                  </span>
+                </a>
+              </div>
+              <div class="case-item" data-index="2">
+                <a class="case-door" href="picking-priority/" tabindex="-1" aria-hidden="true">
+                  <img src="images/picking-priority-cover_en.png" data-i18n-src="images/picking-priority-cover_{lang}.png" alt="" loading="lazy">
+                </a>
+                <a class="case-project" href="picking-priority/" tabindex="-1" aria-hidden="true">
+                  <span class="case-project__head">
+                    <span class="case-project__name" data-i18n="view_picking_priority">Picking priority</span>
+                    <span class="case-project__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14.43 5.93 20.5 12l-6.07 6.07M3.5 12h16.83" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                  </span>
+                  <span class="case-project__tags">
+                    <span class="case-tag" data-i18n="stat_picking_5">2025</span>
+                    <span class="case-tag" data-i18n="stat_picking_1">-4,4% Time to Task</span>
+                    <span class="case-tag" data-i18n="stat_picking_2">4,8 / 5 UX</span>
+                  </span>
+                </a>
+              </div>
+              <div class="case-item" data-index="3">
+                <a class="case-door" href="picker-schedule/" tabindex="-1" aria-hidden="true">
+                  <img src="images/picker-schedule-cover_en.png" data-i18n-src="images/picker-schedule-cover_{lang}.png" alt="" loading="lazy">
+                </a>
+                <a class="case-project" href="picker-schedule/" tabindex="-1" aria-hidden="true">
+                  <span class="case-project__head">
+                    <span class="case-project__name" data-i18n="view_picker_schedule">Picker schedule</span>
+                    <span class="case-project__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14.43 5.93 20.5 12l-6.07 6.07M3.5 12h16.83" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                  </span>
+                  <span class="case-project__tags">
+                    <span class="case-tag" data-i18n="stat_ps_5">2025</span>
+                    <span class="case-tag" data-i18n="stat_ps_1">-4% order→delivery</span>
+                    <span class="case-tag" data-i18n="stat_ps_2">-6% order→assembly start</span>
+                    <span class="case-tag" data-i18n="stat_ps_3">+2% peak-hour orders</span>
+                  </span>
+                </a>
+              </div>
+              <div class="case-screen__dots" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+            </div>
+          </div>
+        </section>
+        <section class="case-screen" id="case-mes" data-case-screen="mes" data-cases="2" data-dot="6">
+          <div class="case-screen__inner">
+            <div class="case-screen__row">
+              <div class="case-card case-card--company">
+                <div class="case-company">
+                  <span class="case-company__mark"><img src="images/hero-logo-mes.png" alt="" loading="lazy"></span>
+                  <span class="case-company__id">
+                    <span class="case-company__name" data-i18n="case_mes_name">Moscow Electronic School</span>
+                    <span class="case-company__period" data-i18n="about_p3_period">October 2020&nbsp;– April 2023</span>
+                  </span>
+                </div>
+                <p class="case-company__about" data-i18n="case_mes_about">A&nbsp;project for&nbsp;teachers, aimed at&nbsp;building a&nbsp;high-tech learning environment in&nbsp;Moscow schools.</p>
+                <p class="case-company__role" data-i18n="mes_role">I developed and improved the end-to-end experience of teachers and college administrators</p>
+              </div>
+              <div class="case-item" data-index="0">
+                <a class="case-door is-active" href="teachers-journal/">
+                  <img src="images/teachers-journal-cover_en.png" data-i18n-src="images/teachers-journal-cover_{lang}.png" alt="" loading="lazy">
+                </a>
+                <a class="case-project is-active" href="teachers-journal/">
+                  <span class="case-project__head">
+                    <span class="case-project__name" data-i18n="view_teachers_journal">Teacher's journal</span>
+                    <span class="case-project__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14.43 5.93 20.5 12l-6.07 6.07M3.5 12h16.83" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                  </span>
+                  <span class="case-project__tags">
+                    <span class="case-tag" data-i18n="stat_journal_4">2023</span>
+                    <span class="case-tag" data-i18n="stat_journal_1">Designed from scratch</span>
+                    <span class="case-tag" data-i18n="stat_journal_2">UX 8,1 / 10</span>
+                  </span>
+                </a>
+              </div>
+              <div class="case-item" data-index="1">
+                <a class="case-door" href="colleges/" tabindex="-1" aria-hidden="true">
+                  <img src="images/colleges-cover_en.png" data-i18n-src="images/colleges-cover_{lang}.png" alt="" loading="lazy">
+                </a>
+                <a class="case-project" href="colleges/" tabindex="-1" aria-hidden="true">
+                  <span class="case-project__head">
+                    <span class="case-project__name" data-i18n="view_colleges">Colleges</span>
+                    <span class="case-project__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14.43 5.93 20.5 12l-6.07 6.07M3.5 12h16.83" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                  </span>
+                  <span class="case-project__tags">
+                    <span class="case-tag" data-i18n="stat_colleges_4">2023</span>
+                    <span class="case-tag" data-i18n="stat_colleges_1">Redesign and update</span>
+                    <span class="case-tag" data-i18n="stat_colleges_2">UX 8,9 / 10</span>
+                  </span>
+                </a>
+              </div>
+              <div class="case-screen__dots" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+            </div>
+          </div>
+        </section>
+      </div>
+      </div>
+
       <!-- Достижения: каждая подпись начинается с глагола, то есть с того, что сделала она сама -->
       <section class="hero-facts">
         <div class="hero-facts__item">
@@ -232,9 +411,8 @@
           <a href="https://dribbble.com/inna-ivanova" target="_blank" class="contacts-bar__link">Dribbble</a>
         </div>
       </nav>
-
       <!-- ═══════ Lunel ═══════ -->
-      <section class="company-section scroll-reveal" id="lunel">
+      <section class="company-section scroll-reveal is-replaced-by-stack" id="lunel">
         <div class="company-section__intro">
           <div class="company-section__intro-col">
             <img src="images/lunel-logo.png" alt="Lunel"
@@ -299,7 +477,7 @@
       </section>
 
       <!-- ═══════ Samokat ═══════ -->
-      <section class="company-section scroll-reveal" id="samokat">
+      <section class="company-section scroll-reveal is-replaced-by-stack" id="samokat">
         <div class="company-section__intro">
           <div class="company-section__intro-col">
             <img src="https://upload.wikimedia.org/wikipedia/ru/4/48/Samokat_logo.png" alt="Samokat"
@@ -388,7 +566,7 @@
       </section>
 
       <!-- ═══════ MES ═══════ -->
-      <section class="company-section scroll-reveal" id="mes">
+      <section class="company-section scroll-reveal is-replaced-by-stack" id="mes">
         <div class="company-section__intro">
           <div class="company-section__intro-col">
             <img
@@ -553,10 +731,11 @@
   </div>
   <div class="panel-overlay case-study-drawer__overlay" id="panelOverlay"></div>
 
-  <script src="js/i18n.js?v=20261105c"></script>
+  <script src="js/i18n.js?v=20261105d"></script>
   <script src="js/panel.js?v=20261030g"></script>
   <script src="js/home-nav.js?v=20261030a"></script>
   <script src="js/cursor-view-case.js?v=20261030a"></script>
+  <script src="js/case-stack.js?v=20261105d"></script>
 </body>
 
 </html>
