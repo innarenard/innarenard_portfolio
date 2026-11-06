@@ -20,7 +20,7 @@
   <meta name="twitter:description"
     content="Product designer based in Lisbon, Portugal. 6 years in tech product teams, owning the full cycle from research to a measured result: B2B tools for dark store and warehouse operations at Samokat, education products at Moscow Electronic School, and Lunel — a personal iOS app taken from idea to App Store release.">
   <meta name="twitter:image" content="https://innarenard.com/images/lunel-preview_en.png">
-  <link href="css/home.css?v=20261106o" rel="stylesheet">
+  <link href="css/home.css?v=20261106p" rel="stylesheet">
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
@@ -403,7 +403,11 @@
 
         <!-- ═══════ Обо мне ═══════ -->
         <section class="about scroll-reveal" id="about">
+          <div class="about__grid">
+          <!-- слева: текст о себе на белой подложке, как карточка компании -->
+          <div class="about__card about__card--intro">
           <h2 class="about__title" data-i18n="about_title">About</h2>
+          <h3 class="about__subtitle" data-i18n="about_intro_title">How I&nbsp;work</h3>
           <div class="about__lead">
             <p data-i18n="about_lead_1">I&nbsp;own the&nbsp;end-to-end product design process&nbsp;– from&nbsp;UX&nbsp;research I&nbsp;run
               myself and&nbsp;hypothesis testing to&nbsp;design review and&nbsp;post-launch user surveys. My&nbsp;decisions
@@ -419,8 +423,10 @@
               getting to&nbsp;the&nbsp;root cause and&nbsp;solving it. In&nbsp;B2B, I&nbsp;also get to&nbsp;learn someone else’s
               profession. In&nbsp;B2C, the&nbsp;challenge is&nbsp;to&nbsp;attract users and&nbsp;keep them.</p>
           </div>
+          </div>
 
-          <div class="about__columns">
+          <!-- справа: путь и инструменты — вторая подложка, доработаем позже -->
+          <div class="about__card about__card--path">
             <div class="about__col">
               <h3 class="about__subtitle" data-i18n="about_path_title">Career</h3>
               <div class="about__timeline">
@@ -474,45 +480,11 @@
               </div>
             </div>
           </div>
+          </div>
         </section>
 
       </div>
 
-      <!-- Достижения: каждая подпись начинается с глагола, то есть с того, что сделала она сама -->
-      <section class="hero-facts">
-        <div class="hero-facts__item">
-          <span class="hero-facts__value" data-i18n="fact_1_value">4M&nbsp;₽ a&nbsp;year</span>
-          <span class="hero-facts__label" data-i18n="fact_1_label">cut losses on&nbsp;goods transfers
-            at&nbsp;Samokat</span>
-        </div>
-        <div class="hero-facts__item">
-          <span class="hero-facts__value" data-i18n="fact_2_value">−6.7%</span>
-          <span class="hero-facts__label" data-i18n="fact_2_label">cut order picking time across
-            two&nbsp;projects</span>
-        </div>
-        <div class="hero-facts__item">
-          <span class="hero-facts__value" data-i18n="fact_3_value">My&nbsp;own product</span>
-          <span class="hero-facts__label" data-i18n="fact_3_label">Lunel: research, design, vibe coding,
-            App&nbsp;Store release</span>
-        </div>
-        <div class="hero-facts__item">
-          <span class="hero-facts__value" data-i18n="fact_4_value">A&nbsp;design system</span>
-          <span class="hero-facts__label" data-i18n="fact_4_label">grew and&nbsp;extended it&nbsp;– four teams
-            used the&nbsp;result</span>
-        </div>
-      </section>
-
-      <!-- Contacts -->
-      <nav class="contacts-bar">
-        <div class="contacts-bar__links">
-          <a href="/cv/inna-ivanova-cv-en.pdf" target="_blank"
-            class="contacts-bar__link" data-i18n-href="cv_url">CV</a>
-          <a href="mailto:innarenard@gmail.com" class="contacts-bar__link">Email</a>
-          <a href="https://t.me/innarenard" target="_blank" class="contacts-bar__link">Telegram</a>
-          <a href="https://www.linkedin.com/in/innarenard/" target="_blank" class="contacts-bar__link">LinkedIn</a>
-          <a href="https://dribbble.com/inna-ivanova" target="_blank" class="contacts-bar__link">Dribbble</a>
-        </div>
-      </nav>
       <!-- ═══════ Lunel ═══════ -->
       <section class="company-section scroll-reveal is-replaced-by-stack" id="lunel">
         <div class="company-section__intro">
@@ -724,18 +696,6 @@
         </div>
       </section>
 
-      <!-- Footer -->
-      <footer class="site-footer scroll-reveal">
-        <span class="site-footer__name" data-i18n="name">Inna Ivanova</span>
-        <div class="site-footer__links">
-          <a href="/cv/inna-ivanova-cv-en.pdf"
-            target="_blank" data-i18n-href="cv_url">CV</a>
-          <a href="mailto:innarenard@gmail.com">Email</a>
-          <a href="https://t.me/innarenard" target="_blank">Telegram</a>
-          <a href="https://www.linkedin.com/in/innarenard/" target="_blank">LinkedIn</a>
-          <a href="https://dribbble.com/inna-ivanova" target="_blank">Dribbble</a>
-        </div>
-      </footer>
 
     </main>
   </div>
@@ -760,7 +720,7 @@
   </div>
   <div class="panel-overlay case-study-drawer__overlay" id="panelOverlay"></div>
 
-  <script src="js/i18n.js?v=20261106c"></script>
+  <script src="js/i18n.js?v=20261106d"></script>
   <script src="js/panel.js?v=20261106a"></script>
   <script src="js/home-nav.js?v=20261030a"></script>
   <script src="js/cursor-view-case.js?v=20261030a"></script>

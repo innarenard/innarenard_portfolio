@@ -274,71 +274,6 @@ body.panel-open .site-wrapper {
   max-width: 720px;
 }
 
-/* ---------- Hero facts (proof row) ---------- */
-.hero-facts {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px 48px;
-  margin-top: 32px;
-}
-
-.hero-facts__item {
-  max-width: 240px;
-}
-
-.hero-facts__value {
-  display: block;
-  font-size: 26px;
-  font-weight: 600;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-  color: #404040;
-}
-
-.hero-facts__label {
-  display: block;
-  margin-top: 6px;
-  font-size: 13px;
-  line-height: 1.4;
-  color: #737373;
-}
-
-/* ---------- Contacts bar (above Samokat) ---------- */
-.contacts-bar {
-  margin-top: 32px;
-  margin-bottom: 72px;
-}
-
-.contacts-bar__links {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.contacts-bar__link {
-  display: inline-flex;
-  align-items: center;
-  padding: 8px 18px;
-  border-radius: 999px;
-  background: rgba(242, 242, 248, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  font-size: 14px;
-  font-weight: 500;
-  color: #404040;
-  text-decoration: none;
-  transition: background .2s, color .2s, border-color .2s, box-shadow .2s;
-}
-
-.contacts-bar__link:hover {
-  background: rgba(235, 235, 242, 0.95);
-  border-color: rgba(255, 255, 255, 0.95);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.7);
-  color: #404040;
-}
-
 /* ---------- About (кто это сделал: хронология и навыки) ---------- */
 .about {
   margin-top: 80px;
@@ -353,9 +288,27 @@ body.panel-open .site-wrapper {
   margin-bottom: 20px;
 }
 
+/* две белые подложки на сером полотне — как карточка компании в кейсах */
+.about__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 24px;
+}
+
+.about__card {
+  background: var(--portfolio-surface);
+  border-radius: 32px;
+  padding: 24px;
+}
+
+.about__card--path {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
 .about__lead {
-  max-width: 760px;
-  margin: 0 0 40px;
+  margin: 0;
 }
 
 .about__lead p {
@@ -367,16 +320,6 @@ body.panel-open .site-wrapper {
 
 .about__lead p:last-child {
   margin-bottom: 0;
-}
-
-.about__columns {
-  display: flex;
-  align-items: flex-start;
-  gap: 40px;
-}
-
-.about__col {
-  flex: 1;
 }
 
 .about__subtitle {
@@ -1022,40 +965,6 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   height: 16px;
 }
 
-/* ---------- Footer ---------- */
-.site-footer {
-  margin-top: 40px;
-  padding: 40px 0;
-  border-top: 1px solid #eee;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.site-footer__name {
-  font-size: 14px;
-  font-weight: 600;
-  color: #404040;
-}
-
-.site-footer__links {
-  display: flex;
-  gap: 16px;
-}
-
-.site-footer__links a {
-  font-size: 13px;
-  font-weight: 500;
-  color: #404040;
-  transition: color .2s;
-}
-
-.site-footer__links a:hover {
-  color: #404040;
-}
-
 /* ---------- Scroll reveal ----------
    Анимация появления убрана 30 октября 2026: при быстрой прокрутке блоки
    не успевали проявиться, и человек видел пустые экраны. Класс в разметке
@@ -1196,11 +1105,6 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
     padding: 82px 16px 80px;
   }
 
-  .contacts-bar {
-    margin-top: 24px;
-    margin-bottom: 56px;
-  }
-
   .hero__meta {
     gap: 8px;
     margin-bottom: 14px;
@@ -1225,25 +1129,6 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 
   /* На телефоне числа идут сеткой 2×2: строкой они встают в четыре этажа
      и утапливают первую карточку ниже сгиба */
-  .hero-facts {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px 16px;
-    margin-top: 20px;
-  }
-
-  .hero-facts__item {
-    max-width: none;
-  }
-
-  .hero-facts__value {
-    font-size: 19px;
-  }
-
-  .hero-facts__label {
-    font-size: 12px;
-  }
-
   .company-section {
     margin-bottom: 56px;
   }
@@ -1257,17 +1142,22 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
     line-height: 28px;
   }
 
-  .about__lead {
-    margin-bottom: 28px;
+  .about__grid {
+    grid-template-columns: 1fr;
+    row-gap: 16px;
+  }
+
+  .about__card {
+    padding: 20px;
+    border-radius: 24px;
+  }
+
+  .about__card--path {
+    gap: 32px;
   }
 
   .about__lead p {
     font-size: 16px;
-  }
-
-  .about__columns {
-    flex-direction: column;
-    gap: 32px;
   }
 
   .company-section__intro {
@@ -1368,10 +1258,6 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
     gap: 14px;
   }
 
-  .site-footer {
-    flex-direction: column;
-    align-items: flex-start;
-  }
 }
 
 /* ================================================================
@@ -3627,13 +3513,6 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   display: none;
 }
 
-/* то, что идёт после стопки, закрывает последнюю карточку */
-.hero-facts {
-  position: relative;
-  z-index: 3;
-  background: #fff;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .case-project,
   .case-project__arrow,
@@ -3773,11 +3652,24 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 .case-flow > .about {
   position: relative;
   z-index: 6;
-  /* отступы обнулены: остановки прокрутки должны идти ровно через экран */
+  /* отступы обнулены: остановки прокрутки должны идти ровно через экран.
+     Сверху и справа — как у ряда кейса (.case-screen__row): подложка в 16px под хедером */
   margin: 0;
-  padding: 80px 0 96px;
-  background: #fff;
+  padding: 16px 20px 16px 0;
+  background: var(--portfolio-canvas);
   min-height: var(--block-height);
+}
+
+/* полотно во всю ширину, как у блоков кейсов */
+.case-flow > .about::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  left: calc(-1 * var(--page-gutter));
+  width: calc(100% + 2 * var(--page-gutter));
+  background: var(--portfolio-canvas);
+  z-index: -1;
+  pointer-events: none;
 }
 
 /* блоки наезжают друг на друга в порядке разметки */
@@ -3792,7 +3684,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 
   .case-flow > .about {
     min-height: 0;
-    padding: 40px 0 56px;
+    padding: 24px 0 32px;
   }
 }
 
