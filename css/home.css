@@ -336,6 +336,34 @@ body:has(.case-flow) {
   gap: 22px;
 }
 
+/* строка пути: иконка компании слева, весь текст — в одной колонке справа */
+.about__row {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  column-gap: 12px;
+  align-items: start;
+}
+
+.about__mark {
+  display: block;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.about__mark img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* как на обложке кейса: рамка только у Lunel, Самокат и МЭШ сами себе плашка */
+.about__mark--lunel {
+  border: .5px solid rgba(4, 7, 37, .07);
+}
+
 /* название компании слева, даты справа — по общей базовой линии */
 .about__head {
   display: flex;
@@ -400,7 +428,7 @@ p.about__what {
 
 .about__what {
   display: block;
-  color: #737373;
+  color: #404040;
 }
 
 /* ---------- Site nav (legacy, kept for styles) ---------- */
