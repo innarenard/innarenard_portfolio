@@ -109,15 +109,47 @@
     b.projects.forEach(function (p, k) { toggle(p, k === i); });
   }
 
-  var currentDot = -1;
-  function paintDots(i) {
-    if (!dots.length || i === currentDot) return;
-    currentDot = i;
+  /* ---------- Точки ----------
+     p — дробный номер остановки, тот же, по которому едут блоки и карточки:
+     2.4 значит «прошли сорок процентов пути от третьей остановки к четвёртой».
+     Поэтому точки не ждут конца анимации, а идут с ней кадр в кадр.
+     Видно пять точек (как в макете), лента со всеми точками едет внутри
+     окна так, чтобы активная стояла в средней клетке, пока есть куда ехать.
+     У края, за которым ещё есть точки, они мельчают: крайняя 4, следующая 6. */
+  var DOT = 8, DOT_STEP = 16, DOT_SLOTS = 5;
+  var dotsTrack = dotsBox ? dotsBox.querySelector('.page-dots__track') : null;
+  var lastP = -1;
+
+  // насколько мельчает точка в j клетках от края окна (j < 0 — уже за краем)
+  function shrink(j) {
+    if (j <= -1) return DOT;
+    if (j <= 0) return 4 - j * 4;   // за краем: 4 → 0
+    if (j <= 1) return 4 - j * 2;   // крайняя клетка: 4, дальше 6
+    if (j <= 2) return 2 - (j - 1) * 2;
+    return 0;
+  }
+
+  function paintDots(p) {
+    var n = dots.length;
+    if (!n) return;
+    p = p < 0 ? 0 : (p > n - 1 ? n - 1 : p);
+    var near = Math.round(p);
+    if (Math.abs(p - near) < 0.002) p = near;   // на остановке — ровно
+    if (p === lastP) return;
+    lastP = p;
+    var maxS = Math.max(0, n - DOT_SLOTS);
+    var s = p - 2;                       // активная — в средней клетке
+    s = s < 0 ? 0 : (s > maxS ? maxS : s);
+    var topHidden = Math.min(1, s);              // есть ли точки выше окна
+    var botHidden = Math.min(1, maxS - s);       // и ниже
+    if (dotsTrack) dotsTrack.style.transform = 'translate3d(0,' + (-s * DOT_STEP).toFixed(2) + 'px,0)';
     dots.forEach(function (d, k) {
-      var far = Math.abs(k - i);
-      d.classList.toggle('is-active', far === 0);
-      d.classList.toggle('is-close', far <= 1);
-      d.classList.toggle('is-near', far === 2);
+      var j = k - s;                     // клетка окна, 0…4
+      var cut = Math.max(topHidden * shrink(j), botHidden * shrink(DOT_SLOTS - 1 - j));
+      var size = Math.max(0, DOT - cut);
+      var on = Math.max(0, 1 - Math.abs(k - p));   // 1 — активная, 0 — нет
+      d.style.transform = 'scale(' + (size / DOT).toFixed(3) + ')';
+      d.style.backgroundColor = 'rgba(4,7,37,' + (0.1 + 0.9 * on).toFixed(3) + ')';
     });
   }
 
@@ -235,7 +267,6 @@
       return b.spacer ? b.spacer.getBoundingClientRect().top : 0;
     });
 
-    var dot = 0;
     blocks.forEach(function (b, k) {
       if (b.spacer) {
         // распорка начинается на экран ниже шапки; считаем, сколько её съели
@@ -262,12 +293,11 @@
       if (b.content) b.content.style.opacity = (1 - fade).toFixed(3);
 
       if (!b.spacer) paintCards(b, 0, 0);
-
-      if (lefts[k] <= 0) dot = b.firstDot + (b.active > 0 ? b.active : 0);
     });
 
-    if (aboutLeft <= 0) dot = dots.length - 1;
-    paintDots(dot);
+    // остановки идут ровно через экран, начиная с первого экрана у шапки —
+    // по ним же доводит прокрутку snap(), значит и точки считаем от них
+    paintDots((y - (blocks[0].flowTop - HEADER)) / h);
 
     // прокрутка встала, а карточка проекта ещё догоняет — дорисовываем сами
     if (lagLive && !lagRaf) lagRaf = requestAnimationFrame(function () { lagRaf = 0; update(); });

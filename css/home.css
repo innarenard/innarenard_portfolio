@@ -3649,44 +3649,38 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
    По макету точки разные: ближние к активной 8px, дальше 6 и 4.
    Колонка центрована по блоку — то есть по области под шапкой.
    ================================================================ */
+/* Окно на пять точек (как в макете), внутри — лента со всеми точками.
+   Шаг ленты 16px: точка 8 + зазор 8. Размер, цвет и сдвиг ленты
+   выставляет js/case-stack.js на каждом кадре прокрутки — по той же
+   дробной позиции, что двигает блоки, поэтому css-переходов здесь нет:
+   они и давали отставание. */
 .page-dots {
   position: fixed;
   top: calc(88px + (100vh - 88px) / 2);
   right: var(--page-gutter);
   z-index: 40;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
   width: 20px;
+  height: 72px;
+  overflow: hidden;
   transform: translateY(-50%);
   pointer-events: none;
 }
 
+.page-dots__track {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  will-change: transform;
+}
+
 .page-dots__dot {
   display: block;
-  width: 4px;
-  height: 4px;
+  flex: 0 0 8px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   background: rgba(4, 7, 37, .1);
-  transition: width .25s ease, height .25s ease, background-color .25s ease;
-}
-
-.page-dots__dot.is-near {
-  width: 6px;
-  height: 6px;
-}
-
-.page-dots__dot.is-close {
-  width: 8px;
-  height: 8px;
-}
-
-.page-dots__dot.is-active {
-  width: 8px;
-  height: 8px;
-  background: var(--portfolio-ink);
 }
 
 /* ---------- «Обо мне» — последний блок стопки ---------- */
@@ -3704,12 +3698,6 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 #case-lunel { z-index: 2; }
 #case-samokat { z-index: 3; }
 #case-mes { z-index: 4; }
-
-@media (prefers-reduced-motion: reduce) {
-  .page-dots__dot {
-    transition: none;
-  }
-}
 
 @media screen and (max-width: 700px) {
   .page-dots {
