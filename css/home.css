@@ -1514,9 +1514,30 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
     opacity .25s ease;
 }
 
+/* Наведение на точку возвращает текст — тем же движением, что и при
+   возврате на первый экран. Точка 8px — мелкая цель, поэтому зона
+   наведения шире: строчный паддинг раскладку не двигает. */
+@media (hover: hover) {
+  .site-header.is-compact .site-header__availability {
+    padding: 13px 8px;
+    margin: 0 -8px;
+  }
+
+  .site-header.is-compact .site-header__availability:hover .site-header__availability-text {
+    grid-template-columns: 1fr;
+    margin-left: 4px;
+    opacity: 1;
+    transition:
+      grid-template-columns .45s cubic-bezier(.4, 0, .2, 1),
+      margin-left .45s cubic-bezier(.4, 0, .2, 1),
+      opacity .3s ease .1s;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .site-header__availability-text,
-  .site-header.is-compact .site-header__availability-text {
+  .site-header.is-compact .site-header__availability-text,
+  .site-header.is-compact .site-header__availability:hover .site-header__availability-text {
     transition: none;
   }
 }
