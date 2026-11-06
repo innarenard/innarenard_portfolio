@@ -1465,7 +1465,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
    Текст сворачивается по ширине и гаснет (класс .is-compact у шапки
    ставит js/case-stack.js). Внутри inline-флекса нет базовой линии у точки,
    поэтому сам статус — обычный строчный бокс, а точка стоит по центру
-   строчных букв (vertical-align: middle). */
+   высоты текста (см. vertical-align у точки). */
 .site-header__availability {
   display: inline;
   color: var(--portfolio-online);
@@ -1480,7 +1480,9 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   height: 8px;
   border-radius: 50%;
   background: currentColor;
-  vertical-align: middle;
+  /* центр точки = середина высоты заглавных (у Montserrat 0.7em):
+     низ точки поднят на 0.35em − 4px над базовой линией */
+  vertical-align: calc(0.35em - 4px);
 }
 
 /* 1fr → 0fr: ширина едет ровно от настоящей ширины текста до нуля,
