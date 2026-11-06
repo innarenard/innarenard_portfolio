@@ -330,15 +330,6 @@ body:has(.case-flow) {
   margin-bottom: 0;
 }
 
-.about__subtitle {
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: #737373;
-  margin-bottom: 18px;
-}
-
 .about__timeline {
   display: flex;
   flex-direction: column;
