@@ -1877,6 +1877,11 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   box-shadow: 0 0 2.26px rgba(0, 0, 0, .06);
 }
 
+/* запятая «Lisbon, Portugal» встаёт вплотную к нате, без правого отступа плашки */
+.hero__chip--nata {
+  margin-right: 1px;
+}
+
 .hero__chip-logo {
   position: absolute;
   background-repeat: no-repeat;
