@@ -362,6 +362,38 @@ body:has(.case-flow) {
   margin-bottom: 5px;
 }
 
+/* грейд / тип проекта под названием компании */
+.about__grade {
+  display: block;
+  font-size: 15px;
+  line-height: 1.4;
+  color: #404040;
+  margin-bottom: 8px;
+}
+
+.about__row > .about__grade:last-child {
+  margin-bottom: 0;
+}
+
+p.about__what {
+  margin: 0;
+}
+
+.about__list {
+  margin: 0;
+  padding-left: 18px;
+  list-style: disc;
+}
+
+.about__list li + li {
+  margin-top: 8px;
+}
+
+.about__list strong {
+  font-weight: 600;
+  color: #404040;
+}
+
 .about__skill-label {
   display: block;
   font-size: 15px;
