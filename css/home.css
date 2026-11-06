@@ -1952,11 +1952,11 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 }
 
 /* Ховер на всём кружке (на нём же висит дождь из наты, js/nata-rain.js):
-   ната растёт вокруг центра, как логотипы. 1.7 — между МЭШ/Самокатом (1.33–1.38)
-   и Lunel (1.733), до ~43px по ширине. */
+   ната растёт вокруг центра, как логотипы. 1.35 — как у МЭШ и Самоката (1.33–1.38),
+   до ~34px по ширине. */
 .hero__chip--nata:hover .hero__chip-logo--nata {
   z-index: 1;
-  transform: scale(1.7);
+  transform: scale(1.35);
 }
 
 .hero__chip-logo:focus-visible {
