@@ -358,7 +358,8 @@
   var raf = 0, lastT = 0;
   var written = -1;              // последняя прокрутка, выставленная нами
 
-  var lastWheelT = 0, lastDelta = 0, peak = 0, decays = 0;
+  var lastWheelT = 0, peak = 0, sincePeak = 0, ema = 0, emaPrev = 0;
+  var swallow = false;           // гасим хвост инерции жеста, по которому уже доводим
   var gestureDir = 0, mouseLike = false;
   var endTimer = 0, extTimer = 0, lastExtY = 0;
 
@@ -446,21 +447,38 @@
   }
 
   /* extra — сколько ещё страница проехала бы сама по инерции */
+  /* Возвращает true, если доводка началась. Сверху вниз и снизу вверх
+     решение одно и то же, зеркально:
+     - отсчёт ведём от остановки, с которой жест начался. Страница стоит
+       на остановке с запасом в пиксель (BIAS), и раньше при движении вверх
+       эта доля процента превращалась в «следующую» остановку: жест вверх
+       из «Обо мне» доводился обратно вниз и съедался;
+     - снизу, из «Обо мне» и подвала, в стопку въезжаем по прикидке инерции:
+       если бросок туда докатится, доводка начинается от последней
+       остановки, а не ждёт, пока страница сама в неё заедет. */
   function snap(extra) {
-    if (!engineOn()) return;
+    if (!engineOn()) return false;
     var h = metrics();
+    var last = stops - 1;
     var rel = (pos - stackTop) / h;
-    if (!inStack(rel)) return;
     var proj = (target + extra - stackTop) / h;
+    if (!inStack(rel)) {
+      // ниже стопки, но бросок вверх в неё докатится — начинаем от «Обо мне»
+      if (rel > last && proj < last - 0.02) rel = last;
+      else return false;
+    }
     var dir = proj > rel + 1e-4 ? 1 : (proj < rel - 1e-4 ? -1 : gestureDir);
     if (!dir) dir = 1;
-    var base = dir > 0 ? Math.floor(rel + 1e-3) : Math.ceil(rel - 1e-3);
+    var near = Math.round(rel);
+    var base = Math.abs(rel - near) < 0.03 ? near : (dir > 0 ? Math.floor(rel) : Math.ceil(rel));
     // вниз от последней остановки уходим свободно: там «Обо мне» и подвал
-    if (dir > 0 && base >= stops - 1) return;
+    if (dir > 0 && base >= last) return false;
     var adv = mouseLike ? ADV_WHEEL : ADV_PAD;
     var idx = Math.abs(proj - base) > adv ? base + dir : base;
-    idx = Math.max(0, Math.min(stops - 1, idx));
+    idx = Math.max(0, Math.min(last, idx));
+    swallow = !mouseLike;
     springToStop(idx, h);
+    return true;
   }
 
   // у элемента своя прокрутка и ему есть куда ехать — колесо его
@@ -474,6 +492,14 @@
     return false;
   }
 
+  /* Инерция тачпада неровная: шаги гаснут, но с дрожью — 12, 13, 11, 12, 10.
+     Раньше любой шаг крупнее предыдущего считался новым жестом и обрывал
+     доводку, страница резко тормозила и потом ползла к остановке. Теперь
+     сравниваем со сглаженной силой жеста (ema) и обрываем доводку только
+     на явном новом намерении: пауза, смена направления или резкий рост.
+     Хвост инерции после доводки тоже гасим, пока жест не закончился:
+     пружина садится за полсекунды, а инерция Mac идёт до полутора, и без
+     этого хвост сдвигал уже вставшую страницу. */
   function onWheel(e) {
     if (e.ctrlKey || e.defaultPrevented || !engineOn()) return;
     var dy = e.deltaY * (e.deltaMode === 1 ? 16 : (e.deltaMode === 2 ? window.innerHeight : 1));
@@ -485,24 +511,28 @@
     var gap = now - lastWheelT;
     var dir = dy > 0 ? 1 : -1;
     var ad = Math.abs(dy);
-    var prevAd = Math.abs(lastDelta);
-
-    if (gap > END_MS || dir !== gestureDir) {
-      // новый жест; тачпад начинает с мелких шагов, мышь — сразу щелчком
-      mouseLike = e.deltaMode !== 0 || ad >= 40;
-      peak = 0;
-      decays = 0;
-    }
-    // хвост инерции тачпада: без паузы, в ту же сторону, каждое событие не сильнее прошлого
-    var tail = !mouseLike && gap < 60 && dir === gestureDir && ad <= prevAd + 0.5;
-    if (ad > peak) peak = ad;
-    decays = tail && ad < prevAd ? decays + 1 : (tail ? decays : 0);
-
     lastWheelT = now;
-    lastDelta = dy;
+
+    var fresh = gap > END_MS || dir !== gestureDir;
+    // новое намерение посреди жеста: шаг резко сильнее того, что было
+    var surge = !fresh && ad > Math.max(ema * 1.8, ema + 10);
+
+    if (fresh) {
+      // тачпад начинает с мелких шагов, мышь — сразу щелчком
+      mouseLike = e.deltaMode !== 0 || ad >= 40;
+      peak = ad;
+      sincePeak = 0;
+      emaPrev = ema = ad;
+    } else {
+      emaPrev = ema;
+      ema = ema * 0.6 + ad * 0.4;
+      if (ad >= peak) { peak = ad; sincePeak = 0; } else sincePeak++;
+    }
     gestureDir = dir;
 
-    if (mode === 'spring' && tail) return;   // доводка уже решила, хвост её не дёргает
+    if (fresh || surge || mouseLike) swallow = false;
+    // доводка уже решила, куда ехать: хвост этого же жеста её не трогает
+    if (swallow) return;
 
     if (mode !== 'follow') {
       // перехватываем руку с того места и той скорости, что есть сейчас
@@ -513,13 +543,13 @@
     run();
 
     if (endTimer) clearTimeout(endTimer);
-    // бросок тачпадом: пик пройден и шаги стабильно гаснут — решаем сразу,
-    // не дожидаясь, пока инерция дотечёт до конца
-    if (!mouseLike && peak >= FLICK && decays >= 3 && ad < peak * 0.6) {
-      var r = prevAd ? Math.max(0.8, Math.min(0.97, ad / prevAd)) : 0.9;
-      var rest = Math.min(blockHeight() * 1.2, ad * r / (1 - r));
-      snap(dir * rest);
-      return;
+    // бросок тачпадом: пик пройден и сила жеста стабильно гаснет —
+    // решаем сразу, не дожидаясь, пока инерция дотечёт до конца
+    if (!mouseLike && peak >= FLICK && sincePeak >= 4 && ema < peak * 0.6) {
+      var r = emaPrev ? Math.max(0.8, Math.min(0.97, ema / emaPrev)) : 0.9;
+      var rest = Math.min(blockHeight() * 1.2, ema * r / (1 - r));
+      // в свободной зоне под стопкой доводки нет — тогда ждём конца жеста
+      if (snap(dir * rest)) return;
     }
     endTimer = setTimeout(function () { endTimer = 0; if (mode === 'follow') snap(0); }, END_MS);
   }
@@ -554,6 +584,7 @@
     if (written >= 0 && Math.abs(y - written) < 1.5) return;   // это мы сами
     // ползунок, поиск по странице, фокус, мобильная прокрутка — едет не наш движок
     if (mode !== 'idle') stop();
+    swallow = false;
     gestureDir = y > lastExtY ? 1 : (y < lastExtY ? -1 : gestureDir);
     lastExtY = y;
     pos = target = y;
