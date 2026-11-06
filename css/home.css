@@ -3089,7 +3089,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   .panel-case .result-card .body_gr,
   .panel-case .content-block .body_gr {
     font-size: 14px;
-    line-height: 22px;
+    line-height: 24px;
   }
 
   .panel-case .header {
@@ -3773,6 +3773,18 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 
   .case-flow > .site-footer {
     padding: 8px 0 32px;
+  }
+
+  /* основной текст главной на телефоне — 14/24, как в кейсах */
+  .hero__based,
+  .case-company__about,
+  .case-company__role,
+  .about__lead p,
+  .about__grade,
+  p.about__what,
+  .about__list {
+    font-size: 14px;
+    line-height: 24px;
   }
 }
 
