@@ -3353,7 +3353,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   height: 46px;
   overflow: hidden;
   border: .5px solid rgba(4, 7, 37, .07);
-  border-radius: 12px;
+  border-radius: 9px;
   background: var(--portfolio-surface);
 }
 
@@ -3368,14 +3368,6 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 .case-company__mark--mes {
   border: 0;
   background: none;
-}
-
-.case-company__mark--samokat {
-  border-radius: 9.6px;
-}
-
-.case-company__mark--mes {
-  border-radius: 10.5px;
 }
 
 .case-company__id {
