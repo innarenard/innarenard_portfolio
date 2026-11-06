@@ -339,16 +339,16 @@ body:has(.case-flow) {
 /* строка пути: иконка компании слева, весь текст — в одной колонке справа */
 .about__row {
   display: grid;
-  grid-template-columns: 32px minmax(0, 1fr);
+  grid-template-columns: 24px minmax(0, 1fr);
   column-gap: 12px;
   align-items: start;
 }
 
 .about__mark {
   display: block;
-  width: 32px;
-  height: 32px;
-  border-radius: 6px;
+  width: 24px;
+  height: 24px;
+  border-radius: 5px;
   overflow: hidden;
 }
 
