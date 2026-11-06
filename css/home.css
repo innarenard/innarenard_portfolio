@@ -431,6 +431,29 @@ p.about__what {
   color: #404040;
 }
 
+/* ---------- Копирайт под блоками ---------- */
+.site-footer {
+  padding: 24px 24px 40px;
+  text-align: center;
+}
+
+/* обложки кейсов липкие и лежат слоем 4 — поднимаем футер над ними, как .about */
+.case-flow > .site-footer {
+  position: relative;
+  z-index: 6;
+  /* боковые отступы как у .case-flow > .about, чтобы центр совпал с карточками */
+  padding-right: 20px;
+  padding-left: 0;
+  background: var(--portfolio-canvas);
+}
+
+.site-footer__copy {
+  margin: 0;
+  font-size: 13px;
+  line-height: 20px;
+  color: #737373;
+}
+
 /* ---------- Site nav (legacy, kept for styles) ---------- */
 .site-nav__links {
   display: flex;
@@ -3746,6 +3769,10 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   .case-flow > .about {
     min-height: 0;
     padding: 24px 0 32px;
+  }
+
+  .case-flow > .site-footer {
+    padding: 8px 0 32px;
   }
 }
 
