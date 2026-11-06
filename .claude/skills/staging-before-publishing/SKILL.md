@@ -1,6 +1,6 @@
 ---
 name: staging-before-publishing
-description: Use when changing anything in the innarenard.com portfolio repository — editing or adding a case page, index.html, css/, js/, images/, wording, or translations in js/i18n.js; when changing a spacing, size, or logo and needing the real measured value rather than the css source; when the RU/EN switch leaves the wrong language on screen; and when deciding whether a change may touch another case, reach the live site, be merged into main, or be pushed to origin/main.
+description: Use when changing anything in the innarenard.com portfolio repository — editing or adding a case page, index.html, css/, js/, images/, wording, or translations in js/i18n.js; when changing a spacing, size, or logo and needing the real measured value rather than the css source; when the RU/EN switch leaves the wrong language on screen; and when deciding whether a change may reach the live site, be merged into main, or be pushed to origin/main.
 ---
 
 # Стенд до публикации
@@ -76,63 +76,12 @@ description: Use when changing anything in the innarenard.com portfolio reposito
 
 ---
 
-# Правило 2: работаем только с LUNEL
+# Правило 2: снято
 
-Портфолио должно выглядеть однородно, поэтому вёрстка остальных кейсов — эталон,
-а не материал для правок.
-
-**Пока не прозвучит кодовая фраза «теперь правим портфолио целиком», трогаем только LUNEL.**
-
-## Что можно менять
-
-- новую папку `lunel/` и всё внутри неё;
-- новые картинки кейса в `images/` (только файлы `lunel-*`);
-- новый файл стилей кейса, если нужен, — отдельным файлом, не в общих `css/`;
-- в `index.html` — **только блок Lunel**: строка «логотип + описание компании»,
-  колонка «за что отвечала» и карточка-обложка, ведущая в кейс;
-- в `js/i18n.js` — **только строки Lunel**.
-
-## Что менять нельзя
-
-- папки и страницы других кейсов (`order-picking/`, `colleges/`, `picker-schedule/`,
-  `picking-priority/`, `teachers-journal/`, `transfers-of-goods/`);
-- их карточки, тексты и картинки в `index.html` и `images/`;
-- общие `css/styles.css`, `css/home.css`, `js/panel.js`, `js/nav.js` и прочий общий код —
-  из них только **читаем** шрифты, отступы и паттерны и повторяем их в Lunel.
-
-## Если правка Lunel требует залезть в общий файл
-
-Остановиться и спросить отдельно, объяснив, что именно и зачем. Не менять молча
-и не считать это «частью кейса Lunel».
-
-## Если пользователь сам просит тронуть общий файл или чужую секцию
-
-Тогда правило снято — но только для этой правки. Порядок:
-
-1. Сделать ровно то, что попросили, не расширяя охват.
-2. **Назвать это в ответе отдельной строкой:** какой общий файл или чужая секция
-   затронуты и по какой просьбе.
-3. То же — в теле коммита, чтобы через месяц было видно, что это не самоволка.
-4. Предложить откат одной фразой: «скажи, если имела в виду только Lunel».
-
-Так уже было дважды: `#mes { margin-top }` — по прямой просьбе уменьшить отступ
-между Самокатом и МЭШ, и `data-i18n="name"` в подвале — по прямой просьбе поправить
-переключение языков на главной. Оба раза правка законная, и оба раза её надо было
-проговорить, а не оставить в диффе.
-
-## Разрешённые правки в `index.html` вне блока Lunel
-
-Одно исключение из «только блок Lunel»: **версия в адресах `css/home.css` и
-`js/i18n.js`** в шапке. Её обязательно поднимать при правке этих файлов
-(см. правило 4), и это не считается выходом за рамки кейса.
-
-## Красные флаги — СТОП
-
-- «Поправлю отступ в общем css, так будет аккуратнее везде» — нет, это правка чужих кейсов.
-- «Заодно причешу соседнюю карточку, там опечатка» — нет, сказать об этом словами.
-- «Общий стиль всё равно применится к Lunel, значит это правка Lunel» — нет, файл общий.
-- «Пользователь просил показать паттерн из другого кейса» — читать можно, менять нельзя.
-- «Рефакторинг ничего не ломает» — правило про файлы, а не про риск.
+Ограничение «трогаем только Lunel» Инна сняла 6 ноября 2026: оно было нужно только
+для выкатки на прод, а прод и так закрыт кодовой фразой из правила 1. Любой кейс,
+главная и общие `css/`, `js/` правятся в рабочей ветке без отдельного разрешения.
+Номер правила оставлен, чтобы не съехали ссылки на правила 3–8.
 
 ---
 
