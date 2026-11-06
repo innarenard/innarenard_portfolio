@@ -3665,22 +3665,25 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   z-index: 40;
   width: 20px;
   height: 72px;
+  margin-top: -36px;
   overflow: hidden;
-  transform: translateY(-50%);
   pointer-events: none;
 }
 
+/* Без transform и will-change: при масштабе экрана 1,8 браузер рисовал
+   кружок слоем и растягивал готовую картинку, край ложился между
+   пикселями и точка сплющивалась. Теперь js/case-stack.js ставит каждой
+   точке размер и место целыми физическими пикселями — кружок рисуется
+   сразу нужного размера. */
 .page-dots__track {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  will-change: transform;
+  position: absolute;
+  inset: 0;
 }
 
 .page-dots__dot {
-  display: block;
-  flex: 0 0 8px;
+  position: absolute;
+  top: 0;
+  left: 6px;
   width: 8px;
   height: 8px;
   border-radius: 50%;

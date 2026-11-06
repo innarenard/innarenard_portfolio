@@ -81,6 +81,7 @@
       b.doorTravel = b.doors.length && b.doors[0].offsetHeight ? b.doors[0].offsetHeight : h;
       b.uc = null;   // после перекладки опоздание сбрасываем, иначе карточка поедет сама
     });
+    lastP = -1;      // окно точек могло сместиться — перерисовать их в любом случае
 
     if (mobile) {
       blocks.forEach(function (b) {
@@ -117,7 +118,6 @@
      окна так, чтобы активная стояла в средней клетке, пока есть куда ехать.
      У края, за которым ещё есть точки, они мельчают: крайняя 4, следующая 6. */
   var DOT = 8, DOT_STEP = 16, DOT_SLOTS = 5;
-  var dotsTrack = dotsBox ? dotsBox.querySelector('.page-dots__track') : null;
   var lastP = -1;
 
   // насколько мельчает точка в j клетках от края окна (j < 0 — уже за краем)
@@ -142,13 +142,25 @@
     s = s < 0 ? 0 : (s > maxS ? maxS : s);
     var topHidden = Math.min(1, s);              // есть ли точки выше окна
     var botHidden = Math.min(1, maxS - s);       // и ниже
-    if (dotsTrack) dotsTrack.style.transform = 'translate3d(0,' + (-s * DOT_STEP).toFixed(2) + 'px,0)';
+    // Кружок круглый, только если его край стоит на границе физического
+    // пикселя: при масштабе 1,8 точка 8px — это 14,4 пикселя, и дробный
+    // край сплющивал её. Поэтому размер и место считаем в физических
+    // пикселях и округляем, а в css переводим обратно.
+    var dpr = window.devicePixelRatio || 1;
+    var box = dotsBox.getBoundingClientRect();
     dots.forEach(function (d, k) {
       var j = k - s;                     // клетка окна, 0…4
       var cut = Math.max(topHidden * shrink(j), botHidden * shrink(DOT_SLOTS - 1 - j));
       var size = Math.max(0, DOT - cut);
       var on = Math.max(0, 1 - Math.abs(k - p));   // 1 — активная, 0 — нет
-      d.style.transform = 'scale(' + (size / DOT).toFixed(3) + ')';
+      var px = Math.round(size * dpr);                       // диаметр, целые пиксели
+      var cx = (box.left + box.width / 2) * dpr;             // центр клетки на экране
+      var cy = (box.top + DOT / 2 + j * DOT_STEP) * dpr;
+      var x = Math.round(cx - px / 2), y = Math.round(cy - px / 2);
+      d.style.width = d.style.height = (px / dpr) + 'px';
+      d.style.left = (x / dpr - box.left) + 'px';
+      d.style.top = (y / dpr - box.top) + 'px';
+      d.style.visibility = px ? '' : 'hidden';
       d.style.backgroundColor = 'rgba(4,7,37,' + (0.1 + 0.9 * on).toFixed(3) + ')';
     });
   }
