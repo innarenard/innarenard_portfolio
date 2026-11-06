@@ -1453,10 +1453,21 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   line-height: 24px;
 }
 
-.site-header__availability {
+/* Имя и статус стоят на одной базовой линии: низ букв «Inna Ivanova»
+   и «Open to work» совпадает, хотя кегли разные (20 и 14). */
+.site-header__title {
   display: inline-flex;
-  align-items: center;
-  gap: 4px;
+  align-items: baseline;
+  gap: 12px;
+}
+
+/* Статус раскрыт только на первом экране главной; дальше — одна точка.
+   Текст сворачивается по ширине и гаснет (класс .is-compact у шапки
+   ставит js/case-stack.js). Внутри inline-флекса нет базовой линии у точки,
+   поэтому сам статус — обычный строчный бокс, а точка стоит по центру
+   строчных букв (vertical-align: middle). */
+.site-header__availability {
+  display: inline;
   color: var(--portfolio-online);
   font-size: 14px;
   font-weight: 500;
@@ -1464,10 +1475,48 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 }
 
 .site-header__availability-dot {
+  display: inline-block;
   width: 8px;
   height: 8px;
   border-radius: 50%;
   background: currentColor;
+  vertical-align: middle;
+}
+
+/* 1fr → 0fr: ширина едет ровно от настоящей ширины текста до нуля,
+   без подобранного на глаз max-width; RU длиннее EN — всё равно точно. */
+.site-header__availability-text {
+  display: inline-grid;
+  grid-template-columns: 1fr;
+  margin-left: 4px;
+  opacity: 1;
+  transition:
+    grid-template-columns .45s cubic-bezier(.4, 0, .2, 1),
+    margin-left .45s cubic-bezier(.4, 0, .2, 1),
+    opacity .3s ease .1s;
+}
+
+.site-header__availability-text > span {
+  min-width: 0;
+  overflow: clip;   /* не hidden: тот ломает базовую линию */
+  white-space: nowrap;
+}
+
+.site-header.is-compact .site-header__availability-text {
+  grid-template-columns: 0fr;
+  margin-left: 0;
+  opacity: 0;
+  transition:
+    grid-template-columns .45s cubic-bezier(.4, 0, .2, 1),
+    margin-left .45s cubic-bezier(.4, 0, .2, 1),
+    opacity .25s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header__availability-text,
+  .site-header.is-compact .site-header__availability-text {
+    transition: none;
+  }
 }
 
 .site-header__right {

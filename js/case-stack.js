@@ -21,6 +21,7 @@
   var hero = document.querySelector('.hero');
   var about = document.querySelector('.case-flow > .about');
   var dotsBox = document.getElementById('pageDots');
+  var siteHeader = document.querySelector('.site-header');
   if (!flow || !hero) return;
 
   var dots = dotsBox ? [].slice.call(dotsBox.querySelectorAll('.page-dots__dot')) : [];
@@ -313,7 +314,11 @@
     // только на load, и пока страница догружается, точки получали NaN
     // и стояли на месте, хотя блоки уже ехали
     var flowY = flow.getBoundingClientRect().top + y;
-    paintDots((y - (flowY - HEADER)) / h);
+    var page = (y - (flowY - HEADER)) / h;
+    paintDots(page);
+    // «Open to work» раскрыт только на первом экране; как только поехал
+    // первый кейс — в шапке остаётся одна зелёная точка
+    if (siteHeader) siteHeader.classList.toggle('is-compact', page > 0.25);
 
     // прокрутка встала, а карточка проекта ещё догоняет — дорисовываем сами
     if (lagLive && !lagRaf) lagRaf = requestAnimationFrame(function () { lagRaf = 0; update(); });
