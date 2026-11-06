@@ -131,7 +131,7 @@
 
   function paintDots(p) {
     var n = dots.length;
-    if (!n) return;
+    if (!n || !isFinite(p)) return;
     p = p < 0 ? 0 : (p > n - 1 ? n - 1 : p);
     var near = Math.round(p);
     if (Math.abs(p - near) < 0.002) p = near;   // на остановке — ровно
@@ -296,8 +296,12 @@
     });
 
     // остановки идут ровно через экран, начиная с первого экрана у шапки —
-    // по ним же доводит прокрутку snap(), значит и точки считаем от них
-    paintDots((y - (blocks[0].flowTop - HEADER)) / h);
+    // по ним же доводит прокрутку snap(), значит и точки считаем от них.
+    // Начало стопки берём со страницы, а не из layout(): тот срабатывает
+    // только на load, и пока страница догружается, точки получали NaN
+    // и стояли на месте, хотя блоки уже ехали
+    var flowY = flow.getBoundingClientRect().top + y;
+    paintDots((y - (flowY - HEADER)) / h);
 
     // прокрутка встала, а карточка проекта ещё догоняет — дорисовываем сами
     if (lagLive && !lagRaf) lagRaf = requestAnimationFrame(function () { lagRaf = 0; update(); });
