@@ -3780,3 +3780,20 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
     padding: 40px 0 56px;
   }
 }
+
+/* ---------- Дождь из паштел-де-ната при наведении на кружок у «Lisbon» ---------- */
+.nata-rain {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.nata-rain__item {
+  position: absolute;
+  top: 0;
+  height: auto;
+  will-change: transform;
+  user-select: none;
+}
