@@ -199,8 +199,16 @@ body.panel-open .site-wrapper {
 }
 
 /* ---------- Main content ---------- */
+/* снизу пусто: последний блок «Обо мне» сам держит отступ, иначе под ним видна полоса */
 .main-content {
-  padding: 0 0 140px;
+  padding: 0;
+}
+
+/* главная целиком на сером полотне — и при «оттяжке» прокрутки внизу тоже.
+   На страницах кейсов (.case-flow там нет) фон остаётся белым */
+html:has(.case-flow),
+body:has(.case-flow) {
+  background: var(--portfolio-canvas);
 }
 
 /* ---------- Hero ---------- */
@@ -1102,7 +1110,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   }
 
   .main-content {
-    padding: 82px 16px 80px;
+    padding: 82px 16px 0;
   }
 
   .hero__meta {
@@ -2056,7 +2064,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   }
 
   .main-content {
-    padding: 72px 0 80px;
+    padding: 72px 0 0;
   }
 
   .hero {
