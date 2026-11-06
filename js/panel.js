@@ -239,7 +239,8 @@
   // Без перехвата клик уводил на отдельную страницу, а её крестик грузил главную
   // заново, с первого экрана. Теперь на десктопе они открывают ту же шторку,
   // что и карточка кейса, и после закрытия человек остаётся там, откуда нажал
-  document.querySelectorAll('.case-door, .case-project').forEach(function (link) {
+  // В карточке проекта ссылка только на стрелке: тап по названию никуда не ведёт
+  document.querySelectorAll('.case-door, .case-project__arrow').forEach(function (link) {
     var card = document.querySelector('.project-card[data-href="' + link.getAttribute('href') + '"]');
     if (!card) return;
     link.addEventListener('click', function (e) {

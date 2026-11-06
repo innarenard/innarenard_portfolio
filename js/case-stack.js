@@ -89,13 +89,15 @@
     }
   }
 
+  // обложка — сама ссылка, а у карточки проекта ссылка внутри, на стрелке
   function toggle(el, on) {
+    var link = el.matches('a') ? el : el.querySelector('a');
     el.classList.toggle('is-active', on);
     if (on) {
-      el.removeAttribute('tabindex');
+      if (link) link.removeAttribute('tabindex');
       el.removeAttribute('aria-hidden');
     } else {
-      el.setAttribute('tabindex', '-1');
+      if (link) link.setAttribute('tabindex', '-1');
       el.setAttribute('aria-hidden', 'true');
     }
   }

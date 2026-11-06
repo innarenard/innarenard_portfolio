@@ -3359,6 +3359,21 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   object-fit: cover;
 }
 
+/* по макету рамка только у Lunel: у Самоката и МЭШ логотип сам себе плашка */
+.case-company__mark--samokat,
+.case-company__mark--mes {
+  border: 0;
+  background: none;
+}
+
+.case-company__mark--samokat {
+  border-radius: 9.6px;
+}
+
+.case-company__mark--mes {
+  border-radius: 10.5px;
+}
+
 .case-company__id {
   display: flex;
   flex-direction: column;
@@ -3389,22 +3404,25 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   line-height: 24px;
 }
 
+/* по макету: обычный текст Regular, выделенные слова SemiBold того же цвета */
 .case-company__role {
   color: var(--portfolio-ink-80);
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 24px;
 }
 
 .case-company__role strong {
-  color: var(--portfolio-ink);
   font-weight: 600;
 }
 
 /* ---------- Карточка проекта: по одной на кейс, видна активная ---------- */
+/* align-self: карточки лежат в одной клетке, без него каждая тянется
+   до высоты самой длинной из соседних и внизу остаётся пустое поле */
 .case-project {
   grid-column: 1;
   grid-row: 2;
+  align-self: start;
   z-index: 1;
   display: flex;
   padding: 24px;
@@ -3446,7 +3464,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   border-radius: 24px;
   background: var(--portfolio-ink);
   color: #fff;
-  transition: transform .2s ease;
+  transition: transform .2s ease, background-color .2s ease;
 }
 
 .case-project__arrow svg {
@@ -3454,10 +3472,22 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   height: 24px;
 }
 
-.case-project:hover .case-project__arrow,
-.case-project:focus-visible .case-project__arrow {
-  transform: translateX(3px);
+/* ховер по макету: кнопка 48 → 63 вокруг своего центра и красится в цвет компании;
+   масштаб, а не размер — соседи в строке не сдвигаются */
+.case-project__arrow:hover,
+.case-project__arrow:focus-visible {
+  background: var(--case-accent, var(--portfolio-ink));
+  transform: scale(1.3125);
 }
+
+.case-project__arrow:focus-visible {
+  outline: 2px solid var(--portfolio-ink);
+  outline-offset: 2px;
+}
+
+#case-lunel { --case-accent: #e86c61; }
+#case-samokat { --case-accent: #ff3b65; }
+#case-mes { --case-accent: #4087e7; }
 
 .case-project__tags {
   display: flex;
@@ -3523,6 +3553,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 
 @media (prefers-reduced-motion: reduce) {
   .case-project,
+  .case-project__arrow,
   .case-door,
   .case-door img {
     transition: none;
