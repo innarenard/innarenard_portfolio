@@ -3966,3 +3966,67 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   will-change: transform;
   user-select: none;
 }
+
+/* ---------- Обложка «Расписание сборщиков»: центр стоит, колонки по бокам едут ----------
+   Макет: кадр 839×644 (узел 3960:50761). Экран 229.36×497.24, шаг колонки 529.24
+   (зазор 32). Левая колонка x=43 едет вниз, правая x=567 вверх, центральный экран
+   x=305 y=73 неподвижен. Обводка 4px #E8E8E8 внутри, тень 0 0 8px rgba(0,0,0,.1).
+   Колонки — та же петля, что у «Сборки заказа» (op-cover-down/up), со своим шагом. */
+.ps-cover {
+  --step: calc(529.24 * var(--s));
+}
+
+.ps-cover .ps-cover__col {
+  gap: calc(32 * var(--s));
+  width: calc(229.36 * var(--s));
+  animation-duration: 34s;
+}
+
+/* отрицательная задержка ставит первый кадр туда, где колонки стоят в макете */
+.ps-cover .ps-cover__col--down {
+  left: calc(43 * var(--s));
+  animation-name: op-cover-down;
+  animation-delay: -29.93s;
+}
+
+.ps-cover .ps-cover__col--up {
+  left: calc(567 * var(--s));
+  animation-name: op-cover-up;
+  animation-delay: -9.83s;
+}
+
+.ps-cover__shot {
+  position: relative;
+  flex: none;
+  display: block;
+  width: calc(229.36 * var(--s));
+  height: calc(497.24 * var(--s));
+  overflow: hidden;
+  border-radius: calc(26.85 * var(--s));
+  background: #f4f4f4;
+  box-shadow: 0 0 calc(8 * var(--s)) 0 rgba(0, 0, 0, .1);
+}
+
+.ps-cover__shot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: calc(4 * var(--s)) solid #e8e8e8;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.ps-cover__shot--center {
+  position: absolute;
+  top: calc(73 * var(--s));
+  left: calc(305 * var(--s));
+  z-index: 1;
+}
+
+.case-door .ps-cover__shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: none;
+  transition: none;
+}
