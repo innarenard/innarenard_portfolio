@@ -3695,6 +3695,38 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   }
 }
 
+/* ---------- Обложка «Перемещение товаров»: карусель справа налево ----------
+   Макет: кадр 839×644 (узел 3960:30211). Малый экран 230.63×500, крупный в центре
+   267.07×579; обводка 4px #E8E8E8 снаружи, тень 0 0 8px rgba(0,0,0,.1).
+   Сдвиг --x и масштаб --k на каждом кадре ставит js/cover-carousel.js. */
+.tg-cover__shot {
+  --x: 0;
+  --k: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: calc(230.63 * var(--s));
+  height: calc(500 * var(--s));
+  margin: calc(-250 * var(--s)) 0 0 calc(-115.315 * var(--s));
+  overflow: hidden;
+  border-radius: calc(27 * var(--s));
+  background: #f4f4f4;
+  box-shadow:
+    0 0 0 calc(4 * var(--s)) #e8e8e8,
+    0 0 calc(8 * var(--s)) calc(4 * var(--s)) rgba(0, 0, 0, .1);
+  transform: translateX(calc(var(--x) * var(--s))) scale(var(--k));
+  will-change: transform;
+}
+
+.case-door .tg-cover__shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: none;
+  transition: none;
+}
+
 /* старые секции кейсов заменены стопкой обложек */
 .company-section.is-replaced-by-stack {
   display: none;
