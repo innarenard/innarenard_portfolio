@@ -3592,6 +3592,109 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   transform: scale(1.03);
 }
 
+/* ---------- Обложка «Сборка заказа»: две колонки экранов едут навстречу ----------
+   Все числа — из макета Figma (кадр 839×644, узел 3960:29913), в его пикселях.
+   --s — сколько экранных пикселей в одном пикселе макета; берём по ширине,
+   чтобы колонки не обрезались по бокам, а высоту закрывают сами бесконечные колонки. */
+.case-door {
+  position: relative;
+}
+
+.op-cover {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  container-type: size;
+  background: #fff;
+}
+
+.op-cover__stage {
+  --s: calc(100cqw / 839);
+  --step: calc(623.23 * var(--s)); /* экран 579.23 + зазор 44 */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(839 * var(--s));
+  height: calc(644 * var(--s));
+  transform: translate(-50%, -50%);
+  transition: transform .5s cubic-bezier(.22, 1, .36, 1);
+}
+
+.case-door:hover .op-cover__stage {
+  transform: translate(-50%, -50%) scale(1.03);
+}
+
+.op-cover__col {
+  position: absolute;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: calc(44 * var(--s));
+  width: calc(267.18 * var(--s));
+  animation: op-cover-down 40s linear infinite;
+  will-change: transform;
+}
+
+/* левая колонка едет вниз, правая — вверх; отрицательная задержка
+   ставит первый кадр ровно туда, где колонки стоят в макете (−588 и +35) */
+.op-cover__col--down {
+  left: calc(130 * var(--s));
+  animation-delay: -21.13s;
+}
+
+.op-cover__col--up {
+  left: calc(441.18 * var(--s));
+  animation-name: op-cover-up;
+  animation-delay: -38.88s;
+}
+
+/* в колонке три одинаковых пары экранов; петля длиной в одну пару (2 шага)
+   сдвинута на пару вверх, чтобы над и под кадром всегда были экраны */
+@keyframes op-cover-down {
+  from { transform: translateY(calc(-4 * var(--step))); }
+  to   { transform: translateY(calc(-2 * var(--step))); }
+}
+
+@keyframes op-cover-up {
+  from { transform: translateY(calc(-2 * var(--step))); }
+  to   { transform: translateY(calc(-4 * var(--step))); }
+}
+
+.op-cover__shot {
+  position: relative;
+  flex: none;
+  display: block;
+  height: calc(579.23 * var(--s));
+  overflow: hidden;
+  border-radius: calc(31.27 * var(--s));
+  background: #f4f4f4;
+  box-shadow: 0 0 calc(8 * var(--s)) 0 rgba(0, 0, 0, .1);
+}
+
+/* обводка в Figma внутренняя: ложится поверх экрана, а не раздвигает его */
+.op-cover__shot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: calc(4 * var(--s)) solid #e8e8e8;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.case-door .op-cover__shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: none;
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .op-cover__col {
+    animation-play-state: paused;
+  }
+}
+
 /* старые секции кейсов заменены стопкой обложек */
 .company-section.is-replaced-by-stack {
   display: none;
