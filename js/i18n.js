@@ -546,8 +546,6 @@
       lunel_c_paywall_title: "Пейвол<br>",
       lunel_c_paywall_desc: "Оффер зависит от\u00A0того, есть ли\u00A0на\u00A0устройстве Apple Intelligence. Без\u00A0него часть ценности недоступна – поэтому такому человеку показывается более короткий и\u00A0более дешёвый оффер.",
       lunel_c_paywall_alt: "Экраны пейвола",
-      lunel_c_ds_title: "Разработка ДС<br>",
-      lunel_c_ds_alt: "Дизайн-система",
       lunel_c_result_title: "Результат<br>",
       lunel_c_res_1: "Выпуск MVP в\u00A0App Store",
       lunel_c_res_2: "Проект с\u00A0нуля",
