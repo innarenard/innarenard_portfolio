@@ -3698,9 +3698,9 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 /* ---------- Обложка «Перемещение товаров»: карусель справа налево ----------
    Макет: кадр 839×644 (узел 3960:30211). Малый экран 230.63×500, крупный в центре
    267.07×579; обводка 4px #E8E8E8 снаружи, тень 0 0 8px rgba(0,0,0,.1).
-   Сдвиг --x и масштаб --k на каждом кадре ставит js/cover-carousel.js. */
+   Сдвиг --off и масштаб --k на каждом кадре ставит js/cover-carousel.js. */
 .tg-cover__shot {
-  --x: 0;
+  --off: 0;
   --k: 1;
   position: absolute;
   top: 50%;
@@ -3715,8 +3715,35 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   box-shadow:
     0 0 0 calc(4 * var(--s)) #e8e8e8,
     0 0 calc(8 * var(--s)) calc(4 * var(--s)) rgba(0, 0, 0, .1);
-  transform: translateX(calc(var(--x) * var(--s))) scale(var(--k));
+  transform: translateX(calc(var(--off) * var(--s))) scale(var(--k));
   will-change: transform;
+}
+
+/* ---------- Обложка «Приоритет сборки»: карусель сверху вниз ----------
+   Макет: кадр 839×644 (узел 3960:50211). Малый экран 562.65×351.22, крупный
+   в центре 671.48×419.15, зазор 40. Тень 0 0 6.8px rgba(0,0,0,.1) — через
+   drop-shadow, потому что углы окна браузера на картинке прозрачные. */
+.pp-cover__shot {
+  --off: 0;
+  --k: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: calc(562.65 * var(--s));
+  height: calc(351.22 * var(--s));
+  margin: calc(-175.61 * var(--s)) 0 0 calc(-281.325 * var(--s));
+  filter: drop-shadow(0 0 calc(5.68 * var(--s)) rgba(0, 0, 0, .1));
+  transform: translateY(calc(var(--off) * var(--s))) scale(var(--k));
+  will-change: transform;
+}
+
+.case-door .pp-cover__shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform: none;
+  transition: none;
 }
 
 .case-door .tg-cover__shot img {
