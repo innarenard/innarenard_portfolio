@@ -1363,8 +1363,13 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   --portfolio-canvas-tint: rgba(4, 7, 37, .04);
   --portfolio-surface: #fff;
   --portfolio-online: #0BA400;
-  /* 1440 − 2×70 = 1300 */
-  --page-gutter: max(24px, calc((100vw - 1300px) / 2));
+  /* 1440 − 2×70 = 1300. На высоком окне (большой монитор) кадр обложки
+     вытягивался вверх: блок растёт по высоте окна, а ширина стояла на 1300.
+     Поэтому ширина контента растёт вместе с высотой блока так, чтобы кадр
+     держал пропорцию ноутбука 1440×900: 839×780. Слева 461 = карточки 417
+     + зазор 24 + поле 20; 32 — поля ряда сверху и снизу. До высоты 900 — те же 1300. */
+  --content-width: max(1300px, calc(461px + (var(--block-height) - 32px) * 839 / 780));
+  --page-gutter: max(24px, calc((100vw - var(--content-width)) / 2));
   /* градиенты бренда для ховера соцкнопок */
   --brand-linkedin: linear-gradient(225deg, #007AB5 15%, #0046E5 85%);
   --brand-dribbble: linear-gradient(225deg, #F26798 15%, #C82093 76%, #C11592 85%);
@@ -1940,7 +1945,9 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 .hero__scene {
   position: absolute;
   top: 50%;
-  left: 0;
+  /* сцена 1300 по центру сцены-родителя: на ноутбуке он 1280 и это 0,
+     а на большом мониторе контент шире 1300 — сцена не прилипает влево */
+  left: calc((100% - 1280px) / 2);
   width: 1300px;
   height: 676px;
   margin-top: -338px;
