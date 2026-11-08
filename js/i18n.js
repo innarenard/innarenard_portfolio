@@ -248,6 +248,7 @@
       pp_hyp_3: "Прямая видимость состава групп исключает зависимость от внешних инструментов",
       pp_hyp_3m: "Операционная эффективность",
       pp_hyp_4: "Уведомления об изменениях приоритетов в реальном времени снижают ошибки координации",
+      pp_hyp_4m: "Эффективность",
       pp_main_title: "Главный дашборд<br>",
       pp_main_desc: "Таблицы товаров, категоризированные по\u00A0статусу приоритета, с\u00A0маркерами SKU-исключений",
       pp_main_alt: "Главный дашборд",
@@ -576,7 +577,13 @@
     return m ? m[1] : null;
   }
 
+  // Язык, который сейчас на экране. Адрес читаем только при загрузке:
+  // закрытие шторки откатывает адрес назад вместе со старым ?lang=,
+  // и шторка открывалась на прошлом языке, хотя страница уже на другом
+  var current = null;
+
   function getLang() {
+    if (current) return current;
     var fromUrl = langFromUrl();
     if (fromUrl) return fromUrl;
     var saved = localStorage.getItem(STORAGE_KEY);
@@ -595,6 +602,7 @@
   }
 
   function setLang(lang) {
+    current = lang;
     localStorage.setItem(STORAGE_KEY, lang);
     document.documentElement.lang = lang === 'ru' ? 'ru' : 'en';
     putLangInUrl(lang);
@@ -700,9 +708,17 @@
 
   function init() {
     var lang = getLang();
+    current = lang;
     // Пришли по ссылке с языком — запоминаем его, иначе при переходе
     // на главную человек снова увидит свой старый язык
     if (langFromUrl()) localStorage.setItem(STORAGE_KEY, lang);
+    // Кнопка «назад» и закрытие шторки возвращают прошлый адрес со старым
+    // ?lang= — выравниваем его по языку на экране, чтобы скопированная
+    // ссылка открывалась на том же языке
+    window.addEventListener('popstate', function () {
+      var fromUrl = langFromUrl();
+      if (fromUrl && fromUrl !== current) putLangInUrl(current);
+    });
     document.documentElement.lang = lang === 'ru' ? 'ru' : 'en';
     applyTranslations(lang);
     updateSwitcher(lang);
