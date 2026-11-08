@@ -4,47 +4,93 @@
   var translations = {
     ru: {
       /* ── index.html ── */
-      cv_url: "/cv/inna-ivanova-cv-ru.pdf",
+      cv_url: "/cv/inna-ivanova-product-designer-cv-ru.pdf",
       name: "Инна Иванова",
-      intro: "Product Designer с\u00A06\u00A0годами опыта в\u00A0tech продуктовых командах",
+      hero_location: "Лиссабон, Португалия",
+      hero_status: "Открыта к\u00A0работе",
+      intro: "<strong>Product Designer</strong> с\u00A06\u00A0годами опыта в\u00A0",
+      intro_mid: "<span class=\"hero__ink\">продуктах:</span> <strong>приложениях и\u00A0вебе</strong>, а\u00A0также с\u00A0опытом разработки\u00A0",
+      intro_end: "<span class=\"hero__ink\">продуктов</span>",
+      hero_body: "Веду <strong>end-to-end</strong> процесс продуктового дизайна: от\u00A0<strong>UX-исследований</strong> и\u00A0проверки гипотез до\u00A0запуска и\u00A0измерения <strong>влияния на\u00A0бизнес</strong>. Использую <strong>data-driven</strong> подход, чтобы превращать сложные бизнес-процессы в\u00A0эффективные цифровые продукты.",
+      hero_based: "Живу в",
+      hero_city: "Лиссабоне",
+      hero_based_end: ", Португалия",
+      hero_focus: "B2B (E-commerce, EdTech)\u00A0· B2C (FemTech)\u00A0· iOS, Android, Веб",
+      about_title: "Обо мне",
+      about_lead_1: "Веду продуктовый дизайн целиком: от\u00A0собственных UX-исследований и\u00A0проверки гипотез до\u00A0дизайн-ревью реализации и\u00A0опросов пользователей после запуска. Принимаю решения на\u00A0основе данных, на\u00A0пересечении целей бизнеса, потребностей пользователей и\u00A0технических ограничений, и\u00A0заранее определяю метрику успеха.",
+      about_lead_2: "Работаю в\u00A0кросс-функциональных командах с\u00A0продактами и\u00A0разработчиками и\u00A0защищаю свои предложения перед бизнесом, опираясь на\u00A0исследования и\u00A0анализ конкурентов.",
+      about_lead_3: "AI настраиваю под задачу: задаю правила и\u00A0критерии приёмки, создаю скиллы, чтобы результат был предсказуемым. Так собран Lunel: код писал Claude\u00A0Code, результат принимала я.",
+      about_lead_4: "Больше всего люблю детективную часть: найти проблему, докопаться до\u00A0причины и\u00A0придумать решение. В\u00A0B2B это ещё и\u00A0погружение в\u00A0чужую профессию, в\u00A0B2C\u00A0– задача привлечь и\u00A0удержать.",
+      about_path_title: "Путь",
+      about_p1_period: "март 2026\u00A0– сейчас",
+      about_p1_place: "Lunel",
+      about_p1_grade: "Пет-проект",
+      about_p1_what: "Вела сама от\u00A0идеи до\u00A0релиза MVP в\u00A0App\u00A0Store: исследование, анализ конкурентов, гипотезы. Цель ставила такую: меньше работать руками и\u00A0прокачать промптинг, поэтому всё делала вместе с\u00A0Claude.",
+      about_p2_period: "июнь 2023\u00A0– декабрь 2025",
+      about_p2_place: "Самокат",
+      about_p2_grade: "Middle+ → Senior (конец 2024)",
+      about_p2_team: "<strong>Команда:</strong> кросс-функциональная, я\u00A0в\u00A0ней единственный дизайнер. Плотно работала с\u00A0продактом, аналитиками и\u00A0разработчиками. С\u00A0дизайнерами других команд обменивались опытом и\u00A0подходами.",
+      about_p2_growth: "<strong>Как менялась работа:</strong> дольше всего работала в\u00A0команде сборки заказов, параллельно подключалась к\u00A0команде складских операций. Последний год была в\u00A0команде админ-функций и\u00A0отвечала за\u00A0опыт администраторов дарксторов.",
+      about_p2_extra: "<strong>Дополнительно:</strong> ревьюила макеты дизайнеров других команд. На\u00A0редизайне, где над приложением работали дизайнеры из\u00A0разных команд, я\u00A0отслеживала расхождения в\u00A0похожих экранах. Подключилась к\u00A0команде дизайн-системы: провела воркшоп по\u00A0lo-fi наброскам и\u00A0вебинар о\u00A0том, чем паттерны в\u00A0вебе отличаются от\u00A0мобильных.",
+      about_p3_period: "октябрь 2020\u00A0– апрель 2023",
+      about_p3_place: "МЭШ",
+      about_p3_grade: "Junior → Middle+ (2023)",
+      about_p3_team: "<strong>Команда:</strong> кросс-функциональная, я\u00A0в\u00A0ней единственный дизайнер. Плотно работала с\u00A0лидом, продактом, аналитиками и\u00A0разработчиками.",
+      about_p3_growth: "<strong>Как менялась работа:</strong> проектировала приложение для\u00A0учителей, затем мне доверили рефакторинг продукта «Колледжи».",
+      about_p4_period: "январь 2014\u00A0– октябрь 2020",
+      about_p4_place: "Графический дизайнер",
+      about_p4_grade: "Реклама, вёрстка журналов, выставочные стенды",
+      case_samokat_name: "Самокат",
+      case_mes_name: "Московская электронная школа",
+      case_lunel_about: "Приложение для\u00A0отслеживания цикла и\u00A0женского здоровья, помогающее понять своё тело.",
+      case_samokat_about: "Сервис экспресс-доставки продуктов и\u00A0товаров для\u00A0дома, входит в\u00A0число лидеров российского рынка e-grocery.",
+      case_mes_about: "Проект для\u00A0учителей, направленный на\u00A0создание высокотехнологичной образовательной среды в\u00A0школах Москвы.",
       lunel_intro: "<strong>Lunel</strong>. Приложение для\u00A0отслеживания цикла и\u00A0женского здоровья, помогающее понять своё тело.",
-      lunel_role: "Личный B2C-проект: вела end-to-end\u00A0– от\u00A0идеи до\u00A0релиза MVP в\u00A0App\u00A0Store, приложение собрала сама через vibe coding в\u00A0Claude\u00A0Code.",
+      lunel_role: "Личный <strong>B2C</strong>-проект: вела <strong>end-to-end</strong>\u00A0– от\u00A0идеи до\u00A0<strong>релиза MVP</strong> в\u00A0App\u00A0Store, а\u00A0приложение собрала сама через <strong>вайб-кодинг</strong> в\u00A0Claude\u00A0Code.",
       lunel_card_title: "Lunel",
       lunel_year: "2026",
       lunel_alt: "Lunel\u00A0– трекер цикла",
       lunel_stat_1: "Спроектирован с\u00A0нуля",
       lunel_stat_2: "End-to-end",
+      lunel_tag_vibe: "Вайб-кодинг",
+      stat_order_ux: "4,7/5\u00A0UX",
+      stat_transfers_ux: "4,8/5\u00A0UX",
+      stat_picking_ux: "4,8/5\u00A0UX",
+      stat_journal_ux: "8,1/10\u00A0UX",
+      stat_colleges_ux: "8,9/10\u00A0UX",
       lunel_stat_3: "Релиз MVP в\u00A0App\u00A0Store",
+      case_tag_mvp: "Релиз MVP",
+      case_tag_web: "Веб",
       samokat_intro: "<strong>Самокат</strong>. Сервис экспресс-доставки продуктов и товаров для дома, входит в число лидеров российского рынка e-grocery.",
-      samokat_role: "Я развивала B2B-направление продукта, отвечая за улучшение сквозного опыта сотрудников дарксторов.",
+      samokat_role: "Я\u00A0развивала <strong>B2B</strong>-направление продукта, отвечая за\u00A0улучшение <strong>сквозного</strong> опыта сотрудников дарксторов.",
       view_order_picking: "Сбор заказов",
       order_picking_alt: "Сбор заказов",
-      stat_order_1: "-2,3% Time to\u00A0Task",
-      stat_order_2: "-2 ошибки",
+      stat_order_1: "−2,3% Time to\u00A0Task",
+      stat_order_2: "−2 ошибки",
       stat_order_3: "UX 4,7\u00A0/ 5",
       stat_order_5: "2025",
       view_picking_priority: "Приоритет сборки",
       picking_priority_alt: "Приоритет сборки",
-      stat_picking_1: "-4,4% Time to\u00A0Task",
+      stat_picking_1: "−4,4% Time to\u00A0Task",
       stat_picking_2: "4,8\u00A0/\u00A05 UX",
       stat_picking_5: "2025",
       view_picker_schedule: "Расписание сборщиков",
       picker_schedule_alt: "Расписание сборщиков",
-      stat_ps_1: "–4% заказ\u2192доставка",
-      stat_ps_2: "–6% заказ\u2192старт сборки",
-      stat_ps_3: "+2% сборщиков в\u00A0час-пик",
+      stat_ps_1: "−4% заказ\u2192доставка",
+      stat_ps_2: "−6% заказ\u2192старт сборки",
+      stat_ps_3: "+2% заказов в\u00A0час пик",
       stat_ps_5: "2025",
       view_transfers: "Перемещения товаров",
       transfers_alt: "Перемещения товаров",
       stat_transfers_1: "Экономия 4\u00A0млн\u00A0₽",
-      stat_transfers_2: "-5% просроченных отправок",
+      stat_transfers_2: "−5% просроченных отправок",
       stat_transfers_3: "UX 4,8\u00A0/ 5",
       stat_transfers_5: "2024",
       mes_intro: "<strong>Московская электронная школа</strong>. Проект для\u00A0учителей, направленный на\u00A0создание высокотехнологичной образовательной среды в\u00A0школах Москвы",
-      mes_role: "Я развивала и улучшала сквозной опыт учителей и администраторов колледжей",
+      mes_role: "Я\u00A0развивала и\u00A0улучшала <strong>сквозной</strong> опыт учителей и\u00A0администраторов колледжей.",
       view_teachers_journal: "Журнал учителя",
       teachers_journal_alt: "Журнал учителя",
-      stat_journal_1: "Спроектировано с\u00A0нуля",
+      stat_journal_1: "Спроектирован с\u00A0нуля",
       stat_journal_2: "UX 8,1\u00A0/ 10",
       stat_journal_4: "2023",
       view_colleges: "Колледжи",
@@ -202,6 +248,7 @@
       pp_hyp_3: "Прямая видимость состава групп исключает зависимость от внешних инструментов",
       pp_hyp_3m: "Операционная эффективность",
       pp_hyp_4: "Уведомления об изменениях приоритетов в реальном времени снижают ошибки координации",
+      pp_hyp_4m: "Эффективность",
       pp_main_title: "Главный дашборд<br>",
       pp_main_desc: "Таблицы товаров, категоризированные по\u00A0статусу приоритета, с\u00A0маркерами SKU-исключений",
       pp_main_alt: "Главный дашборд",
@@ -500,8 +547,6 @@
       lunel_c_paywall_title: "Пейвол<br>",
       lunel_c_paywall_desc: "Оффер зависит от\u00A0того, есть ли\u00A0на\u00A0устройстве Apple Intelligence. Без\u00A0него часть ценности недоступна – поэтому такому человеку показывается более короткий и\u00A0более дешёвый оффер.",
       lunel_c_paywall_alt: "Экраны пейвола",
-      lunel_c_ds_title: "Разработка ДС<br>",
-      lunel_c_ds_alt: "Дизайн-система",
       lunel_c_result_title: "Результат<br>",
       lunel_c_res_1: "Выпуск MVP в\u00A0App Store",
       lunel_c_res_2: "Проект с\u00A0нуля",
@@ -532,7 +577,13 @@
     return m ? m[1] : null;
   }
 
+  // Язык, который сейчас на экране. Адрес читаем только при загрузке:
+  // закрытие шторки откатывает адрес назад вместе со старым ?lang=,
+  // и шторка открывалась на прошлом языке, хотя страница уже на другом
+  var current = null;
+
   function getLang() {
+    if (current) return current;
     var fromUrl = langFromUrl();
     if (fromUrl) return fromUrl;
     var saved = localStorage.getItem(STORAGE_KEY);
@@ -551,6 +602,7 @@
   }
 
   function setLang(lang) {
+    current = lang;
     localStorage.setItem(STORAGE_KEY, lang);
     document.documentElement.lang = lang === 'ru' ? 'ru' : 'en';
     putLangInUrl(lang);
@@ -656,9 +708,17 @@
 
   function init() {
     var lang = getLang();
+    current = lang;
     // Пришли по ссылке с языком — запоминаем его, иначе при переходе
     // на главную человек снова увидит свой старый язык
     if (langFromUrl()) localStorage.setItem(STORAGE_KEY, lang);
+    // Кнопка «назад» и закрытие шторки возвращают прошлый адрес со старым
+    // ?lang= — выравниваем его по языку на экране, чтобы скопированная
+    // ссылка открывалась на том же языке
+    window.addEventListener('popstate', function () {
+      var fromUrl = langFromUrl();
+      if (fromUrl && fromUrl !== current) putLangInUrl(current);
+    });
     document.documentElement.lang = lang === 'ru' ? 'ru' : 'en';
     applyTranslations(lang);
     updateSwitcher(lang);

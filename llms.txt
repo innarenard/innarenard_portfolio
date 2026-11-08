@@ -1,0 +1,41 @@
+# Inna Ivanova — Product Designer
+
+> Senior product designer based in Lisbon, Portugal, open to remote roles.
+> 6 years in product teams: B2B tools for dark store operations at Samokat,
+> EdTech at Moscow Electronic School, and Lunel — an iOS app she designed
+> and built with Claude Code.
+
+## About
+
+- Looking for: Product Designer or Senior Product Designer roles, remote or in Lisbon.
+- Domains: B2B (E-commerce, quick commerce, warehouse operations, EdTech), B2C (FemTech, HealthTech).
+- Platforms: iOS, Android, Web.
+- Owns the full cycle: runs her own UX research, defines success metrics before designing, tests hypotheses, reviews implementation, surveys users after launch.
+- AI-assisted product design: sets up Claude Code with rules, acceptance criteria and custom skills. Lunel's code was written by Claude Code under her review.
+- Languages: English, Russian.
+- Also known as: innarenard, Инна Иванова.
+
+## Case studies
+
+- [Lunel](https://innarenard.com/lunel/) (2026, iOS, FemTech): cycle tracking app taken from idea to an MVP on the App Store — research, design system, 8 languages. App Store: https://apps.apple.com/us/app/lunel-private-cycle-tracker/id6761544338
+- [Order picking](https://innarenard.com/order-picking/) (Samokat, 2025, iOS/Android): Time to Task −2.3%, two fewer error types, UX 4.7/5.
+- [Transfers of goods](https://innarenard.com/transfers-of-goods/) (Samokat, 2024, iOS/Android): savings of 4M RUB, −5% overdue shipments, UX 4.8/5.
+- [Picking priority](https://innarenard.com/picking-priority/) (Samokat, 2025, Web): Time to Task −4.4%, UX 4.8/5.
+- [Picker schedule](https://innarenard.com/picker-schedule/) (Samokat, 2025, iOS/Android): −4% order→delivery, −6% order→assembly start, +2% peak-hour orders.
+- [Teacher's journal](https://innarenard.com/teachers-journal/) (Moscow Electronic School, 2023, iOS/Android): designed from scratch, UX 8.1/10.
+- [Colleges](https://innarenard.com/colleges/) (Moscow Electronic School, 2023, Web): redesign, UX 8.9/10.
+
+## Experience
+
+- Lunel — pet project, March 2026 – now.
+- Samokat — June 2023 – December 2025, Middle+ → Senior.
+- Moscow Electronic School — October 2020 – April 2023, Junior → Middle+.
+- Graphic designer — 2014 – 2020.
+
+## Contact
+
+- Email: innarenard@gmail.com
+- LinkedIn: https://www.linkedin.com/in/innarenard/
+- Telegram: https://t.me/innarenard
+- Dribbble: https://dribbble.com/inna-ivanova
+- CV (PDF): https://innarenard.com/cv/inna-ivanova-product-designer-cv-en.pdf

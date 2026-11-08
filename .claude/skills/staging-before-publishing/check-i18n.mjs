@@ -28,7 +28,8 @@ const TERMS = new Set(['time', 'to', 'task', 'dark', 'store', 'stores', 'ux', 'c
   'ios', 'android', 'app', 'store', 'google', 'play', 'apple', 'health', 'intelligence', 'swiftui',
   'claude', 'code', 'femtech', 'b2b', 'b2c', 'web', 'lunel', 'mes', 'end', 'a/b', 'test', 'jobs',
   'job', 'stories', 'cjm', 'cjms', 'blue', 'print', 'user', 'retention', 'engagement', 'activation',
-  'value', 'nps', 'umux', 'samokat', 'figma', 'tone', 'of', 'voice', 'end-to-end', 'pdf', 'cv']);
+  'value', 'nps', 'umux', 'samokat', 'figma', 'tone', 'of', 'voice', 'end-to-end', 'pdf', 'cv',
+  'junior', 'middle', 'middle+', 'senior']);
 
 const src = readFileSync(join(ROOT, 'js/i18n.js'), 'utf8');
 const sandbox = { window: {}, document: { documentElement: {}, addEventListener() {}, querySelectorAll: () => [], readyState: 'loading' }, localStorage: { getItem: () => null, setItem() {} } };

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <title>Lunel: было и стало</title>
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" crossorigin="anonymous" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,100..900,0..100,0..1&amp;family=Lora:wght@400..700&amp;display=swap"
+    rel="stylesheet">
+
+  <link href="interactive/lunel-tokens.css?v=20261031a" rel="stylesheet">
+  <link href="interactive/lunel-core.css?v=20261031a" rel="stylesheet">
+  <link href="interactive/cycle-ring.css?v=20261031a" rel="stylesheet">
+  <link href="interactive/trends.css?v=20261031a" rel="stylesheet">
+  <link href="interactive/insights.css?v=20261031a" rel="stylesheet">
+  <link href="interactive/checklist.css?v=20261031a" rel="stylesheet">
+  <link href="interactive/home.css?v=20261031a" rel="stylesheet">
+  <link href="interactive/insight-screen.css?v=20261031a" rel="stylesheet">
+  <link href="frame.css?v=20261031a" rel="stylesheet">
+
+  <style>
+    :root { color-scheme: light; }
+
+    body {
+      margin: 0;
+      padding: 40px 32px 80px;
+      background: #f3f1ee;
+      color: #262422;
+      font: 400 16px/1.5 Montserrat, system-ui, sans-serif;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+      font-weight: 600;
+    }
+
+    .lead {
+      margin: 0 0 32px;
+      max-width: 760px;
+      color: #5a564f;
+    }
+
+    .pair {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 32px;
+      max-width: 1360px;
+    }
+
+    .col h2 {
+      margin: 0 0 4px;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .col p {
+      margin: 0 0 14px;
+      min-height: 44px;
+      color: #5a564f;
+      font-size: 14px;
+    }
+
+    .shot {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      border-radius: 28px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hint {
+      margin: 28px 0 0;
+      padding: 14px 18px;
+      max-width: 1360px;
+      border-radius: 14px;
+      background: #fff;
+      font-size: 14px;
+      color: #5a564f;
+    }
+
+    .hint b { color: #262422; }
+
+    @media (max-width: 900px) {
+      .pair { grid-template-columns: minmax(0, 1fr); }
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Блок справа от обложки Lunel: было и стало</h1>
+  <p class="lead">Слева — картинка, которая стояла на главной. Справа — то, что стоит там сейчас.
+    Снимки одного размера и в одних позициях: так и было задумано, поэтому на глаз они почти
+    не различаются. Разница в том, что правый работает.</p>
+
+  <div class="pair">
+    <div class="col">
+      <h2>Было: картинка</h2>
+      <p>Файл <code>images/lunel-placeholder_ru.png</code>. Снят до переделки приложения
+        1–6 октября 2026.</p>
+      <img class="shot" src="../images/lunel-placeholder_ru.png" alt="Коллаж экранов Lunel, который стоял на главной">
+    </div>
+
+    <div class="col">
+      <h2>Стало: живые компоненты</h2>
+      <p>Те же экраны, собранные HTML-компонентами приложения. Потяните мышью по любому
+        из колец.</p>
+      <div class="lunel-frame" data-lunel-frame>
+        <img class="lunel-frame__fallback" src="../images/lunel-placeholder_ru.png" alt="">
+      </div>
+    </div>
+  </div>
+
+  <p class="hint">
+    Что проверить за десять секунд: <b>потяните по фиолетовому кольцу справа</b> — дата, фаза
+    и фон поедут за мышью, слева ничего не произойдёт. Дальше сравните три строки:
+    <b>«Сводка» → «Настроение»</b>, <b>«55 отметок» → «11 отметок»</b>,
+    <b>«Отлично! Симптомы и самочувствие…» → «Отличная работа! Добавлено в вашу статистику…»</b>.
+    Это нынешние строки приложения: на картинке слева их версия уже не существует.
+  </p>
+
+  <script src="interactive/lunel-core.js?v=20261031a" defer></script>
+  <script src="interactive/cycle-ring.js?v=20261031a" defer></script>
+  <script src="interactive/trends.js?v=20261031a" defer></script>
+  <script src="interactive/insights.js?v=20261031a" defer></script>
+  <script src="interactive/checklist.js?v=20261031a" defer></script>
+  <script src="interactive/home.js?v=20261031a" defer></script>
+  <script src="interactive/insight-screen.js?v=20261031a" defer></script>
+  <script src="frame.js?v=20261031b" defer></script>
+</body>
+
+</html>

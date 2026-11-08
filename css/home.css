@@ -199,13 +199,62 @@ body.panel-open .site-wrapper {
 }
 
 /* ---------- Main content ---------- */
+/* снизу пусто: последний блок «Обо мне» сам держит отступ, иначе под ним видна полоса */
 .main-content {
-  padding: 0 0 140px;
+  padding: 0;
+}
+
+/* главная целиком на сером полотне — и при «оттяжке» прокрутки внизу тоже.
+   На страницах кейсов (.case-flow там нет) фон остаётся белым */
+html:has(.case-flow),
+body:has(.case-flow) {
+  background: var(--portfolio-canvas);
 }
 
 /* ---------- Hero ---------- */
 .hero {
   margin-bottom: 12px;
+}
+
+/* Город и статус поиска — строкой над именем: первое, что ищет рекрутер */
+.hero__meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.hero__location {
+  font-size: 14px;
+  font-weight: 500;
+  color: #737373;
+}
+
+.hero__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 14px 5px 11px;
+  border-radius: 999px;
+  background: rgba(242, 242, 248, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-size: 13px;
+  font-weight: 500;
+  color: #404040;
+}
+
+.hero__status::before {
+  content: "";
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #34c759;
+  box-shadow: 0 0 0 3px rgba(52, 199, 89, 0.18);
 }
 
 .hero__name {
@@ -225,40 +274,185 @@ body.panel-open .site-wrapper {
   max-width: 720px;
 }
 
-/* ---------- Contacts bar (above Samokat) ---------- */
-.contacts-bar {
-  margin-top: 16px;
-  margin-bottom: 72px;
+.hero__focus {
+  margin-top: 14px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #737373;
+  max-width: 720px;
 }
 
-.contacts-bar__links {
+/* ---------- About (кто это сделал: хронология и навыки) ---------- */
+.about {
+  margin-top: 80px;
+}
+
+.about__title {
+  /* как названия кейсов: .case-project__name */
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 32px;
+  color: var(--portfolio-ink);
+  margin-bottom: 20px;
+}
+
+/* две белые подложки на сером полотне — как карточка компании в кейсах */
+.about__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 24px;
+}
+
+.about__card {
+  background: var(--portfolio-surface);
+  border-radius: 32px;
+  padding: 24px;
+}
+
+.about__card--path {
   display: flex;
-  gap: 8px;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.about__lead {
+  margin: 0;
+}
+
+.about__lead p {
+  font-size: 16px;
+  line-height: 24px;
+  color: #404040;
+  margin: 0 0 14px;
+}
+
+.about__lead p:last-child {
+  margin-bottom: 0;
+}
+
+.about__timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* строка пути: иконка компании слева, весь текст — в одной колонке справа */
+.about__row {
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr);
+  column-gap: 12px;
+  align-items: start;
+}
+
+.about__mark {
+  display: block;
+  width: 24px;
+  height: 24px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.about__mark img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* как на обложке кейса: рамка только у Lunel, Самокат и МЭШ сами себе плашка */
+.about__mark--lunel {
+  border: .5px solid rgba(4, 7, 37, .07);
+}
+
+/* название компании слева, даты справа — по общей базовой линии */
+.about__head {
+  display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  column-gap: 16px;
+  margin-bottom: 4px;
 }
 
-.contacts-bar__link {
-  display: inline-flex;
-  align-items: center;
-  padding: 8px 18px;
-  border-radius: 999px;
-  background: rgba(242, 242, 248, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  font-size: 14px;
-  font-weight: 500;
-  color: #404040;
-  text-decoration: none;
-  transition: background .2s, color .2s, border-color .2s, box-shadow .2s;
+.about__period {
+  font-size: 13px;
+  color: #737373;
+  white-space: nowrap;
 }
 
-.contacts-bar__link:hover {
-  background: rgba(235, 235, 242, 0.95);
-  border-color: rgba(255, 255, 255, 0.95);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+.about__place {
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.3;
   color: #404040;
+}
+
+/* грейд / тип проекта под названием компании */
+.about__grade {
+  display: block;
+  font-size: 16px;
+  line-height: 24px;
+  color: #404040;
+  margin-bottom: 8px;
+}
+
+.about__row > .about__grade:last-child {
+  margin-bottom: 0;
+}
+
+p.about__what,
+.about__list {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+p.about__what {
+  margin: 0;
+}
+
+/* маркеры вынесены за край: текст пунктов начинается на одной линии с названием */
+.about__list {
+  margin: 0;
+  padding-left: 0;
+  list-style: disc outside;
+}
+
+.about__list li + li {
+  margin-top: 8px;
+}
+
+.about__list strong {
+  font-weight: 600;
+  color: #404040;
+}
+
+.about__what {
+  display: block;
+  color: #404040;
+}
+
+/* ---------- Копирайт под блоками ---------- */
+.site-footer {
+  /* низ 32px — от копирайта до края экрана; при смене поправить min-height у .case-flow > .about */
+  padding: 24px 24px 32px;
+  text-align: center;
+}
+
+/* обложки кейсов липкие и лежат слоем 4 — поднимаем футер над ними, как .about */
+.case-flow > .site-footer {
+  position: relative;
+  z-index: 6;
+  /* боковые отступы как у .case-flow > .about, чтобы центр совпал с карточками */
+  padding-right: 20px;
+  padding-left: 0;
+  background: var(--portfolio-canvas);
+}
+
+.site-footer__copy {
+  margin: 0;
+  font-size: 13px;
+  line-height: 20px;
+  color: #737373;
 }
 
 /* ---------- Site nav (legacy, kept for styles) ---------- */
@@ -856,40 +1050,6 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   height: 16px;
 }
 
-/* ---------- Footer ---------- */
-.site-footer {
-  margin-top: 40px;
-  padding: 40px 0;
-  border-top: 1px solid #eee;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.site-footer__name {
-  font-size: 14px;
-  font-weight: 600;
-  color: #404040;
-}
-
-.site-footer__links {
-  display: flex;
-  gap: 16px;
-}
-
-.site-footer__links a {
-  font-size: 13px;
-  font-weight: 500;
-  color: #404040;
-  transition: color .2s;
-}
-
-.site-footer__links a:hover {
-  color: #404040;
-}
-
 /* ---------- Scroll reveal ----------
    Анимация появления убрана 30 октября 2026: при быстрой прокрутке блоки
    не успевали проявиться, и человек видел пустые экраны. Класс в разметке
@@ -1027,11 +1187,12 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   }
 
   .main-content {
-    padding: 82px 16px 80px;
+    padding: 82px 16px 0;
   }
 
-  .contacts-bar {
-    margin-bottom: 56px;
+  .hero__meta {
+    gap: 8px;
+    margin-bottom: 14px;
   }
 
   .hero__name {
@@ -1046,8 +1207,42 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
     display: none;
   }
 
+  .hero__focus {
+    margin-top: 12px;
+    font-size: 14px;
+  }
+
+  /* На телефоне числа идут сеткой 2×2: строкой они встают в четыре этажа
+     и утапливают первую карточку ниже сгиба */
   .company-section {
     margin-bottom: 56px;
+  }
+
+  .about {
+    margin-top: 56px;
+  }
+
+  .about__title {
+    font-size: 20px;
+    line-height: 28px;
+  }
+
+  .about__grid {
+    grid-template-columns: 1fr;
+    row-gap: 16px;
+  }
+
+  .about__card {
+    padding: 20px;
+    border-radius: 24px;
+  }
+
+  .about__card--path {
+    gap: 32px;
+  }
+
+  .about__lead p {
+    font-size: 16px;
   }
 
   .company-section__intro {
@@ -1148,9 +1343,882 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
     gap: 14px;
   }
 
-  .site-footer {
-    flex-direction: column;
-    align-items: flex-start;
+}
+
+/* ================================================================
+   Концепция Lunel: палитра и хедер
+   Замеры из Figma (node 3866-2519, секция «Компоненты → Topbar»):
+   полотно rgba(4,7,37,.04), контролы белые, чернила #040725,
+   топбар 1440×88, поля 70px при 1440 → контент 1300.
+   ================================================================ */
+:root {
+  /* блок кейса тянется по окну: вся высота минус шапка */
+  --block-height: max(560px, calc(100vh - 88px));
+  /* чернила и их прозрачности — всё из макета */
+  --portfolio-ink: #040725;
+  --portfolio-ink-90: rgba(4, 7, 37, .9);
+  --portfolio-ink-80: rgba(4, 7, 37, .8);
+  --portfolio-ink-60: rgba(4, 7, 37, .6);
+  /* полотно: rgba(4,7,37,.04) поверх белого = #F5F5F6, берём непрозрачным */
+  --portfolio-canvas: #F5F5F6;
+  --portfolio-canvas-tint: rgba(4, 7, 37, .04);
+  --portfolio-surface: #fff;
+  --portfolio-online: #0BA400;
+  /* 1440 − 2×70 = 1300. На высоком окне (большой монитор) кадр обложки
+     вытягивался вверх: блок растёт по высоте окна, а ширина стояла на 1300.
+     Поэтому ширина контента растёт вместе с высотой блока так, чтобы кадр
+     держал пропорцию ноутбука 1440×900: 839×780. Слева 461 = карточки 417
+     + зазор 24 + поле 20; 32 — поля ряда сверху и снизу. До высоты 900 — те же 1300. */
+  --content-width: max(1300px, calc(461px + (var(--block-height) - 32px) * 839 / 780));
+  --page-gutter: max(24px, calc((100vw - var(--content-width)) / 2));
+  /* градиенты бренда для ховера соцкнопок */
+  --brand-linkedin: linear-gradient(225deg, #007AB5 15%, #0046E5 85%);
+  --brand-dribbble: linear-gradient(225deg, #F26798 15%, #C82093 76%, #C11592 85%);
+  --brand-telegram: linear-gradient(225deg, #37BAFE 15%, #24A1DE 76%, #0E90CD 85%);
+  --brand-google: linear-gradient(213deg, #FFFFFF 12%, #FBFFD2 93%);
+}
+
+.gradient-banner {
+  display: none;
+}
+
+.site-wrapper {
+  padding-left: var(--page-gutter);
+  padding-right: var(--page-gutter);
+}
+
+/* ---------- Полотно под хедером и первым экраном ----------
+   В макете топбар и блок первого экрана — одна светлая плашка
+   во всю ширину (88 + 676 = 764). Рисуем её двумя подложками,
+   чтобы каждая тянулась за своим блоком. */
+.site-header::before,
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(-1 * var(--page-gutter));
+  width: calc(100% + 2 * var(--page-gutter));
+  background: var(--portfolio-canvas);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* ---------- Хедер ---------- */
+.site-header {
+  height: 88px;
+  padding: 0;
+}
+
+.site-header__identity {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: #212121;
+  white-space: nowrap;
+}
+
+.site-header__identity > img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.site-header__name {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+/* Имя и статус стоят на одной базовой линии: низ букв «Inna Ivanova»
+   и «Open to work» совпадает, хотя кегли разные (20 и 14). */
+.site-header__title {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+/* Статус раскрыт только на первом экране главной; дальше — одна точка.
+   Текст сворачивается по ширине и гаснет (класс .is-compact у шапки
+   ставит js/case-stack.js). Внутри inline-флекса нет базовой линии у точки,
+   поэтому сам статус — обычный строчный бокс, а точка стоит по центру
+   высоты текста (см. vertical-align у точки). */
+.site-header__availability {
+  display: inline;
+  color: var(--portfolio-online);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+}
+
+.site-header__availability-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  /* центр точки = середина высоты заглавных (у Montserrat 0.7em):
+     низ точки поднят на 0.35em − 4px над базовой линией */
+  vertical-align: calc(0.35em - 4px);
+}
+
+/* 1fr → 0fr: ширина едет ровно от настоящей ширины текста до нуля,
+   без подобранного на глаз max-width; RU длиннее EN — всё равно точно. */
+.site-header__availability-text {
+  display: inline-grid;
+  grid-template-columns: 1fr;
+  margin-left: 4px;
+  opacity: 1;
+  transition:
+    grid-template-columns .45s cubic-bezier(.4, 0, .2, 1),
+    margin-left .45s cubic-bezier(.4, 0, .2, 1),
+    opacity .3s ease .1s;
+}
+
+.site-header__availability-text > span {
+  min-width: 0;
+  overflow: clip;   /* не hidden: тот ломает базовую линию */
+  white-space: nowrap;
+}
+
+.site-header.is-compact .site-header__availability-text {
+  grid-template-columns: 0fr;
+  margin-left: 0;
+  opacity: 0;
+  transition:
+    grid-template-columns .45s cubic-bezier(.4, 0, .2, 1),
+    margin-left .45s cubic-bezier(.4, 0, .2, 1),
+    opacity .25s ease;
+}
+
+/* Наведение на точку возвращает текст — тем же движением, что и при
+   возврате на первый экран. Точка 8px — мелкая цель, поэтому зона
+   наведения шире: строчный паддинг раскладку не двигает. */
+@media (hover: hover) {
+  .site-header.is-compact .site-header__availability {
+    padding: 13px 8px;
+    margin: 0 -8px;
+  }
+
+  .site-header.is-compact .site-header__availability:hover .site-header__availability-text {
+    grid-template-columns: 1fr;
+    margin-left: 4px;
+    opacity: 1;
+    transition:
+      grid-template-columns .45s cubic-bezier(.4, 0, .2, 1),
+      margin-left .45s cubic-bezier(.4, 0, .2, 1),
+      opacity .3s ease .1s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header__availability-text,
+  .site-header.is-compact .site-header__availability-text,
+  .site-header.is-compact .site-header__availability:hover .site-header__availability-text {
+    transition: none;
+  }
+}
+
+.site-header__right {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+/* ---------- Соцкнопки ----------
+   Состав и порядок по макету: LinkedIn, Dribbble, Telegram, Google.
+   Покой 44, ховер 56, соседи 40 — ширина группы остаётся 200:
+   56 + 3×40 + 3×8 = 200 = 4×44 + 3×8. */
+.site-header__socials {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.site-header__social {
+  position: relative;
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--portfolio-surface);
+  color: var(--portfolio-ink-90);
+  transition: width .22s ease, height .22s ease, color .22s ease;
+}
+
+/* градиент бренда отдельным слоем — чтобы он проявлялся плавно */
+.site-header__social::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background-image: var(--brand);
+  opacity: 0;
+  transition: opacity .22s ease;
+}
+
+.site-header__social--linkedin { --brand: var(--brand-linkedin); }
+.site-header__social--dribbble { --brand: var(--brand-dribbble); }
+.site-header__social--telegram { --brand: var(--brand-telegram); }
+.site-header__social--google { --brand: var(--brand-google); }
+
+.site-header__glyph {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  background: currentColor;
+  -webkit-mask: var(--glyph) no-repeat center / contain;
+  mask: var(--glyph) no-repeat center / contain;
+  transition: width .22s ease, height .22s ease, opacity .18s ease;
+}
+
+.site-header__social--linkedin .site-header__glyph { --glyph: url(../images/header-linkedin.svg); }
+.site-header__social--dribbble .site-header__glyph { --glyph: url(../images/header-dribbble.svg); }
+.site-header__social--telegram .site-header__glyph { --glyph: url(../images/header-telegram.svg); }
+.site-header__social--google .site-header__glyph { --glyph: url(../images/header-google.svg); }
+
+/* самолётик в макете смещён от центра — держим смещение в долях иконки */
+.site-header__social--telegram .site-header__glyph {
+  transform: translate(-10%, 5%);
+}
+
+/* цветной Google проявляется поверх монохромного */
+.site-header__glyph--color {
+  position: absolute;
+  background: none;
+  -webkit-mask: none;
+  mask: none;
+  background-image: url(../images/header-google-color.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  opacity: 0;
+}
+
+/* соседи ужимаются, пока курсор внутри группы */
+.site-header__socials:hover .site-header__social,
+.site-header__socials:focus-within .site-header__social {
+  width: 40px;
+  height: 40px;
+}
+
+.site-header__socials:hover .site-header__glyph,
+.site-header__socials:focus-within .site-header__glyph {
+  width: 18px;
+  height: 18px;
+}
+
+.site-header__socials .site-header__social:hover,
+.site-header__socials .site-header__social:focus-visible {
+  width: 56px;
+  height: 56px;
+  color: #fff;
+}
+
+.site-header__socials .site-header__social:hover .site-header__glyph,
+.site-header__socials .site-header__social:focus-visible .site-header__glyph {
+  width: 30.5px;
+  height: 30.5px;
+}
+
+.site-header__social:hover::before,
+.site-header__social:focus-visible::before {
+  opacity: 1;
+}
+
+.site-header__social--google:hover .site-header__glyph,
+.site-header__social--google:focus-visible .site-header__glyph {
+  opacity: 0;
+}
+
+.site-header__social--google:hover .site-header__glyph--color,
+.site-header__social--google:focus-visible .site-header__glyph--color {
+  opacity: 1;
+}
+
+/* ---------- Кнопка CV ----------
+   Покой 56 (16 + «CV» + 16), ховер 81: появляется стрелка и зазор 8. */
+.site-header__cv {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  height: 44px;
+  padding: 0 16px;
+  border-radius: 100px;
+  background: var(--portfolio-surface);
+  color: var(--portfolio-ink-90);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  transition: gap .22s ease, background-color .22s ease, color .22s ease;
+}
+
+.site-header__cv-arrow {
+  display: inline-flex;
+  align-items: center;
+  width: 0;
+  height: 16px;
+  overflow: hidden;
+  opacity: 0;
+  transition: width .22s ease, opacity .22s ease;
+}
+
+.site-header__cv-arrow svg {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+}
+
+.site-header__cv:hover,
+.site-header__cv:focus-visible {
+  gap: 8px;
+  background: var(--portfolio-ink);
+  color: #fff;
+  font-weight: 600;
+}
+
+.site-header__cv:hover .site-header__cv-arrow,
+.site-header__cv:focus-visible .site-header__cv-arrow {
+  width: 16px;
+  opacity: 1;
+}
+
+/* ---------- Переключатель языка ----------
+   Дорожка rgba(4,7,37,.04) поверх полотна, активная таблетка белая.
+   2 + 10 + 20 + 10 + 2 = 44 — та же высота, что у соцкнопок и CV. */
+.site-header__right .lang-switcher {
+  margin-left: 0;
+}
+
+.site-header__right .lang-switcher__track {
+  padding: 2px;
+  background: var(--portfolio-canvas-tint);
+  border-radius: 100px;
+}
+
+.site-header__right .lang-switcher__thumb {
+  top: 2px;
+  left: 2px;
+  height: calc(100% - 4px);
+  background: var(--portfolio-surface);
+  border: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.site-header__right .lang-switcher__btn {
+  padding: 10px;
+  border-radius: 100px;
+  color: var(--portfolio-ink-60);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  transition: color .2s ease, background-color .2s ease;
+}
+
+.site-header__right .lang-switcher__btn:hover:not(.lang-switcher__active) {
+  background: rgba(255, 255, 255, .2);
+  color: var(--portfolio-ink-90);
+}
+
+.site-header__right .lang-switcher__btn.lang-switcher__active {
+  color: var(--portfolio-ink-90);
+  font-weight: 500;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header__social,
+  .site-header__social::before,
+  .site-header__glyph,
+  .site-header__cv,
+  .site-header__cv-arrow {
+    transition: none;
+  }
+}
+
+/* ================================================================
+   Первый экран по макету (Figma, фрейм Hero/default)
+   Плашка 1440×676, внутри блок (70,16) 1300×630: слева сцена,
+   справа точки. Колонка текста — 150px полей внутри сцены.
+   ================================================================ */
+.hero {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: var(--block-height);
+  margin-bottom: 0;
+  padding: 16px 20px 16px 0;
+}
+
+.hero__stage {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  height: 100%;
+  /* сцена кейсов шириной 1300 не должна вылезать на узком окне */
+  overflow: hidden;
+  will-change: opacity;
+  transform: translateZ(0);
+}
+
+/* ---------- Текст ---------- */
+.hero__copy {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: 0 150px;
+  text-align: center;
+}
+
+.hero__intro {
+  color: var(--portfolio-ink-80);
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 48px;
+}
+
+.hero__intro strong {
+  color: var(--portfolio-ink);
+  font-weight: 600;
+}
+
+/* полный цвет, но без насыщения — ts5 в макете */
+/* слово и плашка после него не разъезжаются по строкам */
+.hero__nowrap {
+  white-space: nowrap;
+}
+
+.hero__ink {
+  color: var(--portfolio-ink);
+}
+
+.hero__based {
+  margin-top: 20px;
+  color: var(--portfolio-ink);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.hero__based-lead {
+  color: var(--portfolio-ink-80);
+}
+
+.hero__based strong {
+  color: var(--portfolio-ink);
+  font-weight: 600;
+}
+
+/* ---------- Фреймы с логотипами, вписанные в строку ----------
+   Отрицательные поля гасят высоту: строка остаётся 48px,
+   а плашка выходит за неё вверх и вниз, как в макете. */
+.hero__chip {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  background: var(--portfolio-surface);
+  border-radius: 100px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, .06);
+}
+
+/* top правит разницу между vertical-align:middle (середина x-height)
+   и серединой строки 48px: замер показал 3px, у строки 16px — 1px */
+.hero__chip--work {
+  top: -3px;
+  width: 87px;
+  height: 52px;
+  margin: -26px 4px;
+}
+
+.hero__chip--lunel {
+  top: -3px;
+  width: 52px;
+  height: 52px;
+  margin: -26px 4px;
+}
+
+.hero__chip--nata {
+  top: -1px;
+  width: 28px;
+  height: 24px;
+  margin: -12px 4px;
+  box-shadow: 0 0 2.26px rgba(0, 0, 0, .06);
+}
+
+/* запятая «Lisbon, Portugal» встаёт вплотную к нате, без правого отступа плашки */
+.hero__chip--nata {
+  margin-right: 1px;
+}
+
+.hero__chip-logo {
+  position: absolute;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  transition: transform .25s cubic-bezier(.34, 1.3, .64, 1);
+}
+
+/* В макете логотипы МЭШ и Самоката повёрнуты, и 37.85 / 37.97 — это рамка
+   вокруг повёрнутого квадрата. Сам квадрат 30×30: 30·(cos18°+sin18°) = 37.85.
+   Углы замерены по рёбрам в экспорте макета: МЭШ 18° по часовой, Самокат 10° против.
+   Центры стоят там же, где в макете; ховер — рост вокруг центра до рамки из Hero/hover*. */
+.hero__chip-logo--mes,
+.hero__chip-logo--samokat {
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+}
+
+.hero__chip-logo--mes {
+  left: 10.9px;
+  top: 8.9px;
+  background-image: url(../images/hero-logo-mes.png);
+  transform: rotate(18deg);
+}
+
+.hero__chip-logo--mes:hover,
+.hero__chip-logo--mes:focus-visible {
+  z-index: 1;
+  transform: translate(5.5px, -.7px) rotate(18deg) scale(1.33);
+}
+
+.hero__chip-logo--samokat {
+  left: 45px;
+  top: 14px;
+  background-image: url(../images/hero-logo-samokat.png);
+  transform: rotate(-10deg);
+}
+
+.hero__chip-logo--samokat:hover,
+.hero__chip-logo--samokat:focus-visible {
+  z-index: 1;
+  transform: translate(-7.3px, -5.1px) rotate(-10deg) scale(1.38);
+}
+
+/* Lunel без наклона: 30×30 вместо 29, центр тот же; ховер 52×52 как в Hero/hoverLUNEL */
+.hero__chip-logo--lunel {
+  left: 11px;
+  top: 10.5px;
+  width: 30px;
+  height: 30px;
+  background-image: url(../images/hero-logo-lunel.png);
+  background-size: contain;
+}
+
+.hero__chip-logo--lunel:hover,
+.hero__chip-logo--lunel:focus-visible {
+  transform: translateY(-.5px) scale(1.733);
+}
+
+.hero__chip-logo--nata {
+  left: .95px;
+  top: 2.51px;
+  width: 25.11px;
+  height: 19.99px;
+  background-image: url(../images/hero-nata.png);
+  background-size: contain;
+}
+
+/* Ховер на всём кружке (на нём же висит дождь из наты, js/nata-rain.js):
+   ната растёт вокруг центра, как логотипы. 1.35 — как у МЭШ и Самоката (1.33–1.38),
+   до ~34px по ширине. */
+.hero__chip--nata:hover .hero__chip-logo--nata {
+  z-index: 1;
+  transform: scale(1.35);
+}
+
+.hero__chip-logo:focus-visible {
+  outline: 2px solid var(--portfolio-ink);
+  outline-offset: 3px;
+}
+
+/* ---------- Работы кейса под курсором ---------- */
+.hero__scene {
+  position: absolute;
+  top: 50%;
+  /* сцена 1300 по центру сцены-родителя: на ноутбуке он 1280 и это 0,
+     а на большом мониторе контент шире 1300 — сцена не прилипает влево */
+  left: calc((100% - 1280px) / 2);
+  width: 1300px;
+  height: 676px;
+  margin-top: -338px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero__scene-group {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+
+.hero__art {
+  position: absolute;
+  transform: translateY(8px);
+  transition: transform .4s cubic-bezier(.22, 1, .36, 1);
+}
+
+.hero__stage:has(.hero__chip-logo--mes:hover) .hero__scene-group--mes,
+.hero__stage:has(.hero__chip-logo--mes:focus-visible) .hero__scene-group--mes,
+.hero__stage:has(.hero__chip-logo--samokat:hover) .hero__scene-group--samokat,
+.hero__stage:has(.hero__chip-logo--samokat:focus-visible) .hero__scene-group--samokat,
+.hero__stage:has(.hero__chip-logo--lunel:hover) .hero__scene-group--lunel,
+.hero__stage:has(.hero__chip-logo--lunel:focus-visible) .hero__scene-group--lunel {
+  opacity: 1;
+}
+
+.hero__stage:has(.hero__chip-logo--mes:hover) .hero__scene-group--mes .hero__art,
+.hero__stage:has(.hero__chip-logo--samokat:hover) .hero__scene-group--samokat .hero__art,
+.hero__stage:has(.hero__chip-logo--lunel:hover) .hero__scene-group--lunel .hero__art {
+  transform: translateY(0);
+}
+
+/* координаты из макета, минус 70px левого поля плашки */
+/* рамка телефона и скругление уже в картинке (обводка 7 снаружи экрана 270×590),
+   поэтому картинка шире экрана на обводку и сдвинута на неё влево-вверх */
+.hero__art--mes-phone {
+  left: -1.9px;
+  top: 154.1px;
+  width: 117.3px;
+  height: auto;
+}
+
+/* русская и английская карточки разной ширины (342 и 319 при высоте 278):
+   держим высоту, ширина по картинке */
+.hero__art--mes-chart {
+  left: 73px;
+  top: 320px;
+  width: auto;
+  height: 100.8px;
+}
+
+.hero__art--mes-pic {
+  left: 717px;
+  top: 444px;
+  width: 370px;
+  height: 233px;
+}
+
+.hero__art--samokat-thumb {
+  left: 38px;
+  top: 367px;
+  width: 133.42px;
+  height: 276px;
+  object-fit: cover;
+  object-position: top;
+}
+
+.hero__art--samokat-card-1 {
+  left: 1052px;
+  top: 361px;
+  width: 155.44px;
+}
+
+.hero__art--samokat-card-2 {
+  left: 200px;
+  top: 568px;
+  width: 155.44px;
+}
+
+/* illustration/Success вместо таблички «ШЛЕМ МАСКА…»: квадрат 96 по высоте таблички.
+   Звезда 7 стоит у левого нижнего угла картинки: левый край картинки = правый край
+   звезды, низ картинки = верх звезды (замер на стенде, в координатах сцены звезда
+   на 972…980 × 141…149). Видимый зазор даёт пустое поле вокруг кота в самой картинке. */
+.hero__art--samokat-success {
+  left: 980px;
+  top: 45px;
+  width: 96px;
+  height: 96px;
+}
+
+/* кольцо в макете 220×220 на (529,447); картинка шире на размытие:
+   270×247, поэтому сдвигаем на половину вылета — 25 и 13.5 */
+.hero__art--lunel-ring {
+  left: 434px;
+  top: 433.5px;
+  width: 270px;
+  height: 247px;
+}
+
+/* ---------- Северная Корона ----------
+   Семь звёзд 8×8, координаты и цвета из макета. */
+.hero__stars {
+  position: absolute;
+  top: 50%;
+  /* та же система координат, что у .hero__scene: картинки при наведении
+     стоят у звёзд, поэтому на широком мониторе слой центрируется так же */
+  left: calc((100% - 1280px) / 2);
+  width: 1300px;
+  height: 630px;
+  margin-top: -315px;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero__star {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.hero__star--1 { left: 39px;   top: 221px; background: #3D84E0; }
+.hero__star--2 { left: 112px;  top: 460px; background: #FF3B65; }
+.hero__star--3 { left: 270px;  top: 571px; background: #FF3B65; }
+.hero__star--4 { left: 561px;  top: 561px; background: #E86021; }
+.hero__star--5 { left: 857px;  top: 537px; background: #3D84E0; }
+.hero__star--6 { left: 1122px; top: 367px; background: #FF3B65; }
+.hero__star--7 { left: 972px;  top: 126px; background: #FF3B65; }
+
+/* ---------- Точки справа ---------- */
+.hero__page-control {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 20px;
+  padding: 8px 0;
+}
+
+.hero__page-control span {
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(4, 7, 37, .1);
+}
+
+.hero__page-control span.is-active {
+  background: var(--portfolio-ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__chip-logo,
+  .hero__scene-group,
+  .hero__art {
+    transition: none;
+  }
+
+  .hero__art {
+    transform: none;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .site-wrapper {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .site-header {
+    height: 72px;
+    padding: 0 16px;
+  }
+
+  /* на телефоне хедер фиксированный и уже во всю ширину — подложку не растягиваем */
+  .site-header::before {
+    left: 0;
+    width: 100%;
+  }
+
+  .site-header__name {
+    font-size: 16px;
+  }
+
+  .site-header__availability,
+  .site-header__socials,
+  .site-header__cv,
+  .site-header__right > .lang-switcher {
+    display: none;
+  }
+
+  .site-header__burger {
+    display: inline-flex;
+    background: var(--portfolio-ink);
+  }
+
+  .main-content {
+    padding: 72px 0 0;
+  }
+
+  .hero {
+    display: block;
+    height: auto;
+    min-height: 0;
+    padding: 40px 0 56px;
+  }
+
+  .hero__stage {
+    display: block;
+    height: auto;
+  }
+
+  .hero__copy {
+    padding: 0;
+  }
+
+  .hero__intro {
+    font-size: 24px;
+    line-height: 36px;
+  }
+
+  /* на телефоне плашки мельче, чтобы строка не рвалась */
+  .hero__chip--work {
+    width: 64px;
+    height: 38px;
+    margin: -19px 8px;
+  }
+
+  /* плашка 64×38 — это 0.74 от десктопной, логотипы уменьшены в той же доле */
+  .hero__chip--work .hero__chip-logo--mes {
+    left: 8px;
+    top: 6.6px;
+    width: 22px;
+    height: 22px;
+    border-radius: 4.5px;
+  }
+
+  .hero__chip--work .hero__chip-logo--samokat {
+    left: 33px;
+    top: 10.3px;
+    width: 22px;
+    height: 22px;
+    border-radius: 4.5px;
+  }
+
+  .hero__chip--lunel {
+    width: 38px;
+    height: 38px;
+    margin: -19px 8px;
+  }
+
+  .hero__chip--lunel .hero__chip-logo--lunel {
+    left: 8px;
+    top: 8px;
+    width: 22px;
+    height: 22px;
+  }
+
+  .hero__based {
+    margin-top: 24px;
+  }
+
+  .hero__scene,
+  .hero__stars,
+  .hero__page-control {
+    display: none;
   }
 }
 
@@ -2031,7 +3099,7 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   .panel-case .result-card .body_gr,
   .panel-case .content-block .body_gr {
     font-size: 14px;
-    line-height: 22px;
+    line-height: 24px;
   }
 
   .panel-case .header {
@@ -2237,4 +3305,766 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   .panel-case .metrics-grid {
     gap: 8px;
   }
+}
+/* ================================================================
+   Обложки кейсов (Figma, фрейм Case · Lunel)
+   Плашка 1440×764 = 88 хедера + 676. Внутри блок (70,16) 1300×644:
+   слева колонка 417, справа обложка, у правого края точки 20.
+   Блоки примагничиваются к хедеру и наезжают друг на друга.
+   ================================================================ */
+
+/* шапка и первый экран тоже липкие — иначе наезжать не на что.
+   .case-flow ограничивает липкость первого экрана: ниже стопки он не всплывает */
+.case-flow {
+  position: relative;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+}
+
+.hero {
+  position: sticky;
+  top: 88px;
+  z-index: 1;
+}
+
+/* обёртка не должна быть контейнером: липкие блоки считаются от .case-flow,
+   иначе блок отлипает на своей же границе и уезжает вверх */
+.case-stack {
+  display: contents;
+}
+
+/* каждый блок приклеен к шапке и остаётся на месте — следующий наезжает сверху */
+.case-screen {
+  position: sticky;
+  top: 88px;
+  height: var(--block-height);
+}
+
+.case-screen__inner {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  will-change: opacity;
+  transform: translateZ(0);
+}
+
+/* распорка даёт прокрутку, пока блок приколот: по экрану на кейс */
+.case-spacer {
+  position: relative;
+  z-index: 0;
+}
+
+/* полотно во всю ширину, как у первого экрана */
+.case-screen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  left: calc(-1 * var(--page-gutter));
+  width: calc(100% + 2 * var(--page-gutter));
+  background: var(--portfolio-canvas);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.case-screen__row {
+  display: grid;
+  grid-template-columns: 417px 1fr;
+  grid-template-rows: auto auto 1fr;
+  align-content: start;
+  column-gap: 24px;
+  height: 100%;
+  padding: 16px 20px 16px 0;
+}
+
+.case-card--company {
+  grid-column: 1;
+  grid-row: 1;
+  z-index: 3;
+  margin-bottom: 24px;
+}
+
+/* кейс — один элемент разметки, но на десктопе его половины
+   уезжают в разные клетки сетки */
+.case-item {
+  display: contents;
+}
+
+/* ---------- Карточки слева ---------- */
+.case-card {
+  background: var(--portfolio-surface);
+  border-radius: 32px;
+  padding: 24px;
+}
+
+.case-card--company {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.case-company {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.case-company__mark {
+  display: inline-flex;
+  flex: 0 0 46px;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  overflow: hidden;
+  border: .5px solid rgba(4, 7, 37, .07);
+  border-radius: 9px;
+  background: var(--portfolio-surface);
+}
+
+.case-company__mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* по макету рамка только у Lunel: у Самоката и МЭШ логотип сам себе плашка */
+.case-company__mark--samokat,
+.case-company__mark--mes {
+  border: 0;
+  background: none;
+}
+
+.case-company__id {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.case-company__name {
+  color: var(--portfolio-ink);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 23px;
+}
+
+.case-company__period {
+  color: var(--portfolio-ink-80);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+}
+
+/* описание компании отбито от строки с логотипом на 12, роль — на 20 */
+.case-company__about {
+  margin-top: -8px;
+  color: var(--portfolio-ink-80);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+/* по макету: обычный текст Regular, выделенные слова SemiBold того же цвета */
+.case-company__role {
+  color: var(--portfolio-ink-80);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.case-company__role strong {
+  font-weight: 600;
+}
+
+/* ---------- Карточка проекта: по одной на кейс, видна активная ---------- */
+/* align-self: карточки лежат в одной клетке, без него каждая тянется
+   до высоты самой длинной из соседних и внизу остаётся пустое поле */
+.case-project {
+  grid-column: 1;
+  grid-row: 2;
+  align-self: start;
+  z-index: 1;
+  display: flex;
+  padding: 24px;
+  border-radius: 32px;
+  background: var(--portfolio-surface);
+  flex-direction: column;
+  gap: 12px;
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.case-project.is-active {
+  pointer-events: auto;
+}
+
+.case-project__head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.case-project__name {
+  flex: 1 1 auto;
+  min-width: 0;
+  color: var(--portfolio-ink);
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 32px;
+}
+
+.case-project__arrow {
+  display: inline-flex;
+  flex: 0 0 48px;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 24px;
+  background: var(--portfolio-ink);
+  color: #fff;
+  transition: transform .2s ease, background-color .2s ease;
+}
+
+.case-project__arrow svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* ховер по макету: кнопка 48 → 63 вокруг своего центра и красится в цвет компании;
+   масштаб, а не размер — соседи в строке не сдвигаются */
+.case-project__arrow:hover,
+.case-project__arrow:focus-visible {
+  background: var(--case-accent, var(--portfolio-ink));
+  transform: scale(1.3125);
+}
+
+.case-project__arrow:focus-visible {
+  outline: 2px solid var(--portfolio-ink);
+  outline-offset: 2px;
+}
+
+#case-lunel { --case-accent: #e86c61; }
+#case-samokat { --case-accent: #ff3b65; }
+#case-mes { --case-accent: #4087e7; }
+
+.case-project__tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+}
+
+.case-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  border-radius: 100px;
+  background: rgba(4, 7, 37, .05);
+  color: var(--portfolio-ink);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+}
+
+/* ---------- Обложка ---------- */
+.case-door {
+  grid-column: 2;
+  grid-row: 1 / -1;
+  z-index: 1;
+  display: block;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 32px;
+  background: var(--portfolio-surface);
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.case-door.is-active {
+  pointer-events: auto;
+}
+
+.case-door img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .5s cubic-bezier(.22, 1, .36, 1);
+}
+
+.case-door:hover img {
+  transform: scale(1.03);
+}
+
+/* ---------- Обложка «Сборка заказа»: две колонки экранов едут навстречу ----------
+   Все числа — из макета Figma (кадр 839×644, узел 3960:29913), в его пикселях.
+   --s — сколько экранных пикселей в одном пикселе макета; берём по ширине,
+   чтобы колонки не обрезались по бокам, а высоту закрывают сами бесконечные колонки.
+   Исключение — горизонтальные карусели, см. ниже. */
+.case-door {
+  position: relative;
+}
+
+.op-cover {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  container-type: size;
+  background: #fff;
+}
+
+.op-cover__stage {
+  --s: calc(100cqw / 839);
+  --step: calc(623.23 * var(--s)); /* экран 579.23 + зазор 44 */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(839 * var(--s));
+  height: calc(644 * var(--s));
+  transform: translate(-50%, -50%);
+  transition: transform .5s cubic-bezier(.22, 1, .36, 1);
+}
+
+/* Горизонтальная карусель («Журнал», «Перемещение товаров») высоту сама не закрывает:
+   на высоком окне (большой монитор) телефоны оставались ноутбучного размера
+   посреди пустого кадра. Поэтому масштаб — большее из ширины и высоты, как cover.
+   Высота считается от 780: столько кадр занимает на ноутбуке 1440×900,
+   там масштаб остаётся по ширине, как был. Лишнее уходит за края — карусель
+   туда и так уезжает. */
+.op-cover__stage[data-axis="x"] {
+  --s: max(calc(100cqw / 839), calc(100cqh / 780));
+}
+
+.case-door:hover .op-cover__stage {
+  transform: translate(-50%, -50%) scale(1.03);
+}
+
+.op-cover__col {
+  position: absolute;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: calc(44 * var(--s));
+  width: calc(267.18 * var(--s));
+  animation: op-cover-down 40s linear infinite;
+  will-change: transform;
+}
+
+/* левая колонка едет вниз, правая — вверх; отрицательная задержка
+   ставит первый кадр ровно туда, где колонки стоят в макете (−588 и +35) */
+.op-cover__col--down {
+  left: calc(130 * var(--s));
+  animation-delay: -21.13s;
+}
+
+.op-cover__col--up {
+  left: calc(441.18 * var(--s));
+  animation-name: op-cover-up;
+  animation-delay: -38.88s;
+}
+
+/* в колонке три одинаковых пары экранов; петля длиной в одну пару (2 шага)
+   сдвинута на пару вверх, чтобы над и под кадром всегда были экраны */
+@keyframes op-cover-down {
+  from { transform: translateY(calc(-4 * var(--step))); }
+  to   { transform: translateY(calc(-2 * var(--step))); }
+}
+
+@keyframes op-cover-up {
+  from { transform: translateY(calc(-2 * var(--step))); }
+  to   { transform: translateY(calc(-4 * var(--step))); }
+}
+
+.op-cover__shot {
+  position: relative;
+  flex: none;
+  display: block;
+  height: calc(579.23 * var(--s));
+  overflow: hidden;
+  border-radius: calc(31.27 * var(--s));
+  background: #f4f4f4;
+  box-shadow: 0 0 calc(8 * var(--s)) 0 rgba(0, 0, 0, .1);
+}
+
+/* обводка в Figma внутренняя: ложится поверх экрана, а не раздвигает его */
+.op-cover__shot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: calc(4 * var(--s)) solid #e8e8e8;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.case-door .op-cover__shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: none;
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .op-cover__col {
+    animation-play-state: paused;
+  }
+}
+
+/* ---------- Обложка «Перемещение товаров»: карусель справа налево ----------
+   Макет: кадр 839×644 (узел 3960:30211). Малый экран 230.63×500, крупный в центре
+   267.07×579; обводка 4px #E8E8E8 снаружи, тень 0 0 8px rgba(0,0,0,.1).
+   Сдвиг --off и масштаб --k на каждом кадре ставит js/cover-carousel.js. */
+.tg-cover__shot {
+  --off: 0;
+  --k: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: calc(230.63 * var(--s));
+  height: calc(500 * var(--s));
+  margin: calc(-250 * var(--s)) 0 0 calc(-115.315 * var(--s));
+  overflow: hidden;
+  border-radius: calc(27 * var(--s));
+  background: #f4f4f4;
+  box-shadow:
+    0 0 0 calc(4 * var(--s)) #e8e8e8,
+    0 0 calc(8 * var(--s)) calc(4 * var(--s)) rgba(0, 0, 0, .1);
+  transform: translateX(calc(var(--off) * var(--s))) scale(var(--k));
+  will-change: transform;
+}
+
+/* ---------- Обложка «Приоритет сборки»: карусель сверху вниз ----------
+   Макет: кадр 839×644 (узел 3960:50211). Малый экран 562.65×351.22, крупный
+   в центре 671.48×419.15, зазор 40. Тень 0 0 6.8px rgba(0,0,0,.1) — через
+   drop-shadow, потому что углы окна браузера на картинке прозрачные. */
+.pp-cover__shot {
+  --off: 0;
+  --k: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: calc(562.65 * var(--s));
+  height: calc(351.22 * var(--s));
+  margin: calc(-175.61 * var(--s)) 0 0 calc(-281.325 * var(--s));
+  filter: drop-shadow(0 0 calc(5.68 * var(--s)) rgba(0, 0, 0, .1));
+  transform: translateY(calc(var(--off) * var(--s))) scale(var(--k));
+  will-change: transform;
+}
+
+.case-door .pp-cover__shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform: none;
+  transition: none;
+}
+
+.case-door .tg-cover__shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: none;
+  transition: none;
+}
+
+/* старые секции кейсов заменены стопкой обложек */
+.company-section.is-replaced-by-stack {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .case-project,
+  .case-project__arrow,
+  .case-door,
+  .case-door img {
+    transition: none;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .case-screen__side {
+    flex-basis: 340px;
+    width: 340px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+
+  /* на телефоне ни липкости, ни наложения: блоки идут подряд,
+     и у компании видны сразу все её кейсы */
+  .site-header {
+    position: fixed;
+  }
+
+  .hero {
+    position: static;
+  }
+
+  .case-screen {
+    position: static;
+    height: auto !important;
+  }
+
+  .case-screen__inner,
+  .hero__stage {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .case-spacer {
+    display: none;
+  }
+
+  .case-screen__inner {
+    position: static;
+    height: auto;
+  }
+
+  .case-screen__row {
+    display: block;
+    height: auto;
+    padding: 24px 0 32px;
+  }
+
+  .case-item {
+    display: block;
+    margin-top: 16px;
+  }
+
+  .case-card {
+    padding: 20px;
+    border-radius: 24px;
+  }
+
+  .case-card--company {
+    margin-bottom: 0;
+  }
+
+  .case-project {
+    margin-top: 16px;
+    padding: 20px;
+    border-radius: 24px;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+
+  .case-project__name {
+    font-size: 20px;
+    line-height: 28px;
+  }
+
+  .case-door {
+    aspect-ratio: 1704 / 1280;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    border-radius: 24px;
+  }
+
+}
+
+/* ================================================================
+   Точки разделов: одна колонка на все блоки
+   Девять точек: пять смысловых блоков, внутри которых семь кейсов.
+   По макету точки разные: ближние к активной 8px, дальше 6 и 4.
+   Колонка центрована по блоку — то есть по области под шапкой.
+   ================================================================ */
+/* Окно на пять точек (как в макете), внутри — лента со всеми точками.
+   Шаг ленты 16px: точка 8 + зазор 8. Размер, цвет и сдвиг ленты
+   выставляет js/case-stack.js на каждом кадре прокрутки — по той же
+   дробной позиции, что двигает блоки, поэтому css-переходов здесь нет:
+   они и давали отставание. */
+.page-dots {
+  position: fixed;
+  top: calc(88px + (100vh - 88px) / 2);
+  right: var(--page-gutter);
+  z-index: 40;
+  width: 20px;
+  height: 72px;
+  margin-top: -36px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Без transform и will-change: при масштабе экрана 1,8 браузер рисовал
+   кружок слоем и растягивал готовую картинку, край ложился между
+   пикселями и точка сплющивалась. Теперь js/case-stack.js ставит каждой
+   точке размер и место целыми физическими пикселями — кружок рисуется
+   сразу нужного размера. */
+.page-dots__track {
+  position: absolute;
+  inset: 0;
+}
+
+.page-dots__dot {
+  position: absolute;
+  top: 0;
+  left: 6px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(4, 7, 37, .1);
+}
+
+/* ---------- «Обо мне» — последний блок стопки ---------- */
+.case-flow > .about {
+  position: relative;
+  z-index: 6;
+  /* отступы обнулены: остановки прокрутки должны идти ровно через экран.
+     Сверху и справа — как у ряда кейса (.case-screen__row): подложка в 16px под хедером */
+  margin: 0;
+  padding: 16px 20px 16px 0;
+  background: var(--portfolio-canvas);
+  /* экран делят «Обо мне» и копирайт под ним: копирайт всегда у нижнего края,
+     без доскролла. 76 = высота .site-footer (24 + 20 строка + 32) */
+  min-height: calc(var(--block-height) - 76px);
+}
+
+/* полотно во всю ширину, как у блоков кейсов */
+.case-flow > .about::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  left: calc(-1 * var(--page-gutter));
+  width: calc(100% + 2 * var(--page-gutter));
+  background: var(--portfolio-canvas);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* блоки наезжают друг на друга в порядке разметки */
+#case-lunel { z-index: 2; }
+#case-samokat { z-index: 3; }
+#case-mes { z-index: 4; }
+
+@media screen and (max-width: 700px) {
+  .page-dots {
+    display: none;
+  }
+
+  .case-flow > .about {
+    min-height: 0;
+    padding: 24px 0 32px;
+  }
+
+  .case-flow > .site-footer {
+    padding: 8px 0 32px;
+  }
+
+  /* основной текст главной на телефоне — 14/24, как в кейсах */
+  .hero__based,
+  .case-company__about,
+  .case-company__role,
+  .about__lead p,
+  .about__grade,
+  p.about__what,
+  .about__list {
+    font-size: 14px;
+    line-height: 24px;
+  }
+}
+
+/* ---------- Дождь из паштел-де-ната при наведении на кружок у «Lisbon» ---------- */
+.nata-rain {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.nata-rain__item {
+  position: absolute;
+  top: 0;
+  height: auto;
+  will-change: transform;
+  user-select: none;
+}
+
+/* ---------- Обложка «Расписание сборщиков»: центр стоит, колонки по бокам едут ----------
+   Макет: кадр 839×644 (узел 3960:50761). Экран 229.36×497.24, шаг колонки 529.24
+   (зазор 32). Левая колонка x=43 едет вниз, правая x=567 вверх, центральный экран
+   x=305 y=73 неподвижен. Обводка 4px #E8E8E8 внутри, тень 0 0 8px rgba(0,0,0,.1).
+   Колонки — та же петля, что у «Сборки заказа» (op-cover-down/up), со своим шагом. */
+.ps-cover {
+  --step: calc(529.24 * var(--s));
+}
+
+.ps-cover .ps-cover__col {
+  gap: calc(32 * var(--s));
+  width: calc(229.36 * var(--s));
+  animation-duration: 34s;
+}
+
+/* отрицательная задержка ставит первый кадр туда, где колонки стоят в макете */
+.ps-cover .ps-cover__col--down {
+  left: calc(43 * var(--s));
+  animation-name: op-cover-down;
+  animation-delay: -29.93s;
+}
+
+.ps-cover .ps-cover__col--up {
+  left: calc(567 * var(--s));
+  animation-name: op-cover-up;
+  animation-delay: -9.83s;
+}
+
+.ps-cover__shot {
+  position: relative;
+  flex: none;
+  display: block;
+  width: calc(229.36 * var(--s));
+  height: calc(497.24 * var(--s));
+  overflow: hidden;
+  border-radius: calc(26.85 * var(--s));
+  background: #f4f4f4;
+  box-shadow: 0 0 calc(8 * var(--s)) 0 rgba(0, 0, 0, .1);
+}
+
+.ps-cover__shot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: calc(4 * var(--s)) solid #e8e8e8;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.ps-cover__shot--center {
+  position: absolute;
+  top: calc(73 * var(--s));
+  left: calc(305 * var(--s));
+  z-index: 1;
+}
+
+.case-door .ps-cover__shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: none;
+  transition: none;
+}
+
+/* ---------- Обложки МЭШ: те же карусели с другими пропорциями картинок ----------
+   «Колледжи» — как «Приоритет сборки» (сверху вниз), скриншоты браузера 1316×792:
+   малый 562.65×338.63, крупный 671.48×404.13.
+   «Журнал учителя» — как «Перемещение товаров» (справа налево), экраны 390×852:
+   малый 228.87×500, крупный 265.03×579. */
+.mc-cover__shot {
+  height: calc(338.63 * var(--s));
+  margin-top: calc(-169.315 * var(--s));
+}
+
+.tj-cover__shot {
+  width: calc(228.87 * var(--s));
+  margin-left: calc(-114.435 * var(--s));
 }

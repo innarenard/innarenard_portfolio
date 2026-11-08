@@ -1,0 +1,124 @@
+/* ==========================================================================
+   Lunel interactive replicas — guided scenario ("One day in Lunel")
+   --------------------------------------------------------------------------
+   One phone, three scenes, a caption rail outside the frame. The captions are
+   NARRATION written for the host page, not app copy — they live in the
+   markup so each site writes its own.
+   ========================================================================== */
+
+.lunel-scenario {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.lunel-scene {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 320ms var(--lunel-ease-in-out);
+}
+
+.lunel-scene[data-on] {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lunel-scene__scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-bottom: calc(var(--lunel-safe-bottom) + 72px);
+  scroll-behavior: smooth;
+}
+
+.lunel-scene > [data-lunel-component],
+.lunel-scene > .lunel-trends,
+.lunel-scene > .lunel-cal {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.lunel-scene .lunel-home__stage {
+  flex: none;
+}
+
+.lunel-scene .lunel-ring {
+  margin: 0 auto;
+}
+
+.lunel-script {
+  width: 100%;
+  max-width: 440px;
+}
+
+.lunel-script__rail {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.lunel-script__rail li {
+  flex: 1 1 0;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--lunel-text-light-grey);
+  overflow: hidden;
+  position: relative;
+  list-style: none;
+}
+
+.lunel-script__rail li::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--lunel-brand);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 240ms linear;
+}
+
+.lunel-script__rail li[data-done]::after {
+  transform: scaleX(1);
+}
+
+.lunel-script__rail li[data-current]::after {
+  transform: scaleX(1);
+  transition: transform var(--beat-ms, 6000ms) linear;
+}
+
+.lunel-script__caption {
+  min-height: 48px;
+  font-size: var(--lunel-body2-size);
+  line-height: 24px;
+  color: var(--lunel-text);
+}
+
+.lunel-script__controls {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lunel-scene,
+  .lunel-script__rail li::after {
+    transition: none;
+  }
+  .lunel-scene__scroll {
+    scroll-behavior: auto;
+  }
+}
+
+.lunel[data-reduce-motion] .lunel-scene,
+.lunel[data-reduce-motion] .lunel-script__rail li::after {
+  transition: none;
+}
+.lunel[data-reduce-motion] .lunel-scene__scroll {
+  scroll-behavior: auto;
+}

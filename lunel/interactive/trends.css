@@ -1,0 +1,343 @@
+/* ==========================================================================
+   Lunel interactive replicas — Trends deck
+   --------------------------------------------------------------------------
+   Three of the ten paged blocks: Flow intensity, Mood and energy by phase,
+   Activity by phase. Ported from AnalyticsView*, TrendsRing, TrendsShareBar,
+   MoodEnergyPhaseRow and TrendsWindowSwitch.
+
+   Colour encodes the SCALE (flow level, activity kind), never the phase —
+   the phase is named in words. One exception the app itself makes: the
+   mood/energy donut is mood = Light green, energy = Purple, fixed.
+   ========================================================================== */
+
+.lunel-trends {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.lunel-trends__header {
+  /* The 60pt bar under the status bar (simulator: export button 334,68,
+     large title text at y 75,2; compact title 73,3 over the window line 91,5). */
+  position: relative;
+  flex: none;
+  height: 60px;
+}
+
+.lunel-trends__large {
+  position: absolute;
+  left: var(--lunel-gutter-24);
+  top: 12.5px;
+}
+
+.lunel-trends__title {
+  color: var(--lunel-text);
+}
+
+.lunel-trends__compact {
+  position: absolute;
+  left: 72px;
+  right: 72px;
+  top: 6px;
+  height: 44px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.lunel-trends__compact-title {
+  color: var(--lunel-text);
+  line-height: 20px;
+}
+
+.lunel-trends__window {
+  color: var(--lunel-text-grey);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.lunel-trends__export {
+  position: absolute;
+  right: var(--lunel-gutter-24);
+  top: 6px;
+}
+.lunel .lunel-trends__export svg { stroke-width: 1.5; }
+
+/* ---------- summary page (AnalyticsView+SummaryCards) -------------------- */
+
+.lunel-trends__page--summary .lunel-subheader { margin-top: 0; }
+.lunel-trends__page--summary { margin-top: -3px; }
+.lunel-tsum__pair + .lunel-subheader,
+.lunel-tsum__card--wide + .lunel-subheader { margin-top: 24px; }
+.lunel-tsum__pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.lunel-tsum__card {
+  /* 72 tall: label at 15,5, value 5,8 under it, 14,4 below (simulator). */
+  padding: 15.5px 16px 14.4px;
+  border-radius: 24px;
+  background: var(--lunel-white);
+}
+.lunel-tsum__card--wide { padding: 19.5px 16px 18.4px; }
+.lunel-tsum__label {
+  font-size: var(--lunel-body3-size);
+  line-height: 17px;
+  font-weight: 400;
+  color: var(--lunel-text-grey);
+}
+.lunel-tsum__value {
+  margin-top: 5.8px;
+  font-size: var(--lunel-body2-size);
+  line-height: 19.3px;
+  color: var(--lunel-text);
+  white-space: nowrap;
+}
+
+.lunel-trends__pages {
+  /* Page titles sit at y 135,7 on the simulator: 10 below the 60pt bar. */
+  padding-top: 10px;
+  scroll-padding-top: 10px;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.lunel-trends__page {
+  scroll-snap-align: start;
+  min-height: 100%;
+  padding: 0 var(--lunel-gutter-24) calc(var(--lunel-safe-bottom) + 64px);
+}
+
+.lunel-trends__block-title {
+  color: var(--lunel-text);
+  margin-bottom: 8px;
+}
+
+/* ---------- segmented control (§2.7) ------------------------------------ */
+
+.lunel-seg {
+  position: relative;
+  display: flex;
+  width: 100%;
+  padding: 4px;
+  border-radius: var(--lunel-r-pill);
+  background: var(--lunel-bg-dark);
+  margin-bottom: 12px;
+  isolation: isolate;
+}
+
+.lunel-seg__pill {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  right: 50%;
+  border-radius: var(--lunel-r-pill);
+  background: var(--lunel-white);
+  /* no shadow — the app's selected pill is flat white */
+  z-index: -1;
+}
+
+.lunel-seg button {
+  /* Two equal halves (simulator: 173 × 36 each at x 28 / 201), Subtitle 2
+     in sentence case — "Last 3 cycles", "3 последних цикла". */
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 36px;
+  padding: 0 8px;
+  text-align: center;
+  justify-content: center;
+  border-radius: var(--lunel-r-pill);
+  font-size: var(--lunel-subtitle2-size);
+  line-height: var(--lunel-subtitle2-line);
+  font-weight: 500;
+  letter-spacing: var(--lunel-subtitle2-tracking);
+  color: var(--lunel-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ---------- cards -------------------------------------------------------- */
+
+.lunel-tcard {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: var(--lunel-card-pad);
+  border-radius: var(--lunel-r-card-lg);
+  background: var(--lunel-white);
+}
+
+.lunel-tcard + .lunel-tcard {
+  margin-top: 8px;
+}
+
+.lunel-tcard__body {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.lunel-tcard__top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.lunel-tcard__name {
+  font-size: var(--lunel-body1-size);
+  line-height: var(--lunel-body1-line);
+  font-weight: var(--lunel-weight-semibold);
+  color: var(--lunel-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lunel-tcard__logs {
+  flex: none;
+  font-size: var(--lunel-caption2-size);
+  line-height: var(--lunel-caption2-line);
+  color: var(--lunel-text-grey);
+  font-variant-numeric: tabular-nums;
+}
+
+.lunel-tcard__sub {
+  margin-top: 4px;
+  font-size: var(--lunel-body4-size);
+  line-height: var(--lunel-body4-line);
+  color: var(--lunel-text-grey);
+}
+
+.lunel-tcard__line {
+  margin-top: 4px;
+  font-size: var(--lunel-body4-size);
+  line-height: var(--lunel-body4-line);
+  color: var(--lunel-text);
+}
+
+.lunel-tcard__line b {
+  font-weight: 400;
+}
+
+/* ---------- rings & donut ------------------------------------------------ */
+
+.lunel-ring36,
+.lunel-donut {
+  flex: none;
+  display: block;
+}
+
+.lunel-ring36 circle,
+.lunel-donut circle {
+  fill: none;
+}
+
+.lunel-arc {
+  /* the one paint-property animation in the bundle: an arc sweep has no
+     composite-only equivalent, and the painted area is 36–64 px square */
+  transition: stroke-dashoffset 700ms var(--lunel-ease-ios);
+}
+
+/* ---------- share bar ---------------------------------------------------- */
+
+.lunel-sharebar {
+  display: flex;
+  gap: 1px;
+  height: 12px;
+  margin-top: 8px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--lunel-bg);
+}
+
+.lunel-sharebar span {
+  display: block;
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 500ms var(--lunel-ease-ios);
+}
+
+.lunel-trends__page[data-drawn] .lunel-sharebar span {
+  transform: scaleX(1);
+}
+
+.lunel-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  margin-top: 8px;
+}
+
+.lunel-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--lunel-caption1-size);
+  line-height: var(--lunel-caption1-line);
+  color: var(--lunel-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.lunel-legend i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+/* ---------- page dots ---------------------------------------------------- */
+
+.lunel-trends__dots {
+  /* deckPageControl in the right gutter: dots centred on x 393, the column
+     centred at y ≈ 428 on the screen. */
+  position: absolute;
+  right: 5px;
+  top: calc(50% - 40px);
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.lunel-trends__dots i {
+  display: block;
+  border-radius: 50%;
+  background: var(--lunel-brand-medium);
+}
+
+.lunel-trends__dots i[data-on] {
+  background: var(--lunel-brand);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lunel-arc,
+  .lunel-sharebar span,
+  .lunel-seg__pill,
+  .lunel-trends__dots i {
+    transition: none;
+  }
+  .lunel-sharebar span { transform: scaleX(1); }
+}
+
+.lunel[data-reduce-motion] .lunel-arc,
+.lunel[data-reduce-motion] .lunel-sharebar span,
+.lunel[data-reduce-motion] .lunel-seg__pill,
+.lunel[data-reduce-motion] .lunel-trends__dots i {
+  transition: none;
+}
+.lunel[data-reduce-motion] .lunel-sharebar span { transform: scaleX(1); }

@@ -1,0 +1,261 @@
+/* ==========================================================================
+   Lunel interactive replicas — Calendar (month list)
+   --------------------------------------------------------------------------
+   Ported from CycleCalendarOverlayView / CycleMonthCalendarView.
+
+   The thing naive replicas get wrong (spec §4.2, §0.1): the months sit BARE
+   on the cream page — there is no white month card — and the grid has exactly
+   four day states plus a logged-entry dot. There is NO ovulation or
+   follicular colouring here. Do not add any.
+   ========================================================================== */
+
+.lunel-cal {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.lunel-cal__header {
+  flex: none;
+  padding: 4px var(--lunel-gutter-24) 8px;
+  background: var(--lunel-bg);
+  z-index: 2;
+}
+
+.lunel-cal__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  height: 48px;
+}
+
+.lunel-cal__title {
+  color: var(--lunel-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lunel-cal__actions {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  flex: none;
+}
+
+.lunel-icon-btn {
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--lunel-white-medium);
+  -webkit-backdrop-filter: blur(var(--lunel-blur-glass)) saturate(180%);
+  backdrop-filter: blur(var(--lunel-blur-glass)) saturate(180%);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  display: grid;
+  place-items: center;
+  color: var(--lunel-icon);
+  transition: transform var(--lunel-spring-card-dur) var(--lunel-spring-card);
+}
+
+.lunel-icon-btn:active {
+  transform: scale(0.94);
+}
+
+.lunel-icon-btn svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.lunel-cal__weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-top: 8px;
+  padding: 8px 0;
+  border-radius: 16px;
+  background: var(--lunel-bg-dark);
+}
+
+.lunel-cal__weekdays span {
+  height: 16px;
+  line-height: 16px;
+  text-align: center;
+  font-size: var(--lunel-caption1-size);
+  font-weight: 500;
+  color: var(--lunel-text-grey);
+}
+
+.lunel-cal__scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 8px var(--lunel-gutter-24) calc(var(--lunel-safe-bottom) + 72px);
+  -webkit-overflow-scrolling: touch;
+}
+
+.lunel-cal__month + .lunel-cal__month {
+  margin-top: 40px;
+}
+
+.lunel-cal__sub {
+  margin-bottom: 8px;
+  /* Simulator: month label text at x 40 — 16 in from the grid's 24. */
+  padding-left: 16px;
+  height: 20px;
+  line-height: 20px;
+  font-size: var(--lunel-body3-size);
+  font-weight: 500;
+  text-transform: uppercase;
+  color: var(--lunel-text-grey);
+}
+
+.lunel-cal__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  row-gap: 8px;
+  justify-items: center;
+}
+
+/* ---------- a day cell --------------------------------------------------
+   Five painted states, one dot. The <b> is the ⌀40 disc, the number sits on
+   top of it, and the dot is a ::after on the cell. */
+
+.lunel-cal__day {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font-size: var(--lunel-body2-size);
+  line-height: var(--lunel-body2-line);
+  color: var(--lunel-text-grey);
+  /* Proportional digits, as the app's day cells: "12" is 14,3 pt wide on the
+     simulator, tabular figures made it 16. */
+}
+
+.lunel-cal__day > b {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  font-weight: inherit;
+}
+
+.lunel-cal__day > i {
+  position: relative;
+  font-style: normal;
+}
+
+/* past ordinary day */
+.lunel-cal__day[data-state="past"] {
+  color: var(--lunel-text);
+}
+.lunel-cal__day[data-state="past"] > b {
+  background: var(--lunel-white);
+}
+
+/* past / today period day */
+.lunel-cal__day[data-period] {
+  color: var(--lunel-phase-menstrual-dark);
+}
+.lunel-cal__day[data-period] > b {
+  background: var(--lunel-phase-menstrual-light);
+}
+
+/* future predicted period day — ⌀38, 1pt inset, white@20% under the tint */
+.lunel-cal__day[data-state="predicted"] {
+  color: var(--lunel-text-grey);
+}
+.lunel-cal__day[data-state="predicted"] > b {
+  inset: 1px;
+  background: rgba(255, 255, 255, 0.2);
+}
+.lunel-cal__day[data-state="predicted"] > b::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--lunel-phase-menstrual-light);
+}
+
+/* today (not selected) */
+.lunel-cal__day[data-today] {
+  color: var(--lunel-brand-dark);
+  font-weight: var(--lunel-weight-semibold);
+}
+.lunel-cal__day[data-today] > b {
+  background: var(--lunel-white);
+  box-shadow: inset 0 0 0 1px var(--lunel-brand);
+}
+.lunel-cal__day[data-today][data-period] > b {
+  background: var(--lunel-phase-menstrual-light);
+  box-shadow: inset 0 0 0 1px var(--lunel-brand);
+}
+
+/* selected — Brand disc, white number, scales in.
+   The attribute is repeated on purpose: selection has to beat the combined
+   [data-today][data-period] rule above, which is otherwise more specific. */
+.lunel-cal__day[data-selected][data-selected] {
+  color: var(--lunel-text-white);
+  font-weight: var(--lunel-weight-semibold);
+}
+.lunel-cal__day[data-selected][data-selected] > b {
+  inset: 0;
+  background: var(--lunel-brand);
+  box-shadow: 0 0 2px var(--lunel-legacy-accent);
+  animation: lunel-cal-pop var(--lunel-spring-ring-displace-dur) var(--lunel-spring-ring-displace);
+}
+.lunel-cal__day[data-selected][data-selected] > b::after {
+  content: none;
+}
+
+@keyframes lunel-cal-pop {
+  from { transform: scale(0.4); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* logged-entry dot */
+.lunel-cal__day[data-logged]::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 5px;
+  width: 4px;
+  height: 4px;
+  margin-left: -2px;
+  border-radius: 50%;
+  background: var(--lunel-brand);
+}
+
+.lunel-cal__day[data-logged][data-today]:not([data-selected])::after {
+  bottom: 4px;
+}
+
+.lunel-cal__day[data-logged][data-selected]::after {
+  background: var(--lunel-text-white);
+}
+
+.lunel-cal__day[data-state="future"],
+.lunel-cal__day[data-state="predicted"] {
+  cursor: default;
+}
+
+.lunel-cal__day:focus-visible {
+  outline: var(--lunel-focus-width) solid var(--lunel-focus-color);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lunel-cal__day[data-selected] > b { animation: none; }
+  .lunel-icon-btn { transition: none; }
+}
+
+.lunel[data-reduce-motion] .lunel-cal__day[data-selected] > b { animation: none; }
+.lunel[data-reduce-motion] .lunel-icon-btn { transition: none; }
