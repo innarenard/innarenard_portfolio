@@ -4,7 +4,7 @@
   var translations = {
     ru: {
       /* ── index.html ── */
-      cv_url: "/cv/inna-ivanova-cv-ru.pdf",
+      cv_url: "/cv/inna-ivanova-product-designer-cv-ru.pdf",
       name: "Инна Иванова",
       hero_location: "Лиссабон, Португалия",
       hero_status: "Открыта к\u00A0работе",
