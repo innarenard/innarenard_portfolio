@@ -433,7 +433,8 @@ p.about__what {
 
 /* ---------- Копирайт под блоками ---------- */
 .site-footer {
-  padding: 24px 24px 40px;
+  /* низ 32px — от копирайта до края экрана; при смене поправить min-height у .case-flow > .about */
+  padding: 24px 24px 32px;
   text-align: center;
 }
 
@@ -3923,7 +3924,9 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
   margin: 0;
   padding: 16px 20px 16px 0;
   background: var(--portfolio-canvas);
-  min-height: var(--block-height);
+  /* экран делят «Обо мне» и копирайт под ним: копирайт всегда у нижнего края,
+     без доскролла. 76 = высота .site-footer (24 + 20 строка + 32) */
+  min-height: calc(var(--block-height) - 76px);
 }
 
 /* полотно во всю ширину, как у блоков кейсов */
