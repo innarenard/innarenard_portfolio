@@ -2055,8 +2055,10 @@ body.panel-open--mes .project-panel__scroll-indicator__fill {
 .hero__stars {
   position: absolute;
   top: 50%;
-  left: 0;
-  right: 0;
+  /* та же система координат, что у .hero__scene: картинки при наведении
+     стоят у звёзд, поэтому на широком мониторе слой центрируется так же */
+  left: calc((100% - 1280px) / 2);
+  width: 1300px;
   height: 630px;
   margin-top: -315px;
   z-index: 0;
